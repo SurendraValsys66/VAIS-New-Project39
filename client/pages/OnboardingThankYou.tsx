@@ -4,6 +4,9 @@ import { Button } from "@/components/ui/button";
 import StepProgress from "@/components/onboarding/StepProgress";
 import { clearOnboarding, getOnboarding } from "@/lib/onboardingStorage";
 import { useNavigate } from "react-router-dom";
+import OnboardingDecor from "@/components/onboarding/Decor";
+import ConfettiCanvas from "@/components/onboarding/ConfettiCanvas";
+import { CheckCircle2 } from "lucide-react";
 
 export default function OnboardingThankYou() {
   const navigate = useNavigate();
@@ -15,10 +18,16 @@ export default function OnboardingThankYou() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-valasys-gray-50 via-white to-valasys-orange/5 flex items-center justify-center p-6">
-      <Card className="w-full max-w-2xl border-valasys-gray-200 shadow-xl bg-white/95">
+    <div className="relative min-h-screen bg-gradient-to-br from-valasys-gray-50 via-white to-valasys-orange/5 flex items-center justify-center p-6">
+      <OnboardingDecor />
+      <div className="absolute inset-0">
+        <ConfettiCanvas />
+      </div>
+      <Card className="relative w-full max-w-2xl border-valasys-gray-200 shadow-xl bg-white/95 overflow-hidden">
         <CardHeader>
-          <CardTitle className="text-lg">You're all set!</CardTitle>
+          <CardTitle className="text-lg flex items-center gap-2 text-valasys-gray-900">
+            <CheckCircle2 className="h-5 w-5 text-valasys-green" /> You're all set!
+          </CardTitle>
           <StepProgress current={4} total={4} title="Thank you for completing the onboarding" subtitle="We personalized your experience based on your answers." />
         </CardHeader>
         <CardContent>
