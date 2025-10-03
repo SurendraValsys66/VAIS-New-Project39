@@ -39,7 +39,7 @@ export default function OnboardingRole() {
       <Card className="w-full max-w-4xl border-valasys-gray-200 shadow-xl bg-white/95">
         <CardHeader>
           <CardTitle className="text-lg">Welcome to VAIS</CardTitle>
-          <StepProgress current={1} total={4} title="Which role defines you best?" />
+          <StepProgress current={1} total={6} title="Which role defines you best?" />
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -62,7 +62,7 @@ export default function OnboardingRole() {
               </RadioGroup>
             </div>
             <div className="md:col-span-1">
-              <OnboardingSummaryPanel step={1} />
+              <OnboardingSummaryPanel step={1} total={5} />
             </div>
           </div>
         </CardContent>
