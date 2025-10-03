@@ -72,7 +72,7 @@ export default function Login() {
     await new Promise((resolve) => setTimeout(resolve, 800));
     console.log("Login attempt:", { email, password, rememberMe });
     setIsLoading(false);
-    navigate("/");
+    navigate("/onboarding/role");
   };
 
   const handleVerify2FA = async (e: React.FormEvent) => {
@@ -376,15 +376,16 @@ export default function Login() {
         <div
           className={`w-full max-w-md space-y-6 transform transition-all duration-700 ease-out ${mounted ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"}`}
         >
+          <div className="flex justify-center">
+            <img
+              src="https://cdn.builder.io/api/v1/image/assets%2F426248ed656b441dac67bed7c1e875db%2F18bb5a938b5c412bb089e8da7936d067?format=webp&width=800"
+              alt="Valasys AI Score logo"
+              className="h-10 md:h-12 w-auto object-contain"
+            />
+          </div>
           {/* Login Card */}
           <Card className="border-valasys-gray-200 shadow-xl hover:shadow-2xl transition-all duration-400 backdrop-blur-sm bg-white/95">
             <CardHeader className="space-y-1 pb-4 text-center">
-              {/* VAIS Logo Badge */}
-              <img
-                src="https://cdn.builder.io/api/v1/image/assets%2F76d83d63beb8455692b1855a78aa9524%2F5ee47be8ea214f9c9b220b553ddb9ad1?format=webp&width=800"
-                alt="Valasys AI Score logo"
-                className="mx-auto h-12 w-auto object-contain mb-4"
-              />
               <CardTitle className="text-lg font-semibold text-valasys-gray-900">
                 Sign in
               </CardTitle>
