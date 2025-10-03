@@ -13,6 +13,36 @@ export type OnboardingData = {
     | "Build and run campaigns"
     | "Enrich CRM Data";
   experience?: "Beginner" | "Intermediate" | "Advanced";
+  targetIndustry?:
+    | "Manufacturing"
+    | "Retail"
+    | "Software"
+    | "IT"
+    | "Hospitality"
+    | "Healthcare"
+    | "Financial Services"
+    | "Other";
+  vaisCategory?:
+    | "Administrative Support"
+    | "Business Strategy"
+    | "Computing"
+    | "Customer Support"
+    | "Engineering"
+    | "Financial Management"
+    | "Financial Services"
+    | "HR Management"
+    | "Manufacturing"
+    | "Marketing"
+    | "Public Administration"
+    | "Purchasing"
+    | "Software Development"
+    | "Content Management"
+    | "Data Science"
+    | "Education"
+    | "Sales"
+    | "Healthcare"
+    | "Hospitality"
+    | "Other";
 };
 
 const KEY = "vais.onboarding";
