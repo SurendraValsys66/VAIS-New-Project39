@@ -1,0 +1,37 @@
+import React from "react";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import StepProgress from "@/components/onboarding/StepProgress";
+import { clearOnboarding, getOnboarding } from "@/lib/onboardingStorage";
+import { useNavigate } from "react-router-dom";
+
+export default function OnboardingThankYou() {
+  const navigate = useNavigate();
+  const data = getOnboarding();
+
+  const continueToApp = () => {
+    clearOnboarding();
+    navigate("/");
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-valasys-gray-50 via-white to-valasys-orange/5 flex items-center justify-center p-6">
+      <Card className="w-full max-w-2xl border-valasys-gray-200 shadow-xl bg-white/95">
+        <CardHeader>
+          <CardTitle className="text-lg">You're all set!</CardTitle>
+          <StepProgress current={4} total={4} title="Thank you for completing the onboarding" subtitle="We personalized your experience based on your answers." />
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-2 text-sm text-valasys-gray-800">
+            {data.role ? <p><span className="text-valasys-gray-600">Role:</span> {data.role}</p> : null}
+            {data.useCase ? <p><span className="text-valasys-gray-600">Primary goal:</span> {data.useCase}</p> : null}
+            {data.experience ? <p><span className="text-valasys-gray-600">Experience:</span> {data.experience}</p> : null}
+          </div>
+        </CardContent>
+        <CardFooter className="flex justify-end">
+          <Button onClick={continueToApp} className="bg-valasys-orange hover:bg-valasys-orange-light text-white">Continue to Dashboard</Button>
+        </CardFooter>
+      </Card>
+    </div>
+  );
+}
