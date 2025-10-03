@@ -35,6 +35,10 @@ import ForgotPassword from "./pages/ForgotPassword";
 import AllNotifications from "./pages/AllNotifications";
 import SpendingHistory from "./pages/SpendingHistory";
 import Integrations from "./pages/Integrations";
+import OnboardingRole from "./pages/OnboardingRole";
+import OnboardingUseCase from "./pages/OnboardingUseCase";
+import OnboardingExperience from "./pages/OnboardingExperience";
+import OnboardingThankYou from "./pages/OnboardingThankYou";
 
 const queryClient = new QueryClient();
 
@@ -83,6 +87,12 @@ const App = () => (
               <Route path="/notifications" element={<AllNotifications />} />
               <Route path="/spending-history" element={<SpendingHistory />} />
               <Route path="/integrations" element={<Integrations />} />
+
+              {/* Onboarding flow */}
+              <Route path="/onboarding/role" element={<OnboardingRole />} />
+              <Route path="/onboarding/use-case" element={<OnboardingUseCase />} />
+              <Route path="/onboarding/experience" element={<OnboardingExperience />} />
+              <Route path="/onboarding/complete" element={<OnboardingThankYou />} />
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
