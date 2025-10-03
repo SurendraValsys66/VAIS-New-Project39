@@ -72,7 +72,7 @@ export default function Login() {
     await new Promise((resolve) => setTimeout(resolve, 800));
     console.log("Login attempt:", { email, password, rememberMe });
     setIsLoading(false);
-    navigate("/");
+    navigate("/onboarding/role");
   };
 
   const handleVerify2FA = async (e: React.FormEvent) => {
