@@ -44,7 +44,7 @@ export default function OnboardingRole() {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="md:col-span-2">
-              <RadioGroup value={value} onValueChange={setValue} className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <RadioGroup value={value} onValueChange={(v) => { setValue(v); if (v) saveOnboarding({ role: v as any }); }} className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {ROLES.map((r) => (
                   <motion.div key={r.label} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.99 }}>
                     <Label
