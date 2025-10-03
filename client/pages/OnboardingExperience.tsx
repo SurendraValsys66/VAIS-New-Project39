@@ -39,7 +39,7 @@ export default function OnboardingExperience() {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="md:col-span-2">
-              <RadioGroup value={value} onValueChange={setValue} className="grid gap-3">
+              <RadioGroup value={value} onValueChange={(v) => { setValue(v); if (v) saveOnboarding({ experience: v as any }); }} className="grid gap-3">
                 {LEVELS.map((lvl) => (
                   <motion.div key={lvl.label} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.99 }}>
                     <Label
