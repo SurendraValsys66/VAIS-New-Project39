@@ -6,16 +6,20 @@ import { Label } from "@/components/ui/label";
 import StepProgress from "@/components/onboarding/StepProgress";
 import { saveOnboarding, getOnboarding } from "@/lib/onboardingStorage";
 import { useNavigate } from "react-router-dom";
+import { Brain, Users, Building2, Target, UserCog, Headphones, Smile, UserRound } from "lucide-react";
+import { motion } from "framer-motion";
+import OnboardingDecor from "@/components/onboarding/Decor";
+import OnboardingSummaryPanel from "@/components/onboarding/OnboardingSummaryPanel";
 
 const ROLES = [
-  "Founder",
-  "Marketer",
-  "Business Development",
-  "Sales Leader",
-  "Talent Acquisition",
-  "Ops & Support",
-  "Customer Success",
-  "Sales Representative",
+  { label: "Founder", icon: Brain },
+  { label: "Marketer", icon: Target },
+  { label: "Business Development", icon: Building2 },
+  { label: "Sales Leader", icon: Users },
+  { label: "Talent Acquisition", icon: UserCog },
+  { label: "Ops & Support", icon: Headphones },
+  { label: "Customer Success", icon: Smile },
+  { label: "Sales Representative", icon: UserRound },
 ] as const;
 
 export default function OnboardingRole() {
@@ -30,27 +34,37 @@ export default function OnboardingRole() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-valasys-gray-50 via-white to-valasys-orange/5 flex items-center justify-center p-6">
-      <Card className="w-full max-w-2xl border-valasys-gray-200 shadow-xl bg-white/95">
+    <div className="relative min-h-screen bg-gradient-to-br from-valasys-gray-50 via-white to-valasys-orange/5 flex items-center justify-center p-6">
+      <OnboardingDecor />
+      <Card className="w-full max-w-4xl border-valasys-gray-200 shadow-xl bg-white/95">
         <CardHeader>
           <CardTitle className="text-lg">Welcome to VAIS</CardTitle>
           <StepProgress current={1} total={4} title="Which role defines you best?" />
         </CardHeader>
         <CardContent>
-          <RadioGroup value={value} onValueChange={setValue} className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {ROLES.map((r) => (
-              <Label
-                key={r}
-                htmlFor={`role-${r}`}
-                className={`flex items-center space-x-3 rounded-lg border p-3 cursor-pointer transition-colors ${
-                  value === r ? "border-valasys-orange bg-valasys-orange/5" : "border-valasys-gray-200 hover:border-valasys-orange/60"
-                }`}
-              >
-                <RadioGroupItem id={`role-${r}`} value={r} />
-                <span className="text-sm text-valasys-gray-800">{r}</span>
-              </Label>
-            ))}
-          </RadioGroup>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="md:col-span-2">
+              <RadioGroup value={value} onValueChange={setValue} className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {ROLES.map((r) => (
+                  <motion.div key={r.label} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.99 }}>
+                    <Label
+                      htmlFor={`role-${r.label}`}
+                      className={`flex items-center gap-3 rounded-lg border p-3 cursor-pointer transition-colors ${
+                        value === r.label ? "border-valasys-orange bg-valasys-orange/5" : "border-valasys-gray-200 hover:border-valasys-orange/60"
+                      }`}
+                    >
+                      <RadioGroupItem id={`role-${r.label}`} value={r.label} />
+                      <r.icon className="h-4 w-4 text-valasys-orange" />
+                      <span className="text-sm text-valasys-gray-800">{r.label}</span>
+                    </Label>
+                  </motion.div>
+                ))}
+              </RadioGroup>
+            </div>
+            <div className="md:col-span-1">
+              <OnboardingSummaryPanel step={1} />
+            </div>
+          </div>
         </CardContent>
         <CardFooter className="flex justify-end gap-2">
           <Button variant="outline" onClick={() => navigate(-1)} className="border-valasys-gray-300">Back</Button>
