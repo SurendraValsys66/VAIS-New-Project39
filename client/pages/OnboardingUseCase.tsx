@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -34,23 +40,45 @@ export default function OnboardingUseCase() {
       <Card className="w-full max-w-4xl border-valasys-gray-200 shadow-xl bg-white/95">
         <CardHeader>
           <CardTitle className="text-lg">Getting to know you</CardTitle>
-          <StepProgress current={2} total={6} title="What would you like to use VAIS for?" />
+          <StepProgress
+            current={2}
+            total={6}
+            title="What would you like to use VAIS for?"
+          />
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="md:col-span-2">
-              <RadioGroup value={value} onValueChange={(v) => { setValue(v); if (v) saveOnboarding({ useCase: v as any }); }} className="grid gap-3">
+              <RadioGroup
+                value={value}
+                onValueChange={(v) => {
+                  setValue(v);
+                  if (v) saveOnboarding({ useCase: v as any });
+                }}
+                className="grid gap-3"
+              >
                 {OPTIONS.map((opt) => (
-                  <motion.div key={opt.label} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.99 }}>
+                  <motion.div
+                    key={opt.label}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.99 }}
+                  >
                     <Label
                       htmlFor={`usecase-${opt.label}`}
                       className={`flex items-center gap-3 rounded-lg border p-3 cursor-pointer transition-colors ${
-                        value === opt.label ? "border-valasys-orange bg-valasys-orange/5" : "border-valasys-gray-200 hover:border-valasys-orange/60"
+                        value === opt.label
+                          ? "border-valasys-orange bg-valasys-orange/5"
+                          : "border-valasys-gray-200 hover:border-valasys-orange/60"
                       }`}
                     >
-                      <RadioGroupItem id={`usecase-${opt.label}`} value={opt.label} />
+                      <RadioGroupItem
+                        id={`usecase-${opt.label}`}
+                        value={opt.label}
+                      />
                       <opt.icon className="h-4 w-4 text-valasys-orange" />
-                      <span className="text-sm text-valasys-gray-800">{opt.label}</span>
+                      <span className="text-sm text-valasys-gray-800">
+                        {opt.label}
+                      </span>
                     </Label>
                   </motion.div>
                 ))}
@@ -62,8 +90,20 @@ export default function OnboardingUseCase() {
           </div>
         </CardContent>
         <CardFooter className="flex justify-between">
-          <Button variant="outline" onClick={() => navigate("/onboarding/role")} className="border-valasys-gray-300">Back</Button>
-          <Button onClick={onNext} disabled={!value} className="bg-valasys-orange hover:bg-valasys-orange-light text-white">Continue</Button>
+          <Button
+            variant="outline"
+            onClick={() => navigate("/onboarding/role")}
+            className="border-valasys-gray-300"
+          >
+            Back
+          </Button>
+          <Button
+            onClick={onNext}
+            disabled={!value}
+            className="bg-valasys-orange hover:bg-valasys-orange-light text-white"
+          >
+            Continue
+          </Button>
         </CardFooter>
       </Card>
     </div>

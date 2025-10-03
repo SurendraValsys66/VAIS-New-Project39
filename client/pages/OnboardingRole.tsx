@@ -1,12 +1,27 @@
 import React, { useState } from "react";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import StepProgress from "@/components/onboarding/StepProgress";
 import { saveOnboarding, getOnboarding } from "@/lib/onboardingStorage";
 import { useNavigate } from "react-router-dom";
-import { Brain, Users, Building2, Target, UserCog, Headphones, Smile, UserRound } from "lucide-react";
+import {
+  Brain,
+  Users,
+  Building2,
+  Target,
+  UserCog,
+  Headphones,
+  Smile,
+  UserRound,
+} from "lucide-react";
 import { motion } from "framer-motion";
 import OnboardingDecor from "@/components/onboarding/Decor";
 import OnboardingSummaryPanel from "@/components/onboarding/OnboardingSummaryPanel";
@@ -39,23 +54,42 @@ export default function OnboardingRole() {
       <Card className="w-full max-w-4xl border-valasys-gray-200 shadow-xl bg-white/95">
         <CardHeader>
           <CardTitle className="text-lg">Welcome to VAIS</CardTitle>
-          <StepProgress current={1} total={6} title="Which role defines you best?" />
+          <StepProgress
+            current={1}
+            total={6}
+            title="Which role defines you best?"
+          />
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="md:col-span-2">
-              <RadioGroup value={value} onValueChange={(v) => { setValue(v); if (v) saveOnboarding({ role: v as any }); }} className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <RadioGroup
+                value={value}
+                onValueChange={(v) => {
+                  setValue(v);
+                  if (v) saveOnboarding({ role: v as any });
+                }}
+                className="grid grid-cols-1 sm:grid-cols-2 gap-3"
+              >
                 {ROLES.map((r) => (
-                  <motion.div key={r.label} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.99 }}>
+                  <motion.div
+                    key={r.label}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.99 }}
+                  >
                     <Label
                       htmlFor={`role-${r.label}`}
                       className={`flex items-center gap-3 rounded-lg border p-3 cursor-pointer transition-colors ${
-                        value === r.label ? "border-valasys-orange bg-valasys-orange/5" : "border-valasys-gray-200 hover:border-valasys-orange/60"
+                        value === r.label
+                          ? "border-valasys-orange bg-valasys-orange/5"
+                          : "border-valasys-gray-200 hover:border-valasys-orange/60"
                       }`}
                     >
                       <RadioGroupItem id={`role-${r.label}`} value={r.label} />
                       <r.icon className="h-4 w-4 text-valasys-orange" />
-                      <span className="text-sm text-valasys-gray-800">{r.label}</span>
+                      <span className="text-sm text-valasys-gray-800">
+                        {r.label}
+                      </span>
                     </Label>
                   </motion.div>
                 ))}
@@ -67,8 +101,20 @@ export default function OnboardingRole() {
           </div>
         </CardContent>
         <CardFooter className="flex justify-end gap-2">
-          <Button variant="outline" onClick={() => navigate(-1)} className="border-valasys-gray-300">Back</Button>
-          <Button onClick={onNext} disabled={!value} className="bg-valasys-orange hover:bg-valasys-orange-light text-white">Continue</Button>
+          <Button
+            variant="outline"
+            onClick={() => navigate(-1)}
+            className="border-valasys-gray-300"
+          >
+            Back
+          </Button>
+          <Button
+            onClick={onNext}
+            disabled={!value}
+            className="bg-valasys-orange hover:bg-valasys-orange-light text-white"
+          >
+            Continue
+          </Button>
         </CardFooter>
       </Card>
     </div>

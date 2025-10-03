@@ -1,8 +1,21 @@
 import React, { useEffect, useRef } from "react";
 
-type Particle = { x: number; y: number; r: number; c: string; vx: number; vy: number; rot: number; vr: number };
+type Particle = {
+  x: number;
+  y: number;
+  r: number;
+  c: string;
+  vx: number;
+  vy: number;
+  rot: number;
+  vr: number;
+};
 
-export default function ConfettiCanvas({ duration = 2500 }: { duration?: number }) {
+export default function ConfettiCanvas({
+  duration = 2500,
+}: {
+  duration?: number;
+}) {
   const ref = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -60,5 +73,11 @@ export default function ConfettiCanvas({ duration = 2500 }: { duration?: number 
     };
   }, [duration]);
 
-  return <canvas ref={ref} className="absolute inset-0 h-full w-full" aria-hidden="true" />;
+  return (
+    <canvas
+      ref={ref}
+      className="absolute inset-0 h-full w-full"
+      aria-hidden="true"
+    />
+  );
 }

@@ -90,9 +90,18 @@ const App = () => (
 
               {/* Onboarding flow */}
               <Route path="/onboarding/role" element={<OnboardingRole />} />
-              <Route path="/onboarding/use-case" element={<OnboardingUseCase />} />
-              <Route path="/onboarding/experience" element={<OnboardingExperience />} />
-              <Route path="/onboarding/complete" element={<OnboardingThankYou />} />
+              <Route
+                path="/onboarding/use-case"
+                element={<OnboardingUseCase />}
+              />
+              <Route
+                path="/onboarding/experience"
+                element={<OnboardingExperience />}
+              />
+              <Route
+                path="/onboarding/complete"
+                element={<OnboardingThankYou />}
+              />
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
