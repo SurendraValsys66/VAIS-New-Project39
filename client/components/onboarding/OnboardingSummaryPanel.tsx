@@ -2,9 +2,9 @@ import React from "react";
 import { CircularProgress } from "@/components/ui/circular-progress";
 import { getOnboarding } from "@/lib/onboardingStorage";
 
-export default function OnboardingSummaryPanel({ step }: { step: 1 | 2 | 3 }) {
+export default function OnboardingSummaryPanel({ step, total = 5 }: { step: number; total?: number }) {
   const data = getOnboarding();
-  const pct = step === 1 ? 0 : step === 2 ? 33 : 66;
+  const pct = Math.max(0, Math.min(100, Math.round(((step - 1) / total) * 100)));
 
   return (
     <div className="rounded-xl border border-valasys-gray-200 bg-white/80 backdrop-blur-sm p-4 space-y-4">
@@ -27,6 +27,14 @@ export default function OnboardingSummaryPanel({ step }: { step: 1 | 2 | 3 }) {
         <div className="flex justify-between">
           <span className="text-valasys-gray-600">Experience</span>
           <span className="text-valasys-gray-900">{data.experience ?? "—"}</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="text-valasys-gray-600">Industry</span>
+          <span className="text-valasys-gray-900">{data.targetIndustry ?? "—"}</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="text-valasys-gray-600">Product Category</span>
+          <span className="text-valasys-gray-900">{data.vaisCategory ?? "—"}</span>
         </div>
       </div>
       <p className="text-xs text-valasys-gray-500">Pro tip: You can change these later in Settings.</p>
