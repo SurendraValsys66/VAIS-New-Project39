@@ -25,7 +25,7 @@ export default function OnboardingExperience() {
   const onNext = () => {
     if (!value) return;
     saveOnboarding({ experience: value as any });
-    navigate("/onboarding/complete");
+    navigate("/onboarding/industry");
   };
 
   return (
@@ -34,7 +34,7 @@ export default function OnboardingExperience() {
       <Card className="w-full max-w-4xl border-valasys-gray-200 shadow-xl bg-white/95">
         <CardHeader>
           <CardTitle className="text-lg">A few more details</CardTitle>
-          <StepProgress current={3} total={4} title="What is your level of experience in using sales tech?" />
+          <StepProgress current={3} total={6} title="What is your level of experience in using sales tech?" />
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -57,7 +57,7 @@ export default function OnboardingExperience() {
               </RadioGroup>
             </div>
             <div className="md:col-span-1">
-              <OnboardingSummaryPanel step={3} />
+              <OnboardingSummaryPanel step={3} total={5} />
             </div>
           </div>
         </CardContent>
