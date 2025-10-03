@@ -34,7 +34,7 @@ export default function OnboardingUseCase() {
       <Card className="w-full max-w-4xl border-valasys-gray-200 shadow-xl bg-white/95">
         <CardHeader>
           <CardTitle className="text-lg">Getting to know you</CardTitle>
-          <StepProgress current={2} total={4} title="What would you like to use VAIS for?" />
+          <StepProgress current={2} total={6} title="What would you like to use VAIS for?" />
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -57,7 +57,7 @@ export default function OnboardingUseCase() {
               </RadioGroup>
             </div>
             <div className="md:col-span-1">
-              <OnboardingSummaryPanel step={2} />
+              <OnboardingSummaryPanel step={2} total={5} />
             </div>
           </div>
         </CardContent>
