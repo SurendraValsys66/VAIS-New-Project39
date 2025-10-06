@@ -85,7 +85,7 @@ export default function OnboardingExperience() {
               </RadioGroup>
             </div>
             <div className="md:col-span-1">
-              <OnboardingSummaryPanel step={3} total={5} />
+              <OnboardingSummaryPanel step={3} />
             </div>
           </div>
         </CardContent>
