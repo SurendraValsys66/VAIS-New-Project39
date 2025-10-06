@@ -15,38 +15,69 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import OnboardingDecor from "@/components/onboarding/Decor";
 import OnboardingSummaryPanel from "@/components/onboarding/OnboardingSummaryPanel";
+import {
+  ClipboardList,
+  Lightbulb,
+  Cpu,
+  Headphones,
+  Cog,
+  Calculator,
+  Banknote,
+  Users,
+  Factory,
+  Megaphone,
+  Landmark,
+  ShoppingCart,
+  Code,
+  FileText,
+  BarChart3,
+  GraduationCap,
+  TrendingUp,
+  Stethoscope,
+  UtensilsCrossed,
+  Sparkles,
+} from "lucide-react";
 
-const CATEGORIES = [
-  "Administrative Support",
-  "Business Strategy",
-  "Computing",
-  "Customer Support",
-  "Engineering",
-  "Financial Management",
-  "Financial Services",
-  "HR Management",
-  "Manufacturing",
-  "Marketing",
-  "Public Administration",
-  "Purchasing",
-  "Software Development",
-  "Content Management",
-  "Data Science",
-  "Education",
-  "Sales",
-  "Healthcare",
-  "Hospitality",
-  "Other",
-] as const;
+type CategoryOption = {
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+};
+
+const CATEGORY_OPTIONS: readonly CategoryOption[] = [
+  { label: "Administrative Support", icon: ClipboardList },
+  { label: "Business Strategy", icon: Lightbulb },
+  { label: "Computing", icon: Cpu },
+  { label: "Customer Support", icon: Headphones },
+  { label: "Engineering", icon: Cog },
+  { label: "Financial Management", icon: Calculator },
+  { label: "Financial Services", icon: Banknote },
+  { label: "HR Management", icon: Users },
+  { label: "Manufacturing", icon: Factory },
+  { label: "Marketing", icon: Megaphone },
+  { label: "Public Administration", icon: Landmark },
+  { label: "Purchasing", icon: ShoppingCart },
+  { label: "Software Development", icon: Code },
+  { label: "Content Management", icon: FileText },
+  { label: "Data Science", icon: BarChart3 },
+  { label: "Education", icon: GraduationCap },
+  { label: "Sales", icon: TrendingUp },
+  { label: "Healthcare", icon: Stethoscope },
+  { label: "Hospitality", icon: UtensilsCrossed },
+  { label: "Other", icon: Sparkles },
+];
+
+type CategoryValue = (typeof CATEGORY_OPTIONS)[number]["label"];
 
 export default function OnboardingCategory() {
   const navigate = useNavigate();
   const initial = getOnboarding().vaisCategory ?? "";
-  const [value, setValue] = useState<string>(initial);
+  const [value, setValue] = useState<CategoryValue | "">(
+    initial as CategoryValue | "",
+  );
 
   const onNext = () => {
     if (!value) return;
-    saveOnboarding({ vaisCategory: value as (typeof CATEGORIES)[number] });
+    saveOnboarding({ vaisCategory: value });
     navigate("/onboarding/complete");
   };
 
@@ -69,41 +100,36 @@ export default function OnboardingCategory() {
               <RadioGroup
                 value={value}
                 onValueChange={(v) => {
-                  setValue(v);
+                  setValue(v as CategoryValue);
                   if (v) {
                     saveOnboarding({
-                      vaisCategory: v as (typeof CATEGORIES)[number],
+                      vaisCategory: v as CategoryValue,
                     });
                   }
                 }}
                 className="grid grid-cols-1 sm:grid-cols-2 gap-3"
               >
-                {CATEGORIES.map((category) => (
+                {CATEGORY_OPTIONS.map((option) => (
                   <motion.div
-                    key={category}
+                    key={option.label}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.99 }}
                   >
                     <Label
-                      htmlFor={`category-${category}`}
+                      htmlFor={`category-${option.label}`}
                       className={`flex items-center gap-3 rounded-lg border p-3 cursor-pointer transition-colors ${
-                        value === category
+                        value === option.label
                           ? "border-valasys-orange bg-valasys-orange/5"
                           : "border-valasys-gray-200 hover:border-valasys-orange/60"
                       }`}
                     >
                       <RadioGroupItem
-                        id={`category-${category}`}
-                        value={category}
+                        id={`category-${option.label}`}
+                        value={option.label}
                       />
-                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-valasys-orange/10 text-[0.65rem] font-medium uppercase tracking-wide text-valasys-orange">
-                        {category
-                          .split(" ")
-                          .map((word) => word[0])
-                          .join("")}
-                      </span>
+                      <option.icon className="h-4 w-4 text-valasys-orange" />
                       <span className="text-sm text-valasys-gray-800">
-                        {category}
+                        {option.label}
                       </span>
                     </Label>
                   </motion.div>
