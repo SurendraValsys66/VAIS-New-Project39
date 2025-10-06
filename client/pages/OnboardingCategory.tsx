@@ -44,11 +44,6 @@ export default function OnboardingCategory() {
   const initial = getOnboarding().vaisCategory ?? "";
   const [value, setValue] = useState<string>(initial);
 
-  const groupedCategories = useMemo(() => {
-    const midpoint = Math.ceil(CATEGORIES.length / 2);
-    return [CATEGORIES.slice(0, midpoint), CATEGORIES.slice(midpoint)];
-  }, []);
-
   const onNext = () => {
     if (!value) return;
     saveOnboarding({ vaisCategory: value as (typeof CATEGORIES)[number] });
