@@ -78,7 +78,7 @@ export default function OnboardingCategory() {
                 }}
                 className="grid grid-cols-1 sm:grid-cols-2 gap-3"
               >
-                {groupedCategories.flat().map((category) => (
+                {CATEGORIES.map((category) => (
                   <motion.div
                     key={category}
                     whileHover={{ scale: 1.02 }}
