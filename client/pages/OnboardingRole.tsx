@@ -25,6 +25,7 @@ import {
 import { motion } from "framer-motion";
 import OnboardingDecor from "@/components/onboarding/Decor";
 import OnboardingSummaryPanel from "@/components/onboarding/OnboardingSummaryPanel";
+import OnboardingNavbar from "@/components/onboarding/OnboardingNavbar";
 
 const ROLES = [
   { label: "Founder", icon: Brain },
@@ -50,6 +51,9 @@ export default function OnboardingRole() {
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-valasys-gray-50 via-white to-valasys-orange/5 flex items-center justify-center p-6">
+      <div className="absolute top-0 left-0 right-0">
+        <OnboardingNavbar />
+      </div>
       <OnboardingDecor />
       <Card className="w-full max-w-4xl border-valasys-gray-200 shadow-xl bg-white/95">
         <CardHeader>
