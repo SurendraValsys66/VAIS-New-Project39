@@ -85,7 +85,7 @@ export default function OnboardingUseCase() {
               </RadioGroup>
             </div>
             <div className="md:col-span-1">
-              <OnboardingSummaryPanel step={2} total={5} />
+              <OnboardingSummaryPanel step={2} />
             </div>
           </div>
         </CardContent>
