@@ -95,7 +95,7 @@ export default function OnboardingIndustry() {
               </RadioGroup>
             </div>
             <div className="md:col-span-1">
-              <OnboardingSummaryPanel step={4} total={5} />
+              <OnboardingSummaryPanel step={4} />
             </div>
           </div>
         </CardContent>
