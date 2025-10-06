@@ -111,7 +111,7 @@ export default function OnboardingCategory() {
               </RadioGroup>
             </div>
             <div>
-              <OnboardingSummaryPanel step={5} total={5} />
+              <OnboardingSummaryPanel step={5} />
             </div>
           </div>
         </CardContent>
