@@ -16,6 +16,7 @@ import { Baby, Gauge, GraduationCap } from "lucide-react";
 import { motion } from "framer-motion";
 import OnboardingDecor from "@/components/onboarding/Decor";
 import OnboardingSummaryPanel from "@/components/onboarding/OnboardingSummaryPanel";
+import OnboardingNavbar from "@/components/onboarding/OnboardingNavbar";
 
 const LEVELS = [
   { label: "Beginner", icon: Baby },
@@ -36,6 +37,7 @@ export default function OnboardingExperience() {
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-valasys-gray-50 via-white to-valasys-orange/5 flex items-center justify-center p-6">
+      <OnboardingNavbar />
       <OnboardingDecor />
       <Card className="w-full max-w-4xl border-valasys-gray-200 shadow-xl bg-white/95">
         <CardHeader>
