@@ -27,11 +27,11 @@ import {
 } from "lucide-react";
 
 type IndustryOption = {
-  label: (typeof INDUSTRY_OPTIONS)[number]["label"];
-  icon: (typeof INDUSTRY_OPTIONS)[number]["icon"];
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
 };
 
-const INDUSTRY_OPTIONS = [
+const INDUSTRY_OPTIONS: readonly IndustryOption[] = [
   { label: "Manufacturing", icon: Factory },
   { label: "Retail", icon: ShoppingBag },
   { label: "Software", icon: Laptop },
@@ -40,7 +40,7 @@ const INDUSTRY_OPTIONS = [
   { label: "Healthcare", icon: Stethoscope },
   { label: "Financial Services", icon: Banknote },
   { label: "Other", icon: Sparkles },
-] as const satisfies ReadonlyArray<{ label: string; icon: React.ComponentType<{ className?: string }>; }>;
+];
 
 type IndustryValue = (typeof INDUSTRY_OPTIONS)[number]["label"];
 
