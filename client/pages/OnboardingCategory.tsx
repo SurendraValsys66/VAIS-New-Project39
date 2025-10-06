@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import OnboardingDecor from "@/components/onboarding/Decor";
 import OnboardingSummaryPanel from "@/components/onboarding/OnboardingSummaryPanel";
+import OnboardingNavbar from "@/components/onboarding/OnboardingNavbar";
 import {
   ClipboardList,
   Lightbulb,
@@ -83,6 +84,7 @@ export default function OnboardingCategory() {
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-valasys-gray-50 via-white to-valasys-orange/5 flex items-center justify-center p-6">
+      <OnboardingNavbar />
       <OnboardingDecor />
       <Card className="w-full max-w-5xl border-valasys-gray-200 shadow-xl bg-white/95">
         <CardHeader>
