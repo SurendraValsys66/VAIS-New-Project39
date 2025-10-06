@@ -12,40 +12,49 @@ import { Label } from "@/components/ui/label";
 import StepProgress from "@/components/onboarding/StepProgress";
 import { saveOnboarding, getOnboarding } from "@/lib/onboardingStorage";
 import { useNavigate } from "react-router-dom";
-import {
-  Brain,
-  Users,
-  Building2,
-  Target,
-  UserCog,
-  Headphones,
-  Smile,
-  UserRound,
-} from "lucide-react";
 import { motion } from "framer-motion";
 import OnboardingDecor from "@/components/onboarding/Decor";
 import OnboardingSummaryPanel from "@/components/onboarding/OnboardingSummaryPanel";
+import {
+  Factory,
+  ShoppingBag,
+  Laptop,
+  Server,
+  UtensilsCrossed,
+  Stethoscope,
+  Banknote,
+  Sparkles,
+} from "lucide-react";
 
-const ROLES = [
-  { label: "Founder", icon: Brain },
-  { label: "Marketer", icon: Target },
-  { label: "Business Development", icon: Building2 },
-  { label: "Sales Leader", icon: Users },
-  { label: "Talent Acquisition", icon: UserCog },
-  { label: "Ops & Support", icon: Headphones },
-  { label: "Customer Success", icon: Smile },
-  { label: "Sales Representative", icon: UserRound },
-] as const;
+type IndustryOption = {
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+};
 
-export default function OnboardingRole() {
+const INDUSTRY_OPTIONS: readonly IndustryOption[] = [
+  { label: "Manufacturing", icon: Factory },
+  { label: "Retail", icon: ShoppingBag },
+  { label: "Software", icon: Laptop },
+  { label: "IT", icon: Server },
+  { label: "Hospitality", icon: UtensilsCrossed },
+  { label: "Healthcare", icon: Stethoscope },
+  { label: "Financial Services", icon: Banknote },
+  { label: "Other", icon: Sparkles },
+];
+
+type IndustryValue = (typeof INDUSTRY_OPTIONS)[number]["label"];
+
+export default function OnboardingIndustry() {
   const navigate = useNavigate();
-  const initial = getOnboarding().role ?? "";
-  const [value, setValue] = useState<string>(initial);
+  const initial = getOnboarding().targetIndustry ?? "";
+  const [value, setValue] = useState<IndustryValue | "">(
+    initial as IndustryValue | "",
+  );
 
   const onNext = () => {
     if (!value) return;
-    saveOnboarding({ role: value as any });
-    navigate("/onboarding/use-case");
+    saveOnboarding({ targetIndustry: value });
+    navigate("/onboarding/category");
   };
 
   return (
@@ -53,11 +62,11 @@ export default function OnboardingRole() {
       <OnboardingDecor />
       <Card className="w-full max-w-4xl border-valasys-gray-200 shadow-xl bg-white/95">
         <CardHeader>
-          <CardTitle className="text-lg">Welcome to VAIS</CardTitle>
+          <CardTitle className="text-lg">Almost there</CardTitle>
           <StepProgress
-            current={1}
+            current={4}
             total={6}
-            title="Which role defines you best?"
+            title="What is your preferred target industry?"
           />
         </CardHeader>
         <CardContent>
@@ -66,29 +75,36 @@ export default function OnboardingRole() {
               <RadioGroup
                 value={value}
                 onValueChange={(v) => {
-                  setValue(v);
-                  if (v) saveOnboarding({ role: v as any });
+                  setValue(v as IndustryValue);
+                  if (v) {
+                    saveOnboarding({
+                      targetIndustry: v as IndustryValue,
+                    });
+                  }
                 }}
                 className="grid grid-cols-1 sm:grid-cols-2 gap-3"
               >
-                {ROLES.map((r) => (
+                {INDUSTRY_OPTIONS.map((option) => (
                   <motion.div
-                    key={r.label}
+                    key={option.label}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.99 }}
                   >
                     <Label
-                      htmlFor={`role-${r.label}`}
+                      htmlFor={`industry-${option.label}`}
                       className={`flex items-center gap-3 rounded-lg border p-3 cursor-pointer transition-colors ${
-                        value === r.label
+                        value === option.label
                           ? "border-valasys-orange bg-valasys-orange/5"
                           : "border-valasys-gray-200 hover:border-valasys-orange/60"
                       }`}
                     >
-                      <RadioGroupItem id={`role-${r.label}`} value={r.label} />
-                      <r.icon className="h-4 w-4 text-valasys-orange" />
+                      <RadioGroupItem
+                        id={`industry-${option.label}`}
+                        value={option.label}
+                      />
+                      <option.icon className="h-4 w-4 text-valasys-orange" />
                       <span className="text-sm text-valasys-gray-800">
-                        {r.label}
+                        {option.label}
                       </span>
                     </Label>
                   </motion.div>
@@ -96,7 +112,7 @@ export default function OnboardingRole() {
               </RadioGroup>
             </div>
             <div className="md:col-span-1">
-              <OnboardingSummaryPanel step={1} />
+              <OnboardingSummaryPanel step={4} />
             </div>
           </div>
         </CardContent>

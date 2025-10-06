@@ -36,8 +36,8 @@ export default function OnboardingThankYou() {
             set!
           </CardTitle>
           <StepProgress
-            current={4}
-            total={4}
+            current={6}
+            total={6}
             title="Thank you for completing the onboarding"
             subtitle="We personalized your experience based on your answers."
           />
@@ -59,6 +59,18 @@ export default function OnboardingThankYou() {
               <p>
                 <span className="text-valasys-gray-600">Experience:</span>{" "}
                 {data.experience}
+              </p>
+            ) : null}
+            {data.targetIndustry ? (
+              <p>
+                <span className="text-valasys-gray-600">Target industry:</span>{" "}
+                {data.targetIndustry}
+              </p>
+            ) : null}
+            {data.vaisCategory ? (
+              <p>
+                <span className="text-valasys-gray-600">Product category:</span>{" "}
+                {data.vaisCategory}
               </p>
             ) : null}
           </div>
