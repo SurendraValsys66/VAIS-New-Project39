@@ -4,7 +4,7 @@ import { getOnboarding } from "@/lib/onboardingStorage";
 
 export default function OnboardingSummaryPanel({
   step,
-  total = 5,
+  total = 6,
 }: {
   step: number;
   total?: number;
