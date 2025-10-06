@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import OnboardingDecor from "@/components/onboarding/Decor";
 import ConfettiCanvas from "@/components/onboarding/ConfettiCanvas";
 import { CheckCircle2 } from "lucide-react";
+import OnboardingNavbar from "@/components/onboarding/OnboardingNavbar";
 
 export default function OnboardingThankYou() {
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ export default function OnboardingThankYou() {
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-valasys-gray-50 via-white to-valasys-orange/5 flex items-center justify-center p-6">
+      <OnboardingNavbar />
       <OnboardingDecor />
       <div className="absolute inset-0">
         <ConfettiCanvas />
