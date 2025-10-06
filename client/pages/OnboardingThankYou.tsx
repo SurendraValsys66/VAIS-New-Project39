@@ -36,8 +36,8 @@ export default function OnboardingThankYou() {
             set!
           </CardTitle>
           <StepProgress
-            current={4}
-            total={4}
+            current={6}
+            total={6}
             title="Thank you for completing the onboarding"
             subtitle="We personalized your experience based on your answers."
           />
