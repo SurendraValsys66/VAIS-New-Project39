@@ -96,7 +96,7 @@ export default function OnboardingRole() {
               </RadioGroup>
             </div>
             <div className="md:col-span-1">
-              <OnboardingSummaryPanel step={1} total={5} />
+              <OnboardingSummaryPanel step={1} />
             </div>
           </div>
         </CardContent>
