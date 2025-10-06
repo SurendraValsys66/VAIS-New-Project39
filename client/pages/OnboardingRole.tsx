@@ -50,8 +50,9 @@ export default function OnboardingRole() {
   };
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-valasys-gray-50 via-white to-valasys-orange/5 flex items-center justify-center p-6">
+    <>
       <OnboardingNavbar />
+      <div className="relative min-h-screen bg-gradient-to-br from-valasys-gray-50 via-white to-valasys-orange/5 flex items-center justify-center p-6 pt-16">
       <OnboardingDecor />
       <Card className="w-full max-w-4xl border-valasys-gray-200 shadow-xl bg-white/95">
         <CardHeader>
@@ -113,5 +114,6 @@ export default function OnboardingRole() {
         </CardFooter>
       </Card>
     </div>
+    </>
   );
 }
