@@ -89,14 +89,7 @@ export default function OnboardingUseCase() {
             </div>
           </div>
         </CardContent>
-        <CardFooter className="flex justify-between">
-          <Button
-            variant="outline"
-            onClick={() => navigate("/onboarding/role")}
-            className="border-valasys-gray-300"
-          >
-            Back
-          </Button>
+        <CardFooter className="flex justify-end">
           <Button
             onClick={onNext}
             disabled={!value}
