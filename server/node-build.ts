@@ -31,16 +31,20 @@ const distPath = path.join(__dirname, "../spa");
 // Serve static files
 app.use(express.static(distPath));
 
-// Handle React Router - serve index.html for all non-API routes
-app.get("/:path(.*)", (req, res) => {
-  if (
-    req.path === "/api" ||
-    req.path.startsWith("/api/") ||
-    req.path === "/health" ||
-    req.path.startsWith("/health/")
-  ) {
-    return res.status(404).json({ error: "API endpoint not found" });
+// Handle React Router - serve index.html for all non-API GET requests
+app.use((req, res, next) => {
+  if (req.method !== "GET") {
+    return next();
   }
+
+  if (req.path === "/api" || req.path.startsWith("/api/")) {
+    return next();
+  }
+
+  if (req.path === "/health" || req.path.startsWith("/health/")) {
+    return next();
+  }
+
   res.sendFile(path.join(distPath, "index.html"));
 });
 
