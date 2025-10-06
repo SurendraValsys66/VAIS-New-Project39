@@ -53,7 +53,7 @@ export default function OnboardingIndustry() {
 
   const onNext = () => {
     if (!value) return;
-    saveOnboarding({ targetIndustry: value as (typeof INDUSTRIES)[number] });
+    saveOnboarding({ targetIndustry: value });
     navigate("/onboarding/category");
   };
 
@@ -75,38 +75,36 @@ export default function OnboardingIndustry() {
               <RadioGroup
                 value={value}
                 onValueChange={(v) => {
-                  setValue(v);
+                  setValue(v as IndustryValue);
                   if (v) {
                     saveOnboarding({
-                      targetIndustry: v as (typeof INDUSTRIES)[number],
+                      targetIndustry: v as IndustryValue,
                     });
                   }
                 }}
                 className="grid grid-cols-1 sm:grid-cols-2 gap-3"
               >
-                {INDUSTRIES.map((industry) => (
+                {INDUSTRY_OPTIONS.map((option) => (
                   <motion.div
-                    key={industry}
+                    key={option.label}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.99 }}
                   >
                     <Label
-                      htmlFor={`industry-${industry}`}
+                      htmlFor={`industry-${option.label}`}
                       className={`flex items-center gap-3 rounded-lg border p-3 cursor-pointer transition-colors ${
-                        value === industry
+                        value === option.label
                           ? "border-valasys-orange bg-valasys-orange/5"
                           : "border-valasys-gray-200 hover:border-valasys-orange/60"
                       }`}
                     >
                       <RadioGroupItem
-                        id={`industry-${industry}`}
-                        value={industry}
+                        id={`industry-${option.label}`}
+                        value={option.label}
                       />
-                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-valasys-orange/10 text-xs font-medium text-valasys-orange">
-                        {industry.charAt(0)}
-                      </span>
+                      <option.icon className="h-4 w-4 text-valasys-orange" />
                       <span className="text-sm text-valasys-gray-800">
-                        {industry}
+                        {option.label}
                       </span>
                     </Label>
                   </motion.div>
