@@ -61,6 +61,18 @@ export default function OnboardingThankYou() {
                 {data.experience}
               </p>
             ) : null}
+            {data.targetIndustry ? (
+              <p>
+                <span className="text-valasys-gray-600">Target industry:</span>{" "}
+                {data.targetIndustry}
+              </p>
+            ) : null}
+            {data.vaisCategory ? (
+              <p>
+                <span className="text-valasys-gray-600">Product category:</span>{" "}
+                {data.vaisCategory}
+              </p>
+            ) : null}
           </div>
         </CardContent>
         <CardFooter className="flex justify-end">
