@@ -38,6 +38,8 @@ import Integrations from "./pages/Integrations";
 import OnboardingRole from "./pages/OnboardingRole";
 import OnboardingUseCase from "./pages/OnboardingUseCase";
 import OnboardingExperience from "./pages/OnboardingExperience";
+import OnboardingIndustry from "./pages/OnboardingIndustry";
+import OnboardingCategory from "./pages/OnboardingCategory";
 import OnboardingThankYou from "./pages/OnboardingThankYou";
 
 const queryClient = new QueryClient();
@@ -97,6 +99,14 @@ const App = () => (
               <Route
                 path="/onboarding/experience"
                 element={<OnboardingExperience />}
+              />
+              <Route
+                path="/onboarding/industry"
+                element={<OnboardingIndustry />}
+              />
+              <Route
+                path="/onboarding/category"
+                element={<OnboardingCategory />}
               />
               <Route
                 path="/onboarding/complete"
