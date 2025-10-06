@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 export default function OnboardingNavbar() {
   return (
-    <div role="banner" className="w-full">
-      <div className="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-valasys-gray-200 shadow-sm">
+      <div className="mx-auto max-w-6xl px-6 py-3 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 group">
           <div className="h-6 w-6 rounded-sm bg-gradient-to-br from-valasys-orange to-valasys-orange-light shadow-sm" />
           <span className="text-sm sm:text-base font-semibold tracking-wide text-valasys-gray-900 group-hover:text-valasys-orange transition-colors">
@@ -27,6 +27,6 @@ export default function OnboardingNavbar() {
           </a>
         </nav>
       </div>
-    </div>
+    </header>
   );
 }
