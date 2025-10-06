@@ -100,14 +100,7 @@ export default function OnboardingRole() {
             </div>
           </div>
         </CardContent>
-        <CardFooter className="flex justify-end gap-2">
-          <Button
-            variant="outline"
-            onClick={() => navigate(-1)}
-            className="border-valasys-gray-300"
-          >
-            Back
-          </Button>
+        <CardFooter className="flex justify-end">
           <Button
             onClick={onNext}
             disabled={!value}
