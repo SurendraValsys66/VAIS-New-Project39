@@ -15,22 +15,41 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import OnboardingDecor from "@/components/onboarding/Decor";
 import OnboardingSummaryPanel from "@/components/onboarding/OnboardingSummaryPanel";
+import {
+  Factory,
+  ShoppingBag,
+  Laptop,
+  Server,
+  UtensilsCrossed,
+  Stethoscope,
+  Banknote,
+  Sparkles,
+} from "lucide-react";
 
-const INDUSTRIES = [
-  "Manufacturing",
-  "Retail",
-  "Software",
-  "IT",
-  "Hospitality",
-  "Healthcare",
-  "Financial Services",
-  "Other",
-] as const;
+type IndustryOption = {
+  label: (typeof INDUSTRY_OPTIONS)[number]["label"];
+  icon: (typeof INDUSTRY_OPTIONS)[number]["icon"];
+};
+
+const INDUSTRY_OPTIONS = [
+  { label: "Manufacturing", icon: Factory },
+  { label: "Retail", icon: ShoppingBag },
+  { label: "Software", icon: Laptop },
+  { label: "IT", icon: Server },
+  { label: "Hospitality", icon: UtensilsCrossed },
+  { label: "Healthcare", icon: Stethoscope },
+  { label: "Financial Services", icon: Banknote },
+  { label: "Other", icon: Sparkles },
+] as const satisfies ReadonlyArray<{ label: string; icon: React.ComponentType<{ className?: string }>; }>;
+
+type IndustryValue = (typeof INDUSTRY_OPTIONS)[number]["label"];
 
 export default function OnboardingIndustry() {
   const navigate = useNavigate();
   const initial = getOnboarding().targetIndustry ?? "";
-  const [value, setValue] = useState<string>(initial);
+  const [value, setValue] = useState<IndustryValue | "">(
+    initial as IndustryValue | "",
+  );
 
   const onNext = () => {
     if (!value) return;
