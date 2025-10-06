@@ -36,9 +36,10 @@ export default function OnboardingUseCase() {
   };
 
   return (
-    <>
-      <OnboardingNavbar />
-      <div className="relative min-h-screen bg-gradient-to-br from-valasys-gray-50 via-white to-valasys-orange/5 flex items-center justify-center p-6 pt-16">
+    <div className="relative min-h-screen bg-gradient-to-br from-valasys-gray-50 via-white to-valasys-orange/5 flex items-center justify-center p-6">
+      <div className="absolute top-0 left-0 right-0">
+        <OnboardingNavbar />
+      </div>
       <OnboardingDecor />
       <Card className="w-full max-w-4xl border-valasys-gray-200 shadow-xl bg-white/95">
         <CardHeader>
@@ -103,6 +104,5 @@ export default function OnboardingUseCase() {
         </CardFooter>
       </Card>
     </div>
-    </>
   );
 }
