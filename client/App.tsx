@@ -92,7 +92,10 @@ const App = () => (
               <Route path="/spending-history" element={<SpendingHistory />} />
               <Route path="/integrations" element={<Integrations />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-              <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+              <Route
+                path="/terms-and-conditions"
+                element={<TermsAndConditions />}
+              />
 
               {/* Onboarding flow */}
               <Route path="/onboarding/role" element={<OnboardingRole />} />
