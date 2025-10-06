@@ -11,18 +11,20 @@ export default function OnboardingNavbar() {
           </span>
         </Link>
         <nav className="flex items-center gap-6 text-sm">
-          <Link
-            to="/privacy-policy"
+          <a
+            href="#"
+            onClick={(e) => e.preventDefault()}
             className="text-valasys-gray-600 hover:text-valasys-gray-900"
           >
             Privacy Policy
-          </Link>
-          <Link
-            to="/terms-and-conditions"
+          </a>
+          <a
+            href="#"
+            onClick={(e) => e.preventDefault()}
             className="text-valasys-gray-600 hover:text-valasys-gray-900"
           >
             Terms and Condition
-          </Link>
+          </a>
         </nav>
       </div>
     </header>
