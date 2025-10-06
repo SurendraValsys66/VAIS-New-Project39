@@ -25,7 +25,7 @@ export default function OnboardingThankYou() {
   };
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-valasys-gray-50 via-white to-valasys-orange/5 flex items-center justify-center p-6 pt-20">
+    <div className="relative min-h-screen bg-gradient-to-br from-valasys-gray-50 via-white to-valasys-orange/5 flex items-center justify-center p-6">
       <OnboardingNavbar />
       <OnboardingDecor />
       <div className="absolute inset-0">
