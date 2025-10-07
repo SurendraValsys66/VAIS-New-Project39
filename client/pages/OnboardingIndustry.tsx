@@ -68,8 +68,9 @@ export default function OnboardingIndustry() {
 
   return (
     <OnboardingSplitLayout
+      logoSrc="https://cdn.builder.io/api/v1/image/assets%2Ff2a051d62a994479965d33c6eada9792%2Fdd5060e416d64ccea76a3915edd085f1?format=webp&width=200"
       left={
-        <div className="space-y-8">
+        <div className="space-y-8 mx-auto">
           <div>
             <div className="text-sm font-medium text-valasys-gray-700">Almost there</div>
             <StepProgress current={4} total={6} title="What is your preferred target industry?" />
