@@ -10,7 +10,12 @@ import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import StepProgress from "@/components/onboarding/StepProgress";
-import { saveOnboarding, getOnboarding } from "@/lib/onboardingStorage";
+import {
+  saveOnboarding,
+  getOnboarding,
+  saveOnboardingSkipReminder,
+  emitOnboardingSkipReminderUpdate,
+} from "@/lib/onboardingStorage";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import OnboardingDecor from "@/components/onboarding/Decor";
@@ -55,6 +60,17 @@ export default function OnboardingIndustry() {
     if (!value) return;
     saveOnboarding({ targetIndustry: value });
     navigate("/onboarding/category");
+  };
+
+  const onSkip = () => {
+    const reminder = saveOnboardingSkipReminder({
+      stepRoute: "/onboarding/industry",
+      stepLabel: "Select your target industry",
+      stepNumber: 4,
+      totalSteps: 6,
+    });
+    emitOnboardingSkipReminderUpdate(reminder);
+    navigate("/");
   };
 
   return (
@@ -116,7 +132,14 @@ export default function OnboardingIndustry() {
             </div>
           </div>
         </CardContent>
-        <CardFooter className="flex justify-end">
+        <CardFooter className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <button
+            type="button"
+            onClick={onSkip}
+            className="text-sm font-semibold text-valasys-gray-600 transition-colors hover:text-valasys-orange focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-valasys-orange underline-offset-4 hover:underline"
+          >
+            Skip for now
+          </button>
           <Button
             onClick={onNext}
             disabled={!value}
