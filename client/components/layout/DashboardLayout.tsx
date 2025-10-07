@@ -59,6 +59,7 @@ import { DraggableChatSupport } from "@/components/ui/draggable-chat-support";
 import TrialProgressBar from "@/components/ui/trial-progress-bar";
 import TrialBanner from "@/components/ui/trial-banner";
 import TrialBadgeDropdown from "@/components/ui/trial-badge-dropdown";
+import OnboardingSkipBadge from "@/components/layout/OnboardingSkipBadge";
 import { useTour } from "@/contexts/TourContext";
 import PlatformTour from "@/components/tour/PlatformTour";
 
@@ -690,6 +691,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
               {/* Right side - Notification, G2 Reviews, Profile */}
               <div className="flex items-center space-x-4">
+                <OnboardingSkipBadge />
                 <div className="flex items-center space-x-3">
 
                   {/* Notification Dropdown */}
