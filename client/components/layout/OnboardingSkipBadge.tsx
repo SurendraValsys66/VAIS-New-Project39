@@ -87,8 +87,8 @@ export default function OnboardingSkipBadge({
       type="button"
       onClick={handleClick}
       className={cn(
-        "group relative flex min-h-[1.9rem] items-center gap-1.5 rounded-full bg-gradient-to-r from-valasys-orange to-valasys-orange-light pr-2.5 pl-2 py-0.5 text-[11px] font-semibold text-white shadow-[0_8px_22px_rgba(255,106,0,0.18)] transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-valasys-orange",
-        "sm:min-h-[2.25rem] sm:gap-2 sm:pr-3 sm:py-1",
+        "group relative flex h-[41px] items-center gap-1.5 rounded-full bg-gradient-to-r from-valasys-orange to-valasys-orange-light pr-2.5 pl-2 text-[11px] font-semibold text-white shadow-[0_8px_22px_rgba(255,106,0,0.18)] transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-valasys-orange",
+        "sm:h-[41px] sm:gap-2 sm:pr-3",
         "before:absolute before:inset-0 before:rounded-full before:bg-white/15 before:opacity-0 before:transition-opacity before:duration-300 group-hover:before:opacity-100",
         "after:absolute after:inset-0 after:rounded-full after:border after:border-white/25 after:opacity-60 after:animate-[pulse_2s_ease-in-out_infinite]",
         className,
@@ -105,7 +105,7 @@ export default function OnboardingSkipBadge({
           aria-hidden
         />
       </span>
-      <span className="relative flex h-6 w-6 items-center justify-center rounded-full bg-white/20 text-[10px] font-semibold text-white transition-all duration-300 group-hover:bg-white/25 sm:h-7 sm:w-7 sm:text-[11px]">
+      <span className="relative flex h-6 w-6 items-center justify-center rounded-full bg-white/20 text-[10px] font-semibold text-white transition-all duration-300 group-hover:bg-white/25 sm:h-[26px] sm:w-[26px] sm:text-[11px]">
         <span
           className="transition-opacity duration-200 group-hover:opacity-0"
           aria-hidden
