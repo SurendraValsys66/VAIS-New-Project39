@@ -31,7 +31,12 @@ export default function StepProgress({
           Step {current} of {total}
         </div>
       </div>
-      <Progress value={value} className="h-2" />
+      <div className="flex items-center gap-3">
+        <Progress value={value} className="h-2 flex-1" />
+        <span className="text-sm font-medium text-valasys-gray-700 min-w-[3rem] text-right">
+          {value}%
+        </span>
+      </div>
     </div>
   );
 }
