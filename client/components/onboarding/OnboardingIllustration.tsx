@@ -49,9 +49,7 @@ export default function OnboardingIllustration({
 
       <div className="relative h-full w-full flex items-center justify-center px-8">
         <div className="max-w-2xl w-full">
-          <h2 className="text-black text-2xl font-semibold">
-            {copy.title}
-          </h2>
+          <h2 className="text-black text-2xl font-semibold">{copy.title}</h2>
           <p className="text-black text-sm mt-1 mb-6 max-w-xl">
             {copy.subtitle}
           </p>
