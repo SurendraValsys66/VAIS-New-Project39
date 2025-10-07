@@ -87,6 +87,7 @@ export interface OnboardingSkipReminder {
   stepRoute: string;
   stepLabel: string;
   stepNumber: number;
+  totalSteps?: number;
   createdAt: number;
 }
 
