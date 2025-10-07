@@ -30,26 +30,34 @@ const TITLES: Record<Variant, { title: string; subtitle: string }> = {
   },
 };
 
-export default function OnboardingIllustration({ variant }: { variant: Variant }) {
+export default function OnboardingIllustration({
+  variant,
+  imageSrc,
+  imageAlt = "Onboarding illustration",
+}: {
+  variant: Variant;
+  imageSrc?: string;
+  imageAlt?: string;
+}) {
   const copy = TITLES[variant];
 
   return (
     <div className="relative h-full w-full overflow-hidden">
-      {/* Gradient theme background */}
       <div className="absolute inset-0 bg-gradient-to-br from-valasys-blue/30 via-valasys-orange/20 to-valasys-green/20" />
-      {/* Soft blobs */}
       <div className="absolute -top-24 -left-24 h-80 w-80 rounded-full bg-white/10 blur-2xl" />
       <div className="absolute -bottom-40 -right-24 h-96 w-96 rounded-full bg-black/10 blur-3xl" />
 
       <div className="relative h-full w-full flex items-center justify-center px-8">
         <div className="max-w-xl w-full">
-          <h2 className="text-white/90 text-2xl font-semibold drop-shadow-sm">
-            {copy.title}
-          </h2>
-          <p className="text-white/80 text-sm mt-1 mb-6 max-w-md">
-            {copy.subtitle}
-          </p>
-          <DevicePreview />
+          <h2 className="text-white/90 text-2xl font-semibold drop-shadow-sm">{copy.title}</h2>
+          <p className="text-white/80 text-sm mt-1 mb-6 max-w-md">{copy.subtitle}</p>
+          {imageSrc ? (
+            <div className="relative mx-auto w-full max-w-md rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/20 backdrop-blur">
+              <img src={imageSrc} alt={imageAlt} className="block w-full h-auto" />
+            </div>
+          ) : (
+            <DevicePreview />
+          )}
         </div>
       </div>
     </div>
