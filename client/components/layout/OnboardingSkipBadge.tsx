@@ -105,12 +105,13 @@ export default function OnboardingSkipBadge({
           aria-hidden
         />
       </span>
-      <span className="relative flex h-6 w-6 items-center justify-center rounded-full bg-white/20 text-[10px] font-semibold text-white transition-all duration-300 group-hover:bg-white/25 sm:h-[26px] sm:w-[26px] sm:text-[11px]">
+      <span className="relative flex h-6 w-auto items-center justify-center rounded-full bg-white/20 text-[10px] font-semibold text-white transition-all duration-300 group-hover:bg-white/25 sm:h-[26px] sm:text-[11px] px-2">
         <span
-          className="transition-opacity duration-200 group-hover:opacity-0"
+          className="transition-opacity duration-200 group-hover:opacity-0 flex items-center gap-1 whitespace-nowrap"
           aria-hidden
         >
-          {percentLabel}
+          <span className="font-semibold">{percentLabel}</span>
+          <span className="text-[9px] font-normal opacity-90">Resume onboarding</span>
         </span>
         <Sparkles
           className="absolute h-3 w-3 opacity-0 transition-opacity duration-200 group-hover:opacity-100 sm:h-3.5 sm:w-3.5"
