@@ -8,7 +8,12 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import StepProgress from "@/components/onboarding/StepProgress";
-import { clearOnboarding, getOnboarding } from "@/lib/onboardingStorage";
+import {
+  clearOnboarding,
+  clearOnboardingSkipReminder,
+  emitOnboardingSkipReminderUpdate,
+  getOnboarding,
+} from "@/lib/onboardingStorage";
 import { useNavigate } from "react-router-dom";
 import OnboardingDecor from "@/components/onboarding/Decor";
 import ConfettiCanvas from "@/components/onboarding/ConfettiCanvas";
@@ -20,6 +25,8 @@ export default function OnboardingThankYou() {
 
   const continueToApp = () => {
     clearOnboarding();
+    clearOnboardingSkipReminder();
+    emitOnboardingSkipReminderUpdate(null);
     navigate("/");
   };
 
