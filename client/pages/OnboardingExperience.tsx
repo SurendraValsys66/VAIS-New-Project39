@@ -44,6 +44,7 @@ export default function OnboardingExperience() {
       stepRoute: "/onboarding/experience",
       stepLabel: "Complete your experience details",
       stepNumber: 3,
+      totalSteps: 6,
     });
     emitOnboardingSkipReminderUpdate(reminder);
     navigate("/");
