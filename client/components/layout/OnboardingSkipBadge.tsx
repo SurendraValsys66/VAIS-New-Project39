@@ -90,14 +90,14 @@ export default function OnboardingSkipBadge({
         "group relative flex h-[41px] items-center gap-1.5 rounded-full bg-gradient-to-r from-valasys-orange to-valasys-orange-light pr-2.5 pl-2 text-[11px] font-semibold text-white shadow-[0_8px_22px_rgba(255,106,0,0.18)] transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-valasys-orange",
         "sm:h-[41px] sm:gap-2 sm:pr-3",
         "before:absolute before:inset-0 before:rounded-full before:bg-white/15 before:opacity-0 before:transition-opacity before:duration-300 group-hover:before:opacity-100",
-        "after:absolute after:inset-0 after:rounded-full after:border after:border-white/25 after:opacity-60 after:animate-[pulse_2s_ease-in-out_infinite]",
+        "after:absolute after:inset-0 after:rounded-full after:border after:border-white/25 after:opacity-60 after:animate-[onboardingPulse_1.8s_ease-in-out_infinite]",
         className,
       )}
       aria-label={`Resume onboarding, ${percentLabel} complete`}
     >
       <span className="pointer-events-none absolute -right-1 -top-1 flex h-3 w-3 items-center justify-center sm:h-3.5 sm:w-3.5">
         <span
-          className="absolute inline-flex h-full w-full rounded-full bg-white/80 opacity-75 animate-ping"
+          className="absolute inline-flex h-full w-full rounded-full bg-white/80 opacity-75 onboarding-badge-sparkle"
           aria-hidden
         />
         <span
