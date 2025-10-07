@@ -21,8 +21,8 @@ import {
   UserRound,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import OnboardingDecor from "@/components/onboarding/Decor";
-import OnboardingSummaryPanel from "@/components/onboarding/OnboardingSummaryPanel";
+import OnboardingSplitLayout from "@/components/onboarding/OnboardingSplitLayout";
+import OnboardingIllustration from "@/components/onboarding/OnboardingIllustration";
 
 const ROLES = [
   { label: "Founder", icon: Brain },
