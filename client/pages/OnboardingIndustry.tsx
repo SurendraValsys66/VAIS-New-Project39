@@ -11,8 +11,8 @@ import {
 } from "@/lib/onboardingStorage";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import OnboardingDecor from "@/components/onboarding/Decor";
-import OnboardingSummaryPanel from "@/components/onboarding/OnboardingSummaryPanel";
+import OnboardingSplitLayout from "@/components/onboarding/OnboardingSplitLayout";
+import OnboardingIllustration from "@/components/onboarding/OnboardingIllustration";
 import {
   Factory,
   ShoppingBag,
