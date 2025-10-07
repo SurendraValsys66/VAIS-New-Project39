@@ -92,7 +92,7 @@ export interface OnboardingSkipReminder {
 
 export function saveOnboardingSkipReminder(
   reminder: Omit<OnboardingSkipReminder, "createdAt">,
-) {
+): OnboardingSkipReminder {
   if (!canUseStorage()) {
     return { ...reminder, createdAt: Date.now() };
   }
