@@ -6,26 +6,27 @@ const TITLES: Record<Variant, { title: string; subtitle: string }> = {
   role: {
     title: "AI‑Assisted Chat",
     subtitle:
-      "Interactive chat helps tailor your workspace and recommendations.",
+      "Set your role so VAIS can tailor guidance and defaults to your day‑to‑day. We’ll calibrate questions, examples, and actions to match your responsibilities. This helps surface what matters most first.",
   },
   usecase: {
     title: "Campaign Builder",
     subtitle:
-      "Setup goals and get smart templates, prompts and assets instantly.",
+      "Tell us the outcomes you care about and we’ll map them to smart flows. Get prebuilt templates, prompts, and assets to launch faster. Everything remains fully editable later.",
   },
   experience: {
     title: "Guided Experience",
     subtitle:
-      "We adapt the UI depth and helper tips based on your comfort level.",
+      "Whether you’re new or advanced, we adapt the level of guidance. Tooltips, presets, and defaults scale with your comfort. You’ll always know the next best step.",
   },
   industry: {
     title: "Industry Insights",
-    subtitle: "See sample playbooks, ICP hints and market data for your focus.",
+    subtitle:
+      "Choose your focus area to unlock sample ICPs, playbooks, and benchmarks. VAIS fine‑tunes copy and suggestions to your market language. Expect more relevant recommendations.",
   },
   category: {
     title: "Smart Suggestions",
     subtitle:
-      "Feature shortcuts and content ideas personalized to your product.",
+      "Selecting your product category improves search, prompts, and assets. Get accurate shortcuts and examples aligned to how your product is used. Personalization deepens over time.",
   },
 };
 
@@ -48,10 +49,10 @@ export default function OnboardingIllustration({
 
       <div className="relative h-full w-full flex items-center justify-center px-8">
         <div className="max-w-2xl w-full">
-          <h2 className="text-white text-2xl font-semibold drop-shadow-md">
+          <h2 className="text-black text-2xl font-semibold">
             {copy.title}
           </h2>
-          <p className="text-white text-sm mt-1 mb-6 max-w-xl drop-shadow">
+          <p className="text-black text-sm mt-1 mb-6 max-w-xl">
             {copy.subtitle}
           </p>
           {imageSrc ? (
