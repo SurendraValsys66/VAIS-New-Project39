@@ -59,7 +59,7 @@ export default function OnboardingRole() {
 
   return (
     <OnboardingSplitLayout
-      logoSrc="https://cdn.builder.io/api/v1/image/assets%2Ff2a051d62a994479965d33c6eada9792%2Fdd5060e416d64ccea76a3915edd085f1?format=webp&width=200"
+      logoSrc="https://cdn.builder.io/api/v1/image/assets%2Ff2a051d62a994479965d33c6eada9792%2Ff7e81e47c93c46318458da1db5d13955?format=webp&width=800"
       left={
         <div className="space-y-8 mx-auto">
           <div>
