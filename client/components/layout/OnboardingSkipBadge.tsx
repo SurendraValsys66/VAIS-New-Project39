@@ -71,20 +71,25 @@ export default function OnboardingSkipBadge({
       type="button"
       onClick={handleClick}
       className={cn(
-        "group relative flex items-center gap-2 rounded-full bg-gradient-to-r from-valasys-orange to-valasys-orange-light px-4 py-1.5 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(255,106,0,0.25)] transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-valasys-orange",
-        "before:absolute before:inset-0 before:rounded-full before:bg-white/20 before:opacity-0 before:transition-opacity before:duration-300 group-hover:before:opacity-100",
-        "after:absolute after:inset-0 after:rounded-full after:border after:border-white/40 after:opacity-70 after:animate-[pulse_2s_ease-in-out_infinite]",
+        "group relative flex items-center gap-2 rounded-full bg-gradient-to-r from-valasys-orange to-valasys-orange-light pr-3 pl-2 py-1 text-xs font-semibold text-white shadow-[0_10px_25px_rgba(255,106,0,0.2)] transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-valasys-orange",
+        "before:absolute before:inset-0 before:rounded-full before:bg-white/15 before:opacity-0 before:transition-opacity before:duration-300 group-hover:before:opacity-100",
+        "after:absolute after:inset-0 after:rounded-full after:border after:border-white/30 after:opacity-60 after:animate-[pulse_2s_ease-in-out_infinite]",
         className,
       )}
       aria-label="Resume onboarding"
     >
-      <span className="pointer-events-none absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center">
+      <span className="pointer-events-none absolute -right-1 -top-1 flex h-3.5 w-3.5 items-center justify-center">
         <span className="absolute inline-flex h-full w-full rounded-full bg-white/80 opacity-75 animate-ping" aria-hidden />
-        <span className="relative inline-flex h-2 w-2 rounded-full bg-white" aria-hidden />
+        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" aria-hidden />
       </span>
-      <Sparkles className="h-4 w-4" />
-      <div className="flex flex-col items-start leading-tight">
-        <span className="text-[11px] uppercase tracking-wide text-white/80">
+      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/20 text-white transition-transform duration-300 group-hover:rotate-3">
+        <Sparkles className="h-3.5 w-3.5" />
+      </span>
+      <span className="sr-only">Resume onboarding</span>
+      <div
+        className="flex max-w-0 translate-x-2 flex-col items-start overflow-hidden leading-tight opacity-0 transition-all duration-300 ease-out group-hover:max-w-[220px] group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:max-w-[220px] group-focus-visible:translate-x-0 group-focus-visible:opacity-100"
+      >
+        <span className="text-[10px] uppercase tracking-wide text-white/75">
           Resume onboarding
         </span>
         <span className="text-sm font-semibold">
