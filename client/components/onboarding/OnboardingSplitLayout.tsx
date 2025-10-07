@@ -18,7 +18,7 @@ export default function OnboardingSplitLayout({
       {logoSrc ? (
         <div className="pointer-events-auto absolute left-4 top-4 md:left-6 md:top-6 z-20">
           <Link to="/" className="inline-flex items-center">
-            <img src={logoSrc} alt={logoAlt} className="h-8 md:h-9 w-auto" />
+            <img src={logoSrc} alt={logoAlt} className="h-9 w-auto" />
           </Link>
         </div>
       ) : null}
