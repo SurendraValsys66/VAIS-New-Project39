@@ -111,7 +111,9 @@ export default function OnboardingSkipBadge({
           aria-hidden
         >
           <span className="font-semibold">{percentLabel}</span>
-          <span className="text-[9px] font-normal opacity-90">Resume Onboarding</span>
+          <span className="text-[9px] font-normal opacity-90">
+            Resume Onboarding
+          </span>
         </span>
         <Sparkles
           className="absolute h-3 w-3 opacity-0 transition-opacity duration-200 group-hover:opacity-100 sm:h-3.5 sm:w-3.5"
