@@ -48,11 +48,11 @@ export default function OnboardingIllustration({
       <div className="absolute -bottom-40 -right-24 h-96 w-96 rounded-full bg-black/10 blur-3xl" />
 
       <div className="relative h-full w-full flex items-center justify-center px-8">
-        <div className="max-w-xl w-full">
-          <h2 className="text-white/90 text-2xl font-semibold drop-shadow-sm">{copy.title}</h2>
-          <p className="text-white/80 text-sm mt-1 mb-6 max-w-md">{copy.subtitle}</p>
+        <div className="max-w-2xl w-full">
+          <h2 className="text-white text-2xl font-semibold drop-shadow-md">{copy.title}</h2>
+          <p className="text-white text-sm mt-1 mb-6 max-w-xl drop-shadow">{copy.subtitle}</p>
           {imageSrc ? (
-            <div className="relative mx-auto w-full max-w-md rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/20 backdrop-blur">
+            <div className="relative mx-auto w-full max-w-2xl rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/30 backdrop-blur-sm">
               <img src={imageSrc} alt={imageAlt} className="block w-full h-auto" />
             </div>
           ) : (
