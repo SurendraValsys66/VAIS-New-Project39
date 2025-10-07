@@ -87,24 +87,25 @@ export default function OnboardingSkipBadge({
       type="button"
       onClick={handleClick}
       className={cn(
-        "group relative flex min-h-[2.25rem] items-center gap-2 rounded-full bg-gradient-to-r from-valasys-orange to-valasys-orange-light pr-3 pl-2 py-1 text-xs font-semibold text-white shadow-[0_8px_22px_rgba(255,106,0,0.18)] transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-valasys-orange",
+        "group relative flex min-h-[1.9rem] items-center gap-1.5 rounded-full bg-gradient-to-r from-valasys-orange to-valasys-orange-light pr-2.5 pl-2 py-0.5 text-[11px] font-semibold text-white shadow-[0_8px_22px_rgba(255,106,0,0.18)] transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-valasys-orange",
+        "sm:min-h-[2.25rem] sm:gap-2 sm:pr-3 sm:py-1",
         "before:absolute before:inset-0 before:rounded-full before:bg-white/15 before:opacity-0 before:transition-opacity before:duration-300 group-hover:before:opacity-100",
         "after:absolute after:inset-0 after:rounded-full after:border after:border-white/25 after:opacity-60 after:animate-[pulse_2s_ease-in-out_infinite]",
         className,
       )}
       aria-label={`Resume onboarding, ${percentLabel} complete`}
     >
-      <span className="pointer-events-none absolute -right-1 -top-1 flex h-3.5 w-3.5 items-center justify-center">
+      <span className="pointer-events-none absolute -right-1 -top-1 flex h-3 w-3 items-center justify-center sm:h-3.5 sm:w-3.5">
         <span
           className="absolute inline-flex h-full w-full rounded-full bg-white/80 opacity-75 animate-ping"
           aria-hidden
         />
         <span
-          className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white"
+          className="relative inline-flex h-1 w-1 rounded-full bg-white sm:h-1.5 sm:w-1.5"
           aria-hidden
         />
       </span>
-      <span className="relative flex h-7 w-7 items-center justify-center rounded-full bg-white/20 text-[11px] font-semibold text-white transition-all duration-300 group-hover:bg-white/25">
+      <span className="relative flex h-6 w-6 items-center justify-center rounded-full bg-white/20 text-[10px] font-semibold text-white transition-all duration-300 group-hover:bg-white/25 sm:h-7 sm:w-7 sm:text-[11px]">
         <span
           className="transition-opacity duration-200 group-hover:opacity-0"
           aria-hidden
@@ -112,16 +113,18 @@ export default function OnboardingSkipBadge({
           {percentLabel}
         </span>
         <Sparkles
-          className="absolute h-3.5 w-3.5 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+          className="absolute h-3 w-3 opacity-0 transition-opacity duration-200 group-hover:opacity-100 sm:h-3.5 sm:w-3.5"
           aria-hidden
         />
       </span>
       <span className="sr-only">Resume onboarding</span>
-      <div className="flex max-w-0 translate-x-2 flex-col items-start overflow-hidden leading-tight opacity-0 transition-all duration-300 ease-out group-hover:max-w-[220px] group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:max-w-[220px] group-focus-visible:translate-x-0 group-focus-visible:opacity-100">
-        <span className="text-[10px] uppercase tracking-wide text-white/75">
+      <div className="flex max-w-0 translate-x-1.5 flex-col items-start overflow-hidden leading-tight opacity-0 transition-all duration-300 ease-out group-hover:max-w-[220px] group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:max-w-[220px] group-focus-visible:translate-x-0 group-focus-visible:opacity-100 sm:translate-x-2">
+        <span className="text-[9px] uppercase tracking-wide text-white/75 sm:text-[10px]">
           Resume onboarding · {percentLabel} complete
         </span>
-        <span className="text-sm font-semibold">{reminder.stepLabel}</span>
+        <span className="text-xs font-semibold sm:text-sm">
+          {reminder.stepLabel}
+        </span>
       </div>
     </button>
   );
