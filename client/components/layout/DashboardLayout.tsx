@@ -636,7 +636,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         )}
       >
         {/* Top Header */}
-        <header className="bg-white shadow-sm border-b border-valasys-gray-200 sticky top-0 z-40 pt-10">
+        <header className="bg-white shadow-sm border-b border-valasys-gray-200 sticky top-0 z-40 pt-2 sm:pt-4 lg:pt-10">
           <TrialBanner
             className="fixed inset-x-0 top-0 z-[60]"
             daysUsed={5}
