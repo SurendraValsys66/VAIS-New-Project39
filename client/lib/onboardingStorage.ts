@@ -94,13 +94,15 @@ export interface OnboardingSkipReminder {
 export function saveOnboardingSkipReminder(
   reminder: Omit<OnboardingSkipReminder, "createdAt">,
 ): OnboardingSkipReminder {
-  if (!canUseStorage()) {
-    return { ...reminder, createdAt: Date.now() };
-  }
+  const now = Date.now();
   const value: OnboardingSkipReminder = {
     ...reminder,
-    createdAt: Date.now(),
+    totalSteps: reminder.totalSteps ?? 6,
+    createdAt: now,
   };
+  if (!canUseStorage()) {
+    return value;
+  }
   localStorage.setItem(SKIP_KEY, JSON.stringify(value));
   return value;
 }
