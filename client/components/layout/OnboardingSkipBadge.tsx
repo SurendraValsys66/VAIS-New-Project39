@@ -18,12 +18,14 @@ export default function OnboardingSkipBadge({
   className,
 }: OnboardingSkipBadgeProps) {
   const navigate = useNavigate();
-  const [reminder, setReminder] = useState<OnboardingSkipReminder | null>(() => {
-    if (typeof window === "undefined") {
-      return null;
-    }
-    return getOnboardingSkipReminder();
-  });
+  const [reminder, setReminder] = useState<OnboardingSkipReminder | null>(
+    () => {
+      if (typeof window === "undefined") {
+        return null;
+      }
+      return getOnboardingSkipReminder();
+    },
+  );
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -44,7 +46,10 @@ export default function OnboardingSkipBadge({
       setReminder(getOnboardingSkipReminder());
     };
 
-    window.addEventListener(ONBOARDING_SKIP_EVENT, handleUpdate as EventListener);
+    window.addEventListener(
+      ONBOARDING_SKIP_EVENT,
+      handleUpdate as EventListener,
+    );
     window.addEventListener("storage", handleStorage);
 
     return () => {
@@ -67,7 +72,10 @@ export default function OnboardingSkipBadge({
   };
 
   const totalSteps = Math.max(1, reminder.totalSteps ?? 6);
-  const completedSteps = Math.max(0, Math.min(totalSteps, reminder.stepNumber - 1));
+  const completedSteps = Math.max(
+    0,
+    Math.min(totalSteps, reminder.stepNumber - 1),
+  );
   const progressPercent = Math.max(
     0,
     Math.min(100, Math.round((completedSteps / totalSteps) * 100)),
@@ -87,8 +95,14 @@ export default function OnboardingSkipBadge({
       aria-label={`Resume onboarding, ${percentLabel} complete`}
     >
       <span className="pointer-events-none absolute -right-1 -top-1 flex h-3.5 w-3.5 items-center justify-center">
-        <span className="absolute inline-flex h-full w-full rounded-full bg-white/80 opacity-75 animate-ping" aria-hidden />
-        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" aria-hidden />
+        <span
+          className="absolute inline-flex h-full w-full rounded-full bg-white/80 opacity-75 animate-ping"
+          aria-hidden
+        />
+        <span
+          className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white"
+          aria-hidden
+        />
       </span>
       <span className="relative flex h-7 w-7 items-center justify-center rounded-full bg-white/20 text-[11px] font-semibold text-white transition-all duration-300 group-hover:bg-white/25">
         <span
@@ -103,15 +117,11 @@ export default function OnboardingSkipBadge({
         />
       </span>
       <span className="sr-only">Resume onboarding</span>
-      <div
-        className="flex max-w-0 translate-x-2 flex-col items-start overflow-hidden leading-tight opacity-0 transition-all duration-300 ease-out group-hover:max-w-[220px] group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:max-w-[220px] group-focus-visible:translate-x-0 group-focus-visible:opacity-100"
-      >
+      <div className="flex max-w-0 translate-x-2 flex-col items-start overflow-hidden leading-tight opacity-0 transition-all duration-300 ease-out group-hover:max-w-[220px] group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:max-w-[220px] group-focus-visible:translate-x-0 group-focus-visible:opacity-100">
         <span className="text-[10px] uppercase tracking-wide text-white/75">
           Resume onboarding · {percentLabel} complete
         </span>
-        <span className="text-sm font-semibold">
-          {reminder.stepLabel}
-        </span>
+        <span className="text-sm font-semibold">{reminder.stepLabel}</span>
       </div>
     </button>
   );

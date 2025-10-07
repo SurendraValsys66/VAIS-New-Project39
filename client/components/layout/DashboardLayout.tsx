@@ -33,7 +33,6 @@ import {
   Plug,
   ChevronDown,
   Lock,
-
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -145,9 +144,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   }, []);
 
   const [chatOpen, setChatOpen] = useState(false);
-
-
-
 
   // Tooltip state for disabled Manage Users item (rendered via portal outside sidebar)
   const [manageUsersTooltipVisible, setManageUsersTooltipVisible] =
@@ -693,7 +689,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               <div className="flex items-center space-x-4">
                 <OnboardingSkipBadge />
                 <div className="flex items-center space-x-3">
-
                   {/* Notification Dropdown */}
                   <div data-tour="notifications" className="relative">
                     <DropdownMenu>
@@ -1159,8 +1154,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           enableDrag={true}
         />
       </div>
-
-
 
       {/* Platform Tour */}
       <PlatformTour
