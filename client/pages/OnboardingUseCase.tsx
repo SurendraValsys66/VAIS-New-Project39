@@ -49,8 +49,14 @@ export default function OnboardingUseCase() {
       left={
         <div className="space-y-8 mx-auto">
           <div>
-            <div className="text-sm font-medium text-valasys-gray-700">Getting to know you</div>
-            <StepProgress current={2} total={6} title="What would you like to use VAIS for?" />
+            <div className="text-sm font-medium text-valasys-gray-700">
+              Getting to know you
+            </div>
+            <StepProgress
+              current={2}
+              total={6}
+              title="What would you like to use VAIS for?"
+            />
           </div>
           <RadioGroup
             value={value}
@@ -61,7 +67,11 @@ export default function OnboardingUseCase() {
             className="grid gap-3"
           >
             {OPTIONS.map((opt) => (
-              <motion.div key={opt.label} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.99 }}>
+              <motion.div
+                key={opt.label}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.99 }}
+              >
                 <Label
                   htmlFor={`usecase-${opt.label}`}
                   className={`flex items-center gap-3 rounded-lg border p-3 cursor-pointer transition-colors ${
@@ -70,9 +80,14 @@ export default function OnboardingUseCase() {
                       : "border-valasys-gray-200 hover:border-valasys-orange/60"
                   }`}
                 >
-                  <RadioGroupItem id={`usecase-${opt.label}`} value={opt.label} />
+                  <RadioGroupItem
+                    id={`usecase-${opt.label}`}
+                    value={opt.label}
+                  />
                   <opt.icon className="h-4 w-4 text-valasys-orange" />
-                  <span className="text-sm text-valasys-gray-800">{opt.label}</span>
+                  <span className="text-sm text-valasys-gray-800">
+                    {opt.label}
+                  </span>
                 </Label>
               </motion.div>
             ))}
@@ -85,7 +100,11 @@ export default function OnboardingUseCase() {
             >
               Skip for now
             </button>
-            <Button onClick={onNext} disabled={!value} className="bg-valasys-orange hover:bg-valasys-orange-light text-white">
+            <Button
+              onClick={onNext}
+              disabled={!value}
+              className="bg-valasys-orange hover:bg-valasys-orange-light text-white"
+            >
               Continue
             </Button>
           </div>

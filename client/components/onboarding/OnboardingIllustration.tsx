@@ -20,8 +20,7 @@ const TITLES: Record<Variant, { title: string; subtitle: string }> = {
   },
   industry: {
     title: "Industry Insights",
-    subtitle:
-      "See sample playbooks, ICP hints and market data for your focus.",
+    subtitle: "See sample playbooks, ICP hints and market data for your focus.",
   },
   category: {
     title: "Smart Suggestions",
@@ -49,11 +48,19 @@ export default function OnboardingIllustration({
 
       <div className="relative h-full w-full flex items-center justify-center px-8">
         <div className="max-w-2xl w-full">
-          <h2 className="text-white text-2xl font-semibold drop-shadow-md">{copy.title}</h2>
-          <p className="text-white text-sm mt-1 mb-6 max-w-xl drop-shadow">{copy.subtitle}</p>
+          <h2 className="text-white text-2xl font-semibold drop-shadow-md">
+            {copy.title}
+          </h2>
+          <p className="text-white text-sm mt-1 mb-6 max-w-xl drop-shadow">
+            {copy.subtitle}
+          </p>
           {imageSrc ? (
             <div className="relative mx-auto w-full max-w-2xl rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/30 backdrop-blur-sm">
-              <img src={imageSrc} alt={imageAlt} className="block w-full h-auto" />
+              <img
+                src={imageSrc}
+                alt={imageAlt}
+                className="block w-full h-auto"
+              />
             </div>
           ) : (
             <DevicePreview />
