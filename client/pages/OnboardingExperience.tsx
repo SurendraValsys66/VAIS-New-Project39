@@ -90,7 +90,13 @@ export default function OnboardingExperience() {
           </div>
         </div>
       }
-      right={<OnboardingIllustration variant="experience" />}
+      right={
+        <OnboardingIllustration
+          variant="experience"
+          imageSrc="https://cdn.builder.io/api/v1/image/assets%2Ff2a051d62a994479965d33c6eada9792%2Fdd5060e416d64ccea76a3915edd085f1?format=webp&width=800"
+          imageAlt="Dashboard preview"
+        />
+      }
     />
   );
 }
