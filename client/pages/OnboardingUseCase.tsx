@@ -12,8 +12,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import { ListChecks, Rocket, Database } from "lucide-react";
 import { motion } from "framer-motion";
-import OnboardingDecor from "@/components/onboarding/Decor";
-import OnboardingSummaryPanel from "@/components/onboarding/OnboardingSummaryPanel";
+import OnboardingSplitLayout from "@/components/onboarding/OnboardingSplitLayout";
+import OnboardingIllustration from "@/components/onboarding/OnboardingIllustration";
 
 const OPTIONS = [
   { label: "Build accounts/prospects list", icon: ListChecks },
