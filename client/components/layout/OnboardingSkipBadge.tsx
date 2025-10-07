@@ -84,7 +84,7 @@ export default function OnboardingSkipBadge({
         "after:absolute after:inset-0 after:rounded-full after:border after:border-white/25 after:opacity-60 after:animate-[pulse_2s_ease-in-out_infinite]",
         className,
       )}
-      aria-label="Resume onboarding"
+      aria-label={`Resume onboarding, ${percentLabel} complete`}
     >
       <span className="pointer-events-none absolute -right-1 -top-1 flex h-3.5 w-3.5 items-center justify-center">
         <span className="absolute inline-flex h-full w-full rounded-full bg-white/80 opacity-75 animate-ping" aria-hidden />
