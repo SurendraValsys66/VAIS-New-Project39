@@ -93,7 +93,7 @@ export default function OnboardingSkipBadge({
         "after:absolute after:inset-0 after:rounded-full after:border after:border-white/25 after:opacity-60 after:animate-[onboardingPulse_1.8s_ease-in-out_infinite]",
         className,
       )}
-      aria-label={`Resume onboarding, ${percentLabel} complete`}
+      aria-label={`Resume Onboarding, ${percentLabel} complete`}
     >
       <span className="pointer-events-none absolute -right-1 -top-1 flex h-3 w-3 items-center justify-center sm:h-3.5 sm:w-3.5">
         <span
@@ -111,17 +111,17 @@ export default function OnboardingSkipBadge({
           aria-hidden
         >
           <span className="font-semibold">{percentLabel}</span>
-          <span className="text-[9px] font-normal opacity-90">Resume onboarding</span>
+          <span className="text-[9px] font-normal opacity-90">Resume Onboarding</span>
         </span>
         <Sparkles
           className="absolute h-3 w-3 opacity-0 transition-opacity duration-200 group-hover:opacity-100 sm:h-3.5 sm:w-3.5"
           aria-hidden
         />
       </span>
-      <span className="sr-only">Resume onboarding</span>
+      <span className="sr-only">Resume Onboarding</span>
       <div className="flex max-w-0 translate-x-1.5 flex-col items-start overflow-hidden leading-tight opacity-0 transition-all duration-300 ease-out group-hover:max-w-[220px] group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:max-w-[220px] group-focus-visible:translate-x-0 group-focus-visible:opacity-100 sm:translate-x-2">
         <span className="text-[9px] uppercase tracking-wide text-white/75 sm:text-[10px]">
-          Resume onboarding · {percentLabel} complete
+          Resume Onboarding · {percentLabel} complete
         </span>
         <span className="text-xs font-semibold sm:text-sm">
           {reminder.stepLabel}
