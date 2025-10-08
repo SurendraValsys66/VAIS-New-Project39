@@ -30,12 +30,31 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+
+const MASTERY_DISMISS_KEY = "valasys-mastery-dismissed";
 
 export default function MasteryBottomBar() {
   const [state, setState] = useState<MasterySteps>({});
-  const [hidden, setHidden] = useState(false);
+  const [hidden, setHidden] = useState(() => {
+    if (typeof window === "undefined") return false;
+    try {
+      return localStorage.getItem(MASTERY_DISMISS_KEY) === "1";
+    } catch (error) {
+      return false;
+    }
+  });
   const [expanded, setExpanded] = useState(false);
   const [openHints, setOpenHints] = useState<Record<string, boolean>>({});
+  const [showDismissDialog, setShowDismissDialog] = useState(false);
   const toggleHint = (key: string) =>
     setOpenHints((s) => {
       const isOpen = !!s[key];
@@ -181,6 +200,15 @@ export default function MasteryBottomBar() {
   const percent = calculateMasteryPercentage(state);
   if (hidden) return null;
 
+  const handleConfirmRemove = useCallback(() => {
+    try {
+      localStorage.setItem(MASTERY_DISMISS_KEY, "1");
+    } catch (error) {}
+    setHidden(true);
+    setShowDismissDialog(false);
+    setExpanded(false);
+  }, []);
+
   const manPos = Math.max(0, Math.min(100, percent));
   const handleOpenGuide = useCallback(() => setExpanded(true), []);
   const handleCloseGuide = useCallback(() => setExpanded(false), []);
@@ -195,11 +223,12 @@ export default function MasteryBottomBar() {
   );
 
   return (
-    <div className="fixed inset-x-0 bottom-4 z-50 pointer-events-none">
-      <div
-        className="mx-auto w-[min(92vw,520px)] pointer-events-auto"
-        onMouseLeave={handleCloseGuide}
-      >
+    <>
+      <div className="fixed inset-x-0 bottom-4 z-50 pointer-events-none">
+        <div
+          className="mx-auto w-[min(92vw,520px)] pointer-events-auto"
+          onMouseLeave={handleCloseGuide}
+        >
         {/* Slide-up panel */}
         <AnimatePresence initial={false}>
           {expanded && (
@@ -418,7 +447,7 @@ export default function MasteryBottomBar() {
               onClick={(event) => {
                 event.stopPropagation();
                 handleCloseGuide();
-                setHidden(true);
+                setShowDismissDialog(true);
               }}
               className="ml-1 rounded-md hover:opacity-90"
               title="Hide for now"
@@ -432,7 +461,30 @@ export default function MasteryBottomBar() {
             Your VAIS mastery: {percent}%
           </div>
         </div>
+        </div>
       </div>
-    </div>
+
+      <Dialog open={showDismissDialog} onOpenChange={setShowDismissDialog}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Hide mastery progress?</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to close this? Your progress will be lost permanently, and you’ll no longer be eligible for free credits.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setShowDismissDialog(false)}
+            >
+              Close
+            </Button>
+            <Button variant="destructive" onClick={handleConfirmRemove}>
+              Remove
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
