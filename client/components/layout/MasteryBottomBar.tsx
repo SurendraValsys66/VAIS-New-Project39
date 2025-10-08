@@ -198,7 +198,6 @@ export default function MasteryBottomBar() {
   }, [state]);
 
   const percent = calculateMasteryPercentage(state);
-  if (hidden) return null;
 
   const handleConfirmRemove = useCallback(() => {
     try {
@@ -221,6 +220,10 @@ export default function MasteryBottomBar() {
     },
     [],
   );
+
+  if (hidden && !showDismissDialog) {
+    return null;
+  }
 
   return (
     <>
