@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { X, CheckCircle, Circle, Coins } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
@@ -165,12 +171,15 @@ export default function MasteryBottomBar() {
   const manPos = Math.max(0, Math.min(100, percent));
   const handleOpenGuide = useCallback(() => setExpanded(true), []);
   const handleCloseGuide = useCallback(() => setExpanded(false), []);
-  const handleGuideKeyDown = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      setExpanded(true);
-    }
-  }, []);
+  const handleGuideKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        setExpanded(true);
+      }
+    },
+    [],
+  );
 
   return (
     <div className="fixed inset-x-0 bottom-4 z-50 pointer-events-none">
