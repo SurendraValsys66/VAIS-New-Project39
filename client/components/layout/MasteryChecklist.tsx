@@ -100,7 +100,6 @@ export default function MasteryChecklist({
       },
     ];
 
-
     return list;
   }, [doneAll, state]);
 

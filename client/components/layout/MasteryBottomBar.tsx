@@ -195,7 +195,10 @@ export default function MasteryBottomBar() {
         label: "Download the Accounts from the VAIS Results page",
         completed: !!state.accountsDownloaded,
         hint: (
-          <>Head to the VAIS Results page, apply any filters you need, then export the ready-to-use account list.</>
+          <>
+            Head to the VAIS Results page, apply any filters you need, then
+            export the ready-to-use account list.
+          </>
         ),
         to: "/vais-results",
         cta: "Open VAIS Results",
@@ -222,13 +225,15 @@ export default function MasteryBottomBar() {
         label: "Download the Prospect Details",
         completed: !!state.prospectDetailsDownloaded,
         hint: (
-          <>Open your Prospect Results, preview the contacts, and download the detailed CSV to share with your team.</>
+          <>
+            Open your Prospect Results, preview the contacts, and download the
+            detailed CSV to share with your team.
+          </>
         ),
         to: "/prospect-results",
         cta: "View prospect results",
       },
     ];
-
 
     return list;
   }, [doneAll, state]);
