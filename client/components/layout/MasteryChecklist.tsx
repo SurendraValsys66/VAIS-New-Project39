@@ -26,7 +26,8 @@ export default function MasteryChecklist({
 }) {
   const [state, setState] = useState<MasterySteps>({});
   const [openHints, setOpenHints] = useState<Record<string, boolean>>({});
-  const toggleHint = (key: string) => setOpenHints((s) => ({ ...s, [key]: !s[key] }));
+  const toggleHint = (key: string) =>
+    setOpenHints((s) => ({ ...s, [key]: !s[key] }));
 
   useEffect(() => {
     setState(getMastery());
@@ -197,11 +198,15 @@ export default function MasteryChecklist({
                           aria-expanded={!!openHints[s.key]}
                         >
                           <span>{s.label}</span>
-                          <span className="ml-2 text-xs text-[#666]">{openHints[s.key] ? "Hide hint" : "Show hint"}</span>
+                          <span className="ml-2 text-xs text-[#666]">
+                            {openHints[s.key] ? "Hide hint" : "Show hint"}
+                          </span>
                         </button>
                         {openHints[s.key] && (
                           <div className="mt-2 text-xs text-[#555] bg-gray-50 border border-gray-100 p-2 rounded">
-                            Hint: Complete your onboarding by selecting the role and filling in the basic info. This unlocks free credits.
+                            Hint: Complete your onboarding by selecting the role
+                            and filling in the basic info. This unlocks free
+                            credits.
                           </div>
                         )}
                       </div>
