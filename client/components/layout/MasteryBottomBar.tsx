@@ -39,6 +39,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import ConfettiCanvas from "@/components/onboarding/ConfettiCanvas";
 
 const MASTERY_DISMISS_KEY = "valasys-mastery-dismissed";
 
