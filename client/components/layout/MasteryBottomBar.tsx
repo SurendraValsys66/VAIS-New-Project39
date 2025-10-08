@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { X, CheckCircle, Circle, ChevronUp } from "lucide-react";
+import { X, CheckCircle, Circle, ChevronUp, Coins } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Link } from "react-router-dom";
 import {
@@ -10,11 +10,13 @@ import {
   MASTERY_EVENT,
 } from "@/lib/masteryStorage";
 import { AnimatePresence, motion } from "framer-motion";
+import { toast as sonnerToast } from "sonner";
 
 export default function MasteryBottomBar() {
   const [state, setState] = useState<MasterySteps>({});
   const [hidden, setHidden] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const prevRef = useRef<MasterySteps>({});
 
   useEffect(() => {
     setState(getMastery());
@@ -27,6 +29,40 @@ export default function MasteryBottomBar() {
       clearInterval(id);
     };
   }, []);
+
+  // Show encouragement toasts when steps are newly completed
+  useEffect(() => {
+    const prev = prevRef.current;
+    const now = state;
+    const newlyCompleted: Array<{ key: keyof MasterySteps; label: string }> = [];
+
+    if (!prev.onboardingCompleted && now.onboardingCompleted)
+      newlyCompleted.push({ key: "onboardingCompleted", label: "Onboarding completed" });
+    if (!prev.vaisResultsGenerated && now.vaisResultsGenerated)
+      newlyCompleted.push({ key: "vaisResultsGenerated", label: "VAIS Results generated" });
+    if (!prev.accountsDownloaded && now.accountsDownloaded)
+      newlyCompleted.push({ key: "accountsDownloaded", label: "Accounts downloaded" });
+    if (!prev.prospectSearchGenerated && now.prospectSearchGenerated)
+      newlyCompleted.push({ key: "prospectSearchGenerated", label: "Prospect Search generated" });
+    if (!prev.prospectDetailsDownloaded && now.prospectDetailsDownloaded)
+      newlyCompleted.push({ key: "prospectDetailsDownloaded", label: "Prospect Details downloaded" });
+
+    newlyCompleted.forEach((s) => {
+      sonnerToast.success(`Credits added for: ${s.label}`, {
+        description: "Keep going to unlock your bonus",
+        icon: <Coins className="w-5 h-5 text-amber-500" />,
+        duration: 3500,
+      });
+    });
+
+    const prevPct = calculateMasteryPercentage(prev);
+    const currPct = calculateMasteryPercentage(now);
+    if (prevPct < 100 && currPct >= 100) {
+      sonnerToast("Bonus unlocked! You completed all mastery steps.");
+    }
+
+    prevRef.current = state;
+  }, [state]);
 
   const steps = useMemo(
     () => [
@@ -115,6 +151,10 @@ export default function MasteryBottomBar() {
               </div>
 
               <div className="px-5 pb-4 max-h-[360px] overflow-y-auto">
+                <div className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-amber-100 text-amber-800 px-2 py-1 text-[11px] font-semibold">
+                  <Coins className="w-3.5 h-3.5" />
+                  Earn credits for each step — bonus on completion
+                </div>
                 <ul className="space-y-3">
                   {steps.map((s, idx) => (
                     <li key={idx} className="flex items-start gap-3">
@@ -126,7 +166,15 @@ export default function MasteryBottomBar() {
                         )}
                       </div>
                       <div className="text-sm text-[#333333] leading-5">
-                        {s.label}
+                        <div className="flex items-center gap-2">
+                          <span>{s.label}</span>
+                          {!s.completed && (
+                            <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 px-1.5 py-0.5 text-[10px] font-semibold">
+                              <Coins className="w-3 h-3" />
+                              Earn credits
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </li>
                   ))}
@@ -205,6 +253,9 @@ export default function MasteryBottomBar() {
           {/* Bottom text */}
           <div className="text-center text-[12px] font-semibold">
             Your VAIS mastery: {percent}%
+          </div>
+          <div className="text-center text-[11px] font-medium/relaxed text-white/90">
+            Complete steps to earn credits. Finish all steps to unlock a bonus.
           </div>
         </div>
       </div>
