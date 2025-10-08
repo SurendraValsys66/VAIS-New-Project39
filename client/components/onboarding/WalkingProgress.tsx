@@ -23,9 +23,19 @@ function GiftIcon({ className }: { className?: string }) {
       >
         <rect x="8" y="24" width="48" height="32" rx="6" fill="#FF6A00" />
         <rect x="12" y="28" width="40" height="24" rx="4" fill="#F5A243" />
-        <rect x="30" y="24" width="4" height="32" fill="#ffffff" opacity="0.9" />
+        <rect
+          x="30"
+          y="24"
+          width="4"
+          height="32"
+          fill="#ffffff"
+          opacity="0.9"
+        />
         <rect x="8" y="24" width="48" height="8" fill="#FF8C33" />
-        <path d="M24 24c-3-3-4-9 2-10 4-1 6 3 6 5 0-2 2-6 6-5 6 1 5 7 2 10" fill="#FF6A00" />
+        <path
+          d="M24 24c-3-3-4-9 2-10 4-1 6 3 6 5 0-2 2-6 6-5 6 1 5 7 2 10"
+          fill="#FF6A00"
+        />
         <path d="M24 24c-2-2-3-6 1-7 3-1 5 2 5 3" fill="#FCE0C7" />
         <path d="M40 24c2-2 3-6-1-7-3-1-5 2-5 3" fill="#FCE0C7" />
       </svg>

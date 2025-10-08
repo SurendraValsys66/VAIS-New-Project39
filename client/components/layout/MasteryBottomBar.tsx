@@ -201,7 +201,10 @@ export default function MasteryBottomBar() {
                 </ul>
                 {doneAll && (
                   <div className="mt-4 flex">
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 text-gray-500 border border-gray-200 px-2.5 py-1 text-[11px] font-semibold cursor-not-allowed select-none" aria-disabled>
+                    <span
+                      className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 text-gray-500 border border-gray-200 px-2.5 py-1 text-[11px] font-semibold cursor-not-allowed select-none"
+                      aria-disabled
+                    >
                       <Coins className="w-3.5 h-3.5" />
                       Congratulation! You earn extra credits
                     </span>
