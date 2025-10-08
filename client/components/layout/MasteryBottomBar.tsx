@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { X, CheckCircle, Circle, ChevronUp } from "lucide-react";
+import { X, CheckCircle, Circle, ChevronUp, Coins } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Link } from "react-router-dom";
 import {
@@ -10,11 +10,18 @@ import {
   MASTERY_EVENT,
 } from "@/lib/masteryStorage";
 import { AnimatePresence, motion } from "framer-motion";
+import { toast as sonnerToast } from "sonner";
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from "@/components/ui/tooltip";
 
 export default function MasteryBottomBar() {
   const [state, setState] = useState<MasterySteps>({});
   const [hidden, setHidden] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const prevRef = useRef<MasterySteps>({});
 
   useEffect(() => {
     setState(getMastery());
@@ -27,6 +34,56 @@ export default function MasteryBottomBar() {
       clearInterval(id);
     };
   }, []);
+
+  // Show encouragement toasts when steps are newly completed
+  useEffect(() => {
+    const prev = prevRef.current;
+    const now = state;
+    const newlyCompleted: Array<{ key: keyof MasterySteps; label: string }> =
+      [];
+
+    if (!prev.onboardingCompleted && now.onboardingCompleted)
+      newlyCompleted.push({
+        key: "onboardingCompleted",
+        label: "Onboarding completed",
+      });
+    if (!prev.vaisResultsGenerated && now.vaisResultsGenerated)
+      newlyCompleted.push({
+        key: "vaisResultsGenerated",
+        label: "VAIS Results generated",
+      });
+    if (!prev.accountsDownloaded && now.accountsDownloaded)
+      newlyCompleted.push({
+        key: "accountsDownloaded",
+        label: "Accounts downloaded",
+      });
+    if (!prev.prospectSearchGenerated && now.prospectSearchGenerated)
+      newlyCompleted.push({
+        key: "prospectSearchGenerated",
+        label: "Prospect Search generated",
+      });
+    if (!prev.prospectDetailsDownloaded && now.prospectDetailsDownloaded)
+      newlyCompleted.push({
+        key: "prospectDetailsDownloaded",
+        label: "Prospect Details downloaded",
+      });
+
+    newlyCompleted.forEach((s) => {
+      sonnerToast.success(`Credits added for: ${s.label}`, {
+        description: "Keep going to unlock your bonus",
+        icon: <Coins className="w-5 h-5 text-amber-500" />,
+        duration: 3500,
+      });
+    });
+
+    const prevPct = calculateMasteryPercentage(prev);
+    const currPct = calculateMasteryPercentage(now);
+    if (prevPct < 100 && currPct >= 100) {
+      sonnerToast("Bonus unlocked! You completed all mastery steps.");
+    }
+
+    prevRef.current = state;
+  }, [state]);
 
   const steps = useMemo(
     () => [
@@ -78,6 +135,8 @@ export default function MasteryBottomBar() {
   const percent = calculateMasteryPercentage(state);
   if (hidden || percent >= 100) return null;
 
+  const manPos = Math.max(0, Math.min(100, percent));
+
   return (
     <div className="fixed inset-x-0 bottom-4 z-50 pointer-events-none">
       <div className="mx-auto w-[min(92vw,520px)] pointer-events-auto">
@@ -115,6 +174,10 @@ export default function MasteryBottomBar() {
               </div>
 
               <div className="px-5 pb-4 max-h-[360px] overflow-y-auto">
+                <div className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-amber-100 text-amber-800 px-2 py-1 text-[11px] font-semibold">
+                  <Coins className="w-3.5 h-3.5" />
+                  Earn credits for each step — bonus on completion
+                </div>
                 <ul className="space-y-3">
                   {steps.map((s, idx) => (
                     <li key={idx} className="flex items-start gap-3">
@@ -126,7 +189,15 @@ export default function MasteryBottomBar() {
                         )}
                       </div>
                       <div className="text-sm text-[#333333] leading-5">
-                        {s.label}
+                        <div className="flex items-center gap-2">
+                          <span>{s.label}</span>
+                          {!s.completed && (
+                            <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 px-1.5 py-0.5 text-[10px] font-semibold">
+                              <Coins className="w-3 h-3" />
+                              Earn credits
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </li>
                   ))}
@@ -139,9 +210,32 @@ export default function MasteryBottomBar() {
         {/* Next up suggestion (shown when collapsed) */}
         {!expanded && next && (
           <div className="mb-2 flex items-center justify-between rounded-xl border border-gray-200 bg-white px-3 py-2 shadow-sm">
-            <div className="text-[13px]">
-              <span className="font-semibold text-[#FF7A00]">Next up: </span>
-              <span className="text-[#333]">{next.label}</span>
+            <div className="flex items-center gap-2">
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="bg-white rounded-xl shadow-md p-1">
+                    <img
+                      src="https://cdn.builder.io/o/assets%2F1d0d3cbc213245beba3786aa1a6f12a3%2F515d18c2065f4103840ed7e794f0f02f?alt=media&token=b6ff5c54-de26-42ea-960d-cf00e42191cf&apiKey=1d0d3cbc213245beba3786aa1a6f12a3"
+                      alt="Earn credits"
+                      className="h-6 w-6 rounded"
+                      loading="lazy"
+                    />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent
+                  side="top"
+                  className="max-w-[260px] text-center"
+                >
+                  <div>
+                    Complete steps to earn credits. Finish all steps to unlock a
+                    bonus.
+                  </div>
+                </TooltipContent>
+              </Tooltip>
+              <div className="text-[13px]">
+                <span className="font-semibold text-[#FF7A00]">Next up: </span>
+                <span className="text-[#333]">{next.label}</span>
+              </div>
             </div>
             <div className="flex items-center gap-2">
               <button
@@ -180,8 +274,14 @@ export default function MasteryBottomBar() {
               className="flex-1 text-left"
             >
               <div className="flex items-center gap-3">
-                <div className="flex-1">
+                <div className="relative flex-1">
                   <Progress value={percent} className="h-[14px] bg-[#F1F1F1]" />
+                  <img
+                    src="https://cdn.builder.io/o/assets%2F1d0d3cbc213245beba3786aa1a6f12a3%2F56aede21efb849a7aa049e8e2f87be99?alt=media&token=e4598e27-8e81-4e91-8d2c-e890a2c118e8&apiKey=1d0d3cbc213245beba3786aa1a6f12a3"
+                    alt="Walking progress"
+                    className="pointer-events-none select-none absolute top-1/2 -translate-y-1/2 -translate-x-1/2 h-6 w-6 sm:h-7 sm:w-7 drop-shadow"
+                    style={{ left: `${manPos}%` }}
+                  />
                 </div>
                 <ChevronUp
                   className={
