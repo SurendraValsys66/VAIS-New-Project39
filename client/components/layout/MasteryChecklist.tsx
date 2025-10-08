@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Progress } from "@/components/ui/progress";
 import { CheckCircle, Circle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -56,6 +56,8 @@ export default function MasteryChecklist({
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="max-w-[500px] p-0 overflow-hidden">
+        <DialogTitle className="sr-only">VAIS Mastery Steps Guide</DialogTitle>
+        <DialogDescription className="sr-only">Complete these steps to unlock your full VAIS potential</DialogDescription>
         <div className="bg-white rounded-lg shadow-xl max-h-[540px]">
           {/* Header */}
           <div className="px-6 pt-5 pb-4">
