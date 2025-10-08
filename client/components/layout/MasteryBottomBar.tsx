@@ -58,7 +58,7 @@ export default function MasteryBottomBar({
           <button
             aria-label="Dismiss mastery"
             onClick={() => setMasteryDismissed(true)}
-            className="ml-1 rounded-md/7 hover:opacity-90"
+            className="ml-1 rounded-md hover:opacity-90"
             title="Dismiss"
           >
             <X className="h-4 w-4" />
