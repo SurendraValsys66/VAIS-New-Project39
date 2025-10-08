@@ -133,9 +133,16 @@ export default function MasteryBottomBar() {
   }, [state]);
 
   const percent = calculateMasteryPercentage(state);
-  if (hidden || percent >= 100) return null;
+  if (hidden) return null;
 
   const manPos = Math.max(0, Math.min(100, percent));
+  const doneAll = !!(
+    state.onboardingCompleted &&
+    state.vaisResultsGenerated &&
+    state.accountsDownloaded &&
+    state.prospectSearchGenerated &&
+    state.prospectDetailsDownloaded
+  );
 
   return (
     <div className="fixed inset-x-0 bottom-4 z-50 pointer-events-none">
@@ -174,10 +181,6 @@ export default function MasteryBottomBar() {
               </div>
 
               <div className="px-5 pb-4 max-h-[360px] overflow-y-auto">
-                <div className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-amber-100 text-amber-800 px-2 py-1 text-[11px] font-semibold">
-                  <Coins className="w-3.5 h-3.5" />
-                  Earn credits for each step — bonus on completion
-                </div>
                 <ul className="space-y-3">
                   {steps.map((s, idx) => (
                     <li key={idx} className="flex items-start gap-3">
@@ -191,17 +194,19 @@ export default function MasteryBottomBar() {
                       <div className="text-sm text-[#333333] leading-5">
                         <div className="flex items-center gap-2">
                           <span>{s.label}</span>
-                          {!s.completed && (
-                            <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 px-1.5 py-0.5 text-[10px] font-semibold">
-                              <Coins className="w-3 h-3" />
-                              Earn credits
-                            </span>
-                          )}
                         </div>
                       </div>
                     </li>
                   ))}
                 </ul>
+                {doneAll && (
+                  <div className="mt-4 flex">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 text-gray-500 border border-gray-200 px-2.5 py-1 text-[11px] font-semibold cursor-not-allowed select-none" aria-disabled>
+                      <Coins className="w-3.5 h-3.5" />
+                      Congratulation! You earn extra credits
+                    </span>
+                  </div>
+                )}
               </div>
             </motion.div>
           )}
@@ -216,7 +221,7 @@ export default function MasteryBottomBar() {
                   <div className="bg-white rounded-xl shadow-md p-1">
                     <img
                       src="https://cdn.builder.io/o/assets%2F1d0d3cbc213245beba3786aa1a6f12a3%2F515d18c2065f4103840ed7e794f0f02f?alt=media&token=b6ff5c54-de26-42ea-960d-cf00e42191cf&apiKey=1d0d3cbc213245beba3786aa1a6f12a3"
-                      alt="Earn credits"
+                      alt="Mastery progress"
                       className="h-6 w-6 rounded"
                       loading="lazy"
                     />
@@ -226,10 +231,7 @@ export default function MasteryBottomBar() {
                   side="top"
                   className="max-w-[260px] text-center"
                 >
-                  <div>
-                    Complete steps to earn credits. Finish all steps to unlock a
-                    bonus.
-                  </div>
+                  <div>Complete all steps to unlock your bonus.</div>
                 </TooltipContent>
               </Tooltip>
               <div className="text-[13px]">
