@@ -6,7 +6,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { Progress } from "@/components/ui/progress";
-import { CheckCircle, Circle } from "lucide-react";
+import { CheckCircle, Circle, Coins } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   calculateMasteryPercentage,
@@ -38,30 +38,65 @@ export default function MasteryChecklist({
 
   const percent = useMemo(() => calculateMasteryPercentage(state), [state]);
 
-  const steps = [
-    { label: "Sign up to VAIS", completed: true },
-    {
-      label:
-        "Complete the onboarding questions — Hint: Complete your onboarding process and get free credits 🎉",
-      completed: !!state.onboardingCompleted,
-    },
-    {
-      label: "Generate your VAIS Results",
-      completed: !!state.vaisResultsGenerated,
-    },
-    {
-      label: "Download the Accounts from the VAIS Results page",
-      completed: !!state.accountsDownloaded,
-    },
-    {
-      label: "Generate the Prospect Search",
-      completed: !!state.prospectSearchGenerated,
-    },
-    {
-      label: "Download the Prospect Details",
-      completed: !!state.prospectDetailsDownloaded,
-    },
-  ];
+  const doneAll = useMemo(
+    () =>
+      !!(
+        state.onboardingCompleted &&
+        state.vaisResultsGenerated &&
+        state.accountsDownloaded &&
+        state.prospectSearchGenerated &&
+        state.prospectDetailsDownloaded
+      ),
+    [state],
+  );
+
+  const steps = useMemo(() => {
+    const list: Array<{
+      key: string;
+      label: string;
+      completed: boolean;
+      type?: "reward";
+    }> = [
+      { key: "signUp", label: "Sign up to VAIS", completed: true },
+      {
+        key: "onboardingCompleted",
+        label:
+          "Complete the onboarding questions — Hint: Complete your onboarding process and get free credits 🎉",
+        completed: !!state.onboardingCompleted,
+      },
+      {
+        key: "vaisResultsGenerated",
+        label: "Generate your VAIS Results",
+        completed: !!state.vaisResultsGenerated,
+      },
+      {
+        key: "accountsDownloaded",
+        label: "Download the Accounts from the VAIS Results page",
+        completed: !!state.accountsDownloaded,
+      },
+      {
+        key: "prospectSearchGenerated",
+        label: "Generate the Prospect Search",
+        completed: !!state.prospectSearchGenerated,
+      },
+      {
+        key: "prospectDetailsDownloaded",
+        label: "Download the Prospect Details",
+        completed: !!state.prospectDetailsDownloaded,
+      },
+    ];
+
+    if (doneAll) {
+      list.push({
+        key: "reward",
+        label: "Congratulation! You earn extra credits",
+        completed: true,
+        type: "reward",
+      });
+    }
+
+    return list;
+  }, [doneAll, state]);
 
   const handleOpenChange = (v: boolean) => {
     // Do not mark dismissed automatically on close; only via explicit close button
@@ -100,11 +135,24 @@ export default function MasteryChecklist({
           {/* Steps */}
           <div className="px-6 pb-4 overflow-y-auto max-h-[360px]">
             <ul className="space-y-3">
-              {steps.map((s, idx) => (
-                <li key={idx} className="flex items-start gap-3">
+              {steps.map((s) => (
+                <li key={s.key} className="flex items-start gap-3">
                   <div className="mt-0.5">
                     <AnimatePresence initial={false}>
-                      {s.completed ? (
+                      {s.type === "reward" ? (
+                        <motion.div
+                          initial={{ scale: 0.6, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          exit={{ scale: 0.6, opacity: 0 }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 300,
+                            damping: 20,
+                          }}
+                        >
+                          <Coins className="w-5 h-5 text-amber-500" />
+                        </motion.div>
+                      ) : s.completed ? (
                         <motion.div
                           initial={{ scale: 0.6, opacity: 0 }}
                           animate={{ scale: 1, opacity: 1 }}
@@ -123,7 +171,17 @@ export default function MasteryChecklist({
                     </AnimatePresence>
                   </div>
                   <div className="text-sm text-[#333333] leading-5">
-                    {s.label}
+                    {s.type === "reward" ? (
+                      <span
+                        className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 text-gray-500 border border-gray-200 px-2.5 py-1 text-[11px] font-semibold cursor-not-allowed select-none"
+                        aria-disabled="true"
+                      >
+                        <Coins className="w-3.5 h-3.5" />
+                        {s.label}
+                      </span>
+                    ) : (
+                      s.label
+                    )}
                   </div>
                 </li>
               ))}
