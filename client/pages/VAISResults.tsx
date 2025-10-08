@@ -68,6 +68,7 @@ import {
   ArrowUp,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { markStepCompleted } from "@/lib/masteryStorage";
 import { cn } from "@/lib/utils";
 import IntentSignalChart from "@/components/dashboard/IntentSignalChart";
 
@@ -390,6 +391,11 @@ export default function VAISResults() {
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [activeCompany, setActiveCompany] = useState<CompanyData | null>(null);
   const [isSmall, setIsSmall] = useState(false);
+
+  // Mark VAIS results as generated when viewing this page
+  useEffect(() => {
+    markStepCompleted("vaisResultsGenerated");
+  }, []);
 
   const openDetails = (company: CompanyData) => {
     setActiveCompany(company);
@@ -871,6 +877,7 @@ export default function VAISResults() {
                   size="sm"
                   className="bg-valasys-orange hover:bg-valasys-orange/90"
                   disabled={selectedItems.length === 0 || isPremiumPage}
+                  onClick={() => markStepCompleted("accountsDownloaded")}
                 >
                   <Download className="w-4 h-4 mr-2" />
                   Download
