@@ -52,6 +52,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FloatingStatsWidget } from "@/components/ui/floating-stats-widget";
+import { markStepCompleted } from "@/lib/masteryStorage";
 
 interface FormData {
   productSubcategory: string;
