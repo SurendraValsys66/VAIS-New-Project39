@@ -25,6 +25,9 @@ export default function OnboardingThankYou() {
   const data = getOnboarding();
 
   const continueToApp = () => {
+    // Mark onboarding as completed for Mastery progress
+    markStepCompleted("onboardingCompleted");
+
     clearOnboarding();
     clearOnboardingSkipReminder();
     emitOnboardingSkipReminderUpdate(null);
