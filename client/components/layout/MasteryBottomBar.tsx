@@ -29,22 +29,38 @@ export default function MasteryBottomBar() {
 
   const steps = useMemo(
     () => [
-      { label: "Sign up to VAIS", completed: true },
+      { key: "signUp", label: "Sign up to VAIS", completed: true },
       {
+        key: "onboardingCompleted",
         label:
           "Complete the onboarding questions — Hint: Complete your onboarding process and get free credits 🎉",
         completed: !!state.onboardingCompleted,
       },
-      { label: "Generate your VAIS Results", completed: !!state.vaisResultsGenerated },
+      { key: "vaisResultsGenerated", label: "Generate your VAIS Results", completed: !!state.vaisResultsGenerated },
       {
+        key: "accountsDownloaded",
         label: "Download the Accounts from the VAIS Results page",
         completed: !!state.accountsDownloaded,
       },
-      { label: "Generate the Prospect Search", completed: !!state.prospectSearchGenerated },
-      { label: "Download the Prospect Details", completed: !!state.prospectDetailsDownloaded },
+      { key: "prospectSearchGenerated", label: "Generate the Prospect Search", completed: !!state.prospectSearchGenerated },
+      { key: "prospectDetailsDownloaded", label: "Download the Prospect Details", completed: !!state.prospectDetailsDownloaded },
     ],
     [state],
   );
+
+  const next = useMemo(() => {
+    if (!state.onboardingCompleted)
+      return { label: "Complete onboarding", to: "/onboarding/role" };
+    if (!state.vaisResultsGenerated)
+      return { label: "Generate VAIS Results", to: "/build-vais" };
+    if (!state.accountsDownloaded)
+      return { label: "Download Accounts", to: "/vais-results" };
+    if (!state.prospectSearchGenerated)
+      return { label: "Generate Prospect Search", to: "/find-prospect" };
+    if (!state.prospectDetailsDownloaded)
+      return { label: "Download Prospect Details", to: "/prospect-results" };
+    return null;
+  }, [state]);
 
   const percent = calculateMasteryPercentage(state);
   if (hidden || percent >= 100) return null;
@@ -115,7 +131,7 @@ export default function MasteryBottomBar() {
             </Avatar>
           </div>
 
-          {/* Bar content */}
+          {/* Bar content (toggle expand) */}
           <button onClick={() => setExpanded((v) => !v)} className="flex-1 text-left">
             <div className="flex items-center gap-3">
               <div className="flex-1">
@@ -128,8 +144,25 @@ export default function MasteryBottomBar() {
                   </div>
                 </div>
               </div>
+              <ChevronUp className={"h-4 w-4 transition-transform " + (expanded ? "rotate-180" : "")} />
             </div>
           </button>
+
+          {/* Next suggested step CTA */}
+          {next && (
+            <div className="hidden sm:flex items-center gap-2 pl-2">
+              <span className="text-[11px] font-semibold">Next:</span>
+              <span className="text-[11px] line-clamp-1 max-w-[160px]">{next.label}</span>
+              <Link
+                to={next.to}
+                onClick={(e) => e.stopPropagation()}
+                className="ml-1 inline-flex items-center px-2 py-1 rounded-md text-[#FF7A00] bg-white text-[11px] font-semibold hover:opacity-90"
+                title="Go"
+              >
+                Go
+              </Link>
+            </div>
+          )}
 
           {/* Hide bottom bar for this session */}
           <button
