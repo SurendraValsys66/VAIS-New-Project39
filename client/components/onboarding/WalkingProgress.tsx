@@ -78,6 +78,40 @@ export default function WalkingProgress({
   const [walking, setWalking] = useState(false);
 
   useEffect(() => {
+    const prev = prevRef.current;
+
+    // If first mount and fromValue provided, animate to current value
+    if (startRef.current) {
+      startRef.current = false;
+      if (prev !== clamped) {
+        // animate even if animateOnChange is false on first paint
+        const durationMs = 1200;
+        const start = performance.now();
+        const delta = clamped - prev;
+        setWalking(delta > 0);
+        let raf = 0;
+        const tick = (t: number) => {
+          const elapsed = t - start;
+          const p = Math.min(1, Math.max(0, elapsed / durationMs));
+          const eased = 0.2 + 0.8 * (1 - Math.pow(1 - p, 2));
+          const next = prev + delta * eased;
+          setDisplayValue(next);
+          if (p < 1) raf = requestAnimationFrame(tick);
+          else {
+            setWalking(false);
+            prevRef.current = clamped;
+          }
+        };
+        raf = requestAnimationFrame(tick);
+        return () => cancelAnimationFrame(raf);
+      } else {
+        setDisplayValue(clamped);
+        setWalking(false);
+        prevRef.current = clamped;
+        return;
+      }
+    }
+
     if (!animateOnChange) {
       setDisplayValue(clamped);
       setWalking(false);
@@ -85,7 +119,6 @@ export default function WalkingProgress({
       return;
     }
 
-    const prev = prevRef.current;
     if (clamped === prev) return;
 
     const durationMs = 1200; // slow, as requested
