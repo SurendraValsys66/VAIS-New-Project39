@@ -194,7 +194,7 @@ export default function MasteryBottomBar() {
                   <img
                     src="https://cdn.builder.io/o/assets%2F1d0d3cbc213245beba3786aa1a6f12a3%2F515d18c2065f4103840ed7e794f0f02f?alt=media&token=b6ff5c54-de26-42ea-960d-cf00e42191cf&apiKey=1d0d3cbc213245beba3786aa1a6f12a3"
                     alt="Earn credits"
-                    className="h-8 w-8 rounded border border-valasys-orange"
+                    className="h-8 w-8 rounded"
                     loading="lazy"
                   />
                 </div>
