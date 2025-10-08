@@ -7,6 +7,7 @@ import {
   getMastery,
   MasterySteps,
   setMasteryDismissed,
+  MASTERY_EVENT,
 } from "@/lib/masteryStorage";
 
 export default function MasteryBottomBar({
@@ -18,8 +19,13 @@ export default function MasteryBottomBar({
 
   useEffect(() => {
     setState(getMastery());
-    const id = setInterval(() => setState(getMastery()), 800);
-    return () => clearInterval(id);
+    const onUpdate = (e: Event) => setState((e as CustomEvent).detail as MasterySteps);
+    window.addEventListener(MASTERY_EVENT, onUpdate as EventListener);
+    const id = setInterval(() => setState(getMastery()), 3000);
+    return () => {
+      window.removeEventListener(MASTERY_EVENT, onUpdate as EventListener);
+      clearInterval(id);
+    };
   }, []);
 
   if (state.dismissed) return null;
