@@ -262,14 +262,14 @@ export default function MasteryBottomBar() {
                             <button
                               type="button"
                               onClick={() => toggleHint(s.key)}
-                              className="flex items-center justify-between w-full gap-2 text-sm text-[#333333] font-medium"
+                              className="relative flex items-center w-full gap-2 text-sm text-[#333333] font-medium pr-6 text-left"
                               aria-expanded={!!openHints[s.key]}
                             >
                               <span>{s.label}</span>
                               {openHints[s.key] ? (
-                                <ChevronUp className="w-4 h-4 text-[#666]" />
+                                <ChevronUp className="w-4 h-4 text-[#666] absolute right-0" />
                               ) : (
-                                <ChevronDown className="w-4 h-4 text-[#666]" />
+                                <ChevronDown className="w-4 h-4 text-[#666] absolute right-0" />
                               )}
                             </button>
                             <AnimatePresence initial={false}>
