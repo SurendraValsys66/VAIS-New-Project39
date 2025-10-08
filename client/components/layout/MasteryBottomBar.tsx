@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { X, CheckCircle, Circle } from "lucide-react";
+import { X, CheckCircle, Circle, ChevronUp } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
+import { Link } from "react-router-dom";
 import {
   calculateMasteryPercentage,
   getMastery,
