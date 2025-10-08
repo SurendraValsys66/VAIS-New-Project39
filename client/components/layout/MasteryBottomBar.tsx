@@ -553,7 +553,8 @@ export default function MasteryBottomBar() {
         <DialogContent className="max-w-md text-center">
           <DialogHeader>
             <DialogTitle>
-              cangratulation! your completed all the Steps , Your VAIS Mastery completed and you earn 50 Free Credits
+              cangratulation! your completed all the Steps , Your VAIS Mastery
+              completed and you earn 50 Free Credits
             </DialogTitle>
           </DialogHeader>
           <div className="mt-2 text-sm text-gray-600">

@@ -1095,7 +1095,9 @@ export default function ProspectResults() {
                   <Button
                     className="bg-valasys-orange hover:bg-valasys-orange/90"
                     disabled={selectedItems.length === 0 || isPremiumPage}
-                    onClick={() => markStepCompleted("prospectDetailsDownloaded")}
+                    onClick={() =>
+                      markStepCompleted("prospectDetailsDownloaded")
+                    }
                   >
                     <Download className="w-4 h-4 mr-2" />
                     Export ({selectedItems.length})
