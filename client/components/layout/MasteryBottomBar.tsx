@@ -276,9 +276,6 @@ export default function MasteryBottomBar() {
           <div className="text-center text-[12px] font-semibold">
             Your VAIS mastery: {percent}%
           </div>
-          <div className="text-center text-[11px] font-medium/relaxed text-white/90">
-            Complete steps to earn credits. Finish all steps to unlock a bonus.
-          </div>
         </div>
       </div>
     </div>
