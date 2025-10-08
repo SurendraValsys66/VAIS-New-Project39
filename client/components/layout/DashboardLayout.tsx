@@ -61,9 +61,7 @@ import TrialBadgeDropdown from "@/components/ui/trial-badge-dropdown";
 import OnboardingSkipBadge from "@/components/layout/OnboardingSkipBadge";
 import { useTour } from "@/contexts/TourContext";
 import PlatformTour from "@/components/tour/PlatformTour";
-import MasteryChecklist from "@/components/layout/MasteryChecklist";
 import MasteryBottomBar from "@/components/layout/MasteryBottomBar";
-import { getMastery, calculateMasteryPercentage } from "@/lib/masteryStorage";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -147,7 +145,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   }, []);
 
   const [chatOpen, setChatOpen] = useState(false);
-  const [masteryOpen, setMasteryOpen] = useState(false);
 
   // Tooltip state for disabled Manage Users item (rendered via portal outside sidebar)
   const [manageUsersTooltipVisible, setManageUsersTooltipVisible] =
@@ -160,14 +157,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   // Contact Sales dialog
   const [showContactSalesDialog, setShowContactSalesDialog] = useState(false);
 
-  // Auto-open Mastery Checklist when mastery is incomplete
-  useEffect(() => {
-    try {
-      const m = getMastery();
-      const percent = calculateMasteryPercentage(m);
-      if (percent < 100) setMasteryOpen(true);
-    } catch {}
-  }, []);
 
   const showManageUsersTooltip = (e: React.MouseEvent) => {
     const el = e.currentTarget as HTMLElement;
@@ -650,7 +639,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       >
         {/* Top Header */}
         <header className="bg-white shadow-sm border-b border-valasys-gray-200 sticky top-0 z-40 pt-2 sm:pt-4 lg:pt-10">
-          <MasteryChecklist open={masteryOpen} onOpenChange={setMasteryOpen} />
           <TrialBanner
             className="fixed inset-x-0 top-0 z-[60]"
             daysUsed={5}
@@ -1017,7 +1005,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
         {/* Main Content */}
         <main className="relative flex-1 p-6 overflow-auto">{children}</main>
-        <MasteryBottomBar onOpen={() => setMasteryOpen(true)} />
+        <MasteryBottomBar />
       </div>
 
       {/* Manage Users Tooltip Portal (renders outside sidebar) */}
