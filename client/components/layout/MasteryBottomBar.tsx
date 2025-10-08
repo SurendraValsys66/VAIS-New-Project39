@@ -115,6 +115,8 @@ export default function MasteryBottomBar() {
   const percent = calculateMasteryPercentage(state);
   if (hidden || percent >= 100) return null;
 
+  const manPos = Math.max(0, Math.min(100, percent));
+
   return (
     <div className="fixed inset-x-0 bottom-4 z-50 pointer-events-none">
       <div className="mx-auto w-[min(92vw,520px)] pointer-events-auto">
