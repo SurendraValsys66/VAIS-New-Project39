@@ -214,7 +214,13 @@ export default function MasteryBottomBar() {
         <div className="relative flex flex-col gap-1 rounded-xl shadow-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white">
           {/* Top row: avatar, progress, chevron, close */}
           <div className="flex items-center gap-3">
-            <div className="flex-shrink-0 hidden sm:block">
+            <div className="flex-shrink-0 hidden sm:flex items-center gap-2">
+              <img
+                src="https://cdn.builder.io/o/assets%2F1d0d3cbc213245beba3786aa1a6f12a3%2F1f0c052c3ec1472781ef6f40787bccfc?alt=media&token=61eb14bf-ca1d-4b41-a72a-1358b228b5a8&apiKey=1d0d3cbc213245beba3786aa1a6f12a3"
+                alt="Earn credits"
+                className="h-8 w-8 rounded-sm"
+                loading="lazy"
+              />
               <Avatar className="h-7 w-7">
                 <AvatarImage src="" alt="VAIS" />
                 <AvatarFallback className="bg-white/30 text-white text-[10px]">
