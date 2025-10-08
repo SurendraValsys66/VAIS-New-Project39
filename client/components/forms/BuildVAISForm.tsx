@@ -476,6 +476,8 @@ export default function BuildVAISForm() {
       intentTopics: selectedTopics,
       uploadedFile,
     });
+    // Mark VAIS results generated for mastery progress
+    markStepCompleted("vaisResultsGenerated");
     // Navigate to results page
     navigate("/vais-results");
   };
