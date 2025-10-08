@@ -52,6 +52,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FloatingStatsWidget } from "@/components/ui/floating-stats-widget";
+import { markStepCompleted } from "@/lib/masteryStorage";
 
 interface FormData {
   productSubcategory: string;
@@ -475,6 +476,8 @@ export default function BuildVAISForm() {
       intentTopics: selectedTopics,
       uploadedFile,
     });
+    // Mark VAIS results generated for mastery progress
+    markStepCompleted("vaisResultsGenerated");
     // Navigate to results page
     navigate("/vais-results");
   };

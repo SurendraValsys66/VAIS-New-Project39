@@ -39,6 +39,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import ConfettiCanvas from "@/components/onboarding/ConfettiCanvas";
 
 const MASTERY_DISMISS_KEY = "valasys-mastery-dismissed";
 
@@ -72,6 +73,8 @@ export default function MasteryBottomBar() {
       return { [key]: true };
     });
   const prevRef = useRef<MasterySteps>({});
+  const [showFinalDialog, setShowFinalDialog] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
     setState(getMastery());
@@ -129,7 +132,18 @@ export default function MasteryBottomBar() {
     const prevPct = calculateMasteryPercentage(prev);
     const currPct = calculateMasteryPercentage(now);
     if (prevPct < 100 && currPct >= 100) {
-      sonnerToast("Bonus unlocked! You completed all mastery steps.");
+      let alreadyShown = false;
+      try {
+        alreadyShown = localStorage.getItem("valasys-mastery-complete") === "1";
+      } catch {}
+      if (!alreadyShown) {
+        try {
+          localStorage.setItem("valasys-mastery-complete", "1");
+        } catch {}
+        setShowConfetti(true);
+        setShowFinalDialog(true);
+        setTimeout(() => setShowConfetti(false), 3000);
+      }
     }
 
     prevRef.current = state;
@@ -282,6 +296,13 @@ export default function MasteryBottomBar() {
 
   return (
     <>
+      {/* Confetti celebration */}
+      {showConfetti && (
+        <div className="fixed inset-0 z-[70] pointer-events-none">
+          <ConfettiCanvas duration={2800} />
+        </div>
+      )}
+
       <div className="fixed inset-x-0 bottom-4 z-50 pointer-events-none">
         <div
           className="mx-auto w-[min(92vw,520px)] pointer-events-auto"
@@ -523,6 +544,24 @@ export default function MasteryBottomBar() {
             <Button variant="destructive" onClick={handleConfirmRemove}>
               Remove
             </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Final completion dialog */}
+      <Dialog open={showFinalDialog} onOpenChange={setShowFinalDialog}>
+        <DialogContent className="max-w-md text-center">
+          <DialogHeader>
+            <DialogTitle>
+              cangratulation! your completed all the Steps , Your VAIS Mastery
+              completed and you earn 50 Free Credits
+            </DialogTitle>
+          </DialogHeader>
+          <div className="mt-2 text-sm text-gray-600">
+            Enjoy your bonus credits and keep exploring VAIS.
+          </div>
+          <DialogFooter className="sm:justify-center">
+            <Button onClick={() => setShowFinalDialog(false)}>OK</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

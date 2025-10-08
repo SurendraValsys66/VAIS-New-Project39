@@ -1,5 +1,6 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { markStepCompleted } from "@/lib/masteryStorage";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -1176,6 +1177,8 @@ export default function FindProspect() {
                           !uploadedFile
                         }
                         onClick={() => {
+                          // Mark step completed when user initiates a prospect search
+                          markStepCompleted("prospectSearchGenerated");
                           // Navigate to prospect results page
                           navigate("/prospect-results");
                         }}

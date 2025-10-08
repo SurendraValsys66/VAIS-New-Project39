@@ -81,6 +81,7 @@ import { Switch } from "@/components/ui/switch";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { FloatingStatsWidget } from "@/components/ui/floating-stats-widget";
+import { markStepCompleted } from "@/lib/masteryStorage";
 
 interface ProspectData {
   id: string;
@@ -1094,6 +1095,9 @@ export default function ProspectResults() {
                   <Button
                     className="bg-valasys-orange hover:bg-valasys-orange/90"
                     disabled={selectedItems.length === 0 || isPremiumPage}
+                    onClick={() =>
+                      markStepCompleted("prospectDetailsDownloaded")
+                    }
                   >
                     <Download className="w-4 h-4 mr-2" />
                     Export ({selectedItems.length})
