@@ -30,7 +30,11 @@ export default function MasteryBottomBar() {
   const [expanded, setExpanded] = useState(false);
   const [openHints, setOpenHints] = useState<Record<string, boolean>>({});
   const toggleHint = (key: string) =>
-    setOpenHints((s) => ({ ...s, [key]: !s[key] }));
+    setOpenHints((s) => {
+      const isOpen = !!s[key];
+      if (isOpen) return {};
+      return { [key]: true };
+    });
   const prevRef = useRef<MasterySteps>({});
 
   useEffect(() => {
@@ -252,7 +256,9 @@ export default function MasteryBottomBar() {
                               {s.label}
                             </Badge>
                           )
-                        ) : s.key === "onboardingCompleted" ? (
+                        ) : (s.key === "onboardingCompleted" ||
+                          s.key === "accountsDownloaded" ||
+                          s.key === "prospectSearchGenerated") ? (
                           <div>
                             <button
                               type="button"
@@ -267,9 +273,15 @@ export default function MasteryBottomBar() {
                             </button>
                             {openHints[s.key] && (
                               <div className="mt-2 text-xs text-[#555] bg-gray-50 border border-gray-100 p-2 rounded">
-                                Hint: Complete your onboarding by selecting the
-                                role and filling in the basic info. This unlocks
-                                free credits.
+                                {s.key === "onboardingCompleted" && (
+                                  <>Hint: Complete your onboarding by selecting the role and filling in the basic info. This unlocks free credits.</>
+                                )}
+                                {s.key === "accountsDownloaded" && (
+                                  <>Hint: On the VAIS Results page, use the “Download Accounts” button to export your list. Apply filters first if you want a narrower file.</>
+                                )}
+                                {s.key === "prospectSearchGenerated" && (
+                                  <>Hint: Go to Find Prospect, choose a few filters, then click “Generate Search.” Start simple—add more filters later.</>
+                                )}
                               </div>
                             )}
                           </div>
