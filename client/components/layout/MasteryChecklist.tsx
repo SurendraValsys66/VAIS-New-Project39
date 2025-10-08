@@ -15,6 +15,7 @@ import {
   ChevronUp,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 import {
   calculateMasteryPercentage,
   getMastery,
@@ -227,24 +228,43 @@ export default function MasteryChecklist({
                               <div className="mt-2 text-xs text-[#555] bg-orange-100 p-2 rounded-md">
                                 {s.key === "onboardingCompleted" && (
                                   <>
-                                    Hint: Complete your onboarding by selecting
-                                    the role and filling in the basic info. This
-                                    unlocks free credits.
+                                    Hint:{" "}
+                                    <Link
+                                      to="/onboarding/role"
+                                      className="underline text-valasys-blue"
+                                    >
+                                      Complete your onboarding
+                                    </Link>{" "}
+                                    by selecting the role and filling in the
+                                    basic info. This unlocks free credits.
                                   </>
                                 )}
                                 {s.key === "accountsDownloaded" && (
                                   <>
-                                    Hint: On the VAIS Results page, use the
-                                    “Download Accounts” button to export your
-                                    list. Apply filters first if you want a
-                                    narrower file.
+                                    Hint: On the{" "}
+                                    <Link
+                                      to="/vais-results"
+                                      className="underline text-valasys-blue"
+                                    >
+                                      VAIS Results
+                                    </Link>{" "}
+                                    page, use the “Download Accounts” button to
+                                    export your list. Apply filters first if you
+                                    want a narrower file.
                                   </>
                                 )}
                                 {s.key === "prospectSearchGenerated" && (
                                   <>
-                                    Hint: Go to Find Prospect, choose a few
-                                    filters, then click “Generate Search.” Start
-                                    simple—add more filters later.
+                                    Hint: Go to{" "}
+                                    <Link
+                                      to="/find-prospect"
+                                      className="underline text-valasys-blue"
+                                    >
+                                      Find Prospect
+                                    </Link>
+                                    , choose a few filters, then click “Generate
+                                    Search.” Start simple—add more filters
+                                    later.
                                   </>
                                 )}
                               </div>

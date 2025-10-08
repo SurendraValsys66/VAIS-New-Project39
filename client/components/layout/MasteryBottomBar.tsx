@@ -46,7 +46,7 @@ type MasteryStepDefinition = {
   key: string;
   label: string;
   completed: boolean;
-  hint: string;
+  hint: React.ReactNode;
   to: string;
   cta?: string;
   type?: "reward";
@@ -153,7 +153,15 @@ export default function MasteryBottomBar() {
         key: "signUp",
         label: "Sign up to VAIS",
         completed: true,
-        hint: "Already signed up? Invite a teammate or review your account preferences anytime.",
+        hint: (
+          <>
+            Already signed up?{" "}
+            <Link to="/free-trial" className="text-valasys-blue underline">
+              Invite a teammate
+            </Link>{" "}
+            or review your account preferences anytime.
+          </>
+        ),
         to: "/free-trial",
         cta: "Invite a teammate",
       },
@@ -161,7 +169,16 @@ export default function MasteryBottomBar() {
         key: "onboardingCompleted",
         label: "Complete the onboarding questions",
         completed: !!state.onboardingCompleted,
-        hint: "Answer a few quick questions about your goals so we can tailor VAIS to your workflow.",
+        hint: (
+          <>
+            Answer a few quick questions about your goals so we can tailor VAIS
+            to your workflow.{" "}
+            <Link to="/onboarding/role" className="text-valasys-blue underline">
+              Resume onboarding
+            </Link>
+            .
+          </>
+        ),
         to: "/onboarding/role",
         cta: "Resume onboarding",
       },
@@ -169,7 +186,15 @@ export default function MasteryBottomBar() {
         key: "vaisResultsGenerated",
         label: "Generate your VAIS Results",
         completed: !!state.vaisResultsGenerated,
-        hint: "Build your VAIS model to unlock prioritized account and lead insights in just a couple of clicks.",
+        hint: (
+          <>
+            <Link to="/build-vais" className="text-valasys-blue underline">
+              Build your VAIS
+            </Link>{" "}
+            model to unlock prioritized account and lead insights in just a
+            couple of clicks.
+          </>
+        ),
         to: "/build-vais",
         cta: "Generate VAIS Results",
       },
@@ -177,7 +202,16 @@ export default function MasteryBottomBar() {
         key: "accountsDownloaded",
         label: "Download the Accounts from the VAIS Results page",
         completed: !!state.accountsDownloaded,
-        hint: "Head to the VAIS Results page, apply any filters you need, then export the ready-to-use account list.",
+        hint: (
+          <>
+            Head to the{" "}
+            <Link to="/vais-results" className="text-valasys-blue underline">
+              VAIS Results
+            </Link>{" "}
+            page, apply any filters you need, then export the ready-to-use
+            account list.
+          </>
+        ),
         to: "/vais-results",
         cta: "Open VAIS Results",
       },
@@ -185,7 +219,16 @@ export default function MasteryBottomBar() {
         key: "prospectSearchGenerated",
         label: "Generate the Prospect Search",
         completed: !!state.prospectSearchGenerated,
-        hint: "Use Find Prospect to build a targeted search—start with a few filters, generate the list, and refine as you go.",
+        hint: (
+          <>
+            Use{" "}
+            <Link to="/find-prospect" className="text-valasys-blue underline">
+              Find Prospect
+            </Link>{" "}
+            to build a targeted search—start with a few filters, generate the
+            list, and refine as you go.
+          </>
+        ),
         to: "/find-prospect",
         cta: "Start a prospect search",
       },
@@ -193,7 +236,19 @@ export default function MasteryBottomBar() {
         key: "prospectDetailsDownloaded",
         label: "Download the Prospect Details",
         completed: !!state.prospectDetailsDownloaded,
-        hint: "Open your Prospect Results, preview the contacts, and download the detailed CSV to share with your team.",
+        hint: (
+          <>
+            Open your{" "}
+            <Link
+              to="/prospect-results"
+              className="text-valasys-blue underline"
+            >
+              Prospect Results
+            </Link>
+            , preview the contacts, and download the detailed CSV to share with
+            your team.
+          </>
+        ),
         to: "/prospect-results",
         cta: "View prospect results",
       },
@@ -205,7 +260,15 @@ export default function MasteryBottomBar() {
       label: "Congratulation! you earn the extra credits",
       completed: doneAll,
       type: "reward",
-      hint: "You’ve unlocked extra credits! Review your usage history and plan the next campaign to maximise the boost.",
+      hint: (
+        <>
+          You’ve unlocked extra credits! Review your{" "}
+          <Link to="/spending-history" className="text-valasys-blue underline">
+            usage history
+          </Link>{" "}
+          and plan the next campaign to maximise the boost.
+        </>
+      ),
       to: "/spending-history",
       cta: "View credit history",
     });
@@ -358,17 +421,6 @@ export default function MasteryBottomBar() {
                                 >
                                   <div className="mt-2 space-y-2 rounded-md border border-orange-200 bg-orange-50 p-3 text-xs text-[#555]">
                                     <p>{s.hint}</p>
-                                    <div>
-                                      <Button
-                                        asChild
-                                        size="sm"
-                                        className="bg-valasys-orange hover:bg-valasys-orange-light text-white"
-                                      >
-                                        <Link to={s.to}>
-                                          {s.cta ?? "Open step"}
-                                        </Link>
-                                      </Button>
-                                    </div>
                                   </div>
                                 </motion.div>
                               )}
