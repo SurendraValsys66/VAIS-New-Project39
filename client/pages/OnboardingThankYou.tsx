@@ -18,12 +18,16 @@ import { useNavigate } from "react-router-dom";
 import OnboardingDecor from "@/components/onboarding/Decor";
 import ConfettiCanvas from "@/components/onboarding/ConfettiCanvas";
 import { CheckCircle2 } from "lucide-react";
+import { markStepCompleted } from "@/lib/masteryStorage";
 
 export default function OnboardingThankYou() {
   const navigate = useNavigate();
   const data = getOnboarding();
 
   const continueToApp = () => {
+    // Mark onboarding as completed for Mastery progress
+    markStepCompleted("onboardingCompleted");
+
     clearOnboarding();
     clearOnboardingSkipReminder();
     emitOnboardingSkipReminderUpdate(null);
