@@ -62,6 +62,7 @@ import OnboardingSkipBadge from "@/components/layout/OnboardingSkipBadge";
 import { useTour } from "@/contexts/TourContext";
 import PlatformTour from "@/components/tour/PlatformTour";
 import MasteryChecklist from "@/components/layout/MasteryChecklist";
+import MasteryBottomBar from "@/components/layout/MasteryBottomBar";
 import { getMastery } from "@/lib/masteryStorage";
 
 interface DashboardLayoutProps {
@@ -700,15 +701,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               {/* Right side - Notification, G2 Reviews, Profile */}
               <div className="flex items-center space-x-4">
                 <OnboardingSkipBadge />
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setMasteryOpen(true)}
-                  className="h-8 px-3 text-xs font-semibold bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white hover:opacity-90"
-                  title="Open VAIS Mastery"
-                >
-                  VAIS Mastery
-                </Button>
                 <div className="flex items-center space-x-3">
                   {/* Notification Dropdown */}
                   <div data-tour="notifications" className="relative">
@@ -1024,6 +1016,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
         {/* Main Content */}
         <main className="relative flex-1 p-6 overflow-auto">{children}</main>
+        <MasteryBottomBar onOpen={() => setMasteryOpen(true)} />
       </div>
 
       {/* Manage Users Tooltip Portal (renders outside sidebar) */}
