@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { X, CheckCircle, Circle, ChevronUp, Coins } from "lucide-react";
+import { X, CheckCircle, Circle, Coins } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Link } from "react-router-dom";
 import {
@@ -163,6 +163,13 @@ export default function MasteryBottomBar() {
   if (hidden) return null;
 
   const manPos = Math.max(0, Math.min(100, percent));
+  const handleOpenGuide = useCallback(() => setExpanded(true), []);
+  const handleGuideKeyDown = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      setExpanded(true);
+    }
+  }, []);
 
   return (
     <div className="fixed inset-x-0 bottom-4 z-50 pointer-events-none">
@@ -283,7 +290,14 @@ export default function MasteryBottomBar() {
         )}
 
         {/* Bottom orange bar */}
-        <div className="relative flex flex-col gap-1 rounded-xl shadow-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white">
+        <div
+          className="relative flex flex-col gap-1 rounded-xl shadow-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white cursor-pointer"
+          role="button"
+          tabIndex={0}
+          aria-expanded={expanded}
+          onClick={handleOpenGuide}
+          onKeyDown={handleGuideKeyDown}
+        >
           {/* Top row: avatar, progress, chevron, close */}
           <div className="flex items-center gap-3">
             <div className="flex-shrink-0 hidden sm:block">
@@ -295,10 +309,7 @@ export default function MasteryBottomBar() {
               </Avatar>
             </div>
 
-            <button
-              onClick={() => setExpanded((v) => !v)}
-              className="flex-1 text-left"
-            >
+            <div className="flex-1 text-left">
               <div className="flex items-center gap-3">
                 <div className="relative flex-1">
                   <Progress value={percent} className="h-[14px] bg-[#F1F1F1]" />
@@ -309,18 +320,15 @@ export default function MasteryBottomBar() {
                     style={{ left: `${manPos}%` }}
                   />
                 </div>
-                <ChevronUp
-                  className={
-                    "h-4 w-4 transition-transform " +
-                    (expanded ? "rotate-180" : "")
-                  }
-                />
               </div>
-            </button>
+            </div>
 
             <button
               aria-label="Hide for now"
-              onClick={() => setHidden(true)}
+              onClick={(event) => {
+                event.stopPropagation();
+                setHidden(true);
+              }}
               className="ml-1 rounded-md hover:opacity-90"
               title="Hide for now"
             >
