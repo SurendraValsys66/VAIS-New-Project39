@@ -100,14 +100,6 @@ export default function MasteryChecklist({
       },
     ];
 
-    // Always include the reward badge as the last step; it becomes enabled only when all steps are completed
-    list.push({
-      key: "reward",
-      label: "Congratulation! you earn the extra credits",
-      completed: doneAll,
-      type: "reward",
-    });
-
     return list;
   }, [doneAll, state]);
 
