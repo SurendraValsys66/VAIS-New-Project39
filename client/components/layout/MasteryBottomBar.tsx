@@ -229,6 +229,15 @@ export default function MasteryBottomBar() {
               </Avatar>
             </div>
 
+            <div className="flex-shrink-0 sm:hidden">
+              <img
+                src="https://cdn.builder.io/o/assets%2F1d0d3cbc213245beba3786aa1a6f12a3%2F1f0c052c3ec1472781ef6f40787bccfc?alt=media&token=61eb14bf-ca1d-4b41-a72a-1358b228b5a8&apiKey=1d0d3cbc213245beba3786aa1a6f12a3"
+                alt="Earn credits"
+                className="h-6 w-6 rounded-sm"
+                loading="lazy"
+              />
+            </div>
+
             <button
               onClick={() => setExpanded((v) => !v)}
               className="flex-1 text-left"
