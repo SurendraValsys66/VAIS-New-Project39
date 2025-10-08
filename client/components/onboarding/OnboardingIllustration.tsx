@@ -92,7 +92,11 @@ export default function OnboardingIllustration({
               className="relative mx-auto w-full max-w-2xl rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/30 backdrop-blur-sm glow"
               style={{ transformStyle: "preserve-3d" }}
             >
-              <img src={imageSrc} alt={imageAlt} className="block w-full h-auto" />
+              <img
+                src={imageSrc}
+                alt={imageAlt}
+                className="block w-full h-auto"
+              />
             </motion.div>
           ) : (
             <motion.div variants={fadeInUp}>

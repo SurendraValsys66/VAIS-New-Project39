@@ -1,5 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { Progress } from "@/components/ui/progress";
 import { CheckCircle, Circle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -27,7 +32,8 @@ export default function MasteryChecklist({
       setState(detail);
     };
     window.addEventListener(MASTERY_EVENT, onUpdate as EventListener);
-    return () => window.removeEventListener(MASTERY_EVENT, onUpdate as EventListener);
+    return () =>
+      window.removeEventListener(MASTERY_EVENT, onUpdate as EventListener);
   }, []);
 
   const percent = useMemo(() => calculateMasteryPercentage(state), [state]);
@@ -39,13 +45,22 @@ export default function MasteryChecklist({
         "Complete the onboarding questions — Hint: Complete your onboarding process and get free credits 🎉",
       completed: !!state.onboardingCompleted,
     },
-    { label: "Generate your VAIS Results", completed: !!state.vaisResultsGenerated },
+    {
+      label: "Generate your VAIS Results",
+      completed: !!state.vaisResultsGenerated,
+    },
     {
       label: "Download the Accounts from the VAIS Results page",
       completed: !!state.accountsDownloaded,
     },
-    { label: "Generate the Prospect Search", completed: !!state.prospectSearchGenerated },
-    { label: "Download the Prospect Details", completed: !!state.prospectDetailsDownloaded },
+    {
+      label: "Generate the Prospect Search",
+      completed: !!state.prospectSearchGenerated,
+    },
+    {
+      label: "Download the Prospect Details",
+      completed: !!state.prospectDetailsDownloaded,
+    },
   ];
 
   const handleOpenChange = (v: boolean) => {
@@ -57,11 +72,15 @@ export default function MasteryChecklist({
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="max-w-[500px] p-0 overflow-hidden">
         <DialogTitle className="sr-only">VAIS Mastery Steps Guide</DialogTitle>
-        <DialogDescription className="sr-only">Complete these steps to unlock your full VAIS potential</DialogDescription>
+        <DialogDescription className="sr-only">
+          Complete these steps to unlock your full VAIS potential
+        </DialogDescription>
         <div className="bg-white rounded-lg shadow-xl max-h-[540px]">
           {/* Header */}
           <div className="px-6 pt-5 pb-4 relative">
-            <h2 className="text-xl font-semibold text-[#333333]">VAIS Mastery Steps Guide</h2>
+            <h2 className="text-xl font-semibold text-[#333333]">
+              VAIS Mastery Steps Guide
+            </h2>
             <p className="text-sm text-[#666] mt-1">
               Complete these steps to unlock your full VAIS potential 🚀
             </p>
@@ -90,7 +109,11 @@ export default function MasteryChecklist({
                           initial={{ scale: 0.6, opacity: 0 }}
                           animate={{ scale: 1, opacity: 1 }}
                           exit={{ scale: 0.6, opacity: 0 }}
-                          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 300,
+                            damping: 20,
+                          }}
                         >
                           <CheckCircle className="w-5 h-5 text-[#4CAF50]" />
                         </motion.div>
@@ -99,7 +122,9 @@ export default function MasteryChecklist({
                       )}
                     </AnimatePresence>
                   </div>
-                  <div className="text-sm text-[#333333] leading-5">{s.label}</div>
+                  <div className="text-sm text-[#333333] leading-5">
+                    {s.label}
+                  </div>
                 </li>
               ))}
             </ul>

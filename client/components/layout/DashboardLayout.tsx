@@ -157,7 +157,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   // Contact Sales dialog
   const [showContactSalesDialog, setShowContactSalesDialog] = useState(false);
 
-
   const showManageUsersTooltip = (e: React.MouseEvent) => {
     const el = e.currentTarget as HTMLElement;
     const rect = el.getBoundingClientRect();

@@ -18,7 +18,8 @@ export default function MasteryBottomBar() {
 
   useEffect(() => {
     setState(getMastery());
-    const onUpdate = (e: Event) => setState((e as CustomEvent).detail as MasterySteps);
+    const onUpdate = (e: Event) =>
+      setState((e as CustomEvent).detail as MasterySteps);
     window.addEventListener(MASTERY_EVENT, onUpdate as EventListener);
     const id = setInterval(() => setState(getMastery()), 3000);
     return () => {
@@ -36,14 +37,26 @@ export default function MasteryBottomBar() {
           "Complete the onboarding questions — Hint: Complete your onboarding process and get free credits 🎉",
         completed: !!state.onboardingCompleted,
       },
-      { key: "vaisResultsGenerated", label: "Generate your VAIS Results", completed: !!state.vaisResultsGenerated },
+      {
+        key: "vaisResultsGenerated",
+        label: "Generate your VAIS Results",
+        completed: !!state.vaisResultsGenerated,
+      },
       {
         key: "accountsDownloaded",
         label: "Download the Accounts from the VAIS Results page",
         completed: !!state.accountsDownloaded,
       },
-      { key: "prospectSearchGenerated", label: "Generate the Prospect Search", completed: !!state.prospectSearchGenerated },
-      { key: "prospectDetailsDownloaded", label: "Download the Prospect Details", completed: !!state.prospectDetailsDownloaded },
+      {
+        key: "prospectSearchGenerated",
+        label: "Generate the Prospect Search",
+        completed: !!state.prospectSearchGenerated,
+      },
+      {
+        key: "prospectDetailsDownloaded",
+        label: "Download the Prospect Details",
+        completed: !!state.prospectDetailsDownloaded,
+      },
     ],
     [state],
   );
@@ -112,7 +125,9 @@ export default function MasteryBottomBar() {
                           <Circle className="w-5 h-5 text-gray-300" />
                         )}
                       </div>
-                      <div className="text-sm text-[#333333] leading-5">{s.label}</div>
+                      <div className="text-sm text-[#333333] leading-5">
+                        {s.label}
+                      </div>
                     </li>
                   ))}
                 </ul>
@@ -154,16 +169,26 @@ export default function MasteryBottomBar() {
             <div className="flex-shrink-0 hidden sm:block">
               <Avatar className="h-7 w-7">
                 <AvatarImage src="" alt="VAIS" />
-                <AvatarFallback className="bg-white/30 text-white text-[10px]">VA</AvatarFallback>
+                <AvatarFallback className="bg-white/30 text-white text-[10px]">
+                  VA
+                </AvatarFallback>
               </Avatar>
             </div>
 
-            <button onClick={() => setExpanded((v) => !v)} className="flex-1 text-left">
+            <button
+              onClick={() => setExpanded((v) => !v)}
+              className="flex-1 text-left"
+            >
               <div className="flex items-center gap-3">
                 <div className="flex-1">
                   <Progress value={percent} className="h-[14px] bg-[#F1F1F1]" />
                 </div>
-                <ChevronUp className={"h-4 w-4 transition-transform " + (expanded ? "rotate-180" : "")} />
+                <ChevronUp
+                  className={
+                    "h-4 w-4 transition-transform " +
+                    (expanded ? "rotate-180" : "")
+                  }
+                />
               </div>
             </button>
 
