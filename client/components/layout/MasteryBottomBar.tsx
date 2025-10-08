@@ -1,6 +1,12 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { X, CheckCircle, Circle, ChevronUp, Coins } from "lucide-react";
+import { X, CheckCircle, Circle, Coins } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Link } from "react-router-dom";
 import {
@@ -85,8 +91,25 @@ export default function MasteryBottomBar() {
     prevRef.current = state;
   }, [state]);
 
-  const steps = useMemo(
-    () => [
+  const doneAll = useMemo(
+    () =>
+      !!(
+        state.onboardingCompleted &&
+        state.vaisResultsGenerated &&
+        state.accountsDownloaded &&
+        state.prospectSearchGenerated &&
+        state.prospectDetailsDownloaded
+      ),
+    [state],
+  );
+
+  const steps = useMemo(() => {
+    const list: Array<{
+      key: string;
+      label: string;
+      completed: boolean;
+      type?: "reward";
+    }> = [
       { key: "signUp", label: "Sign up to VAIS", completed: true },
       {
         key: "onboardingCompleted",
@@ -114,9 +137,19 @@ export default function MasteryBottomBar() {
         label: "Download the Prospect Details",
         completed: !!state.prospectDetailsDownloaded,
       },
-    ],
-    [state],
-  );
+    ];
+
+    if (doneAll) {
+      list.push({
+        key: "reward",
+        label: "Congratulation! You earn extra credits",
+        completed: true,
+        type: "reward",
+      });
+    }
+
+    return list;
+  }, [doneAll, state]);
 
   const next = useMemo(() => {
     if (!state.onboardingCompleted)
@@ -136,17 +169,24 @@ export default function MasteryBottomBar() {
   if (hidden) return null;
 
   const manPos = Math.max(0, Math.min(100, percent));
-  const doneAll = !!(
-    state.onboardingCompleted &&
-    state.vaisResultsGenerated &&
-    state.accountsDownloaded &&
-    state.prospectSearchGenerated &&
-    state.prospectDetailsDownloaded
+  const handleOpenGuide = useCallback(() => setExpanded(true), []);
+  const handleCloseGuide = useCallback(() => setExpanded(false), []);
+  const handleGuideKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        setExpanded(true);
+      }
+    },
+    [],
   );
 
   return (
     <div className="fixed inset-x-0 bottom-4 z-50 pointer-events-none">
-      <div className="mx-auto w-[min(92vw,520px)] pointer-events-auto">
+      <div
+        className="mx-auto w-[min(92vw,520px)] pointer-events-auto"
+        onMouseLeave={handleCloseGuide}
+      >
         {/* Slide-up panel */}
         <AnimatePresence initial={false}>
           {expanded && (
@@ -171,7 +211,7 @@ export default function MasteryBottomBar() {
                   <button
                     aria-label="Close"
                     className="text-gray-400 hover:text-gray-600"
-                    onClick={() => setExpanded(false)}
+                    onClick={handleCloseGuide}
                     title="Close"
                   >
                     <X className="h-4 w-4" />
@@ -182,34 +222,35 @@ export default function MasteryBottomBar() {
 
               <div className="px-5 pb-4 max-h-[360px] overflow-y-auto">
                 <ul className="space-y-3">
-                  {steps.map((s, idx) => (
-                    <li key={idx} className="flex items-start gap-3">
+                  {steps.map((s) => (
+                    <li key={s.key} className="flex items-start gap-3">
                       <div className="mt-0.5">
-                        {s.completed ? (
+                        {s.type === "reward" ? (
+                          <Coins className="w-5 h-5 text-amber-500" />
+                        ) : s.completed ? (
                           <CheckCircle className="w-5 h-5 text-[#4CAF50]" />
                         ) : (
                           <Circle className="w-5 h-5 text-gray-300" />
                         )}
                       </div>
                       <div className="text-sm text-[#333333] leading-5">
-                        <div className="flex items-center gap-2">
-                          <span>{s.label}</span>
-                        </div>
+                        {s.type === "reward" ? (
+                          <span
+                            className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 text-gray-500 border border-gray-200 px-2.5 py-1 text-[11px] font-semibold cursor-not-allowed select-none"
+                            aria-disabled="true"
+                          >
+                            <Coins className="w-3.5 h-3.5" />
+                            {s.label}
+                          </span>
+                        ) : (
+                          <div className="flex items-center gap-2">
+                            <span>{s.label}</span>
+                          </div>
+                        )}
                       </div>
                     </li>
                   ))}
                 </ul>
-                {doneAll && (
-                  <div className="mt-4 flex">
-                    <span
-                      className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 text-gray-500 border border-gray-200 px-2.5 py-1 text-[11px] font-semibold cursor-not-allowed select-none"
-                      aria-disabled
-                    >
-                      <Coins className="w-3.5 h-3.5" />
-                      Congratulation! You earn extra credits
-                    </span>
-                  </div>
-                )}
               </div>
             </motion.div>
           )}
@@ -245,7 +286,7 @@ export default function MasteryBottomBar() {
             <div className="flex items-center gap-2">
               <button
                 className="text-xs font-semibold text-[#FF7A00] hover:underline"
-                onClick={() => setExpanded(true)}
+                onClick={handleOpenGuide}
                 title="Open guide"
               >
                 Details
@@ -262,7 +303,14 @@ export default function MasteryBottomBar() {
         )}
 
         {/* Bottom orange bar */}
-        <div className="relative flex flex-col gap-1 rounded-xl shadow-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white">
+        <div
+          className="relative flex flex-col gap-1 rounded-xl shadow-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white cursor-pointer"
+          role="button"
+          tabIndex={0}
+          aria-expanded={expanded}
+          onClick={handleOpenGuide}
+          onKeyDown={handleGuideKeyDown}
+        >
           {/* Top row: avatar, progress, chevron, close */}
           <div className="flex items-center gap-3">
             <div className="flex-shrink-0 hidden sm:block">
@@ -274,10 +322,7 @@ export default function MasteryBottomBar() {
               </Avatar>
             </div>
 
-            <button
-              onClick={() => setExpanded((v) => !v)}
-              className="flex-1 text-left"
-            >
+            <div className="flex-1 text-left">
               <div className="flex items-center gap-3">
                 <div className="relative flex-1">
                   <Progress value={percent} className="h-[14px] bg-[#F1F1F1]" />
@@ -288,18 +333,16 @@ export default function MasteryBottomBar() {
                     style={{ left: `${manPos}%` }}
                   />
                 </div>
-                <ChevronUp
-                  className={
-                    "h-4 w-4 transition-transform " +
-                    (expanded ? "rotate-180" : "")
-                  }
-                />
               </div>
-            </button>
+            </div>
 
             <button
               aria-label="Hide for now"
-              onClick={() => setHidden(true)}
+              onClick={(event) => {
+                event.stopPropagation();
+                handleCloseGuide();
+                setHidden(true);
+              }}
               className="ml-1 rounded-md hover:opacity-90"
               title="Hide for now"
             >
