@@ -64,14 +64,18 @@ function Walker({ walking }: { walking: boolean }) {
 
 export default function WalkingProgress({
   value,
+  fromValue,
   className,
   height = 12,
   animateOnChange = true,
 }: WalkingProgressProps) {
   const clamped = Math.min(100, Math.max(0, value ?? 0));
-  const [displayValue, setDisplayValue] = useState(clamped);
+  const startRef = useRef(true);
+  const prevRef = useRef(
+    fromValue != null ? Math.min(100, Math.max(0, fromValue)) : clamped,
+  );
+  const [displayValue, setDisplayValue] = useState(prevRef.current);
   const [walking, setWalking] = useState(false);
-  const prevRef = useRef(clamped);
 
   useEffect(() => {
     if (!animateOnChange) {
