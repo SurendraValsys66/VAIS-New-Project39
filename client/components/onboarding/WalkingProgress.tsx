@@ -10,8 +10,6 @@ export interface WalkingProgressProps {
   animateOnChange?: boolean; // when value increases, animate man + slow fill
 }
 
-
-
 export default function WalkingProgress({
   value,
   fromValue,
@@ -96,14 +94,12 @@ export default function WalkingProgress({
     return () => cancelAnimationFrame(raf);
   }, [clamped, animateOnChange]);
 
-
   return (
     <div className={cn("relative", className)}>
       <div className="flex items-center gap-2">
         {/* The bar with fill */}
         <div className="relative flex-1" style={{ height }}>
           <Progress value={displayValue} className="h-full" />
-
         </div>
       </div>
     </div>
