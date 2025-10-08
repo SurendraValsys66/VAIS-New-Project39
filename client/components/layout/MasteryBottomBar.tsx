@@ -547,6 +547,23 @@ export default function MasteryBottomBar() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Final completion dialog */}
+      <Dialog open={showFinalDialog} onOpenChange={setShowFinalDialog}>
+        <DialogContent className="max-w-md text-center">
+          <DialogHeader>
+            <DialogTitle>
+              cangratulation! your completed all the Steps , Your VAIS Mastery completed and you earn 50 Free Credits
+            </DialogTitle>
+          </DialogHeader>
+          <div className="mt-2 text-sm text-gray-600">
+            Enjoy your bonus credits and keep exploring VAIS.
+          </div>
+          <DialogFooter className="sm:justify-center">
+            <Button onClick={() => setShowFinalDialog(false)}>OK</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }
