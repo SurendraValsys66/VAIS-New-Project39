@@ -6,7 +6,14 @@ import React, {
   useState,
 } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { X, CheckCircle, Circle, Coins, ChevronDown, ChevronUp } from "lucide-react";
+import {
+  X,
+  CheckCircle,
+  Circle,
+  Coins,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
@@ -255,9 +262,9 @@ export default function MasteryBottomBar() {
                               {s.label}
                             </Badge>
                           )
-                        ) : (s.key === "onboardingCompleted" ||
+                        ) : s.key === "onboardingCompleted" ||
                           s.key === "accountsDownloaded" ||
-                          s.key === "prospectSearchGenerated") ? (
+                          s.key === "prospectSearchGenerated" ? (
                           <div>
                             <button
                               type="button"
@@ -278,18 +285,34 @@ export default function MasteryBottomBar() {
                                   initial={{ height: 0, opacity: 0 }}
                                   animate={{ height: "auto", opacity: 1 }}
                                   exit={{ height: 0, opacity: 0 }}
-                                  transition={{ duration: 0.2, ease: "easeOut" }}
+                                  transition={{
+                                    duration: 0.2,
+                                    ease: "easeOut",
+                                  }}
                                   className="overflow-hidden"
                                 >
                                   <div className="mt-2 text-xs text-[#555] bg-orange-100 p-2 rounded-md">
                                     {s.key === "onboardingCompleted" && (
-                                      <>Hint: Complete your onboarding by selecting the role and filling in the basic info. This unlocks free credits.</>
+                                      <>
+                                        Hint: Complete your onboarding by
+                                        selecting the role and filling in the
+                                        basic info. This unlocks free credits.
+                                      </>
                                     )}
                                     {s.key === "accountsDownloaded" && (
-                                      <>Hint: On the VAIS Results page, use the “Download Accounts” button to export your list. Apply filters first if you want a narrower file.</>
+                                      <>
+                                        Hint: On the VAIS Results page, use the
+                                        “Download Accounts” button to export
+                                        your list. Apply filters first if you
+                                        want a narrower file.
+                                      </>
                                     )}
                                     {s.key === "prospectSearchGenerated" && (
-                                      <>Hint: Go to Find Prospect, choose a few filters, then click “Generate Search.” Start simple—add more filters later.</>
+                                      <>
+                                        Hint: Go to Find Prospect, choose a few
+                                        filters, then click “Generate Search.”
+                                        Start simple—add more filters later.
+                                      </>
                                     )}
                                   </div>
                                 </motion.div>
