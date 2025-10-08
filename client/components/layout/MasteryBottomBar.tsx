@@ -8,6 +8,7 @@ import React, {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { X, CheckCircle, Circle, Coins } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
+import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import {
   calculateMasteryPercentage,
@@ -139,14 +140,13 @@ export default function MasteryBottomBar() {
       },
     ];
 
-    if (doneAll) {
-      list.push({
-        key: "reward",
-        label: "Congratulation! You earn extra credits",
-        completed: true,
-        type: "reward",
-      });
-    }
+    // Always include the reward badge as the last step; it becomes enabled only when all steps are completed
+    list.push({
+      key: "reward",
+      label: "Congratulation! you earn the extra credits",
+      completed: doneAll,
+      type: "reward",
+    });
 
     return list;
   }, [doneAll, state]);
@@ -235,13 +235,20 @@ export default function MasteryBottomBar() {
                       </div>
                       <div className="text-sm text-[#333333] leading-5">
                         {s.type === "reward" ? (
-                          <span
-                            className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 text-gray-500 border border-gray-200 px-2.5 py-1 text-[11px] font-semibold cursor-not-allowed select-none"
-                            aria-disabled="true"
-                          >
-                            <Coins className="w-3.5 h-3.5" />
-                            {s.label}
-                          </span>
+                          s.completed ? (
+                            <Badge className="inline-flex items-center gap-1.5 bg-valasys-green text-white border-transparent px-2.5 py-1 text-[11px] font-semibold">
+                              <Coins className="w-3.5 h-3.5" />
+                              {s.label}
+                            </Badge>
+                          ) : (
+                            <Badge
+                              className="inline-flex items-center gap-1.5 bg-gray-100 text-gray-500 border-gray-200 px-2.5 py-1 text-[11px] font-semibold cursor-not-allowed select-none"
+                              aria-disabled="true"
+                            >
+                              <Coins className="w-3.5 h-3.5" />
+                              {s.label}
+                            </Badge>
+                          )
                         ) : (
                           <div className="flex items-center gap-2">
                             <span>{s.label}</span>
