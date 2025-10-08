@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 
 export interface WalkingProgressProps {
   value: number; // 0 - 100
+  fromValue?: number; // optional starting value (used on first mount)
   className?: string;
   height?: number; // px height for the bar area
   animateOnChange?: boolean; // when value increases, animate man + slow fill
