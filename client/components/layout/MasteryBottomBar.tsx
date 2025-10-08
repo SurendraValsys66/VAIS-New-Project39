@@ -132,7 +132,18 @@ export default function MasteryBottomBar() {
     const prevPct = calculateMasteryPercentage(prev);
     const currPct = calculateMasteryPercentage(now);
     if (prevPct < 100 && currPct >= 100) {
-      sonnerToast("Bonus unlocked! You completed all mastery steps.");
+      let alreadyShown = false;
+      try {
+        alreadyShown = localStorage.getItem("valasys-mastery-complete") === "1";
+      } catch {}
+      if (!alreadyShown) {
+        try {
+          localStorage.setItem("valasys-mastery-complete", "1");
+        } catch {}
+        setShowConfetti(true);
+        setShowFinalDialog(true);
+        setTimeout(() => setShowConfetti(false), 3000);
+      }
     }
 
     prevRef.current = state;
