@@ -155,7 +155,11 @@ export default function MasteryBottomBar() {
         completed: true,
         hint: (
           <>
-            Already signed up? <Link to="/free-trial" className="text-valasys-blue underline">Invite a teammate</Link> or review your account preferences anytime.
+            Already signed up?{" "}
+            <Link to="/free-trial" className="text-valasys-blue underline">
+              Invite a teammate
+            </Link>{" "}
+            or review your account preferences anytime.
           </>
         ),
         to: "/free-trial",
@@ -167,7 +171,12 @@ export default function MasteryBottomBar() {
         completed: !!state.onboardingCompleted,
         hint: (
           <>
-            Answer a few quick questions about your goals so we can tailor VAIS to your workflow. <Link to="/onboarding/role" className="text-valasys-blue underline">Resume onboarding</Link>.
+            Answer a few quick questions about your goals so we can tailor VAIS
+            to your workflow.{" "}
+            <Link to="/onboarding/role" className="text-valasys-blue underline">
+              Resume onboarding
+            </Link>
+            .
           </>
         ),
         to: "/onboarding/role",
@@ -179,7 +188,11 @@ export default function MasteryBottomBar() {
         completed: !!state.vaisResultsGenerated,
         hint: (
           <>
-            <Link to="/build-vais" className="text-valasys-blue underline">Build your VAIS</Link> model to unlock prioritized account and lead insights in just a couple of clicks.
+            <Link to="/build-vais" className="text-valasys-blue underline">
+              Build your VAIS
+            </Link>{" "}
+            model to unlock prioritized account and lead insights in just a
+            couple of clicks.
           </>
         ),
         to: "/build-vais",
@@ -191,7 +204,12 @@ export default function MasteryBottomBar() {
         completed: !!state.accountsDownloaded,
         hint: (
           <>
-            Head to the <Link to="/vais-results" className="text-valasys-blue underline">VAIS Results</Link> page, apply any filters you need, then export the ready-to-use account list.
+            Head to the{" "}
+            <Link to="/vais-results" className="text-valasys-blue underline">
+              VAIS Results
+            </Link>{" "}
+            page, apply any filters you need, then export the ready-to-use
+            account list.
           </>
         ),
         to: "/vais-results",
@@ -203,7 +221,12 @@ export default function MasteryBottomBar() {
         completed: !!state.prospectSearchGenerated,
         hint: (
           <>
-            Use <Link to="/find-prospect" className="text-valasys-blue underline">Find Prospect</Link> to build a targeted search—start with a few filters, generate the list, and refine as you go.
+            Use{" "}
+            <Link to="/find-prospect" className="text-valasys-blue underline">
+              Find Prospect
+            </Link>{" "}
+            to build a targeted search—start with a few filters, generate the
+            list, and refine as you go.
           </>
         ),
         to: "/find-prospect",
@@ -215,7 +238,15 @@ export default function MasteryBottomBar() {
         completed: !!state.prospectDetailsDownloaded,
         hint: (
           <>
-            Open your <Link to="/prospect-results" className="text-valasys-blue underline">Prospect Results</Link>, preview the contacts, and download the detailed CSV to share with your team.
+            Open your{" "}
+            <Link
+              to="/prospect-results"
+              className="text-valasys-blue underline"
+            >
+              Prospect Results
+            </Link>
+            , preview the contacts, and download the detailed CSV to share with
+            your team.
           </>
         ),
         to: "/prospect-results",
@@ -231,7 +262,11 @@ export default function MasteryBottomBar() {
       type: "reward",
       hint: (
         <>
-          You’ve unlocked extra credits! Review your <Link to="/spending-history" className="text-valasys-blue underline">usage history</Link> and plan the next campaign to maximise the boost.
+          You’ve unlocked extra credits! Review your{" "}
+          <Link to="/spending-history" className="text-valasys-blue underline">
+            usage history
+          </Link>{" "}
+          and plan the next campaign to maximise the boost.
         </>
       ),
       to: "/spending-history",
