@@ -69,10 +69,9 @@ export default function MasteryChecklist({
               aria-label="Close"
               className="absolute right-4 top-4 text-gray-400 hover:text-gray-600"
               onClick={() => {
-                setMasteryDismissed(true);
                 onOpenChange(false);
               }}
-              title="Dismiss"
+              title="Close"
             >
               ✕
             </button>

@@ -63,7 +63,7 @@ import { useTour } from "@/contexts/TourContext";
 import PlatformTour from "@/components/tour/PlatformTour";
 import MasteryChecklist from "@/components/layout/MasteryChecklist";
 import MasteryBottomBar from "@/components/layout/MasteryBottomBar";
-import { getMastery } from "@/lib/masteryStorage";
+import { getMastery, calculateMasteryPercentage } from "@/lib/masteryStorage";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -160,11 +160,12 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   // Contact Sales dialog
   const [showContactSalesDialog, setShowContactSalesDialog] = useState(false);
 
-  // Auto-open Mastery Checklist for new users (first login / not dismissed)
+  // Auto-open Mastery Checklist when mastery is incomplete
   useEffect(() => {
     try {
       const m = getMastery();
-      if (!m.dismissed) setMasteryOpen(true);
+      const percent = calculateMasteryPercentage(m);
+      if (percent < 100) setMasteryOpen(true);
     } catch {}
   }, []);
 

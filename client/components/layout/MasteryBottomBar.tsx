@@ -6,7 +6,6 @@ import {
   calculateMasteryPercentage,
   getMastery,
   MasterySteps,
-  setMasteryDismissed,
   MASTERY_EVENT,
 } from "@/lib/masteryStorage";
 
@@ -16,6 +15,7 @@ export default function MasteryBottomBar({
   onOpen: () => void;
 }) {
   const [state, setState] = useState<MasterySteps>({});
+  const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
     setState(getMastery());
@@ -28,9 +28,8 @@ export default function MasteryBottomBar({
     };
   }, []);
 
-  if (state.dismissed) return null;
-
   const percent = calculateMasteryPercentage(state);
+  if (hidden || percent >= 100) return null;
 
   return (
     <div className="fixed inset-x-0 bottom-4 z-50 pointer-events-none">
@@ -62,10 +61,10 @@ export default function MasteryBottomBar({
 
           {/* Close */}
           <button
-            aria-label="Dismiss mastery"
-            onClick={() => setMasteryDismissed(true)}
+            aria-label="Hide for now"
+            onClick={() => setHidden(true)}
             className="ml-1 rounded-md hover:opacity-90"
-            title="Dismiss"
+            title="Hide for now"
           >
             <X className="h-4 w-4" />
           </button>
