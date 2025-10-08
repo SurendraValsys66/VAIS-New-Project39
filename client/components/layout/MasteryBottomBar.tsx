@@ -138,7 +138,7 @@ export default function MasteryBottomBar() {
               </button>
               <Link
                 to={next.to}
-                className="inline-flex items-center rounded-md bg-[#FF7A00] px-2 py-1 text-xs font-semibold text-white hover:opacity-90"
+                className="inline-flex items-center rounded-md bg-valasys-orange hover:bg-valasys-orange-light px-2 py-1 text-xs font-semibold text-white"
                 title="Go"
               >
                 Go
@@ -148,7 +148,7 @@ export default function MasteryBottomBar() {
         )}
 
         {/* Bottom orange bar */}
-        <div className="relative flex flex-col gap-1 rounded-xl shadow-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-r from-[#FF7A00] to-[#FFB347] text-white">
+        <div className="relative flex flex-col gap-1 rounded-xl shadow-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white">
           {/* Top row: avatar, progress, chevron, close */}
           <div className="flex items-center gap-3">
             <div className="flex-shrink-0 hidden sm:block">
