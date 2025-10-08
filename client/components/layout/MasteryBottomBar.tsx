@@ -85,8 +85,25 @@ export default function MasteryBottomBar() {
     prevRef.current = state;
   }, [state]);
 
-  const steps = useMemo(
-    () => [
+  const doneAll = useMemo(
+    () =>
+      !!(
+        state.onboardingCompleted &&
+        state.vaisResultsGenerated &&
+        state.accountsDownloaded &&
+        state.prospectSearchGenerated &&
+        state.prospectDetailsDownloaded
+      ),
+    [state],
+  );
+
+  const steps = useMemo(() => {
+    const list: Array<{
+      key: string;
+      label: string;
+      completed: boolean;
+      type?: "reward";
+    }> = [
       { key: "signUp", label: "Sign up to VAIS", completed: true },
       {
         key: "onboardingCompleted",
@@ -114,9 +131,19 @@ export default function MasteryBottomBar() {
         label: "Download the Prospect Details",
         completed: !!state.prospectDetailsDownloaded,
       },
-    ],
-    [state],
-  );
+    ];
+
+    if (doneAll) {
+      list.push({
+        key: "reward",
+        label: "Congratulation! You earn extra credits",
+        completed: true,
+        type: "reward",
+      });
+    }
+
+    return list;
+  }, [doneAll, state]);
 
   const next = useMemo(() => {
     if (!state.onboardingCompleted)
@@ -136,13 +163,6 @@ export default function MasteryBottomBar() {
   if (hidden) return null;
 
   const manPos = Math.max(0, Math.min(100, percent));
-  const doneAll = !!(
-    state.onboardingCompleted &&
-    state.vaisResultsGenerated &&
-    state.accountsDownloaded &&
-    state.prospectSearchGenerated &&
-    state.prospectDetailsDownloaded
-  );
 
   return (
     <div className="fixed inset-x-0 bottom-4 z-50 pointer-events-none">
@@ -182,34 +202,35 @@ export default function MasteryBottomBar() {
 
               <div className="px-5 pb-4 max-h-[360px] overflow-y-auto">
                 <ul className="space-y-3">
-                  {steps.map((s, idx) => (
-                    <li key={idx} className="flex items-start gap-3">
+                  {steps.map((s) => (
+                    <li key={s.key} className="flex items-start gap-3">
                       <div className="mt-0.5">
-                        {s.completed ? (
+                        {s.type === "reward" ? (
+                          <Coins className="w-5 h-5 text-amber-500" />
+                        ) : s.completed ? (
                           <CheckCircle className="w-5 h-5 text-[#4CAF50]" />
                         ) : (
                           <Circle className="w-5 h-5 text-gray-300" />
                         )}
                       </div>
                       <div className="text-sm text-[#333333] leading-5">
-                        <div className="flex items-center gap-2">
-                          <span>{s.label}</span>
-                        </div>
+                        {s.type === "reward" ? (
+                          <span
+                            className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 text-gray-500 border border-gray-200 px-2.5 py-1 text-[11px] font-semibold cursor-not-allowed select-none"
+                            aria-disabled="true"
+                          >
+                            <Coins className="w-3.5 h-3.5" />
+                            {s.label}
+                          </span>
+                        ) : (
+                          <div className="flex items-center gap-2">
+                            <span>{s.label}</span>
+                          </div>
+                        )}
                       </div>
                     </li>
                   ))}
                 </ul>
-                {doneAll && (
-                  <div className="mt-4 flex">
-                    <span
-                      className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 text-gray-500 border border-gray-200 px-2.5 py-1 text-[11px] font-semibold cursor-not-allowed select-none"
-                      aria-disabled
-                    >
-                      <Coins className="w-3.5 h-3.5" />
-                      Congratulation! You earn extra credits
-                    </span>
-                  </div>
-                )}
               </div>
             </motion.div>
           )}
