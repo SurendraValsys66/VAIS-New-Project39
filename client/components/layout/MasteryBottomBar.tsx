@@ -290,8 +290,8 @@ export default function MasteryBottomBar() {
                           VAIS Mastery Steps Guide
                         </h2>
                         <p className="text-xs text-[#666] mt-0.5">
-                          Complete these steps to unlock your full VAIS potential
-                          🚀
+                          Complete these steps to unlock your full VAIS
+                          potential 🚀
                         </p>
                       </div>
                       <button
