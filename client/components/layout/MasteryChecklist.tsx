@@ -68,8 +68,7 @@ export default function MasteryChecklist({
       { key: "signUp", label: "Sign up to VAIS", completed: true },
       {
         key: "onboardingCompleted",
-        label:
-          "Complete the onboarding questions — Hint: Complete your onboarding process and get free credits 🎉",
+        label: "Complete the onboarding questions",
         completed: !!state.onboardingCompleted,
       },
       {
