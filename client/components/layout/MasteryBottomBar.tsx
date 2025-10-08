@@ -241,7 +241,7 @@ export default function MasteryBottomBar() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 16 }}
               transition={{ duration: 0.18, ease: "easeOut" }}
-              className="mb-2 rounded-xl shadow-xl bg-white overflow-hidden"
+              className="mb-2 rounded-xl border border-gray-200 shadow-xl bg-white overflow-hidden"
             >
               <div className="px-5 pt-4 pb-3">
                 <div className="flex items-start justify-between">
