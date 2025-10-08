@@ -8,6 +8,7 @@ import React, {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { X, CheckCircle, Circle, Coins } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
+import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import {
   calculateMasteryPercentage,
@@ -27,6 +28,9 @@ export default function MasteryBottomBar() {
   const [state, setState] = useState<MasterySteps>({});
   const [hidden, setHidden] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const [openHints, setOpenHints] = useState<Record<string, boolean>>({});
+  const toggleHint = (key: string) =>
+    setOpenHints((s) => ({ ...s, [key]: !s[key] }));
   const prevRef = useRef<MasterySteps>({});
 
   useEffect(() => {
@@ -139,14 +143,13 @@ export default function MasteryBottomBar() {
       },
     ];
 
-    if (doneAll) {
-      list.push({
-        key: "reward",
-        label: "Congratulation! You earn extra credits",
-        completed: true,
-        type: "reward",
-      });
-    }
+    // Always include the reward badge as the last step; it becomes enabled only when all steps are completed
+    list.push({
+      key: "reward",
+      label: "Congratulation! you earn the extra credits",
+      completed: doneAll,
+      type: "reward",
+    });
 
     return list;
   }, [doneAll, state]);
@@ -235,13 +238,41 @@ export default function MasteryBottomBar() {
                       </div>
                       <div className="text-sm text-[#333333] leading-5">
                         {s.type === "reward" ? (
-                          <span
-                            className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 text-gray-500 border border-gray-200 px-2.5 py-1 text-[11px] font-semibold cursor-not-allowed select-none"
-                            aria-disabled="true"
-                          >
-                            <Coins className="w-3.5 h-3.5" />
-                            {s.label}
-                          </span>
+                          s.completed ? (
+                            <Badge className="inline-flex items-center gap-1.5 bg-valasys-green text-white border-transparent px-2.5 py-1 text-[11px] font-semibold">
+                              <Coins className="w-3.5 h-3.5" />
+                              {s.label}
+                            </Badge>
+                          ) : (
+                            <Badge
+                              className="inline-flex items-center gap-1.5 bg-gray-100 text-gray-500 border-gray-200 px-2.5 py-1 text-[11px] font-semibold cursor-not-allowed select-none"
+                              aria-disabled="true"
+                            >
+                              <Coins className="w-3.5 h-3.5" />
+                              {s.label}
+                            </Badge>
+                          )
+                        ) : s.key === "onboardingCompleted" ? (
+                          <div>
+                            <button
+                              type="button"
+                              onClick={() => toggleHint(s.key)}
+                              className="flex items-center gap-2 text-sm text-[#333333] font-medium"
+                              aria-expanded={!!openHints[s.key]}
+                            >
+                              <span>{s.label}</span>
+                              <span className="ml-2 text-xs text-[#666]">
+                                {openHints[s.key] ? "Hide hint" : "Show hint"}
+                              </span>
+                            </button>
+                            {openHints[s.key] && (
+                              <div className="mt-2 text-xs text-[#555] bg-gray-50 border border-gray-100 p-2 rounded">
+                                Hint: Complete your onboarding by selecting the
+                                role and filling in the basic info. This unlocks
+                                free credits.
+                              </div>
+                            )}
+                          </div>
                         ) : (
                           <div className="flex items-center gap-2">
                             <span>{s.label}</span>
