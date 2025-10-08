@@ -11,6 +11,7 @@ import {
 } from "@/lib/masteryStorage";
 import { AnimatePresence, motion } from "framer-motion";
 import { toast as sonnerToast } from "sonner";
+import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 
 export default function MasteryBottomBar() {
   const [state, setState] = useState<MasterySteps>({});
@@ -184,6 +185,27 @@ export default function MasteryBottomBar() {
           )}
         </AnimatePresence>
 
+        {/* Gift tooltip above Next up */}
+        {!expanded && (
+          <div className="mb-2 flex justify-end">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div className="bg-white rounded-xl shadow-md p-1.5">
+                  <img
+                    src="https://cdn.builder.io/o/assets%2F1d0d3cbc213245beba3786aa1a6f12a3%2F515d18c2065f4103840ed7e794f0f02f?alt=media&token=b6ff5c54-de26-42ea-960d-cf00e42191cf&apiKey=1d0d3cbc213245beba3786aa1a6f12a3"
+                    alt="Earn credits"
+                    className="h-10 w-10 rounded-sm"
+                    loading="lazy"
+                  />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent side="top" className="max-w-[260px] text-center">
+                <div>Complete steps to earn credits. Finish all steps to unlock a bonus.</div>
+              </TooltipContent>
+            </Tooltip>
+          </div>
+        )}
+
         {/* Next up suggestion (shown when collapsed) */}
         {!expanded && next && (
           <div className="mb-2 flex items-center justify-between rounded-xl border border-gray-200 bg-white px-3 py-2 shadow-sm">
@@ -214,28 +236,13 @@ export default function MasteryBottomBar() {
         <div className="relative flex flex-col gap-1 rounded-xl shadow-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white">
           {/* Top row: avatar, progress, chevron, close */}
           <div className="flex items-center gap-3">
-            <div className="flex-shrink-0 hidden sm:flex items-center gap-2">
-              <img
-                src="https://cdn.builder.io/o/assets%2F1d0d3cbc213245beba3786aa1a6f12a3%2F1f0c052c3ec1472781ef6f40787bccfc?alt=media&token=61eb14bf-ca1d-4b41-a72a-1358b228b5a8&apiKey=1d0d3cbc213245beba3786aa1a6f12a3"
-                alt="Earn credits"
-                className="h-8 w-8 rounded-sm"
-                loading="lazy"
-              />
+            <div className="flex-shrink-0 hidden sm:block">
               <Avatar className="h-7 w-7">
                 <AvatarImage src="" alt="VAIS" />
                 <AvatarFallback className="bg-white/30 text-white text-[10px]">
                   VA
                 </AvatarFallback>
               </Avatar>
-            </div>
-
-            <div className="flex-shrink-0 sm:hidden">
-              <img
-                src="https://cdn.builder.io/o/assets%2F1d0d3cbc213245beba3786aa1a6f12a3%2F1f0c052c3ec1472781ef6f40787bccfc?alt=media&token=61eb14bf-ca1d-4b41-a72a-1358b228b5a8&apiKey=1d0d3cbc213245beba3786aa1a6f12a3"
-                alt="Earn credits"
-                className="h-6 w-6 rounded-sm"
-                loading="lazy"
-              />
             </div>
 
             <button
