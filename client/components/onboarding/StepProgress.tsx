@@ -35,7 +35,13 @@ export default function StepProgress({
         </div>
       </div>
       <div className="flex items-center gap-3">
-        <WalkingProgress value={value} className="flex-1" height={8} animateOnChange={isChange} />
+        <WalkingProgress
+          value={value}
+          fromValue={Math.max(0, Math.round(((current - 1) / total) * 100))}
+          className="flex-1"
+          height={8}
+          animateOnChange={isChange}
+        />
         <span className="text-sm font-medium text-valasys-gray-700 min-w-[3rem] text-right">
           {value}%
         </span>
