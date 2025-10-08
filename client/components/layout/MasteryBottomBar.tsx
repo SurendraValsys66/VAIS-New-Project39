@@ -203,14 +203,7 @@ export default function MasteryBottomBar() {
         label: "Download the Accounts from the VAIS Results page",
         completed: !!state.accountsDownloaded,
         hint: (
-          <>
-            Head to the{" "}
-            <Link to="/vais-results" className="text-valasys-blue underline">
-              VAIS Results
-            </Link>{" "}
-            page, apply any filters you need, then export the ready-to-use
-            account list.
-          </>
+          <>Head to the VAIS Results page, apply any filters you need, then export the ready-to-use account list.</>
         ),
         to: "/vais-results",
         cta: "Open VAIS Results",
@@ -237,41 +230,13 @@ export default function MasteryBottomBar() {
         label: "Download the Prospect Details",
         completed: !!state.prospectDetailsDownloaded,
         hint: (
-          <>
-            Open your{" "}
-            <Link
-              to="/prospect-results"
-              className="text-valasys-blue underline"
-            >
-              Prospect Results
-            </Link>
-            , preview the contacts, and download the detailed CSV to share with
-            your team.
-          </>
+          <>Open your Prospect Results, preview the contacts, and download the detailed CSV to share with your team.</>
         ),
         to: "/prospect-results",
         cta: "View prospect results",
       },
     ];
 
-    // Always include the reward badge as the last step; it becomes enabled only when all steps are completed
-    list.push({
-      key: "reward",
-      label: "Congratulation! you earn the extra credits",
-      completed: doneAll,
-      type: "reward",
-      hint: (
-        <>
-          You’ve unlocked extra credits! Review your{" "}
-          <Link to="/spending-history" className="text-valasys-blue underline">
-            usage history
-          </Link>{" "}
-          and plan the next campaign to maximise the boost.
-        </>
-      ),
-      to: "/spending-history",
-      cta: "View credit history",
-    });
 
     return list;
   }, [doneAll, state]);
