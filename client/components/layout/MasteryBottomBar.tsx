@@ -121,58 +121,66 @@ export default function MasteryBottomBar() {
           )}
         </AnimatePresence>
 
-        {/* Bottom orange bar */}
-        <div className="relative flex items-center gap-3 rounded-xl shadow-lg px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-[#FF7A00] to-[#FFB347] text-white">
-          {/* Avatar */}
-          <div className="flex-shrink-0 hidden sm:block">
-            <Avatar className="h-7 w-7">
-              <AvatarImage src="" alt="VAIS" />
-              <AvatarFallback className="bg-white/30 text-white text-[10px]">VA</AvatarFallback>
-            </Avatar>
-          </div>
-
-          {/* Bar content (toggle expand) */}
-          <button onClick={() => setExpanded((v) => !v)} className="flex-1 text-left">
-            <div className="flex items-center gap-3">
-              <div className="flex-1">
-                <div className="relative">
-                  <Progress value={percent} className="h-3 bg-[#F1F1F1]" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-[11px] font-semibold drop-shadow-sm">
-                      Your VAIS mastery: {percent}%
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <ChevronUp className={"h-4 w-4 transition-transform " + (expanded ? "rotate-180" : "")} />
+        {/* Next up suggestion (shown when collapsed) */}
+        {!expanded && next && (
+          <div className="mb-2 flex items-center justify-between rounded-xl border border-gray-200 bg-white px-3 py-2 shadow-sm">
+            <div className="text-[13px]">
+              <span className="font-semibold text-[#FF7A00]">Next up: </span>
+              <span className="text-[#333]">{next.label}</span>
             </div>
-          </button>
-
-          {/* Next suggested step CTA */}
-          {next && (
-            <div className="hidden sm:flex items-center gap-2 pl-2">
-              <span className="text-[11px] font-semibold">Next:</span>
-              <span className="text-[11px] line-clamp-1 max-w-[160px]">{next.label}</span>
+            <div className="flex items-center gap-2">
+              <button
+                className="text-xs font-semibold text-[#FF7A00] hover:underline"
+                onClick={() => setExpanded(true)}
+                title="Open guide"
+              >
+                Details
+              </button>
               <Link
                 to={next.to}
-                onClick={(e) => e.stopPropagation()}
-                className="ml-1 inline-flex items-center px-2 py-1 rounded-md text-[#FF7A00] bg-white text-[11px] font-semibold hover:opacity-90"
+                className="inline-flex items-center rounded-md bg-[#FF7A00] px-2 py-1 text-xs font-semibold text-white hover:opacity-90"
                 title="Go"
               >
                 Go
               </Link>
             </div>
-          )}
+          </div>
+        )}
 
-          {/* Hide bottom bar for this session */}
-          <button
-            aria-label="Hide for now"
-            onClick={() => setHidden(true)}
-            className="ml-1 rounded-md hover:opacity-90"
-            title="Hide for now"
-          >
-            <X className="h-4 w-4" />
-          </button>
+        {/* Bottom orange bar */}
+        <div className="relative flex flex-col gap-1 rounded-xl shadow-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-r from-[#FF7A00] to-[#FFB347] text-white">
+          {/* Top row: avatar, progress, chevron, close */}
+          <div className="flex items-center gap-3">
+            <div className="flex-shrink-0 hidden sm:block">
+              <Avatar className="h-7 w-7">
+                <AvatarImage src="" alt="VAIS" />
+                <AvatarFallback className="bg-white/30 text-white text-[10px]">VA</AvatarFallback>
+              </Avatar>
+            </div>
+
+            <button onClick={() => setExpanded((v) => !v)} className="flex-1 text-left">
+              <div className="flex items-center gap-3">
+                <div className="flex-1">
+                  <Progress value={percent} className="h-[14px] bg-[#F1F1F1]" />
+                </div>
+                <ChevronUp className={"h-4 w-4 transition-transform " + (expanded ? "rotate-180" : "")} />
+              </div>
+            </button>
+
+            <button
+              aria-label="Hide for now"
+              onClick={() => setHidden(true)}
+              className="ml-1 rounded-md hover:opacity-90"
+              title="Hide for now"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+
+          {/* Bottom text */}
+          <div className="text-center text-[12px] font-semibold">
+            Your VAIS mastery: {percent}%
+          </div>
         </div>
       </div>
     </div>
