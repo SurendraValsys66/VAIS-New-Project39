@@ -153,15 +153,7 @@ export default function MasteryBottomBar() {
         key: "signUp",
         label: "Sign up to VAIS",
         completed: true,
-        hint: (
-          <>
-            Already signed up?{" "}
-            <Link to="/free-trial" className="text-valasys-blue underline">
-              Invite a teammate
-            </Link>{" "}
-            or review your account preferences anytime.
-          </>
-        ),
+        hint: null,
         to: "/free-trial",
         cta: "Invite a teammate",
       },
