@@ -218,7 +218,7 @@ export default function MasteryChecklist({
                               transition={{ duration: 0.2, ease: "easeOut" }}
                               className="overflow-hidden"
                             >
-                              <div className="mt-2 text-xs text-[#555] bg-orange-100 p-2 rounded">
+                              <div className="mt-2 text-xs text-[#555] bg-orange-100 p-2 rounded-md">
                                 {s.key === "onboardingCompleted" && (
                                   <>Hint: Complete your onboarding by selecting the role and filling in the basic info. This unlocks free credits.</>
                                 )}
