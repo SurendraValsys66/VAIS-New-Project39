@@ -164,6 +164,7 @@ export default function MasteryBottomBar() {
 
   const manPos = Math.max(0, Math.min(100, percent));
   const handleOpenGuide = useCallback(() => setExpanded(true), []);
+  const handleCloseGuide = useCallback(() => setExpanded(false), []);
   const handleGuideKeyDown = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
@@ -173,7 +174,10 @@ export default function MasteryBottomBar() {
 
   return (
     <div className="fixed inset-x-0 bottom-4 z-50 pointer-events-none">
-      <div className="mx-auto w-[min(92vw,520px)] pointer-events-auto">
+      <div
+        className="mx-auto w-[min(92vw,520px)] pointer-events-auto"
+        onMouseLeave={handleCloseGuide}
+      >
         {/* Slide-up panel */}
         <AnimatePresence initial={false}>
           {expanded && (
@@ -198,7 +202,7 @@ export default function MasteryBottomBar() {
                   <button
                     aria-label="Close"
                     className="text-gray-400 hover:text-gray-600"
-                    onClick={() => setExpanded(false)}
+                    onClick={handleCloseGuide}
                     title="Close"
                   >
                     <X className="h-4 w-4" />
@@ -273,7 +277,7 @@ export default function MasteryBottomBar() {
             <div className="flex items-center gap-2">
               <button
                 className="text-xs font-semibold text-[#FF7A00] hover:underline"
-                onClick={() => setExpanded(true)}
+                onClick={handleOpenGuide}
                 title="Open guide"
               >
                 Details
@@ -327,6 +331,7 @@ export default function MasteryBottomBar() {
               aria-label="Hide for now"
               onClick={(event) => {
                 event.stopPropagation();
+                handleCloseGuide();
                 setHidden(true);
               }}
               className="ml-1 rounded-md hover:opacity-90"
