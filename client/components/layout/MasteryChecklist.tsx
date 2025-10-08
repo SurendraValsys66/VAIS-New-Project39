@@ -49,7 +49,7 @@ export default function MasteryChecklist({
   ];
 
   const handleOpenChange = (v: boolean) => {
-    if (!v) setMasteryDismissed(true);
+    // Do not mark dismissed automatically on close; only via explicit close button
     onOpenChange(v);
   };
 
@@ -60,11 +60,22 @@ export default function MasteryChecklist({
         <DialogDescription className="sr-only">Complete these steps to unlock your full VAIS potential</DialogDescription>
         <div className="bg-white rounded-lg shadow-xl max-h-[540px]">
           {/* Header */}
-          <div className="px-6 pt-5 pb-4">
+          <div className="px-6 pt-5 pb-4 relative">
             <h2 className="text-xl font-semibold text-[#333333]">VAIS Mastery Steps Guide</h2>
             <p className="text-sm text-[#666] mt-1">
               Complete these steps to unlock your full VAIS potential 🚀
             </p>
+            <button
+              aria-label="Close"
+              className="absolute right-4 top-4 text-gray-400 hover:text-gray-600"
+              onClick={() => {
+                setMasteryDismissed(true);
+                onOpenChange(false);
+              }}
+              title="Dismiss"
+            >
+              ✕
+            </button>
             <div className="mt-4 h-px bg-gray-200" />
           </div>
 
