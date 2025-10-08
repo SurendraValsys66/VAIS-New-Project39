@@ -1,5 +1,5 @@
-import React from "react";
-import { Progress } from "@/components/ui/progress";
+import React, { useRef } from "react";
+import WalkingProgress from "@/components/onboarding/WalkingProgress";
 
 type StepProgressProps = {
   current: number;
@@ -15,6 +15,9 @@ export default function StepProgress({
   subtitle,
 }: StepProgressProps) {
   const value = Math.min(100, Math.max(0, Math.round((current / total) * 100)));
+  const prev = useRef(value);
+  const isChange = prev.current !== value;
+  prev.current = value;
 
   return (
     <div className="space-y-4">
@@ -32,7 +35,7 @@ export default function StepProgress({
         </div>
       </div>
       <div className="flex items-center gap-3">
-        <Progress value={value} className="h-2 flex-1" />
+        <WalkingProgress value={value} className="flex-1" height={8} animateOnChange={isChange} />
         <span className="text-sm font-medium text-valasys-gray-700 min-w-[3rem] text-right">
           {value}%
         </span>
