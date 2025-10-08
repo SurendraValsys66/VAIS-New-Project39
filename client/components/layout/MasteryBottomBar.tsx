@@ -11,7 +11,11 @@ import {
 } from "@/lib/masteryStorage";
 import { AnimatePresence, motion } from "framer-motion";
 import { toast as sonnerToast } from "sonner";
-import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from "@/components/ui/tooltip";
 
 export default function MasteryBottomBar() {
   const [state, setState] = useState<MasterySteps>({});
@@ -35,18 +39,34 @@ export default function MasteryBottomBar() {
   useEffect(() => {
     const prev = prevRef.current;
     const now = state;
-    const newlyCompleted: Array<{ key: keyof MasterySteps; label: string }> = [];
+    const newlyCompleted: Array<{ key: keyof MasterySteps; label: string }> =
+      [];
 
     if (!prev.onboardingCompleted && now.onboardingCompleted)
-      newlyCompleted.push({ key: "onboardingCompleted", label: "Onboarding completed" });
+      newlyCompleted.push({
+        key: "onboardingCompleted",
+        label: "Onboarding completed",
+      });
     if (!prev.vaisResultsGenerated && now.vaisResultsGenerated)
-      newlyCompleted.push({ key: "vaisResultsGenerated", label: "VAIS Results generated" });
+      newlyCompleted.push({
+        key: "vaisResultsGenerated",
+        label: "VAIS Results generated",
+      });
     if (!prev.accountsDownloaded && now.accountsDownloaded)
-      newlyCompleted.push({ key: "accountsDownloaded", label: "Accounts downloaded" });
+      newlyCompleted.push({
+        key: "accountsDownloaded",
+        label: "Accounts downloaded",
+      });
     if (!prev.prospectSearchGenerated && now.prospectSearchGenerated)
-      newlyCompleted.push({ key: "prospectSearchGenerated", label: "Prospect Search generated" });
+      newlyCompleted.push({
+        key: "prospectSearchGenerated",
+        label: "Prospect Search generated",
+      });
     if (!prev.prospectDetailsDownloaded && now.prospectDetailsDownloaded)
-      newlyCompleted.push({ key: "prospectDetailsDownloaded", label: "Prospect Details downloaded" });
+      newlyCompleted.push({
+        key: "prospectDetailsDownloaded",
+        label: "Prospect Details downloaded",
+      });
 
     newlyCompleted.forEach((s) => {
       sonnerToast.success(`Credits added for: ${s.label}`, {
@@ -202,8 +222,14 @@ export default function MasteryBottomBar() {
                     />
                   </div>
                 </TooltipTrigger>
-                <TooltipContent side="top" className="max-w-[260px] text-center">
-                  <div>Complete steps to earn credits. Finish all steps to unlock a bonus.</div>
+                <TooltipContent
+                  side="top"
+                  className="max-w-[260px] text-center"
+                >
+                  <div>
+                    Complete steps to earn credits. Finish all steps to unlock a
+                    bonus.
+                  </div>
                 </TooltipContent>
               </Tooltip>
               <div className="text-[13px]">
