@@ -296,6 +296,13 @@ export default function MasteryBottomBar() {
 
   return (
     <>
+      {/* Confetti celebration */}
+      {showConfetti && (
+        <div className="fixed inset-0 z-[70] pointer-events-none">
+          <ConfettiCanvas duration={2800} />
+        </div>
+      )}
+
       <div className="fixed inset-x-0 bottom-4 z-50 pointer-events-none">
         <div
           className="mx-auto w-[min(92vw,520px)] pointer-events-auto"
