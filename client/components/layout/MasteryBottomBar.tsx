@@ -248,8 +248,14 @@ export default function MasteryBottomBar() {
               className="flex-1 text-left"
             >
               <div className="flex items-center gap-3">
-                <div className="flex-1">
+                <div className="relative flex-1">
                   <Progress value={percent} className="h-[14px] bg-[#F1F1F1]" />
+                  <img
+                    src="https://cdn.builder.io/api/v1/image/assets%2F1d0d3cbc213245beba3786aa1a6f12a3%2Fa90d011d33b248998dd23e5ee99b5631?format=webp&width=800"
+                    alt="Progress character"
+                    className="pointer-events-none select-none absolute top-1/2 -translate-y-1/2 -translate-x-1/2 h-5 w-5 sm:h-6 sm:w-6 drop-shadow"
+                    style={{ left: `${manPos}%` }}
+                  />
                 </div>
                 <ChevronUp
                   className={
