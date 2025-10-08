@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/dialog";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle, Circle, Coins } from "lucide-react";
+import { CheckCircle, Circle, Coins, ChevronDown, ChevronUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   calculateMasteryPercentage,
@@ -200,27 +200,39 @@ export default function MasteryChecklist({
                         <button
                           type="button"
                           onClick={() => toggleHint(s.key)}
-                          className="flex items-center gap-2 text-sm text-[#333333] font-medium"
+                          className="flex items-center justify-between w-full gap-2 text-sm text-[#333333] font-medium"
                           aria-expanded={!!openHints[s.key]}
                         >
                           <span>{s.label}</span>
-                          <span className="ml-2 text-xs text-[#666]">
-                            {openHints[s.key] ? "Hide hint" : "Show hint"}
-                          </span>
+                          {openHints[s.key] ? (
+                            <ChevronUp className="w-4 h-4 text-[#666]" />
+                          ) : (
+                            <ChevronDown className="w-4 h-4 text-[#666]" />
+                          )}
                         </button>
-                        {openHints[s.key] && (
-                          <div className="mt-2 text-xs text-[#555] bg-gray-50 border border-gray-100 p-2 rounded">
-                            {s.key === "onboardingCompleted" && (
-                              <>Hint: Complete your onboarding by selecting the role and filling in the basic info. This unlocks free credits.</>
-                            )}
-                            {s.key === "accountsDownloaded" && (
-                              <>Hint: On the VAIS Results page, use the “Download Accounts” button to export your list. Apply filters first if you want a narrower file.</>
-                            )}
-                            {s.key === "prospectSearchGenerated" && (
-                              <>Hint: Go to Find Prospect, choose a few filters, then click “Generate Search.” Start simple—add more filters later.</>
-                            )}
-                          </div>
-                        )}
+                        <AnimatePresence initial={false}>
+                          {openHints[s.key] && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.2, ease: "easeOut" }}
+                              className="overflow-hidden"
+                            >
+                              <div className="mt-2 text-xs text-[#555] bg-gray-50 border border-gray-100 p-2 rounded">
+                                {s.key === "onboardingCompleted" && (
+                                  <>Hint: Complete your onboarding by selecting the role and filling in the basic info. This unlocks free credits.</>
+                                )}
+                                {s.key === "accountsDownloaded" && (
+                                  <>Hint: On the VAIS Results page, use the “Download Accounts” button to export your list. Apply filters first if you want a narrower file.</>
+                                )}
+                                {s.key === "prospectSearchGenerated" && (
+                                  <>Hint: Go to Find Prospect, choose a few filters, then click “Generate Search.” Start simple—add more filters later.</>
+                                )}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </div>
                     ) : (
                       s.label
