@@ -42,6 +42,16 @@ import {
 
 const MASTERY_DISMISS_KEY = "valasys-mastery-dismissed";
 
+type MasteryStepDefinition = {
+  key: string;
+  label: string;
+  completed: boolean;
+  hint: string;
+  to: string;
+  cta?: string;
+  type?: "reward";
+};
+
 export default function MasteryBottomBar() {
   const [state, setState] = useState<MasterySteps>({});
   const [hidden, setHidden] = useState(() => {
@@ -137,38 +147,61 @@ export default function MasteryBottomBar() {
     [state],
   );
 
-  const steps = useMemo(() => {
-    const list: Array<{
-      key: string;
-      label: string;
-      completed: boolean;
-      type?: "reward";
-    }> = [
-      { key: "signUp", label: "Sign up to VAIS", completed: true },
+  const steps = useMemo<MasteryStepDefinition[]>(() => {
+    const list: MasteryStepDefinition[] = [
+      {
+        key: "signUp",
+        label: "Sign up to VAIS",
+        completed: true,
+        hint:
+          "Already signed up? Invite a teammate or review your account preferences anytime.",
+        to: "/free-trial",
+        cta: "Invite a teammate",
+      },
       {
         key: "onboardingCompleted",
         label: "Complete the onboarding questions",
         completed: !!state.onboardingCompleted,
+        hint:
+          "Answer a few quick questions about your goals so we can tailor VAIS to your workflow.",
+        to: "/onboarding/role",
+        cta: "Resume onboarding",
       },
       {
         key: "vaisResultsGenerated",
         label: "Generate your VAIS Results",
         completed: !!state.vaisResultsGenerated,
+        hint:
+          "Build your VAIS model to unlock prioritized account and lead insights in just a couple of clicks.",
+        to: "/build-vais",
+        cta: "Generate VAIS Results",
       },
       {
         key: "accountsDownloaded",
         label: "Download the Accounts from the VAIS Results page",
         completed: !!state.accountsDownloaded,
+        hint:
+          "Head to the VAIS Results page, apply any filters you need, then export the ready-to-use account list.",
+        to: "/vais-results",
+        cta: "Open VAIS Results",
       },
       {
         key: "prospectSearchGenerated",
         label: "Generate the Prospect Search",
         completed: !!state.prospectSearchGenerated,
+        hint:
+          "Use Find Prospect to build a targeted search—start with a few filters, generate the list, and refine as you go.",
+        to: "/find-prospect",
+        cta: "Start a prospect search",
       },
       {
         key: "prospectDetailsDownloaded",
         label: "Download the Prospect Details",
         completed: !!state.prospectDetailsDownloaded,
+        hint:
+          "Open your Prospect Results, preview the contacts, and download the detailed CSV to share with your team.",
+        to: "/prospect-results",
+        cta: "View prospect results",
       },
     ];
 
@@ -178,6 +211,10 @@ export default function MasteryBottomBar() {
       label: "Congratulation! you earn the extra credits",
       completed: doneAll,
       type: "reward",
+      hint:
+        "You’ve unlocked extra credits! Review your usage history and plan the next campaign to maximise the boost.",
+      to: "/spending-history",
+      cta: "View credit history",
     });
 
     return list;
@@ -267,98 +304,80 @@ export default function MasteryBottomBar() {
 
               <div className="px-5 pb-4 max-h-[360px] overflow-y-auto">
                 <ul className="space-y-3">
-                  {steps.map((s) => (
-                    <li key={s.key} className="flex items-start gap-3">
-                      <div className="mt-0.5">
-                        {s.type === "reward" ? (
-                          <Coins className="w-5 h-5 text-amber-500" />
-                        ) : s.completed ? (
-                          <CheckCircle className="w-5 h-5 text-[#4CAF50]" />
-                        ) : (
-                          <Circle className="w-5 h-5 text-gray-300" />
-                        )}
-                      </div>
-                      <div className="text-sm text-[#333333] leading-5">
-                        {s.type === "reward" ? (
-                          s.completed ? (
-                            <Badge className="inline-flex items-center gap-1.5 bg-valasys-green text-white border-transparent px-2.5 py-1 text-[11px] font-semibold">
-                              <Coins className="w-3.5 h-3.5" />
-                              {s.label}
-                            </Badge>
+                  {steps.map((s) => {
+                    const isOpen = !!openHints[s.key];
+                    const isReward = s.type === "reward";
+
+                    return (
+                      <li key={s.key} className="flex items-start gap-3">
+                        <div className="mt-0.5">
+                          {isReward ? (
+                            <Coins className="w-5 h-5 text-amber-500" />
+                          ) : s.completed ? (
+                            <CheckCircle className="w-5 h-5 text-[#4CAF50]" />
                           ) : (
-                            <Badge
-                              className="inline-flex items-center gap-1.5 bg-gray-100 text-gray-500 border-gray-200 px-2.5 py-1 text-[11px] font-semibold cursor-not-allowed select-none"
-                              aria-disabled="true"
-                            >
-                              <Coins className="w-3.5 h-3.5" />
-                              {s.label}
-                            </Badge>
-                          )
-                        ) : s.key === "onboardingCompleted" ||
-                          s.key === "accountsDownloaded" ||
-                          s.key === "prospectSearchGenerated" ? (
-                          <div>
-                            <button
-                              type="button"
-                              onClick={() => toggleHint(s.key)}
-                              className="relative flex items-center w-full gap-2 text-sm text-[#333333] font-medium pr-6 text-left"
-                              aria-expanded={!!openHints[s.key]}
-                            >
-                              <span>{s.label}</span>
-                              {openHints[s.key] ? (
-                                <ChevronUp className="w-4 h-4 text-[#666] absolute right-0" />
+                            <Circle className="w-5 h-5 text-gray-300" />
+                          )}
+                        </div>
+                        <div className="flex-1 text-sm text-[#333333] leading-5">
+                          <button
+                            type="button"
+                            onClick={() => toggleHint(s.key)}
+                            className="relative flex items-center w-full gap-2 font-medium pr-6 text-left"
+                            aria-expanded={isOpen}
+                          >
+                            {isReward ? (
+                              s.completed ? (
+                                <Badge className="inline-flex items-center gap-1.5 bg-valasys-green text-white border-transparent px-2.5 py-1 text-[11px] font-semibold">
+                                  <Coins className="w-3.5 h-3.5" />
+                                  {s.label}
+                                </Badge>
                               ) : (
-                                <ChevronDown className="w-4 h-4 text-[#666] absolute right-0" />
-                              )}
-                            </button>
-                            <AnimatePresence initial={false}>
-                              {openHints[s.key] && (
-                                <motion.div
-                                  initial={{ height: 0, opacity: 0 }}
-                                  animate={{ height: "auto", opacity: 1 }}
-                                  exit={{ height: 0, opacity: 0 }}
-                                  transition={{
-                                    duration: 0.2,
-                                    ease: "easeOut",
-                                  }}
-                                  className="overflow-hidden"
+                                <Badge
+                                  className="inline-flex items-center gap-1.5 bg-gray-100 text-gray-500 border-gray-200 px-2.5 py-1 text-[11px] font-semibold"
+                                  aria-disabled="true"
                                 >
-                                  <div className="mt-2 text-xs text-[#555] bg-orange-100 p-2 rounded-md">
-                                    {s.key === "onboardingCompleted" && (
-                                      <>
-                                        Hint: Complete your onboarding by
-                                        selecting the role and filling in the
-                                        basic info. This unlocks free credits.
-                                      </>
-                                    )}
-                                    {s.key === "accountsDownloaded" && (
-                                      <>
-                                        Hint: On the VAIS Results page, use the
-                                        “Download Accounts” button to export
-                                        your list. Apply filters first if you
-                                        want a narrower file.
-                                      </>
-                                    )}
-                                    {s.key === "prospectSearchGenerated" && (
-                                      <>
-                                        Hint: Go to Find Prospect, choose a few
-                                        filters, then click “Generate Search.”
-                                        Start simple—add more filters later.
-                                      </>
-                                    )}
+                                  <Coins className="w-3.5 h-3.5" />
+                                  {s.label}
+                                </Badge>
+                              )
+                            ) : (
+                              <span>{s.label}</span>
+                            )}
+                            {isOpen ? (
+                              <ChevronUp className="w-4 h-4 text-[#666] absolute right-0" />
+                            ) : (
+                              <ChevronDown className="w-4 h-4 text-[#666] absolute right-0" />
+                            )}
+                          </button>
+                          <AnimatePresence initial={false}>
+                            {isOpen && (
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: "auto", opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.2, ease: "easeOut" }}
+                                className="overflow-hidden"
+                              >
+                                <div className="mt-2 space-y-2 rounded-md border border-orange-200 bg-orange-50 p-3 text-xs text-[#555]">
+                                  <p>{s.hint}</p>
+                                  <div>
+                                    <Button
+                                      asChild
+                                      size="sm"
+                                      className="bg-valasys-orange hover:bg-valasys-orange-light text-white"
+                                    >
+                                      <Link to={s.to}>{s.cta ?? "Open step"}</Link>
+                                    </Button>
                                   </div>
-                                </motion.div>
-                              )}
-                            </AnimatePresence>
-                          </div>
-                        ) : (
-                          <div className="flex items-center gap-2">
-                            <span>{s.label}</span>
-                          </div>
-                        )}
-                      </div>
-                    </li>
-                  ))}
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             </motion.div>
