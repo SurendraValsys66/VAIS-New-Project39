@@ -75,7 +75,14 @@ function formatPrice(n: number) {
   return n === 0 ? "$0" : `$${n.toFixed(0)}`;
 }
 
-function PlanCard({ plan, billing, selected }: { plan: Plan; billing: "monthly" | "annual"; selected?: boolean }) {
+function PlanCard({ plan, billing, selected, planIndex }: { plan: Plan; billing: "monthly" | "annual"; selected?: boolean; planIndex: 0 | 1 | 2 }) {
+  const includedCore = coreRows
+    .map((r) => ({ label: r.label, v: r.values[planIndex] }))
+    .filter((r) => r.v !== false && r.v !== "-");
+  const includedInsights = insightsRows
+    .map((r) => ({ label: r.label, v: r.values[planIndex] }))
+    .filter((r) => r.v !== false && r.v !== "-");
+
   return (
     <Card className={`relative h-full ${plan.popular ? "ring-2 ring-valasys-orange" : ""}`}>
       <CardHeader>
@@ -94,7 +101,7 @@ function PlanCard({ plan, billing, selected }: { plan: Plan; billing: "monthly" 
           {plan.tagline && <div className="mt-1 text-xs text-valasys-gray-500">{plan.tagline}</div>}
         </div>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-5">
         <div className="text-sm text-valasys-gray-600">
           {plan.creditsLabel ? (
             <span className="font-medium">{plan.creditsLabel}</span>
@@ -104,7 +111,42 @@ function PlanCard({ plan, billing, selected }: { plan: Plan; billing: "monthly" 
             </>
           )}
         </div>
-        <div className="pt-2 grid grid-cols-1 gap-2">
+
+        <div className="space-y-3">
+          <div className="text-xs font-semibold uppercase tracking-wide text-valasys-gray-500">Core Platform Modules</div>
+          <ul className="space-y-2">
+            {includedCore.map((item) => (
+              <li key={item.label} className="flex items-start text-sm text-valasys-gray-700">
+                <Check className="w-4 h-4 text-green-600 mr-2 mt-0.5" />
+                <span>
+                  {item.label}
+                  {typeof item.v === "string" && (
+                    <span className="ml-2 text-xs text-valasys-gray-600">{item.v}</span>
+                  )}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="space-y-3">
+          <div className="text-xs font-semibold uppercase tracking-wide text-valasys-gray-500">High Value Account Insights</div>
+          <ul className="space-y-2">
+            {includedInsights.map((item) => (
+              <li key={item.label} className="flex items-start text-sm text-valasys-gray-700">
+                <Check className="w-4 h-4 text-green-600 mr-2 mt-0.5" />
+                <span>
+                  {item.label}
+                  {typeof item.v === "string" && (
+                    <span className="ml-2 text-xs text-valasys-gray-600">{item.v}</span>
+                  )}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="pt-1 grid grid-cols-1 gap-2">
           <Button className="w-full bg-valasys-orange text-white hover:bg-valasys-orange/90">
             {selected ? "Selected" : plan.id === "free" ? "Try for free" : "Select Plan"}
           </Button>
