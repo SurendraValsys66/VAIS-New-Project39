@@ -27,6 +27,7 @@ import Support from "./pages/Support";
 import ChatSupport from "./pages/ChatSupport";
 import FAQs from "./pages/FAQs";
 import Settings from "./pages/Settings";
+import Subscription from "./pages/Subscription";
 
 import FreeTrial from "./pages/FreeTrial";
 import CreateAccount from "./pages/CreateAccount";
@@ -86,6 +87,7 @@ const App = () => (
               <Route path="/chat-support/:ticketId" element={<ChatSupport />} />
               <Route path="/faqs" element={<FAQs />} />
               <Route path="/settings" element={<Settings />} />
+              <Route path="/subscription" element={<Subscription />} />
               <Route path="/notifications" element={<AllNotifications />} />
               <Route path="/spending-history" element={<SpendingHistory />} />
               <Route path="/integrations" element={<Integrations />} />
