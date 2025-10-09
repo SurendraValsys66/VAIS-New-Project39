@@ -207,8 +207,8 @@ export default function Subscription() {
 
         {/* Plan grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {sortedPlans.map((p) => (
-            <PlanCard key={p.id} plan={p} billing={billing} selected={p.id === "growth"} />
+          {sortedPlans.map((p, idx) => (
+            <PlanCard key={p.id} plan={p} billing={billing} planIndex={idx as 0 | 1 | 2} selected={p.id === "growth"} />
           ))}
         </div>
 
