@@ -3,101 +3,68 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Check, Minus, Crown, CreditCard, Info } from "lucide-react";
+import { Check, Minus, CreditCard, Info } from "lucide-react";
 import React, { useMemo, useState } from "react";
 
 interface Plan {
-  id: string;
+  id: "free" | "growth" | "scale";
   name: string;
-  priceMonthly: number;
-  priceAnnual: number;
-  credits: number; // per month
+  priceMonthly: number; // USD per seat per month
+  priceAnnual: number; // USD per seat per month billed annually
+  creditsPerMonth: number | null;
+  creditsLabel?: string; // override label (e.g., "1000 credits per plan")
   popular?: boolean;
-  cta?: string;
-  features: string[];
+  tagline?: string;
 }
 
 const plans: Plan[] = [
   {
     id: "free",
-    name: "Free",
+    name: "Free Plan",
     priceMonthly: 0,
     priceAnnual: 0,
-    credits: 1200,
-    cta: "Current Plan",
-    features: [
-      "AI Assistant",
-      "Basic Filters",
-      "Prospecting",
-      "Email Warmup",
-    ],
+    creditsPerMonth: null,
+    creditsLabel: "1000 credits per plan",
+    tagline: "7-day free plan",
   },
   {
-    id: "basic",
-    name: "Basic",
-    priceMonthly: 49,
-    priceAnnual: 49 * 12 * 0.8, // 20% off annually
-    credits: 30000,
+    id: "growth",
+    name: "Growth Plan",
+    priceMonthly: 69,
+    priceAnnual: 69, // per seat per month, billed annually
+    creditsPerMonth: 3000,
     popular: true,
-    cta: "Selected",
-    features: [
-      "AI Research & Lead Scoring",
-      "Prospecting, Gmail & Salesforce",
-      "Deliverability Suite & Email Warmup",
-      "Advanced Filters",
-      "CRM Integrations",
-      "Meeting Events",
-      "CSV/API Data Enrichment",
-    ],
   },
   {
-    id: "pro",
-    name: "Professional",
-    priceMonthly: 79,
-    priceAnnual: 79 * 12 * 0.8,
-    credits: 48000,
-    cta: "Select Plan",
-    features: [
-      "Unlimited Sequences & A/B testing",
-      "Advanced Filters",
-      "CRM Integrations",
-      "Intent Topics & Filters",
-      "Analytics & Reports",
-    ],
-  },
-  {
-    id: "org",
-    name: "Organization",
-    priceMonthly: 119,
-    priceAnnual: 119 * 12 * 0.8,
-    credits: 72000,
-    cta: "Talk to sales",
-    features: [
-      "Single Sign-on",
-      "Admin & Mailbox Permissions",
-      "Advanced Dashboards",
-      "Custom API Limits",
-    ],
+    id: "scale",
+    name: "Scale Plan",
+    priceMonthly: 99,
+    priceAnnual: 99, // per seat per month, billed annually
+    creditsPerMonth: 6000,
   },
 ];
 
-const coreModules = [
-  "Build Your ABM with VAIS",
-  "ABM Verification",
-  "Look-Alike Generation",
-  "Prospect Enrichment",
-  "Buy Additional Credits",
-  "Support",
+// Core modules from the provided design
+const coreRows: { label: string; values: (boolean | string | "-")[] }[] = [
+  { label: "Build Your ABM with VAIS", values: [false, true, true] },
+  { label: "ABM Verification", values: [false, true, true] },
+  { label: "Look-Alike Generation", values: [false, true, true] },
+  { label: "Find My Prospects", values: [false, true, true] },
+  { label: "Download Center (Reports, Leads, Assets)", values: [false, true, true] },
+  { label: "Buy Additional Credits", values: ["✖", "$1.50", "$1"] },
+  { label: "Support", values: ["Tickets", "Email", "Priority Email Support"] },
 ];
 
-const accountInsights = [
-  "Intent Topics",
-  "Signal Strength",
-  "Account Firmographic",
-  "Account Technographic",
-  "Market Trend Activity",
-  "Department Activity",
-  "Overall Account Readiness",
+// High value account insights
+const insightsRows: { label: string; values: (boolean | string | "-")[] }[] = [
+  { label: "Intent Topics", values: ["3", "5", "8"] },
+  { label: "Account Level Intent Signals", values: ["-", "First 10 Free Signals", "First 10 Free Signals"] },
+  { label: "Account Profiling", values: [false, true, true] },
+  { label: "Account Fit Insights", values: [true, true, true] },
+  { label: "Market Trend Activity", values: [true, true, true] },
+  { label: "Funnel Orchestration", values: [true, true, true] },
+  { label: "Campaign Recommendation", values: [true, true, true] },
+  { label: "Asset Recommendation", values: [true, true, true] },
 ];
 
 function priceFor(plan: Plan, billing: "monthly" | "annual") {
@@ -114,49 +81,50 @@ function PlanCard({ plan, billing, selected }: { plan: Plan; billing: "monthly" 
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="text-lg font-semibold">{plan.name}</CardTitle>
-          {plan.popular && (
-            <Badge className="bg-valasys-orange text-white">Most Popular</Badge>
-          )}
+          {plan.popular && <Badge className="bg-valasys-orange text-white">Most Popular</Badge>}
         </div>
         <div className="mt-2">
           <div className="text-3xl font-bold">
             {formatPrice(priceFor(plan, billing))}
-            {plan.priceMonthly > 0 && <span className="text-sm text-valasys-gray-500"> /mo</span>}
+            {plan.priceMonthly > 0 && <span className="text-sm text-valasys-gray-500"> /seat /mo</span>}
           </div>
-          <div className="text-xs text-valasys-gray-500">Billed {billing === "monthly" ? "monthly" : "annually"}</div>
+          <div className="text-xs text-valasys-gray-500">
+            {billing === "monthly" ? "Billed monthly" : "Per seat per month, billed annually"}
+          </div>
+          {plan.tagline && <div className="mt-1 text-xs text-valasys-gray-500">{plan.tagline}</div>}
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="text-sm text-valasys-gray-600">
-          <span className="font-medium">{plan.credits.toLocaleString()}</span> credits per month
-        </div>
-        <div className="space-y-2">
-          {plan.features.map((f) => (
-            <div key={f} className="flex items-start text-sm text-valasys-gray-700">
-              <Check className="w-4 h-4 text-green-600 mr-2 mt-0.5" /> {f}
-            </div>
-          ))}
+          {plan.creditsLabel ? (
+            <span className="font-medium">{plan.creditsLabel}</span>
+          ) : (
+            <>
+              <span className="font-medium">{plan.creditsPerMonth?.toLocaleString()}</span> credits per user / month
+            </>
+          )}
         </div>
         <div className="pt-2 grid grid-cols-1 gap-2">
           <Button className="w-full bg-valasys-orange text-white hover:bg-valasys-orange/90">
-            {plan.cta || (selected ? "Selected" : "Select Plan")}
+            {selected ? "Selected" : plan.id === "free" ? "Try for free" : "Select Plan"}
           </Button>
-          {plan.id !== "free" && (
-            <Button variant="outline" className="w-full">Add more credits</Button>
-          )}
         </div>
       </CardContent>
     </Card>
   );
 }
 
-function FeatureRow({ label, tiers }: { label: string; tiers: (boolean | "-")[] }) {
+function FeatureRow({ label, tiers }: { label: string; tiers: (boolean | string | "-")[] }) {
   return (
-    <div className="grid grid-cols-5 gap-4 items-center py-3 border-b border-valasys-gray-200">
+    <div className="grid grid-cols-4 gap-4 items-center py-3 border-b border-valasys-gray-200">
       <div className="text-sm font-medium text-valasys-gray-800">{label}</div>
       {tiers.map((t, i) => (
-        <div key={i} className="flex justify-center">
-          {t === "-" ? (
+        <div key={i} className="flex justify-center text-sm">
+          {typeof t === "string" ? (
+            <span className="px-2 py-0.5 rounded-full bg-valasys-gray-100 text-valasys-gray-800 border border-valasys-gray-200">
+              {t}
+            </span>
+          ) : t === "-" ? (
             <Minus className="w-4 h-4 text-valasys-gray-400" />
           ) : t ? (
             <Check className="w-5 h-5 text-green-600" />
@@ -170,7 +138,7 @@ function FeatureRow({ label, tiers }: { label: string; tiers: (boolean | "-")[] 
 }
 
 export default function Subscription() {
-  const [billing, setBilling] = useState<"monthly" | "annual">("annual");
+  const [billing, setBilling] = useState<"monthly" | "annual">("monthly");
   const sortedPlans = useMemo(() => plans, []);
 
   return (
@@ -185,20 +153,20 @@ export default function Subscription() {
           <div className="flex items-center gap-3">
             <Tabs value={billing} onValueChange={(v: any) => setBilling(v)} className="bg-white rounded-lg border border-valasys-gray-200 p-1">
               <TabsList className="grid grid-cols-2">
-                <TabsTrigger value="annual">Annual Billing</TabsTrigger>
                 <TabsTrigger value="monthly">Monthly Billing</TabsTrigger>
+                <TabsTrigger value="annual">Annual Billing</TabsTrigger>
               </TabsList>
             </Tabs>
             {billing === "annual" && (
-              <Badge variant="secondary" className="bg-yellow-100 text-yellow-800 border-yellow-200">Save 20%</Badge>
+              <Badge variant="secondary" className="bg-yellow-100 text-yellow-800 border-yellow-200">Save up to $2000*</Badge>
             )}
           </div>
         </div>
 
         {/* Plan grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {sortedPlans.map((p) => (
-            <PlanCard key={p.id} plan={p} billing={billing} selected={p.id === "basic"} />
+            <PlanCard key={p.id} plan={p} billing={billing} selected={p.id === "growth"} />
           ))}
         </div>
 
@@ -211,16 +179,15 @@ export default function Subscription() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-5 gap-4 mb-3 text-xs uppercase tracking-wide text-valasys-gray-500">
+            <div className="grid grid-cols-4 gap-4 mb-3 text-xs uppercase tracking-wide text-valasys-gray-500">
               <div>Features</div>
               <div className="text-center">Free</div>
-              <div className="text-center">Basic</div>
-              <div className="text-center">Professional</div>
-              <div className="text-center">Organization</div>
+              <div className="text-center">Growth</div>
+              <div className="text-center">Scale</div>
             </div>
             <div className="divide-y divide-valasys-gray-200">
-              {coreModules.map((m, idx) => (
-                <FeatureRow key={m} label={m} tiers={[idx < 2, true, true, true]} />
+              {coreRows.map((row) => (
+                <FeatureRow key={row.label} label={row.label} tiers={row.values} />
               ))}
             </div>
           </CardContent>
@@ -232,16 +199,15 @@ export default function Subscription() {
             <CardTitle>High Value Account Insights</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-5 gap-4 mb-3 text-xs uppercase tracking-wide text-valasys-gray-500">
+            <div className="grid grid-cols-4 gap-4 mb-3 text-xs uppercase tracking-wide text-valasys-gray-500">
               <div>Insights</div>
               <div className="text-center">Free</div>
-              <div className="text-center">Basic</div>
-              <div className="text-center">Professional</div>
-              <div className="text-center">Organization</div>
+              <div className="text-center">Growth</div>
+              <div className="text-center">Scale</div>
             </div>
             <div className="divide-y divide-valasys-gray-200">
-              {accountInsights.map((m, idx) => (
-                <FeatureRow key={m} label={m} tiers={[idx < 1, idx < 5, true, true]} />
+              {insightsRows.map((row) => (
+                <FeatureRow key={row.label} label={row.label} tiers={row.values} />
               ))}
             </div>
           </CardContent>
