@@ -254,7 +254,7 @@ function PlanCard({
                     </span>
                   )}
                 </div>
-                <div className="text-xs text-valasys-gray-500">
+                <div className="text-valasys-gray-500">
                   {d.billedNote}
                 </div>
               </>
@@ -687,7 +687,7 @@ export default function Subscription() {
                   </button>
                 </div>
                 <div className="md:text-center">
-                  <div className="text-xs text-valasys-gray-500">
+                  <div className="text-valasys-gray-500">
                     Billed {billing === "annual" ? "Annually" : "Monthly"}
                   </div>
                   <div className="text-sm font-semibold text-valasys-gray-900">
@@ -705,7 +705,7 @@ export default function Subscription() {
                   </div>
                 </div>
                 <div className="md:text-center">
-                  <div className="text-xs text-valasys-gray-500">Due Today</div>
+                  <div className="text-valasys-gray-500">Due Today</div>
                   <div className="text-sm font-semibold text-valasys-gray-900">
                     {(() => {
                       const p = selectedPlanObj;
