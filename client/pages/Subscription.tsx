@@ -531,14 +531,6 @@ export default function Subscription() {
                 </TabsTrigger>
               </TabsList>
             </Tabs>
-            <Button
-              type="button"
-              onClick={handleToggleComparison}
-              className="border-2 border-valasys-orange text-valasys-orange bg-white hover:bg-gradient-to-r hover:from-valasys-orange hover:to-valasys-orange-light hover:text-white"
-              aria-pressed={showComparison}
-            >
-              {showComparison ? "Hide plan comparison" : "Show plan comparison"}
-            </Button>
           </div>
         </div>
 
