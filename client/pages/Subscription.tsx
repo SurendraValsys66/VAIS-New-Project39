@@ -134,11 +134,17 @@ function planDisplay(plan: Plan, billing: "monthly" | "annual") {
   } else if (price === 0) {
     priceLabel = "$0";
     priceSuffix = "";
-  } else if (billing === "annual" && plan.priceAnnual > 0 && plan.priceAnnual < plan.priceMonthly) {
+  } else if (
+    billing === "annual" &&
+    plan.priceAnnual > 0 &&
+    plan.priceAnnual < plan.priceMonthly
+  ) {
     // Show discount: original monthly price struck-through then discounted annual monthly price
     priceLabel = (
       <span className="inline-flex items-baseline gap-2">
-        <span className="line-through text-valasys-gray-400">{formatPrice(plan.priceMonthly)}</span>
+        <span className="line-through text-valasys-gray-400">
+          {formatPrice(plan.priceMonthly)}
+        </span>
         <span className="font-bold">{formatPrice(plan.priceAnnual)}</span>
       </span>
     );
