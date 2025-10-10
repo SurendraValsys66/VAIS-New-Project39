@@ -275,10 +275,15 @@ function PlanCard({
         <button
           type="button"
           onClick={onToggleComparison}
+          aria-expanded={comparisonOpen}
           className="mt-auto inline-flex items-center text-sm font-semibold text-valasys-gray-700 hover:text-valasys-gray-900"
         >
-          Show plan comparison
-          <ChevronDown className="w-4 h-4 ml-1 transition-transform" />
+          {comparisonOpen ? "Hide plan comparison" : "Show plan comparison"}
+          {comparisonOpen ? (
+            <ChevronUp className="w-4 h-4 ml-1" />
+          ) : (
+            <ChevronDown className="w-4 h-4 ml-1" />
+          )}
         </button>
 
       </CardContent>
