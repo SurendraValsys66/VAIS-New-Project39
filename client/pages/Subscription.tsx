@@ -584,6 +584,21 @@ export default function Subscription() {
       clearTimeout(tid);
     };
   }, []);
+
+  React.useEffect(() => {
+    const el = summaryRef.current;
+    const measure = () => setSummaryHeight(el ? el.offsetHeight : 0);
+    measure();
+    const ro = new ResizeObserver(measure);
+    if (el) ro.observe(el);
+    window.addEventListener("resize", measure);
+    return () => {
+      if (el) ro.unobserve(el);
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [selectedPlan, billing, showComparison]);
+
   const selectPlan = (id: "free" | "growth" | "scale" | "enterprise") => {
     setSelectedPlan(id);
     setTimeout(recalcBounds, 250);
