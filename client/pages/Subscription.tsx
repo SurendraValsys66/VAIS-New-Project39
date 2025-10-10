@@ -160,7 +160,7 @@ function PlanCard({
     .filter((r) => r.v !== false && r.v !== "-");
 
   return (
-    <Card className={`relative h-full flex flex-col cursor-pointer ${selected ? "ring-2 ring-yellow-300 bg-yellow-50" : ""}`} onClick={onSelect} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onSelect(); } }}>
+    <Card className={`relative h-full flex flex-col ${plan.id === "free" ? "cursor-default" : "cursor-pointer"} ${selected ? "ring-2 ring-yellow-300 bg-yellow-50" : ""}`} onClick={plan.id === "free" ? undefined : onSelect} role={plan.id === "free" ? undefined : "button"} tabIndex={plan.id === "free" ? -1 : 0} onKeyDown={(e) => { if (plan.id !== "free" && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); onSelect(); } }}>
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -389,7 +389,7 @@ export default function Subscription() {
                         const isEnterprise = p.id === "enterprise";
                         return (
                           <th key={p.id} className="px-4 py-4 align-top">
-                            <div className={`relative rounded-xl border shadow-sm p-4 text-left flex flex-col gap-2 cursor-pointer ${isSelected ? "ring-2 ring-yellow-300 bg-yellow-50" : "bg-white"}`} onClick={() => setSelectedPlan(p.id as any)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setSelectedPlan(p.id as any); } }}>
+                            <div className={`relative rounded-xl border shadow-sm p-4 text-left flex flex-col gap-2 ${p.id === "free" ? "cursor-default" : "cursor-pointer"} ${isSelected ? "ring-2 ring-yellow-300 bg-yellow-50" : "bg-white"}`} onClick={p.id === "free" ? undefined : () => setSelectedPlan(p.id as any)} role={p.id === "free" ? undefined : "button"} tabIndex={p.id === "free" ? -1 : 0} onKeyDown={(e) => { if (p.id !== "free" && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); setSelectedPlan(p.id as any); } }}>
                               {p.popular && (
                                 <Badge className="absolute top-2 right-2 bg-valasys-orange text-white">MOST POPULAR</Badge>
                               )}
