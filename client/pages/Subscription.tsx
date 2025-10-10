@@ -127,6 +127,7 @@ function PlanCard({
   selected,
   planIndex,
   onSelect,
+  onToggleComparison,
 }: {
   plan: Plan;
   billing: "monthly" | "annual";
