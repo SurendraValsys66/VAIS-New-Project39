@@ -117,6 +117,22 @@ function planDisplay(plan: Plan, billing: "monthly" | "annual") {
   return { priceLabel, priceSuffix, billedNote, credits };
 }
 
+function planIcon(id: Plan["id"]) {
+  const cls = "w-4 h-4 text-valasys-orange";
+  switch (id) {
+    case "free":
+      return <Gift className={cls} />;
+    case "growth":
+      return <Rocket className={cls} />;
+    case "scale":
+      return <BarChart3 className={cls} />;
+    case "enterprise":
+      return <Building2 className={cls} />;
+    default:
+      return null;
+  }
+}
+
 function formatPrice(n: number) {
   return n === 0 ? "$0" : `$${n.toFixed(0)}`;
 }
