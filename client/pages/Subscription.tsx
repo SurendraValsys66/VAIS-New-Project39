@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Check, Minus, CreditCard, Info, ChevronDown } from "lucide-react";
+import { Check, Minus, CreditCard, Info, ChevronDown, CircleCheckBig, CircleX } from "lucide-react";
 import React, { useMemo, useState } from "react";
 
 interface Plan {
