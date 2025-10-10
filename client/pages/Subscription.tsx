@@ -146,7 +146,7 @@ function planDisplay(plan: Plan, billing: "monthly" | "annual") {
     if (plan.id === "scale") credits = "72,000 credits per user / year";
     if (plan.id === "enterprise") credits = "Custom credits";
   } else {
-    if (plan.id === "growth") credits = "3,000 credits per user / year";
+    if (plan.id === "growth") credits = "3,000 credits per user / month";
     if (plan.id === "scale") credits = "6,000 credits per user / month";
     if (plan.id === "enterprise") credits = "Custom credits";
   }
@@ -393,12 +393,7 @@ function PlanComparisonTable({
                   key={p.id}
                   className={`p-3 font-semibold text-valasys-gray-800 text-left align-bottom ${isSelected ? "bg-yellow-50 border-b-2 border-yellow-300" : ""}`}
                 >
-                  <button
-                    type="button"
-                    onClick={() => onSelect(p.id)}
-                    className={`w-full text-left ${isSelected ? "text-black" : "text-valasys-gray-800 hover:text-black"}`}
-                    aria-pressed={isSelected}
-                  >
+                  <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       {planIcon(p.id)}
                       <span className="font-semibold">{p.name}</span>
@@ -410,7 +405,30 @@ function PlanComparisonTable({
                       )}
                     </div>
                     <div className="text-[11px] text-valasys-gray-500">{d.billedNote}</div>
-                  </button>
+                    <div className="text-[13px] font-semibold text-black flex items-center gap-2">
+                      <Coins className="w-4 h-4 text-black" /> {d.credits}
+                    </div>
+                    <div className="pt-2">
+                      {p.id === "enterprise" ? (
+                        <Button
+                          onClick={() => onSelect(p.id)}
+                          className={`w-full ${isSelected ? "bg-[#424242] text-white border-2 border-[#424242]" : "border-2 border-valasys-orange text-valasys-orange bg-white hover:bg-gradient-to-r hover:from-valasys-orange hover:to-valasys-orange-light hover:text-white"}`}
+                        >
+                          {isSelected && <Check className="w-4 h-4 mr-2" />}
+                          Contact to our sales
+                        </Button>
+                      ) : (
+                        <Button
+                          onClick={() => onSelect(p.id)}
+                          disabled={p.id === "free"}
+                          className={`w-full ${isSelected ? "bg-[#424242] text-white" : "bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white hover:from-valasys-orange/90 hover:to-valasys-orange-light/90"}`}
+                        >
+                          {isSelected && <Check className="w-4 h-4 mr-2" />}
+                          {isSelected ? "Selected" : p.id === "free" ? "Current Plan" : "Select Plan"}
+                        </Button>
+                      )}
+                    </div>
+                  </div>
                 </th>
               );
             })}
