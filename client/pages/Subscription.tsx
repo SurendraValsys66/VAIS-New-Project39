@@ -219,7 +219,7 @@ function PlanCard({
         }
       }}
     >
-      <CardHeader>
+      <CardHeader className="!p-3">
         <div className="flex items-center justify-between">
           <div className="flex-1">
             {plan.popular && (
@@ -262,7 +262,7 @@ function PlanCard({
           })()}
         </div>
       </CardHeader>
-      <CardContent className="space-y-5 flex-1 flex flex-col">
+      <CardContent className="space-y-5 flex-1 flex flex-col !p-3">
         <div className="border-y border-valasys-gray-200 py-3">
           <div className="text-[17px] font-semibold text-black flex items-center gap-2">
             <Coins className="w-5 h-5 text-black" />
@@ -457,7 +457,7 @@ export default function Subscription() {
         </div>
 
         {/* Plan grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 items-stretch">
           {sortedPlans.map((p, idx) => (
             <PlanCard
               key={p.id}
