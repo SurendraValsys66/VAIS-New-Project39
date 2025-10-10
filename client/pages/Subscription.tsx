@@ -94,7 +94,7 @@ function planDisplay(plan: Plan, billing: "monthly" | "annual") {
   // Price label
   const isEnterprise = plan.id === "enterprise";
   const price = priceFor(plan, billing);
-  const priceLabel = isEnterprise ? "Custom per user/ plan" : (price === 0 ? "$0" : `$${price}`);
+  const priceLabel = isEnterprise ? "Custom Plan" : (price === 0 ? "$0" : `$${price}`);
   const priceSuffix = isEnterprise || price === 0 ? "" : "/month";
 
   // Billed note and credits text based on provided spec
