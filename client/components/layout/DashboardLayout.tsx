@@ -942,12 +942,20 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                           </Link>
                         </DropdownMenuItem>
 
-                        <DropdownMenuItem asChild className="cursor-pointer items-start gap-3 py-3">
-                          <Link to="/subscription" className="flex items-start gap-3 w-full">
+                        <DropdownMenuItem
+                          asChild
+                          className="cursor-pointer items-start gap-3 py-3"
+                        >
+                          <Link
+                            to="/subscription"
+                            className="flex items-start gap-3 w-full"
+                          >
                             <Crown className="mt-0.5 h-4 w-4 text-gray-600" />
                             <div>
                               <div className="font-medium">Subscription</div>
-                              <div className="text-xs text-gray-500">Manage plan & billing</div>
+                              <div className="text-xs text-gray-500">
+                                Manage plan & billing
+                              </div>
                             </div>
                           </Link>
                         </DropdownMenuItem>

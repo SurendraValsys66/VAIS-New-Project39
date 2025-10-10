@@ -254,9 +254,7 @@ function PlanCard({
                     </span>
                   )}
                 </div>
-                <div className="text-valasys-gray-500">
-                  {d.billedNote}
-                </div>
+                <div className="text-valasys-gray-500">{d.billedNote}</div>
               </>
             );
           })()}
@@ -553,7 +551,9 @@ export default function Subscription() {
   }>({ left: 0, width: 0 });
   const summaryRef = useRef<HTMLDivElement | null>(null);
   const [summaryHeight, setSummaryHeight] = useState(0);
-  const [isDesktop, setIsDesktop] = useState<boolean>(typeof window !== "undefined" ? window.innerWidth >= 768 : true);
+  const [isDesktop, setIsDesktop] = useState<boolean>(
+    typeof window !== "undefined" ? window.innerWidth >= 768 : true,
+  );
   const recalcBounds = () => {
     const el = pageRef.current;
     if (!el) return;
@@ -568,7 +568,10 @@ export default function Subscription() {
     const el = pageRef.current;
     const ro = new ResizeObserver(() => recalcBounds());
     if (el) ro.observe(el);
-    const onResize = () => { setIsDesktop(window.innerWidth >= 768); recalcBounds(); };
+    const onResize = () => {
+      setIsDesktop(window.innerWidth >= 768);
+      recalcBounds();
+    };
     const onScroll = () => recalcBounds();
     const onTransitionEnd = () => recalcBounds();
     window.addEventListener("resize", onResize);
@@ -610,7 +613,11 @@ export default function Subscription() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-8" ref={pageRef} style={{ paddingBottom: (summaryHeight || 0) + 24 }}>
+      <div
+        className="space-y-8"
+        ref={pageRef}
+        style={{ paddingBottom: (summaryHeight || 0) + 24 }}
+      >
         <div className="flex flex-col items-center gap-3 text-center">
           <h1 className="text-2xl font-bold text-valasys-gray-900">
             Empowering business growth from a single platform
@@ -698,7 +705,9 @@ export default function Subscription() {
                   <div className="font-semibold text-valasys-gray-900 flex items-center gap-2">
                     {planIcon(selectedPlanObj.id)}
                     <span>{selectedPlanObj.name}</span>
-                    <span className="ml-1 px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800 border border-yellow-200 text-[12px]">Selected</span>
+                    <span className="ml-1 px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800 border border-yellow-200 text-[12px]">
+                      Selected
+                    </span>
                   </div>
                   <button
                     className="underline text-valasys-gray-600 hover:text-valasys-gray-900"
@@ -721,13 +730,18 @@ export default function Subscription() {
                 <div className="md:text-right">
                   <div className="flex flex-wrap items-center justify-center md:justify-end">
                     <div className="pr-6">
-                      <div className="text-valasys-gray-500">Billed {billing === "annual" ? "Annually" : "Monthly"}</div>
+                      <div className="text-valasys-gray-500">
+                        Billed {billing === "annual" ? "Annually" : "Monthly"}
+                      </div>
                       <div className="font-semibold text-valasys-gray-900">
                         {(() => {
                           const p = selectedPlanObj;
                           if (!p) return "";
                           if (p.id === "enterprise") return "Custom";
-                          const amt = billing === "annual" ? p.priceAnnual * 12 : p.priceMonthly;
+                          const amt =
+                            billing === "annual"
+                              ? p.priceAnnual * 12
+                              : p.priceMonthly;
                           const suffix = billing === "annual" ? "/yr" : "/mo";
                           return `$${amt}${suffix}`;
                         })()}
@@ -740,7 +754,10 @@ export default function Subscription() {
                           const p = selectedPlanObj;
                           if (!p) return "";
                           if (p.id === "enterprise") return "Custom";
-                          const amt = billing === "annual" ? p.priceAnnual * 12 : p.priceMonthly;
+                          const amt =
+                            billing === "annual"
+                              ? p.priceAnnual * 12
+                              : p.priceMonthly;
                           return `$${amt}`;
                         })()}
                       </div>
