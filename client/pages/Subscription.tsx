@@ -260,7 +260,7 @@ export default function Subscription() {
               className="bg-white rounded-lg border border-valasys-gray-200 p-1"
             >
               <TabsList className="grid grid-cols-2">
-                <TabsTrigger value="annual">Annual Plans</TabsTrigger>
+                <TabsTrigger value="annual" className="data-[state=active]:text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-valasys-orange data-[state=active]:to-valasys-orange-light">Annual Plans</TabsTrigger>
                 <TabsTrigger value="monthly">Monthly Plans</TabsTrigger>
               </TabsList>
             </Tabs>
