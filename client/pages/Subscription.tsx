@@ -413,6 +413,7 @@ export default function Subscription() {
                                 ) : (
                                   <Button
                                     onClick={() => setSelectedPlan(p.id as any)}
+                                    disabled={p.id === "free"}
                                     className={`w-full ${isSelected ? "bg-[#424242] text-white" : "bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white hover:from-valasys-orange/90 hover:to-valasys-orange-light/90"}`}
                                   >
                                     {isSelected && <Check className="w-4 h-4 mr-2" />}
