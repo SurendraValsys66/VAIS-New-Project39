@@ -415,7 +415,7 @@ export default function Subscription() {
                               <div className="text-2xl font-bold mt-3">{d.priceLabel}{d.priceSuffix && <span className="text-sm text-valasys-gray-500"> {d.priceSuffix}</span>}</div>
                               <div className="text-xs text-valasys-gray-500">{d.billedNote}</div>
                               <div className="my-3 h-px bg-valasys-gray-200" />
-                              <div className="text-[17px] font-semibold text-valasys-orange flex items-center gap-2"><Coins className="w-5 h-5 text-valasys-orange" />{d.credits}</div>
+                              <div className="text-[17px] font-semibold text-black flex items-center gap-2"><Coins className="w-5 h-5 text-black" />{d.credits}</div>
                               <div className="pt-2">
                                 {isEnterprise ? (
                                   <Button
