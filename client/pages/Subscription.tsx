@@ -141,15 +141,12 @@ function PlanCard({
         </div>
       </CardHeader>
       <CardContent className="space-y-5">
-        <div className="rounded-md border border-valasys-gray-200 p-3 bg-white">
-          <div className="flex items-center justify-between">
-            <div className="text-sm">
-              <span className="font-medium">
-                {plan.creditsLabel ?? `${(plan.creditsPerMonth || 0).toLocaleString()} credits`}
-              </span>
-              <span className="text-valasys-gray-500"> {plan.creditsNote ?? "per user granted upfront"}</span>
-            </div>
-            <Button variant="outline" size="sm" className="h-8 px-3">Add more credits</Button>
+        <div className="border-y border-valasys-gray-200 py-3">
+          <div className="text-sm">
+            <span className="font-medium">
+              {plan.creditsLabel ?? `${(plan.creditsPerMonth || 0).toLocaleString()} credits`}
+            </span>
+            <span className="text-valasys-gray-500"> {plan.creditsNote ?? "per user granted upfront"}</span>
           </div>
         </div>
 
