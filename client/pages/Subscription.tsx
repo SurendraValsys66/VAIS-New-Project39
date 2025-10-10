@@ -151,7 +151,7 @@ function PlanCard({
         </div>
 
         <div className="pt-3 grid grid-cols-1">
-          <Button onClick={onSelect} className="w-full bg-valasys-orange text-white hover:bg-valasys-orange/90">
+          <Button onClick={onSelect} className="w-full bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white hover:from-valasys-orange/90 hover:to-valasys-orange-light/90">
             {selected ? "Selected" : plan.id === "free" ? "Current Plan" : "Select Plan"}
           </Button>
         </div>
