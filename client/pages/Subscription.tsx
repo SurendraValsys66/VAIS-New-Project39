@@ -118,7 +118,7 @@ function planDisplay(plan: Plan, billing: "monthly" | "annual") {
 }
 
 function planIcon(id: Plan["id"]) {
-  const cls = "w-4 h-4 text-valasys-orange";
+  const cls = "w-6 h-6 text-valasys-orange";
   switch (id) {
     case "free":
       return <Gift className={cls} />;
