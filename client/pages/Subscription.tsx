@@ -163,9 +163,14 @@ function PlanCard({
     <Card className={`relative h-full flex flex-col ${(plan.id === "free" || plan.id === "enterprise") ? "cursor-default" : "cursor-pointer"} ${selected ? "ring-2 ring-yellow-300 bg-yellow-50" : ""}`} onClick={(plan.id === "free" || plan.id === "enterprise") ? undefined : onSelect} role={(plan.id === "free" || plan.id === "enterprise") ? undefined : "button"} tabIndex={(plan.id === "free" || plan.id === "enterprise") ? -1 : 0} onKeyDown={(e) => { if (plan.id !== "free" && plan.id !== "enterprise" && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); onSelect(); } }}>
       <CardHeader>
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            {planIcon(plan.id)}
-            <CardTitle className="text-base md:text-xl font-semibold">{plan.name}</CardTitle>
+          <div className="flex-1">
+            {plan.popular && (
+              <Badge className="bg-valasys-orange text-white mb-1">MOST POPULAR</Badge>
+            )}
+            <div className="flex items-center gap-2">
+              {planIcon(plan.id)}
+              <CardTitle className="text-base md:text-xl font-semibold">{plan.name}</CardTitle>
+            </div>
           </div>
         </div>
         <div className="mt-2 space-y-2">
