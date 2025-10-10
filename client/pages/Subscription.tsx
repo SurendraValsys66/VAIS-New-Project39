@@ -7,7 +7,7 @@ import { Check, Minus, CreditCard, Info } from "lucide-react";
 import React, { useMemo, useState } from "react";
 
 interface Plan {
-  id: "free" | "basic" | "pro" | "org";
+  id: "free" | "growth" | "scale" | "enterprise";
   name: string;
   description?: string;
   priceMonthly: number; // USD per seat per month
