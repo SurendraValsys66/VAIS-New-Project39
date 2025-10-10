@@ -3,14 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import {
-  Check,
-  Gift,
-  Rocket,
-  BarChart3,
-  Building2,
-  Coins,
-} from "lucide-react";
+import { Check, Gift, Rocket, BarChart3, Building2, Coins } from "lucide-react";
 import React, { useMemo, useState } from "react";
 
 interface Plan {
@@ -338,12 +331,10 @@ function PlanCard({
             ))}
           </ul>
         </div>
-
       </CardContent>
     </Card>
   );
 }
-
 
 export default function Subscription() {
   const [billing, setBilling] = useState<"monthly" | "annual">("annual");
@@ -406,8 +397,6 @@ export default function Subscription() {
             />
           ))}
         </div>
-
-
       </div>
       {selectedPlanObj && (
         <div className="fixed bottom-0 left-0 right-0 z-[80] border-t border-valasys-gray-200 bg-white/90 backdrop-blur">
