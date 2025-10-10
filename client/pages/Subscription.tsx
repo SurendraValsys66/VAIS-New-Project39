@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Check, Minus, CreditCard, Info, ChevronDown, CircleCheckBig, CircleX } from "lucide-react";
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useRef } from "react";
 
 interface Plan {
   id: "free" | "growth" | "scale" | "enterprise";
@@ -294,6 +294,13 @@ export default function Subscription() {
   const [billing, setBilling] = useState<"monthly" | "annual">("annual");
   const [selectedPlan, setSelectedPlan] = useState<"free" | "growth" | "scale" | "enterprise">("growth");
   const [showComparison, setShowComparison] = useState(false);
+  const comparisonRef = useRef<HTMLDivElement | null>(null);
+  const handleShowComparison = () => {
+    if (!showComparison) setShowComparison(true);
+    requestAnimationFrame(() => {
+      comparisonRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  };
   const sortedPlans = useMemo(() => plans, []);
 
   return (
@@ -330,13 +337,13 @@ export default function Subscription() {
               planIndex={idx as 0 | 1 | 2 | 3}
               selected={p.id === selectedPlan}
               onSelect={() => setSelectedPlan(p.id as any)}
-              onToggleComparison={() => setShowComparison((v) => !v)}
+              onToggleComparison={handleShowComparison}
             />
           ))}
         </div>
 
         {showComparison && (
-          <Card className="overflow-hidden">
+          <Card ref={comparisonRef} className="overflow-hidden" id="plan-comparison">
             <div className="flex items-center gap-2 bg-valasys-gray-50 border rounded-t-lg px-4 py-3 text-valasys-gray-800">
               <img src="/public/placeholder.svg" alt="" className="w-5 h-5" />
               <div>
