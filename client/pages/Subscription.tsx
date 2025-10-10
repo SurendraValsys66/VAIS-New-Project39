@@ -144,7 +144,7 @@ function PlanCard({
     .filter((r) => r.v !== false && r.v !== "-");
 
   return (
-    <Card className={`relative h-full ${selected ? "ring-2 ring-yellow-300 bg-yellow-50" : ""}`}>
+    <Card className={`relative h-full flex flex-col ${selected ? "ring-2 ring-yellow-300 bg-yellow-50" : ""}`}>
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="text-lg font-semibold">{plan.name}</CardTitle>
