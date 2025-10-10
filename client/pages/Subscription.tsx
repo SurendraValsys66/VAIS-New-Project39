@@ -597,9 +597,9 @@ export default function Subscription() {
         )}
 
         {selectedPlanObj && (
-          <div className="sticky bottom-0 z-[80] border-t border-valasys-gray-200 bg-white/90 backdrop-blur rounded-t-md">
+          <div className="sticky bottom-0 z-[80] border-t border-valasys-gray-200 bg-white shadow-md rounded-t-lg">
             <div className="px-4 py-3">
-              <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-6">
                 <div>
                   <div className="text-xs font-medium text-valasys-gray-500">Summary</div>
                   <div className="text-sm font-semibold text-valasys-gray-900">{selectedPlanObj.name}</div>
