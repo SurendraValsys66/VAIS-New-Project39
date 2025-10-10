@@ -246,16 +246,13 @@ export default function Subscription() {
   return (
     <DashboardLayout>
       <div className="space-y-8">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-valasys-gray-900">
-              Choose your right plan!
-            </h1>
-            <p className="text-valasys-gray-600">
-              Select from best plans, ensuring a perfect match.
-            </p>
-          </div>
-
+        <div className="flex flex-col items-center gap-3 text-center">
+          <h1 className="text-2xl font-bold text-valasys-gray-900">
+            Empowering business growth from a single platform
+          </h1>
+          <p className="text-valasys-gray-600">
+            Select from best plans, ensuring a perfect match.
+          </p>
           <div className="flex items-center gap-3">
             <Tabs
               value={billing}
@@ -263,8 +260,8 @@ export default function Subscription() {
               className="bg-white rounded-lg border border-valasys-gray-200 p-1"
             >
               <TabsList className="grid grid-cols-2">
-                <TabsTrigger value="monthly">Monthly Plans</TabsTrigger>
                 <TabsTrigger value="annual">Annual Plans</TabsTrigger>
+                <TabsTrigger value="monthly">Monthly Plans</TabsTrigger>
               </TabsList>
             </Tabs>
             {billing === "annual" && (
