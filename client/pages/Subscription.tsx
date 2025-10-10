@@ -280,11 +280,10 @@ function PlanCard({
         <div className="pt-3 grid grid-cols-1">
           {plan.id === "enterprise" ? (
             <Button
-              onClick={onSelect}
-              className={`w-full ${selected ? "bg-[#424242] text-white border-2 border-[#424242]" : "border-2 border-valasys-orange text-valasys-orange bg-white hover:bg-gradient-to-r hover:from-valasys-orange hover:to-valasys-orange-light hover:text-white"}`}
+              asChild
+              className="w-full border-2 border-valasys-orange text-valasys-orange bg-white hover:bg-gradient-to-r hover:from-valasys-orange hover:to-valasys-orange-light hover:text-white"
             >
-              {selected && <Check className="w-4 h-4 mr-2 text-white" />}
-              Contact to our sales
+              <a href="mailto:sales@valasys.ai">Contact to our sales</a>
             </Button>
           ) : (
             <Button
@@ -411,11 +410,10 @@ function PlanComparisonTable({
                     <div className="pt-2">
                       {p.id === "enterprise" ? (
                         <Button
-                          onClick={() => onSelect(p.id)}
-                          className={`w-full ${isSelected ? "bg-[#424242] text-white border-2 border-[#424242]" : "border-2 border-valasys-orange text-valasys-orange bg-white hover:bg-gradient-to-r hover:from-valasys-orange hover:to-valasys-orange-light hover:text-white"}`}
+                          asChild
+                          className="w-full border-2 border-valasys-orange text-valasys-orange bg-white hover:bg-gradient-to-r hover:from-valasys-orange hover:to-valasys-orange-light hover:text-white"
                         >
-                          {isSelected && <Check className="w-4 h-4 mr-2" />}
-                          Contact to our sales
+                          <a href="mailto:sales@valasys.ai">Contact to our sales</a>
                         </Button>
                       ) : (
                         <Button
