@@ -402,7 +402,6 @@ export default function Subscription() {
   const [selectedPlan, setSelectedPlan] = useState<
     "free" | "growth" | "scale" | "enterprise"
   >("growth");
-  const [hasInteracted, setHasInteracted] = useState(false);
   const [showComparison, setShowComparison] = useState(false);
   const comparisonHeadingRef = useRef<HTMLDivElement | null>(null);
   const handleToggleComparison = () => {
@@ -424,7 +423,6 @@ export default function Subscription() {
   const sortedPlans = useMemo(() => plans, []);
   const selectPlan = (id: "free" | "growth" | "scale" | "enterprise") => {
     setSelectedPlan(id);
-    setHasInteracted(true);
   };
   const selectedPlanObj = useMemo(
     () => sortedPlans.find((p) => p.id === selectedPlan),
@@ -691,7 +689,7 @@ export default function Subscription() {
           </Button>
         </div>
       </div>
-      {hasInteracted && selectedPlanObj && (
+      {selectedPlanObj && (
         <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-valasys-gray-200 bg-white/90 backdrop-blur">
           <div className="max-w-7xl mx-auto px-4 py-3">
             <div className="grid grid-cols-1 md:grid-cols-5 items-center gap-4">
