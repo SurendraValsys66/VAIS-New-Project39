@@ -281,14 +281,15 @@ export default function Subscription() {
         </div>
 
         {/* Plan grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
           {sortedPlans.map((p, idx) => (
             <PlanCard
               key={p.id}
               plan={p}
               billing={billing}
-              planIndex={idx as 0 | 1 | 2}
-              selected={p.id === "growth"}
+              planIndex={idx as 0 | 1 | 2 | 3}
+              selected={p.id === selectedPlan}
+              onSelect={() => setSelectedPlan(p.id)}
             />
           ))}
         </div>
