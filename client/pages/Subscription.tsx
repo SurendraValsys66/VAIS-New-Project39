@@ -698,8 +698,8 @@ export default function Subscription() {
                   </button>
                 </div>
                 <div className="md:text-right">
-                  <div className="flex items-center justify-end gap-6">
-                    <div>
+                  <div className="flex items-center justify-end">
+                    <div className="pr-6">
                       <div className="text-valasys-gray-500">Billed {billing === "annual" ? "Annually" : "Monthly"}</div>
                       <div className="font-semibold text-valasys-gray-900">
                         {(() => {
@@ -712,7 +712,7 @@ export default function Subscription() {
                         })()}
                       </div>
                     </div>
-                    <div>
+                    <div className="pl-6 pr-6 border-l border-valasys-gray-200">
                       <div className="text-valasys-gray-500">Due Today</div>
                       <div className="font-semibold text-valasys-gray-900">
                         {(() => {
@@ -724,7 +724,11 @@ export default function Subscription() {
                         })()}
                       </div>
                     </div>
-                    <Button className="bg-yellow-300 text-black hover:bg-yellow-400">Upgrade</Button>
+                    <div className="pl-6 border-l border-valasys-gray-200">
+                      <Button className="bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white hover:from-valasys-orange/90 hover:to-valasys-orange-light/90">
+                        <CreditCard className="w-5 h-5 mr-2" /> Upgrade Plan
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>
