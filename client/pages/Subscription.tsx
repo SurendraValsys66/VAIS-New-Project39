@@ -167,7 +167,7 @@ function PlanCard({
           ); })()}
         </div>
       </CardHeader>
-      <CardContent className="space-y-5">
+      <CardContent className="space-y-5 flex-1 flex flex-col">
         <div className="border-y border-valasys-gray-200 py-3">
           <div className="text-sm">
             {(() => { const d = planDisplay(plan, billing); return (
