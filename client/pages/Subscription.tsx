@@ -305,10 +305,10 @@ export default function Subscription() {
           <CardContent>
             <div className="grid grid-cols-5 gap-4 mb-3 text-xs uppercase tracking-wide text-valasys-gray-500">
               <div>Features</div>
-              <div className="text-center">Free</div>
-              <div className="text-center">Basic</div>
-              <div className="text-center">Professional</div>
-              <div className="text-center">Organization</div>
+              <div className="text-center">Free Plan</div>
+              <div className="text-center">Growth Plan</div>
+              <div className="text-center">Scale Plan</div>
+              <div className="text-center">Enterprise Plan</div>
             </div>
             <div className="divide-y divide-valasys-gray-200">
               {coreRows.map((row) => (
