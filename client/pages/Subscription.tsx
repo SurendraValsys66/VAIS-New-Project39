@@ -3,8 +3,22 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Check, Gift, Rocket, BarChart3, Building2, Coins } from "lucide-react";
-import React, { useMemo, useState } from "react";
+import {
+  Check,
+  Minus,
+  CreditCard,
+  Info,
+  ChevronDown,
+  ChevronUp,
+  CircleCheckBig,
+  CircleX,
+  Gift,
+  Rocket,
+  BarChart3,
+  Building2,
+  Coins,
+} from "lucide-react";
+import React, { useMemo, useState, useRef } from "react";
 
 interface Plan {
   id: "free" | "growth" | "scale" | "enterprise";
@@ -166,12 +180,16 @@ function PlanCard({
   selected,
   planIndex,
   onSelect,
+  onToggleComparison,
+  comparisonOpen,
 }: {
   plan: Plan;
   billing: "monthly" | "annual";
   selected?: boolean;
   planIndex: 0 | 1 | 2 | 3;
   onSelect: () => void;
+  onToggleComparison: () => void;
+  comparisonOpen: boolean;
 }) {
   const includedCore = coreRows
     .map((r) => ({ label: r.label, v: r.values[planIndex] }))
@@ -331,6 +349,20 @@ function PlanCard({
             ))}
           </ul>
         </div>
+
+        <button
+          type="button"
+          onClick={onToggleComparison}
+          aria-expanded={comparisonOpen}
+          className="mt-auto inline-flex items-center text-sm font-semibold text-valasys-gray-700 hover:text-valasys-gray-900"
+        >
+          {comparisonOpen ? "Hide plan comparison" : "Show plan comparison"}
+          {comparisonOpen ? (
+            <ChevronUp className="w-4 h-4 ml-1" />
+          ) : (
+            <ChevronDown className="w-4 h-4 ml-1" />
+          )}
+        </button>
       </CardContent>
     </Card>
   );
@@ -442,6 +474,23 @@ export default function Subscription() {
     "free" | "growth" | "scale" | "enterprise"
   >("growth");
   const [showComparison, setShowComparison] = useState(false);
+  const comparisonHeadingRef = useRef<HTMLDivElement | null>(null);
+  const handleToggleComparison = () => {
+    setShowComparison((prev) => {
+      const next = !prev;
+      if (next) {
+        requestAnimationFrame(() => {
+          const el = comparisonHeadingRef.current;
+          if (!el) return;
+          const rect = el.getBoundingClientRect();
+          const offset = 120; // account for sticky header
+          const top = rect.top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: "smooth" });
+        });
+      }
+      return next;
+    });
+  };
   const sortedPlans = useMemo(() => plans, []);
   const selectPlan = (id: "free" | "growth" | "scale" | "enterprise") => {
     setSelectedPlan(id);
@@ -484,7 +533,7 @@ export default function Subscription() {
             </Tabs>
             <Button
               type="button"
-              onClick={() => setShowComparison((v) => !v)}
+              onClick={handleToggleComparison}
               className="border-2 border-valasys-orange text-valasys-orange bg-white hover:bg-gradient-to-r hover:from-valasys-orange hover:to-valasys-orange-light hover:text-white"
               aria-pressed={showComparison}
             >
@@ -503,11 +552,25 @@ export default function Subscription() {
               planIndex={idx as 0 | 1 | 2 | 3}
               selected={p.id === selectedPlan}
               onSelect={() => selectPlan(p.id as any)}
+              onToggleComparison={handleToggleComparison}
+              comparisonOpen={showComparison}
             />
           ))}
         </div>
+
         {showComparison && (
-          <div className="mt-6">
+          <div className="mt-6" id="plan-comparison">
+            <div
+              ref={comparisonHeadingRef}
+              className="flex items-center gap-2 bg-valasys-gray-50 border rounded-t-lg px-4 py-3 text-valasys-gray-800"
+            >
+              <div>
+                <div className="font-semibold">Plan comparison</div>
+                <div className="text-xs text-valasys-gray-600">
+                  Find the features available in each plan
+                </div>
+              </div>
+            </div>
             <PlanComparisonTable
               billing={billing}
               plans={sortedPlans}
@@ -516,6 +579,15 @@ export default function Subscription() {
             />
           </div>
         )}
+
+        <div className="flex justify-center">
+          <Button
+            size="lg"
+            className="bg-valasys-orange text-white hover:bg-valasys-orange/90"
+          >
+            <CreditCard className="w-5 h-5 mr-2" /> Credit Usage Comparison
+          </Button>
+        </div>
       </div>
       {selectedPlanObj && (
         <div className="fixed bottom-0 left-0 right-0 z-[80] border-t border-valasys-gray-200 bg-white/90 backdrop-blur">
@@ -528,6 +600,23 @@ export default function Subscription() {
                 <div className="text-sm font-semibold text-valasys-gray-900">
                   {selectedPlanObj.name}
                 </div>
+                <button
+                  className="text-xs underline text-valasys-gray-600 hover:text-valasys-gray-900"
+                  onClick={() => {
+                    if (!showComparison) handleToggleComparison();
+                    else {
+                      requestAnimationFrame(() => {
+                        const el = document.getElementById("plan-comparison");
+                        if (!el) return;
+                        const rect = el.getBoundingClientRect();
+                        const top = rect.top + window.scrollY - 120;
+                        window.scrollTo({ top, behavior: "smooth" });
+                      });
+                    }
+                  }}
+                >
+                  See price breakdown
+                </button>
               </div>
               <div className="flex items-center gap-2 md:justify-center">
                 <div className="text-xs text-valasys-gray-500">Seats</div>
