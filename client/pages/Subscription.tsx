@@ -163,7 +163,10 @@ function PlanCard({
     <Card className={`relative h-full flex flex-col ${selected ? "ring-2 ring-yellow-300 bg-yellow-50" : ""}`}>
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle className="text-lg font-semibold">{plan.name}</CardTitle>
+          <div className="flex items-center gap-2">
+            {planIcon(plan.id)}
+            <CardTitle className="text-base md:text-xl font-semibold">{plan.name}</CardTitle>
+          </div>
           {plan.popular && (
             <Badge className="bg-valasys-orange text-white">Most Popular</Badge>
           )}
