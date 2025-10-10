@@ -665,7 +665,7 @@ export default function Subscription() {
                   <div className="font-medium text-valasys-gray-500">
                     Summary
                   </div>
-                  <div className="text-sm font-semibold text-valasys-gray-900">
+                  <div className="font-semibold text-valasys-gray-900">
                     {selectedPlanObj.name}
                   </div>
                   <button
