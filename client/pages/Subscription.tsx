@@ -192,8 +192,8 @@ function PlanCard({
       </CardHeader>
       <CardContent className="space-y-5 flex-1 flex flex-col">
         <div className="border-y border-valasys-gray-200 py-3">
-          <div className="text-[17px] font-semibold text-valasys-orange flex items-center gap-2">
-            <Coins className="w-5 h-5 text-valasys-orange" />
+          <div className="text-[17px] font-semibold text-black flex items-center gap-2">
+            <Coins className="w-5 h-5 text-black" />
             {(() => { const d = planDisplay(plan, billing); return (
               <>
                 <span>{d.credits}</span>
