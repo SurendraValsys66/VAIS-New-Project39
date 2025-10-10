@@ -379,6 +379,7 @@ export default function Subscription() {
               onSelect={() => setSelectedPlan(p.id as any)}
               onToggleComparison={handleToggleComparison}
               comparisonOpen={showComparison}
+              comparisonOpen={showComparison}
             />
           ))}
         </div>
