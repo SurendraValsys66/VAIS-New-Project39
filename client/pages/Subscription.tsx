@@ -402,6 +402,7 @@ export default function Subscription() {
   const [selectedPlan, setSelectedPlan] = useState<
     "free" | "growth" | "scale" | "enterprise"
   >("growth");
+  const [hasInteracted, setHasInteracted] = useState(false);
   const [showComparison, setShowComparison] = useState(false);
   const comparisonHeadingRef = useRef<HTMLDivElement | null>(null);
   const handleToggleComparison = () => {
@@ -421,10 +422,18 @@ export default function Subscription() {
     });
   };
   const sortedPlans = useMemo(() => plans, []);
+  const selectPlan = (id: "free" | "growth" | "scale" | "enterprise") => {
+    setSelectedPlan(id);
+    setHasInteracted(true);
+  };
+  const selectedPlanObj = useMemo(
+    () => sortedPlans.find((p) => p.id === selectedPlan),
+    [sortedPlans, selectedPlan],
+  );
 
   return (
     <DashboardLayout>
-      <div className="space-y-8">
+      <div className="space-y-8 pb-28">
         <div className="flex flex-col items-center gap-3 text-center">
           <h1 className="text-2xl font-bold text-valasys-gray-900">
             Empowering business growth from a single platform
@@ -465,7 +474,7 @@ export default function Subscription() {
               billing={billing}
               planIndex={idx as 0 | 1 | 2 | 3}
               selected={p.id === selectedPlan}
-              onSelect={() => setSelectedPlan(p.id as any)}
+              onSelect={() => selectPlan(p.id as any)}
               onToggleComparison={handleToggleComparison}
               comparisonOpen={showComparison}
             />
@@ -503,7 +512,7 @@ export default function Subscription() {
                               onClick={
                                 p.id === "free" || p.id === "enterprise"
                                   ? undefined
-                                  : () => setSelectedPlan(p.id as any)
+                                  : () => selectPlan(p.id as any)
                               }
                               role={
                                 p.id === "free" || p.id === "enterprise"
@@ -522,7 +531,7 @@ export default function Subscription() {
                                   (e.key === "Enter" || e.key === " ")
                                 ) {
                                   e.preventDefault();
-                                  setSelectedPlan(p.id as any);
+                                  selectPlan(p.id as any);
                                 }
                               }}
                             >
@@ -560,7 +569,7 @@ export default function Subscription() {
                               <div className="pt-2">
                                 {isEnterprise ? (
                                   <Button
-                                    onClick={() => setSelectedPlan(p.id as any)}
+                                    onClick={() => selectPlan(p.id as any)}
                                     className={`w-full ${isSelected ? "bg-[#424242] text-white border-2 border-[#424242]" : "border-2 border-valasys-orange text-valasys-orange bg-white hover:bg-gradient-to-r hover:from-valasys-orange hover:to-valasys-orange-light hover:text-white"}`}
                                   >
                                     {isSelected && (
@@ -570,7 +579,7 @@ export default function Subscription() {
                                   </Button>
                                 ) : (
                                   <Button
-                                    onClick={() => setSelectedPlan(p.id as any)}
+                                    onClick={() => selectPlan(p.id as any)}
                                     disabled={p.id === "free"}
                                     className={`w-full ${isSelected ? "bg-[#424242] text-white" : "bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white hover:from-valasys-orange/90 hover:to-valasys-orange-light/90"}`}
                                   >
@@ -682,6 +691,69 @@ export default function Subscription() {
           </Button>
         </div>
       </div>
+      {hasInteracted && selectedPlanObj && (
+        <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-valasys-gray-200 bg-white/90 backdrop-blur">
+          <div className="max-w-7xl mx-auto px-4 py-3">
+            <div className="grid grid-cols-1 md:grid-cols-5 items-center gap-4">
+              <div>
+                <div className="text-xs font-medium text-valasys-gray-500">Summary</div>
+                <div className="text-sm font-semibold text-valasys-gray-900">{selectedPlanObj.name}</div>
+                <button
+                  className="text-xs underline text-valasys-gray-600 hover:text-valasys-gray-900"
+                  onClick={() => {
+                    if (!showComparison) handleToggleComparison();
+                    else {
+                      requestAnimationFrame(() => {
+                        const el = document.getElementById("plan-comparison");
+                        if (!el) return;
+                        const rect = el.getBoundingClientRect();
+                        const top = rect.top + window.scrollY - 120;
+                        window.scrollTo({ top, behavior: "smooth" });
+                      });
+                    }
+                  }}
+                >
+                  See price breakdown
+                </button>
+              </div>
+              <div className="flex items-center gap-2 md:justify-center">
+                <div className="text-xs text-valasys-gray-500">Seats</div>
+                <div className="text-sm font-medium text-valasys-gray-900">1 user</div>
+              </div>
+              <div className="md:text-center">
+                <div className="text-xs text-valasys-gray-500">Billed {billing === "annual" ? "Annually" : "Monthly"}</div>
+                <div className="text-sm font-semibold text-valasys-gray-900">
+                  {(() => {
+                    const p = selectedPlanObj;
+                    if (!p) return "";
+                    if (p.id === "enterprise") return "Custom";
+                    const amt = billing === "annual" ? p.priceAnnual * 12 : p.priceMonthly;
+                    const suffix = billing === "annual" ? "/yr" : "/mo";
+                    return `$${amt}${suffix}`;
+                  })()}
+                </div>
+              </div>
+              <div className="md:text-center">
+                <div className="text-xs text-valasys-gray-500">Due Today</div>
+                <div className="text-sm font-semibold text-valasys-gray-900">
+                  {(() => {
+                    const p = selectedPlanObj;
+                    if (!p) return "";
+                    if (p.id === "enterprise") return "Custom";
+                    const amt = billing === "annual" ? p.priceAnnual * 12 : p.priceMonthly;
+                    return `$${amt}`;
+                  })()}
+                </div>
+              </div>
+              <div className="md:text-right">
+                <Button className="bg-valasys-yellow text-black hover:bg-valasys-yellow/90">
+                  Upgrade
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </DashboardLayout>
   );
 }
