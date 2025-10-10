@@ -665,6 +665,7 @@ export default function Subscription() {
 
         {selectedPlanObj && (
           <div
+            ref={summaryRef}
             className="fixed bottom-0 z-[80] border-t border-valasys-gray-200 bg-white rounded-t-lg shadow-2xl drop-shadow-2xl shadow-[0_-12px_36px_rgba(0,0,0,0.18)] w-full"
             style={{
               left: `${summaryBounds.left}px`,
