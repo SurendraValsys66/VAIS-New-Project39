@@ -348,6 +348,26 @@ export default function Subscription() {
               <div className="overflow-auto">
                 <table className="w-full text-sm">
                   <thead className="sticky top-0 bg-white">
+                    <tr className="border-b align-top">
+                      <th className="px-4 py-4"></th>
+                      {sortedPlans.map((p) => {
+                        const d = planDisplay(p, billing);
+                        return (
+                          <th key={p.id} className="px-4 py-4">
+                            <div className="rounded-xl border bg-white shadow-sm p-4 text-left">
+                              <div className="text-sm font-semibold text-valasys-gray-900">{p.name}</div>
+                              {p.description && (
+                                <div className="text-xs text-valasys-gray-600 mt-1 line-clamp-2">{p.description}</div>
+                              )}
+                              <div className="text-2xl font-bold mt-3">{d.priceLabel}{d.priceSuffix && <span className="text-sm text-valasys-gray-500"> {d.priceSuffix}</span>}</div>
+                              <div className="text-xs text-valasys-gray-500">{d.billedNote}</div>
+                              <div className="my-3 h-px bg-valasys-gray-200" />
+                              <div className="text-sm font-medium">{d.credits}</div>
+                            </div>
+                          </th>
+                        );
+                      })}
+                    </tr>
                     <tr className="border-b">
                       <th className="text-left px-4 py-3 font-medium text-valasys-gray-600">Features</th>
                       <th className="px-4 py-3 text-center">Free</th>
