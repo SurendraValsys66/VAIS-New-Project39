@@ -98,11 +98,13 @@ function PlanCard({
   billing,
   selected,
   planIndex,
+  onSelect,
 }: {
   plan: Plan;
   billing: "monthly" | "annual";
   selected?: boolean;
-  planIndex: 0 | 1 | 2;
+  planIndex: 0 | 1 | 2 | 3;
+  onSelect: () => void;
 }) {
   const includedCore = coreRows
     .map((r) => ({ label: r.label, v: r.values[planIndex] }))
@@ -112,9 +114,7 @@ function PlanCard({
     .filter((r) => r.v !== false && r.v !== "-");
 
   return (
-    <Card
-      className={`relative h-full ${plan.popular ? "ring-2 ring-valasys-orange" : ""}`}
-    >
+    <Card className={`relative h-full ${selected ? "ring-2 ring-yellow-300 bg-yellow-50" : ""}`}>
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="text-lg font-semibold">{plan.name}</CardTitle>
@@ -122,7 +122,7 @@ function PlanCard({
             <Badge className="bg-valasys-orange text-white">Most Popular</Badge>
           )}
         </div>
-        <div className="mt-2">
+        <div className="mt-2 space-y-1">
           <div className="text-3xl font-bold">
             {formatPrice(priceFor(plan, billing))}
             {plan.priceMonthly > 0 && (
@@ -134,25 +134,22 @@ function PlanCard({
               ? "Billed monthly"
               : "Per seat per month, billed annually"}
           </div>
-          {plan.tagline && (
-            <div className="mt-1 text-xs text-valasys-gray-500">
-              {plan.tagline}
-            </div>
+          {plan.description && (
+            <div className="text-sm text-valasys-gray-600">{plan.description}</div>
           )}
         </div>
       </CardHeader>
       <CardContent className="space-y-5">
-        <div className="text-sm text-valasys-gray-600">
-          {plan.creditsLabel ? (
-            <span className="font-medium">{plan.creditsLabel}</span>
-          ) : (
-            <>
+        <div className="rounded-md border border-valasys-gray-200 p-3 bg-white">
+          <div className="flex items-center justify-between">
+            <div className="text-sm">
               <span className="font-medium">
-                {plan.creditsPerMonth?.toLocaleString()}
-              </span>{" "}
-              credits per user / month
-            </>
-          )}
+                {plan.creditsLabel ?? `${(plan.creditsPerMonth || 0).toLocaleString()} credits`}
+              </span>
+              <span className="text-valasys-gray-500"> {plan.creditsNote ?? "per user granted upfront"}</span>
+            </div>
+            <Button variant="outline" size="sm" className="h-8 px-3">Add more credits</Button>
+          </div>
         </div>
 
         <div className="space-y-3">
@@ -204,14 +201,11 @@ function PlanCard({
         </div>
 
         <div className="pt-1 grid grid-cols-1 gap-2">
-          <Button className="w-full bg-valasys-orange text-white hover:bg-valasys-orange/90">
-            {selected
-              ? "Selected"
-              : plan.id === "free"
-                ? "Try for free"
-                : "Select Plan"}
+          <Button onClick={onSelect} className="w-full bg-valasys-orange text-white hover:bg-valasys-orange/90">
+            {selected ? "Selected" : plan.id === "free" ? "Current Plan" : "Select Plan"}
           </Button>
         </div>
+        <button type="button" className="text-xs text-valasys-gray-600 underline">Try for free</button>
       </CardContent>
     </Card>
   );
