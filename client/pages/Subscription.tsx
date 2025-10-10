@@ -261,7 +261,7 @@ export default function Subscription() {
             >
               <TabsList className="grid grid-cols-2">
                 <TabsTrigger value="annual" className="data-[state=active]:text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-valasys-orange data-[state=active]:to-valasys-orange-light">Annual Plans</TabsTrigger>
-                <TabsTrigger value="monthly">Monthly Plans</TabsTrigger>
+                <TabsTrigger value="monthly" className="data-[state=active]:text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-valasys-orange data-[state=active]:to-valasys-orange-light">Monthly Plans</TabsTrigger>
               </TabsList>
             </Tabs>
             {billing === "annual" && (
