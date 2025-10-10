@@ -448,11 +448,15 @@ function PlanComparisonTable({
                   key={idx}
                   className={`p-3 ${plans[idx].id === selectedPlan ? "bg-yellow-50" : "bg-white"}`}
                 >
-                  {v === true && <Check className="w-4 h-4 text-green-600" />}
-                  {v === false && <span className="text-valasys-gray-400">—</span>}
-                  {v !== true && v !== false && (
-                    <span className="text-valasys-gray-700 text-sm">{v}</span>
-                  )}
+                  {v === "-" || v === "✖" ? (
+                    <CircleX className="w-5 h-5 text-red-500" />
+                  ) : v === true ? (
+                    <CircleCheckBig className="w-5 h-5 text-green-600" />
+                  ) : v === false ? (
+                    <CircleX className="w-5 h-5 text-red-500" />
+                  ) : typeof v === "string" ? (
+                    <span className="inline-block rounded-full border px-2 py-0.5 text-xs text-valasys-gray-700">{v}</span>
+                  ) : null}
                 </td>
               ))}
             </tr>
@@ -471,11 +475,15 @@ function PlanComparisonTable({
                   key={idx}
                   className={`p-3 ${plans[idx].id === selectedPlan ? "bg-yellow-50" : "bg-white"}`}
                 >
-                  {v === true && <Check className="w-4 h-4 text-green-600" />}
-                  {v === false && <span className="text-valasys-gray-400">—</span>}
-                  {v !== true && v !== false && (
-                    <span className="text-valasys-gray-700 text-sm">{v}</span>
-                  )}
+                  {v === "-" || v === "✖" ? (
+                    <CircleX className="w-5 h-5 text-red-500" />
+                  ) : v === true ? (
+                    <CircleCheckBig className="w-5 h-5 text-green-600" />
+                  ) : v === false ? (
+                    <CircleX className="w-5 h-5 text-red-500" />
+                  ) : typeof v === "string" ? (
+                    <span className="inline-block rounded-full border px-2 py-0.5 text-xs text-valasys-gray-700">{v}</span>
+                  ) : null}
                 </td>
               ))}
             </tr>
