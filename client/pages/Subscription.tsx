@@ -336,54 +336,75 @@ export default function Subscription() {
         </div>
 
         {showComparison && (
-          <>
-            {/* Core Modules */}
-            <Card>
-              <CardHeader className="pb-2">
-                <div className="flex items-center justify-between">
-                  <CardTitle>Core Platform Modules</CardTitle>
-                  <Badge variant="outline" className="text-xs">
-                    <Info className="w-3 h-3 mr-1" /> Included features per plan
-                  </Badge>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-5 gap-4 mb-3 text-xs uppercase tracking-wide text-valasys-gray-500">
-                  <div>Features</div>
-                  <div className="text-center">Free Plan</div>
-                  <div className="text-center">Growth Plan</div>
-                  <div className="text-center">Scale Plan</div>
-                  <div className="text-center">Enterprise Plan</div>
-                </div>
-                <div className="divide-y divide-valasys-gray-200">
-                  {coreRows.map((row) => (
-                    <FeatureRow key={row.label} label={row.label} tiers={row.values} />
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+          <Card className="overflow-hidden">
+            <div className="flex items-center gap-2 bg-valasys-gray-50 border rounded-t-lg px-4 py-3 text-valasys-gray-800">
+              <img src="/public/placeholder.svg" alt="" className="w-5 h-5" />
+              <div>
+                <div className="font-semibold">Plan comparison</div>
+                <div className="text-xs text-valasys-gray-600">Find the features available in each plan</div>
+              </div>
+            </div>
+            <CardContent className="p-0">
+              <div className="overflow-auto">
+                <table className="w-full text-sm">
+                  <thead className="sticky top-0 bg-white">
+                    <tr className="border-b">
+                      <th className="text-left px-4 py-3 font-medium text-valasys-gray-600">Features</th>
+                      <th className="px-4 py-3 text-center">Free</th>
+                      <th className="px-4 py-3 text-center">Growth</th>
+                      <th className="px-4 py-3 text-center">Scale</th>
+                      <th className="px-4 py-3 text-center">Enterprise</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="bg-valasys-gray-50/60">
+                      <td colSpan={5} className="px-4 py-2 text-xs uppercase tracking-wide text-valasys-gray-500">Core Platform Modules</td>
+                    </tr>
+                    {coreRows.map((row) => (
+                      <tr key={row.label} className="border-b">
+                        <td className="px-4 py-3 font-medium text-valasys-gray-800">{row.label}</td>
+                        {row.values.map((v, i) => (
+                          <td key={i} className="px-4 py-3 text-center">
+                            {typeof v === "string" ? (
+                              <span className="inline-block rounded-full border px-2 py-0.5 text-xs text-valasys-gray-700">{v}</span>
+                            ) : v === "-" ? (
+                              <span className="text-valasys-gray-300">—</span>
+                            ) : v ? (
+                              <span className="inline-block w-2.5 h-2.5 rounded-full bg-green-600" />
+                            ) : (
+                              <span className="inline-block w-2.5 h-2.5 rounded-full bg-valasys-gray-300" />
+                            )}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
 
-            {/* Account Insights */}
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle>High Value Account Insights</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-5 gap-4 mb-3 text-xs uppercase tracking-wide text-valasys-gray-500">
-                  <div>Insights</div>
-                  <div className="text-center">Free Plan</div>
-                  <div className="text-center">Growth Plan</div>
-                  <div className="text-center">Scale Plan</div>
-                  <div className="text-center">Enterprise Plan</div>
-                </div>
-                <div className="divide-y divide-valasys-gray-200">
-                  {insightsRows.map((row) => (
-                    <FeatureRow key={row.label} label={row.label} tiers={row.values} />
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </>
+                    <tr className="bg-valasys-gray-50/60">
+                      <td colSpan={5} className="px-4 py-2 text-xs uppercase tracking-wide text-valasys-gray-500">High Value Account Insights</td>
+                    </tr>
+                    {insightsRows.map((row) => (
+                      <tr key={row.label} className="border-b">
+                        <td className="px-4 py-3 font-medium text-valasys-gray-800">{row.label}</td>
+                        {row.values.map((v, i) => (
+                          <td key={i} className="px-4 py-3 text-center">
+                            {typeof v === "string" ? (
+                              <span className="inline-block rounded-full border px-2 py-0.5 text-xs text-valasys-gray-700">{v}</span>
+                            ) : v === "-" ? (
+                              <span className="text-valasys-gray-300">—</span>
+                            ) : v ? (
+                              <span className="inline-block w-2.5 h-2.5 rounded-full bg-green-600" />
+                            ) : (
+                              <span className="inline-block w-2.5 h-2.5 rounded-full bg-valasys-gray-300" />
+                            )}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
         )}
 
         <div className="flex justify-center">
