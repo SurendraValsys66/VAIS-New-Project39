@@ -21,27 +21,38 @@ interface Plan {
 const plans: Plan[] = [
   {
     id: "free",
-    name: "Free Plan",
+    name: "Free",
+    description: "Explore the platform to find leads, manage pipeline & close deals.",
     priceMonthly: 0,
     priceAnnual: 0,
     creditsPerMonth: null,
-    creditsLabel: "1000 credits per plan",
-    tagline: "7-day free plan",
+    creditsLabel: "1,200 credits",
+    creditsNote: "per user/month granted upfront",
   },
   {
-    id: "growth",
-    name: "Growth Plan",
-    priceMonthly: 69,
-    priceAnnual: 69, // per seat per month, billed annually
-    creditsPerMonth: 3000,
+    id: "basic",
+    name: "Basic",
+    description: "Take prospecting, outreach & deal management to the next level.",
+    priceMonthly: 49,
+    priceAnnual: 49,
+    creditsPerMonth: 30000,
+  },
+  {
+    id: "pro",
+    name: "Professional",
+    description: "Optimize your sales process with multi‑touch outreach, AI & automations.",
+    priceMonthly: 79,
+    priceAnnual: 79,
+    creditsPerMonth: 48000,
     popular: true,
   },
   {
-    id: "scale",
-    name: "Scale Plan",
-    priceMonthly: 99,
-    priceAnnual: 99, // per seat per month, billed annually
-    creditsPerMonth: 6000,
+    id: "org",
+    name: "Organization",
+    description: "Transform go‑to‑market with advanced tools, custom solutions & expert help.",
+    priceMonthly: 119,
+    priceAnnual: 119,
+    creditsPerMonth: 72000,
   },
 ];
 
