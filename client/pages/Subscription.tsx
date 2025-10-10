@@ -3,7 +3,21 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Check, Minus, CreditCard, Info, ChevronDown, ChevronUp, CircleCheckBig, CircleX, Gift, Rocket, BarChart3, Building2, Coins } from "lucide-react";
+import {
+  Check,
+  Minus,
+  CreditCard,
+  Info,
+  ChevronDown,
+  ChevronUp,
+  CircleCheckBig,
+  CircleX,
+  Gift,
+  Rocket,
+  BarChart3,
+  Building2,
+  Coins,
+} from "lucide-react";
 import React, { useMemo, useState, useRef } from "react";
 
 interface Plan {
@@ -22,7 +36,8 @@ const plans: Plan[] = [
   {
     id: "free",
     name: "Free Plan",
-    description: "Explore the platform to find leads, manage pipeline & close deals.",
+    description:
+      "Explore the platform to find leads, manage pipeline & close deals.",
     priceMonthly: 0,
     priceAnnual: 0,
     creditsPerMonth: null,
@@ -32,7 +47,8 @@ const plans: Plan[] = [
   {
     id: "growth",
     name: "Growth Plan",
-    description: "Scale prospecting, outreach & deal management with more credits.",
+    description:
+      "Scale prospecting, outreach & deal management with more credits.",
     priceMonthly: 69,
     priceAnnual: 55,
     creditsPerMonth: 3000,
@@ -49,7 +65,8 @@ const plans: Plan[] = [
   {
     id: "enterprise",
     name: "Enterprise Plan",
-    description: "Custom pricing and higher limits for teams with advanced needs.",
+    description:
+      "Custom pricing and higher limits for teams with advanced needs.",
     priceMonthly: 0,
     priceAnnual: 0,
     creditsPerMonth: null,
@@ -68,7 +85,15 @@ const coreRows: { label: string; values: (boolean | string | "-")[] }[] = [
     values: [false, true, true, true],
   },
   { label: "Buy Additional Credits", values: ["✖", "$1.50", "$1", "$1"] },
-  { label: "Support", values: ["Tickets", "Email", "Priority Email Support", "Priority Email Support"] },
+  {
+    label: "Support",
+    values: [
+      "Tickets",
+      "Email",
+      "Priority Email Support",
+      "Priority Email Support",
+    ],
+  },
 ];
 
 // High value account insights
@@ -76,7 +101,12 @@ const insightsRows: { label: string; values: (boolean | string | "-")[] }[] = [
   { label: "Intent Topics", values: ["3", "5", "8", "8"] },
   {
     label: "Account Level Intent Signals",
-    values: ["-", "First 10 Free Signals", "First 10 Free Signals", "First 10 Free Signals"],
+    values: [
+      "-",
+      "First 10 Free Signals",
+      "First 10 Free Signals",
+      "First 10 Free Signals",
+    ],
   },
   { label: "Account Profiling", values: [false, true, true, true] },
   { label: "Account Fit Insights", values: [true, true, true, true] },
@@ -94,11 +124,18 @@ function planDisplay(plan: Plan, billing: "monthly" | "annual") {
   // Price label
   const isEnterprise = plan.id === "enterprise";
   const price = priceFor(plan, billing);
-  const priceLabel = isEnterprise ? "Custom Plan" : (price === 0 ? "$0" : `$${price}`);
+  const priceLabel = isEnterprise
+    ? "Custom Plan"
+    : price === 0
+      ? "$0"
+      : `$${price}`;
   const priceSuffix = isEnterprise || price === 0 ? "" : "/month";
 
   // Billed note and credits text based on provided spec
-  let billedNote = billing === "monthly" ? "Billed monthly" : "Per seat per month, billed annually";
+  let billedNote =
+    billing === "monthly"
+      ? "Billed monthly"
+      : "Per seat per month, billed annually";
   let credits = plan.creditsLabel ?? "";
 
   if (plan.id === "free") {
@@ -162,43 +199,81 @@ function PlanCard({
     .filter((r) => r.v !== false && r.v !== "-");
 
   return (
-    <Card className={`relative h-full flex flex-col ${(plan.id === "free" || plan.id === "enterprise") ? "cursor-default" : "cursor-pointer"} ${selected ? "ring-2 ring-yellow-300 bg-yellow-50" : ""}`} onClick={(plan.id === "free" || plan.id === "enterprise") ? undefined : onSelect} role={(plan.id === "free" || plan.id === "enterprise") ? undefined : "button"} tabIndex={(plan.id === "free" || plan.id === "enterprise") ? -1 : 0} onKeyDown={(e) => { if (plan.id !== "free" && plan.id !== "enterprise" && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); onSelect(); } }}>
+    <Card
+      className={`relative h-full flex flex-col ${plan.id === "free" || plan.id === "enterprise" ? "cursor-default" : "cursor-pointer"} ${selected ? "ring-2 ring-yellow-300 bg-yellow-50" : ""}`}
+      onClick={
+        plan.id === "free" || plan.id === "enterprise" ? undefined : onSelect
+      }
+      role={
+        plan.id === "free" || plan.id === "enterprise" ? undefined : "button"
+      }
+      tabIndex={plan.id === "free" || plan.id === "enterprise" ? -1 : 0}
+      onKeyDown={(e) => {
+        if (
+          plan.id !== "free" &&
+          plan.id !== "enterprise" &&
+          (e.key === "Enter" || e.key === " ")
+        ) {
+          e.preventDefault();
+          onSelect();
+        }
+      }}
+    >
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex-1">
             {plan.popular && (
-              <Badge className="bg-valasys-orange text-white mb-1">MOST POPULAR</Badge>
+              <Badge className="bg-valasys-orange text-white mb-1">
+                MOST POPULAR
+              </Badge>
             )}
             <div className="flex items-center gap-2">
               {planIcon(plan.id)}
-              <CardTitle className="text-base md:text-xl font-semibold">{plan.name}</CardTitle>
+              <CardTitle className="text-base md:text-xl font-semibold">
+                {plan.name}
+              </CardTitle>
             </div>
           </div>
         </div>
         <div className="mt-2 space-y-2">
           {plan.description && (
-            <div className="text-sm text-valasys-gray-600">{plan.description}</div>
+            <div className="text-sm text-valasys-gray-600">
+              {plan.description}
+            </div>
           )}
-          {(() => { const d = planDisplay(plan, billing); return (
-            <>
-              <div className="text-3xl font-bold">
-                {d.priceLabel}
-                {d.priceSuffix && <span className="text-sm text-valasys-gray-500"> {d.priceSuffix}</span>}
-              </div>
-              <div className="text-xs text-valasys-gray-500">{d.billedNote}</div>
-            </>
-          ); })()}
+          {(() => {
+            const d = planDisplay(plan, billing);
+            return (
+              <>
+                <div className="text-3xl font-bold">
+                  {d.priceLabel}
+                  {d.priceSuffix && (
+                    <span className="text-sm text-valasys-gray-500">
+                      {" "}
+                      {d.priceSuffix}
+                    </span>
+                  )}
+                </div>
+                <div className="text-xs text-valasys-gray-500">
+                  {d.billedNote}
+                </div>
+              </>
+            );
+          })()}
         </div>
       </CardHeader>
       <CardContent className="space-y-5 flex-1 flex flex-col">
         <div className="border-y border-valasys-gray-200 py-3">
           <div className="text-[17px] font-semibold text-black flex items-center gap-2">
             <Coins className="w-5 h-5 text-black" />
-            {(() => { const d = planDisplay(plan, billing); return (
-              <>
-                <span>{d.credits}</span>
-              </>
-            ); })()}
+            {(() => {
+              const d = planDisplay(plan, billing);
+              return (
+                <>
+                  <span>{d.credits}</span>
+                </>
+              );
+            })()}
           </div>
         </div>
 
@@ -218,11 +293,14 @@ function PlanCard({
               className={`w-full ${selected ? "bg-[#424242] text-white" : "bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white hover:from-valasys-orange/90 hover:to-valasys-orange-light/90"}`}
             >
               {selected && <Check className="w-4 h-4 mr-2 text-white" />}
-              {selected ? "Selected" : plan.id === "free" ? "Current Plan" : "Select Plan"}
+              {selected
+                ? "Selected"
+                : plan.id === "free"
+                  ? "Current Plan"
+                  : "Select Plan"}
             </Button>
           )}
         </div>
-
 
         <div className="space-y-3">
           <div className="text-xs font-semibold uppercase tracking-wide text-valasys-gray-500">
@@ -285,7 +363,6 @@ function PlanCard({
             <ChevronDown className="w-4 h-4 ml-1" />
           )}
         </button>
-
       </CardContent>
     </Card>
   );
@@ -322,7 +399,9 @@ function FeatureRow({
 
 export default function Subscription() {
   const [billing, setBilling] = useState<"monthly" | "annual">("annual");
-  const [selectedPlan, setSelectedPlan] = useState<"free" | "growth" | "scale" | "enterprise">("growth");
+  const [selectedPlan, setSelectedPlan] = useState<
+    "free" | "growth" | "scale" | "enterprise"
+  >("growth");
   const [showComparison, setShowComparison] = useState(false);
   const comparisonHeadingRef = useRef<HTMLDivElement | null>(null);
   const handleToggleComparison = () => {
@@ -360,8 +439,18 @@ export default function Subscription() {
               className="bg-white rounded-lg border border-valasys-gray-200 p-1"
             >
               <TabsList className="grid grid-cols-2">
-                <TabsTrigger value="annual" className="data-[state=active]:text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-valasys-orange data-[state=active]:to-valasys-orange-light">Annual Plans</TabsTrigger>
-                <TabsTrigger value="monthly" className="data-[state=active]:text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-valasys-orange data-[state=active]:to-valasys-orange-light">Monthly Plans</TabsTrigger>
+                <TabsTrigger
+                  value="annual"
+                  className="data-[state=active]:text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-valasys-orange data-[state=active]:to-valasys-orange-light"
+                >
+                  Annual Plans
+                </TabsTrigger>
+                <TabsTrigger
+                  value="monthly"
+                  className="data-[state=active]:text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-valasys-orange data-[state=active]:to-valasys-orange-light"
+                >
+                  Monthly Plans
+                </TabsTrigger>
               </TabsList>
             </Tabs>
           </div>
@@ -385,11 +474,16 @@ export default function Subscription() {
 
         {showComparison && (
           <Card className="overflow-hidden" id="plan-comparison">
-            <div ref={comparisonHeadingRef} className="flex items-center gap-2 bg-valasys-gray-50 border rounded-t-lg px-4 py-3 text-valasys-gray-800">
+            <div
+              ref={comparisonHeadingRef}
+              className="flex items-center gap-2 bg-valasys-gray-50 border rounded-t-lg px-4 py-3 text-valasys-gray-800"
+            >
               <img src="/public/placeholder.svg" alt="" className="w-5 h-5" />
               <div>
                 <div className="font-semibold">Plan comparison</div>
-                <div className="text-xs text-valasys-gray-600">Find the features available in each plan</div>
+                <div className="text-xs text-valasys-gray-600">
+                  Find the features available in each plan
+                </div>
               </div>
             </div>
             <CardContent className="p-0">
@@ -404,25 +498,74 @@ export default function Subscription() {
                         const isEnterprise = p.id === "enterprise";
                         return (
                           <th key={p.id} className="px-4 py-4 align-top">
-                            <div className={`relative rounded-xl border shadow-sm p-4 text-left flex flex-col gap-2 ${(p.id === "free" || p.id === "enterprise") ? "cursor-default" : "cursor-pointer"} ${isSelected ? "ring-2 ring-yellow-300 bg-yellow-50" : "bg-white"}`} onClick={(p.id === "free" || p.id === "enterprise") ? undefined : () => setSelectedPlan(p.id as any)} role={(p.id === "free" || p.id === "enterprise") ? undefined : "button"} tabIndex={(p.id === "free" || p.id === "enterprise") ? -1 : 0} onKeyDown={(e) => { if (p.id !== "free" && p.id !== "enterprise" && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); setSelectedPlan(p.id as any); } }}>
+                            <div
+                              className={`relative rounded-xl border shadow-sm p-4 text-left flex flex-col gap-2 ${p.id === "free" || p.id === "enterprise" ? "cursor-default" : "cursor-pointer"} ${isSelected ? "ring-2 ring-yellow-300 bg-yellow-50" : "bg-white"}`}
+                              onClick={
+                                p.id === "free" || p.id === "enterprise"
+                                  ? undefined
+                                  : () => setSelectedPlan(p.id as any)
+                              }
+                              role={
+                                p.id === "free" || p.id === "enterprise"
+                                  ? undefined
+                                  : "button"
+                              }
+                              tabIndex={
+                                p.id === "free" || p.id === "enterprise"
+                                  ? -1
+                                  : 0
+                              }
+                              onKeyDown={(e) => {
+                                if (
+                                  p.id !== "free" &&
+                                  p.id !== "enterprise" &&
+                                  (e.key === "Enter" || e.key === " ")
+                                ) {
+                                  e.preventDefault();
+                                  setSelectedPlan(p.id as any);
+                                }
+                              }}
+                            >
                               {p.popular && (
-                                <Badge className="bg-valasys-orange text-white w-fit mb-1">MOST POPULAR</Badge>
+                                <Badge className="bg-valasys-orange text-white w-fit mb-1">
+                                  MOST POPULAR
+                                </Badge>
                               )}
-                              <div className="text-base md:text-lg font-semibold text-valasys-gray-900 flex items-center gap-2">{planIcon(p.id)}<span>{p.name}</span></div>
+                              <div className="text-base md:text-lg font-semibold text-valasys-gray-900 flex items-center gap-2">
+                                {planIcon(p.id)}
+                                <span>{p.name}</span>
+                              </div>
                               {p.description && (
-                                <div className="text-xs text-valasys-gray-600 mt-1 line-clamp-2">{p.description}</div>
+                                <div className="text-xs text-valasys-gray-600 mt-1 line-clamp-2">
+                                  {p.description}
+                                </div>
                               )}
-                              <div className="text-2xl font-bold mt-3">{d.priceLabel}{d.priceSuffix && <span className="text-sm text-valasys-gray-500"> {d.priceSuffix}</span>}</div>
-                              <div className="text-xs text-valasys-gray-500">{d.billedNote}</div>
+                              <div className="text-2xl font-bold mt-3">
+                                {d.priceLabel}
+                                {d.priceSuffix && (
+                                  <span className="text-sm text-valasys-gray-500">
+                                    {" "}
+                                    {d.priceSuffix}
+                                  </span>
+                                )}
+                              </div>
+                              <div className="text-xs text-valasys-gray-500">
+                                {d.billedNote}
+                              </div>
                               <div className="my-3 h-px bg-valasys-gray-200" />
-                              <div className="text-[17px] font-semibold text-black flex items-center gap-2"><Coins className="w-5 h-5 text-black" />{d.credits}</div>
+                              <div className="text-[17px] font-semibold text-black flex items-center gap-2">
+                                <Coins className="w-5 h-5 text-black" />
+                                {d.credits}
+                              </div>
                               <div className="pt-2">
                                 {isEnterprise ? (
                                   <Button
                                     onClick={() => setSelectedPlan(p.id as any)}
                                     className={`w-full ${isSelected ? "bg-[#424242] text-white border-2 border-[#424242]" : "border-2 border-valasys-orange text-valasys-orange bg-white hover:bg-gradient-to-r hover:from-valasys-orange hover:to-valasys-orange-light hover:text-white"}`}
                                   >
-                                    {isSelected && <Check className="w-4 h-4 mr-2" />}
+                                    {isSelected && (
+                                      <Check className="w-4 h-4 mr-2" />
+                                    )}
                                     Contact to our sales
                                   </Button>
                                 ) : (
@@ -431,8 +574,14 @@ export default function Subscription() {
                                     disabled={p.id === "free"}
                                     className={`w-full ${isSelected ? "bg-[#424242] text-white" : "bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white hover:from-valasys-orange/90 hover:to-valasys-orange-light/90"}`}
                                   >
-                                    {isSelected && <Check className="w-4 h-4 mr-2" />}
-                                    {isSelected ? "Selected" : p.id === "free" ? "Current Plan" : "Select Plan"}
+                                    {isSelected && (
+                                      <Check className="w-4 h-4 mr-2" />
+                                    )}
+                                    {isSelected
+                                      ? "Selected"
+                                      : p.id === "free"
+                                        ? "Current Plan"
+                                        : "Select Plan"}
                                   </Button>
                                 )}
                               </div>
@@ -442,7 +591,9 @@ export default function Subscription() {
                       })}
                     </tr>
                     <tr className="border-b">
-                      <th className="text-left px-4 py-3 font-medium text-valasys-gray-600">Features</th>
+                      <th className="text-left px-4 py-3 font-medium text-valasys-gray-600">
+                        Features
+                      </th>
                       <th className="px-4 py-3 text-center">Free</th>
                       <th className="px-4 py-3 text-center">Growth</th>
                       <th className="px-4 py-3 text-center">Scale</th>
@@ -451,11 +602,18 @@ export default function Subscription() {
                   </thead>
                   <tbody>
                     <tr className="bg-valasys-gray-50/60">
-                      <td colSpan={5} className="px-4 py-2 text-xs uppercase tracking-wide text-valasys-gray-500">Core Platform Modules</td>
+                      <td
+                        colSpan={5}
+                        className="px-4 py-2 text-xs uppercase tracking-wide text-valasys-gray-500"
+                      >
+                        Core Platform Modules
+                      </td>
                     </tr>
                     {coreRows.map((row) => (
                       <tr key={row.label} className="border-b">
-                        <td className="px-4 py-3 font-medium text-valasys-gray-800">{row.label}</td>
+                        <td className="px-4 py-3 font-medium text-valasys-gray-800">
+                          {row.label}
+                        </td>
                         {row.values.map((v, i) => (
                           <td key={i} className="px-4 py-3 text-center">
                             {v === "-" ? (
@@ -463,7 +621,9 @@ export default function Subscription() {
                             ) : v === "✖" ? (
                               <CircleX className="w-5 h-5 mx-auto text-red-500" />
                             ) : typeof v === "string" ? (
-                              <span className="inline-block rounded-full border px-2 py-0.5 text-xs text-valasys-gray-700">{v}</span>
+                              <span className="inline-block rounded-full border px-2 py-0.5 text-xs text-valasys-gray-700">
+                                {v}
+                              </span>
                             ) : v ? (
                               <CircleCheckBig className="w-5 h-5 mx-auto text-green-600" />
                             ) : (
@@ -475,11 +635,18 @@ export default function Subscription() {
                     ))}
 
                     <tr className="bg-valasys-gray-50/60">
-                      <td colSpan={5} className="px-4 py-2 text-xs uppercase tracking-wide text-valasys-gray-500">High Value Account Insights</td>
+                      <td
+                        colSpan={5}
+                        className="px-4 py-2 text-xs uppercase tracking-wide text-valasys-gray-500"
+                      >
+                        High Value Account Insights
+                      </td>
                     </tr>
                     {insightsRows.map((row) => (
                       <tr key={row.label} className="border-b">
-                        <td className="px-4 py-3 font-medium text-valasys-gray-800">{row.label}</td>
+                        <td className="px-4 py-3 font-medium text-valasys-gray-800">
+                          {row.label}
+                        </td>
                         {row.values.map((v, i) => (
                           <td key={i} className="px-4 py-3 text-center">
                             {v === "-" ? (
@@ -487,7 +654,9 @@ export default function Subscription() {
                             ) : v === "✖" ? (
                               <CircleX className="w-5 h-5 mx-auto text-red-500" />
                             ) : typeof v === "string" ? (
-                              <span className="inline-block rounded-full border px-2 py-0.5 text-xs text-valasys-gray-700">{v}</span>
+                              <span className="inline-block rounded-full border px-2 py-0.5 text-xs text-valasys-gray-700">
+                                {v}
+                              </span>
                             ) : v ? (
                               <CircleCheckBig className="w-5 h-5 mx-auto text-green-600" />
                             ) : (
