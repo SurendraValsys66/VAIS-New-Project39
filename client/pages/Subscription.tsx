@@ -325,15 +325,20 @@ export default function Subscription() {
   const [selectedPlan, setSelectedPlan] = useState<"free" | "growth" | "scale" | "enterprise">("growth");
   const [showComparison, setShowComparison] = useState(false);
   const comparisonHeadingRef = useRef<HTMLDivElement | null>(null);
-  const handleShowComparison = () => {
-    if (!showComparison) setShowComparison(true);
-    requestAnimationFrame(() => {
-      const el = comparisonHeadingRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const offset = 120; // account for sticky header
-      const top = rect.top + window.scrollY - offset;
-      window.scrollTo({ top, behavior: "smooth" });
+  const handleToggleComparison = () => {
+    setShowComparison((prev) => {
+      const next = !prev;
+      if (next) {
+        requestAnimationFrame(() => {
+          const el = comparisonHeadingRef.current;
+          if (!el) return;
+          const rect = el.getBoundingClientRect();
+          const offset = 120; // account for sticky header
+          const top = rect.top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: "smooth" });
+        });
+      }
+      return next;
     });
   };
   const sortedPlans = useMemo(() => plans, []);
