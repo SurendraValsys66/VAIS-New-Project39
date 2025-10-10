@@ -676,8 +676,10 @@ export default function Subscription() {
                   <div className="font-medium text-valasys-gray-500">
                     Summary
                   </div>
-                  <div className="font-semibold text-valasys-gray-900">
-                    {selectedPlanObj.name}
+                  <div className="font-semibold text-valasys-gray-900 flex items-center gap-2">
+                    {planIcon(selectedPlanObj.id)}
+                    <span>{selectedPlanObj.name}</span>
+                    <span className="ml-1 px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800 border border-yellow-200 text-[12px]">Selected</span>
                   </div>
                   <button
                     className="underline text-valasys-gray-600 hover:text-valasys-gray-900"
