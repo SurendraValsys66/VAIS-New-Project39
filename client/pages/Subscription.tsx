@@ -150,6 +150,12 @@ function PlanCard({
           </div>
         </div>
 
+        <div className="pt-3 grid grid-cols-1">
+          <Button onClick={onSelect} className="w-full bg-valasys-orange text-white hover:bg-valasys-orange/90">
+            {selected ? "Selected" : plan.id === "free" ? "Current Plan" : "Select Plan"}
+          </Button>
+        </div>
+
         <div className="space-y-3">
           <div className="text-xs font-semibold uppercase tracking-wide text-valasys-gray-500">
             Core Platform Modules
@@ -198,12 +204,6 @@ function PlanCard({
           </ul>
         </div>
 
-        <div className="pt-1 grid grid-cols-1 gap-2">
-          <Button onClick={onSelect} className="w-full bg-valasys-orange text-white hover:bg-valasys-orange/90">
-            {selected ? "Selected" : plan.id === "free" ? "Current Plan" : "Select Plan"}
-          </Button>
-        </div>
-        <button type="button" className="text-xs text-valasys-gray-600 underline">Try for free</button>
       </CardContent>
     </Card>
   );
@@ -263,8 +263,8 @@ export default function Subscription() {
               className="bg-white rounded-lg border border-valasys-gray-200 p-1"
             >
               <TabsList className="grid grid-cols-2">
-                <TabsTrigger value="monthly">Monthly Billing</TabsTrigger>
-                <TabsTrigger value="annual">Annual Billing</TabsTrigger>
+                <TabsTrigger value="monthly">Monthly Plans</TabsTrigger>
+                <TabsTrigger value="annual">Annual Plans</TabsTrigger>
               </TabsList>
             </Tabs>
             {billing === "annual" && (
