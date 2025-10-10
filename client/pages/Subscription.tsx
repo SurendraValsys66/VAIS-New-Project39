@@ -409,14 +409,16 @@ export default function Subscription() {
                         <td className="px-4 py-3 font-medium text-valasys-gray-800">{row.label}</td>
                         {row.values.map((v, i) => (
                           <td key={i} className="px-4 py-3 text-center">
-                            {typeof v === "string" ? (
-                              <span className="inline-block rounded-full border px-2 py-0.5 text-xs text-valasys-gray-700">{v}</span>
-                            ) : v === "-" ? (
+                            {v === "-" ? (
                               <span className="text-valasys-gray-300">—</span>
+                            ) : v === "✖" ? (
+                              <CircleX className="w-5 h-5 mx-auto text-red-500" />
+                            ) : typeof v === "string" ? (
+                              <span className="inline-block rounded-full border px-2 py-0.5 text-xs text-valasys-gray-700">{v}</span>
                             ) : v ? (
-                              <span className="inline-block w-2.5 h-2.5 rounded-full bg-green-600" />
+                              <CircleCheckBig className="w-5 h-5 mx-auto text-green-600" />
                             ) : (
-                              <span className="inline-block w-2.5 h-2.5 rounded-full bg-valasys-gray-300" />
+                              <CircleX className="w-5 h-5 mx-auto text-red-500" />
                             )}
                           </td>
                         ))}
@@ -431,14 +433,16 @@ export default function Subscription() {
                         <td className="px-4 py-3 font-medium text-valasys-gray-800">{row.label}</td>
                         {row.values.map((v, i) => (
                           <td key={i} className="px-4 py-3 text-center">
-                            {typeof v === "string" ? (
-                              <span className="inline-block rounded-full border px-2 py-0.5 text-xs text-valasys-gray-700">{v}</span>
-                            ) : v === "-" ? (
+                            {v === "-" ? (
                               <span className="text-valasys-gray-300">—</span>
+                            ) : v === "✖" ? (
+                              <CircleX className="w-5 h-5 mx-auto text-red-500" />
+                            ) : typeof v === "string" ? (
+                              <span className="inline-block rounded-full border px-2 py-0.5 text-xs text-valasys-gray-700">{v}</span>
                             ) : v ? (
-                              <span className="inline-block w-2.5 h-2.5 rounded-full bg-green-600" />
+                              <CircleCheckBig className="w-5 h-5 mx-auto text-green-600" />
                             ) : (
-                              <span className="inline-block w-2.5 h-2.5 rounded-full bg-valasys-gray-300" />
+                              <CircleX className="w-5 h-5 mx-auto text-red-500" />
                             )}
                           </td>
                         ))}
