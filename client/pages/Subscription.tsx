@@ -198,14 +198,6 @@ function PlanCard({
           )}
         </div>
 
-        <button
-          type="button"
-          onClick={onToggleComparison}
-          className="mt-3 inline-flex items-center text-sm text-valasys-gray-700 hover:text-valasys-gray-900"
-        >
-          <ChevronDown className={`w-4 h-4 mr-1 transition-transform ${""}`} />
-          Show plan comparison
-        </button>
 
         <div className="space-y-3">
           <div className="text-xs font-semibold uppercase tracking-wide text-valasys-gray-500">
