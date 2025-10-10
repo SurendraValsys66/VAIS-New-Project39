@@ -501,7 +501,7 @@ function PlanComparisonTable({
                   key={idx}
                   className={`p-3 ${plans[idx].id === selectedPlan ? "bg-yellow-50" : "bg-white"}`}
                 >
-                  {v === "-" || v === "✖" ? (
+                  {v === "-" || v === "��" ? (
                     <CircleX className="w-5 h-5 text-red-500" />
                   ) : v === true ? (
                     <CircleCheckBig className="w-5 h-5 text-green-600" />
@@ -662,7 +662,7 @@ export default function Subscription() {
             <div className="px-4 py-3 text-[17px]">
               <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-6">
                 <div>
-                  <div className="text-xs font-medium text-valasys-gray-500">
+                  <div className="font-medium text-valasys-gray-500">
                     Summary
                   </div>
                   <div className="text-sm font-semibold text-valasys-gray-900">
