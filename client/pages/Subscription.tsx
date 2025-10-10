@@ -336,11 +336,112 @@ function PlanCard({
   );
 }
 
+function PlanComparisonTable({
+  billing,
+  plans,
+  selectedPlan,
+  onSelect,
+}: {
+  billing: "monthly" | "annual";
+  plans: Plan[];
+  selectedPlan: Plan["id"];
+  onSelect: (id: Plan["id"]) => void;
+}) {
+  return (
+    <div className="overflow-x-auto border border-valasys-gray-200 rounded-lg">
+      <table className="min-w-[720px] w-full text-sm">
+        <thead>
+          <tr className="bg-valasys-gray-50">
+            <th className="text-left p-3 font-semibold text-valasys-gray-700">Feature</th>
+            {plans.map((p) => {
+              const d = planDisplay(p, billing);
+              const isSelected = p.id === selectedPlan;
+              return (
+                <th
+                  key={p.id}
+                  className={`p-3 font-semibold text-valasys-gray-800 text-left align-bottom ${isSelected ? "bg-yellow-50 border-b-2 border-yellow-300" : ""}`}
+                >
+                  <button
+                    type="button"
+                    onClick={() => onSelect(p.id)}
+                    className={`w-full text-left ${isSelected ? "text-black" : "text-valasys-gray-800 hover:text-black"}`}
+                    aria-pressed={isSelected}
+                  >
+                    <div className="flex items-center gap-2">
+                      {planIcon(p.id)}
+                      <span className="font-semibold">{p.name}</span>
+                    </div>
+                    <div className="text-[13px] font-medium">
+                      {d.priceLabel}
+                      {d.priceSuffix && (
+                        <span className="text-valasys-gray-500"> {d.priceSuffix}</span>
+                      )}
+                    </div>
+                    <div className="text-[11px] text-valasys-gray-500">{d.billedNote}</div>
+                  </button>
+                </th>
+              );
+            })}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colSpan={1 + plans.length} className="p-3 text-[12px] font-semibold uppercase tracking-wide text-valasys-gray-500 bg-white">
+              Core Platform Modules
+            </td>
+          </tr>
+          {coreRows.map((row, i) => (
+            <tr key={`core-${i}`} className="border-t border-valasys-gray-200">
+              <td className="p-3 text-valasys-gray-800 font-medium">{row.label}</td>
+              {row.values.map((v, idx) => (
+                <td
+                  key={idx}
+                  className={`p-3 ${plans[idx].id === selectedPlan ? "bg-yellow-50" : "bg-white"}`}
+                >
+                  {v === true && <Check className="w-4 h-4 text-green-600" />}
+                  {v === false && <span className="text-valasys-gray-400">—</span>}
+                  {v !== true && v !== false && (
+                    <span className="text-valasys-gray-700 text-sm">{v}</span>
+                  )}
+                </td>
+              ))}
+            </tr>
+          ))}
+
+          <tr>
+            <td colSpan={1 + plans.length} className="p-3 text-[12px] font-semibold uppercase tracking-wide text-valasys-gray-500 bg-white">
+              High Value Account Insights
+            </td>
+          </tr>
+          {insightsRows.map((row, i) => (
+            <tr key={`insights-${i}`} className="border-t border-valasys-gray-200">
+              <td className="p-3 text-valasys-gray-800 font-medium">{row.label}</td>
+              {row.values.map((v, idx) => (
+                <td
+                  key={idx}
+                  className={`p-3 ${plans[idx].id === selectedPlan ? "bg-yellow-50" : "bg-white"}`}
+                >
+                  {v === true && <Check className="w-4 h-4 text-green-600" />}
+                  {v === false && <span className="text-valasys-gray-400">—</span>}
+                  {v !== true && v !== false && (
+                    <span className="text-valasys-gray-700 text-sm">{v}</span>
+                  )}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 export default function Subscription() {
   const [billing, setBilling] = useState<"monthly" | "annual">("annual");
   const [selectedPlan, setSelectedPlan] = useState<
     "free" | "growth" | "scale" | "enterprise"
   >("growth");
+  const [showComparison, setShowComparison] = useState(false);
   const sortedPlans = useMemo(() => plans, []);
   const selectPlan = (id: "free" | "growth" | "scale" | "enterprise") => {
     setSelectedPlan(id);
@@ -381,6 +482,14 @@ export default function Subscription() {
                 </TabsTrigger>
               </TabsList>
             </Tabs>
+            <Button
+              type="button"
+              onClick={() => setShowComparison((v) => !v)}
+              className="border-2 border-valasys-orange text-valasys-orange bg-white hover:bg-gradient-to-r hover:from-valasys-orange hover:to-valasys-orange-light hover:text-white"
+              aria-pressed={showComparison}
+            >
+              {showComparison ? "Hide plan comparison" : "Show plan comparison"}
+            </Button>
           </div>
         </div>
 
@@ -397,6 +506,16 @@ export default function Subscription() {
             />
           ))}
         </div>
+        {showComparison && (
+          <div className="mt-6">
+            <PlanComparisonTable
+              billing={billing}
+              plans={sortedPlans}
+              selectedPlan={selectedPlan}
+              onSelect={(id) => selectPlan(id)}
+            />
+          </div>
+        )}
       </div>
       {selectedPlanObj && (
         <div className="fixed bottom-0 left-0 right-0 z-[80] border-t border-valasys-gray-200 bg-white/90 backdrop-blur">
