@@ -72,17 +72,17 @@ const coreRows: { label: string; values: (boolean | string | "-")[] }[] = [
 
 // High value account insights
 const insightsRows: { label: string; values: (boolean | string | "-")[] }[] = [
-  { label: "Intent Topics", values: ["3", "5", "8"] },
+  { label: "Intent Topics", values: ["3", "5", "8", "8"] },
   {
     label: "Account Level Intent Signals",
-    values: ["-", "First 10 Free Signals", "First 10 Free Signals"],
+    values: ["-", "First 10 Free Signals", "First 10 Free Signals", "First 10 Free Signals"],
   },
-  { label: "Account Profiling", values: [false, true, true] },
-  { label: "Account Fit Insights", values: [true, true, true] },
-  { label: "Market Trend Activity", values: [true, true, true] },
-  { label: "Funnel Orchestration", values: [true, true, true] },
-  { label: "Campaign Recommendation", values: [true, true, true] },
-  { label: "Asset Recommendation", values: [true, true, true] },
+  { label: "Account Profiling", values: [false, true, true, true] },
+  { label: "Account Fit Insights", values: [true, true, true, true] },
+  { label: "Market Trend Activity", values: [true, true, true, true] },
+  { label: "Funnel Orchestration", values: [true, true, true, true] },
+  { label: "Campaign Recommendation", values: [true, true, true, true] },
+  { label: "Asset Recommendation", values: [true, true, true, true] },
 ];
 
 function priceFor(plan: Plan, billing: "monthly" | "annual") {
