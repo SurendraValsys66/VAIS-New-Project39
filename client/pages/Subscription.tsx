@@ -388,7 +388,7 @@ export default function Subscription() {
                           <th key={p.id} className="px-4 py-4 align-top">
                             <div className={`relative rounded-xl border shadow-sm p-4 text-left flex flex-col gap-2 ${(p.id === "free" || p.id === "enterprise") ? "cursor-default" : "cursor-pointer"} ${isSelected ? "ring-2 ring-yellow-300 bg-yellow-50" : "bg-white"}`} onClick={(p.id === "free" || p.id === "enterprise") ? undefined : () => setSelectedPlan(p.id as any)} role={(p.id === "free" || p.id === "enterprise") ? undefined : "button"} tabIndex={(p.id === "free" || p.id === "enterprise") ? -1 : 0} onKeyDown={(e) => { if (p.id !== "free" && p.id !== "enterprise" && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); setSelectedPlan(p.id as any); } }}>
                               {p.popular && (
-                                <Badge className="absolute top-2 right-2 bg-valasys-orange text-white">MOST POPULAR</Badge>
+                                <Badge className="bg-valasys-orange text-white w-fit mb-1">MOST POPULAR</Badge>
                               )}
                               <div className="text-base md:text-lg font-semibold text-valasys-gray-900 flex items-center gap-2">{planIcon(p.id)}<span>{p.name}</span></div>
                               {p.description && (
