@@ -298,7 +298,12 @@ export default function Subscription() {
   const handleShowComparison = () => {
     if (!showComparison) setShowComparison(true);
     requestAnimationFrame(() => {
-      comparisonHeadingRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      const el = comparisonHeadingRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const offset = 120; // account for sticky header
+      const top = rect.top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: "smooth" });
     });
   };
   const sortedPlans = useMemo(() => plans, []);
