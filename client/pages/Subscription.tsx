@@ -7,14 +7,15 @@ import { Check, Minus, CreditCard, Info } from "lucide-react";
 import React, { useMemo, useState } from "react";
 
 interface Plan {
-  id: "free" | "growth" | "scale";
+  id: "free" | "basic" | "pro" | "org";
   name: string;
+  description?: string;
   priceMonthly: number; // USD per seat per month
   priceAnnual: number; // USD per seat per month billed annually
   creditsPerMonth: number | null;
   creditsLabel?: string; // override label (e.g., "1000 credits per plan")
+  creditsNote?: string;
   popular?: boolean;
-  tagline?: string;
 }
 
 const plans: Plan[] = [
