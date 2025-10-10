@@ -501,7 +501,7 @@ function PlanComparisonTable({
                   key={idx}
                   className={`p-3 ${plans[idx].id === selectedPlan ? "bg-yellow-50" : "bg-white"}`}
                 >
-                  {v === "-" || v === "��" ? (
+                  {v === "-" || v === "✖" ? (
                     <CircleX className="w-5 h-5 text-red-500" />
                   ) : v === true ? (
                     <CircleCheckBig className="w-5 h-5 text-green-600" />
@@ -669,7 +669,7 @@ export default function Subscription() {
                     {selectedPlanObj.name}
                   </div>
                   <button
-                    className="text-xs underline text-valasys-gray-600 hover:text-valasys-gray-900"
+                    className="underline text-valasys-gray-600 hover:text-valasys-gray-900"
                     onClick={() => {
                       if (!showComparison) handleToggleComparison();
                       else {
