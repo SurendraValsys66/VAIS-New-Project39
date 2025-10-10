@@ -138,8 +138,8 @@ function planDisplay(plan: Plan, billing: "monthly" | "annual") {
     // Show discount: original monthly price struck-through then discounted annual monthly price
     priceLabel = (
       <span className="inline-flex items-baseline gap-2">
-        <span className="line-through text-valasys-gray-400 text-2xl">${plan.priceMonthly}</span>
-        <span className="font-bold">${plan.priceAnnual}</span>
+        <span className="line-through text-valasys-gray-400 text-2xl">{formatPrice(plan.priceMonthly)}</span>
+        <span className="font-bold">{formatPrice(plan.priceAnnual)}</span>
       </span>
     );
     priceSuffix = "/month";
