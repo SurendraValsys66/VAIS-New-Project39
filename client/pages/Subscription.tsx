@@ -182,7 +182,11 @@ function PlanCard({
               Contact to our sales
             </Button>
           ) : (
-            <Button onClick={onSelect} className="w-full bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white hover:from-valasys-orange/90 hover:to-valasys-orange-light/90">
+            <Button
+              onClick={onSelect}
+              className={`w-full bg-gradient-to-r from-valasys-orange to-valasys-orange-light ${selected ? "text-[#424242] hover:text-[#424242]" : "text-white"} hover:from-valasys-orange/90 hover:to-valasys-orange-light/90`}
+            >
+              {selected && <Check className="w-4 h-4 mr-2 text-[#424242]" />}
               {selected ? "Selected" : plan.id === "free" ? "Current Plan" : "Select Plan"}
             </Button>
           )}
