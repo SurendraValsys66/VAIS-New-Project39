@@ -123,7 +123,10 @@ function PlanCard({
             <Badge className="bg-valasys-orange text-white">Most Popular</Badge>
           )}
         </div>
-        <div className="mt-2 space-y-1">
+        <div className="mt-2 space-y-2">
+          {plan.description && (
+            <div className="text-sm text-valasys-gray-600">{plan.description}</div>
+          )}
           <div className="text-3xl font-bold">
             {formatPrice(priceFor(plan, billing))}
             {plan.priceMonthly > 0 && (
@@ -135,9 +138,6 @@ function PlanCard({
               ? "Billed monthly"
               : "Per seat per month, billed annually"}
           </div>
-          {plan.description && (
-            <div className="text-sm text-valasys-gray-600">{plan.description}</div>
-          )}
         </div>
       </CardHeader>
       <CardContent className="space-y-5">
