@@ -294,11 +294,11 @@ export default function Subscription() {
   const [billing, setBilling] = useState<"monthly" | "annual">("annual");
   const [selectedPlan, setSelectedPlan] = useState<"free" | "growth" | "scale" | "enterprise">("growth");
   const [showComparison, setShowComparison] = useState(false);
-  const comparisonRef = useRef<HTMLDivElement | null>(null);
+  const comparisonHeadingRef = useRef<HTMLDivElement | null>(null);
   const handleShowComparison = () => {
     if (!showComparison) setShowComparison(true);
     requestAnimationFrame(() => {
-      comparisonRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      comparisonHeadingRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   };
   const sortedPlans = useMemo(() => plans, []);
@@ -343,8 +343,8 @@ export default function Subscription() {
         </div>
 
         {showComparison && (
-          <Card ref={comparisonRef} className="overflow-hidden" id="plan-comparison">
-            <div className="flex items-center gap-2 bg-valasys-gray-50 border rounded-t-lg px-4 py-3 text-valasys-gray-800">
+          <Card className="overflow-hidden" id="plan-comparison">
+            <div ref={comparisonHeadingRef} className="flex items-center gap-2 bg-valasys-gray-50 border rounded-t-lg px-4 py-3 text-valasys-gray-800">
               <img src="/public/placeholder.svg" alt="" className="w-5 h-5" />
               <div>
                 <div className="font-semibold">Plan comparison</div>
