@@ -706,7 +706,7 @@ export default function Subscription() {
                 </div>
                 <div className="md:text-center">
                   <div className="text-valasys-gray-500">Due Today</div>
-                  <div className="text-sm font-semibold text-valasys-gray-900">
+                  <div className="font-semibold text-valasys-gray-900">
                     {(() => {
                       const p = selectedPlanObj;
                       if (!p) return "";
