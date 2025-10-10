@@ -188,11 +188,11 @@ function PlanCard({
       </CardHeader>
       <CardContent className="space-y-5 flex-1 flex flex-col">
         <div className="border-y border-valasys-gray-200 py-3">
-          <div className="text-sm flex items-center gap-2">
-            <Coins className="w-4 h-4 text-valasys-orange" />
+          <div className="text-base md:text-lg font-semibold flex items-center gap-2">
+            <Coins className="w-5 h-5 text-valasys-orange" />
             {(() => { const d = planDisplay(plan, billing); return (
               <>
-                <span className="font-medium">{d.credits}</span>
+                <span>{d.credits}</span>
               </>
             ); })()}
           </div>
@@ -399,7 +399,7 @@ export default function Subscription() {
                               <div className="text-2xl font-bold mt-3">{d.priceLabel}{d.priceSuffix && <span className="text-sm text-valasys-gray-500"> {d.priceSuffix}</span>}</div>
                               <div className="text-xs text-valasys-gray-500">{d.billedNote}</div>
                               <div className="my-3 h-px bg-valasys-gray-200" />
-                              <div className="text-sm font-medium flex items-center gap-2"><Coins className="w-4 h-4 text-valasys-orange" />{d.credits}</div>
+                              <div className="text-base md:text-lg font-semibold flex items-center gap-2"><Coins className="w-5 h-5 text-valasys-orange" />{d.credits}</div>
                               <div className="pt-2">
                                 {isEnterprise ? (
                                   <Button
