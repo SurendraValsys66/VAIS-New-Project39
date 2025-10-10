@@ -659,7 +659,7 @@ export default function Subscription() {
               width: `${summaryBounds.width}px`,
             }}
           >
-            <div className="px-4 py-3">
+            <div className="px-4 py-3 text-[17px]">
               <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-6">
                 <div>
                   <div className="text-xs font-medium text-valasys-gray-500">
