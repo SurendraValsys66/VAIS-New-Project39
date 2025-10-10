@@ -389,7 +389,7 @@ export default function Subscription() {
                         const isEnterprise = p.id === "enterprise";
                         return (
                           <th key={p.id} className="px-4 py-4 align-top">
-                            <div className="relative rounded-xl border bg-white shadow-sm p-4 text-left flex flex-col gap-2">
+                            <div className={`relative rounded-xl border shadow-sm p-4 text-left flex flex-col gap-2 ${isSelected ? "ring-2 ring-yellow-300 bg-yellow-50" : "bg-white"}`}>
                               {p.popular && (
                                 <Badge className="absolute top-2 right-2 bg-valasys-orange text-white">MOST POPULAR</Badge>
                               )}
