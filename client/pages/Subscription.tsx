@@ -34,7 +34,7 @@ const plans: Plan[] = [
     name: "Growth Plan",
     description: "Scale prospecting, outreach & deal management with more credits.",
     priceMonthly: 69,
-    priceAnnual: 69,
+    priceAnnual: 55,
     creditsPerMonth: 3000,
     popular: true,
   },
@@ -43,15 +43,15 @@ const plans: Plan[] = [
     name: "Scale Plan",
     description: "Advanced capabilities with higher monthly credits allotment.",
     priceMonthly: 99,
-    priceAnnual: 99,
+    priceAnnual: 79,
     creditsPerMonth: 6000,
   },
   {
     id: "enterprise",
     name: "Enterprise Plan",
     description: "Custom pricing and higher limits for teams with advanced needs.",
-    priceMonthly: 119,
-    priceAnnual: 119,
+    priceMonthly: 0,
+    priceAnnual: 0,
     creditsPerMonth: null,
     creditsLabel: "Custom credits",
   },
@@ -88,6 +88,33 @@ const insightsRows: { label: string; values: (boolean | string | "-")[] }[] = [
 
 function priceFor(plan: Plan, billing: "monthly" | "annual") {
   return billing === "monthly" ? plan.priceMonthly : plan.priceAnnual;
+}
+
+function planDisplay(plan: Plan, billing: "monthly" | "annual") {
+  // Price label
+  const isEnterprise = plan.id === "enterprise";
+  const price = priceFor(plan, billing);
+  const priceLabel = isEnterprise ? "Custom per user/ plan" : (price === 0 ? "$0" : `$${price}`);
+  const priceSuffix = isEnterprise || price === 0 ? "" : "/month";
+
+  // Billed note and credits text based on provided spec
+  let billedNote = billing === "monthly" ? "Billed monthly" : "Per seat per month, billed annually";
+  let credits = plan.creditsLabel ?? "";
+
+  if (plan.id === "free") {
+    credits = "1000 credits per plan";
+    billedNote = "7-day free plan";
+  } else if (billing === "annual") {
+    if (plan.id === "growth") credits = "36,000 credits per user / year";
+    if (plan.id === "scale") credits = "72,000 credits per user / year";
+    if (plan.id === "enterprise") credits = "Custom credits";
+  } else {
+    if (plan.id === "growth") credits = "3,000 credits per user / year";
+    if (plan.id === "scale") credits = "6,000 credits per user / month";
+    if (plan.id === "enterprise") credits = "Custom credits";
+  }
+
+  return { priceLabel, priceSuffix, billedNote, credits };
 }
 
 function formatPrice(n: number) {
@@ -127,32 +154,31 @@ function PlanCard({
           {plan.description && (
             <div className="text-sm text-valasys-gray-600">{plan.description}</div>
           )}
-          <div className="text-3xl font-bold">
-            {formatPrice(priceFor(plan, billing))}
-            {plan.priceMonthly > 0 && (
-              <span className="text-sm text-valasys-gray-500"> /seat /mo</span>
-            )}
-          </div>
-          <div className="text-xs text-valasys-gray-500">
-            {billing === "monthly"
-              ? "Billed monthly"
-              : "Per seat per month, billed annually"}
-          </div>
+          {(() => { const d = planDisplay(plan, billing); return (
+            <>
+              <div className="text-3xl font-bold">
+                {d.priceLabel}
+                {d.priceSuffix && <span className="text-sm text-valasys-gray-500"> {d.priceSuffix}</span>}
+              </div>
+              <div className="text-xs text-valasys-gray-500">{d.billedNote}</div>
+            </>
+          ); })()}
         </div>
       </CardHeader>
       <CardContent className="space-y-5">
         <div className="border-y border-valasys-gray-200 py-3">
           <div className="text-sm">
-            <span className="font-medium">
-              {plan.creditsLabel ?? `${(plan.creditsPerMonth || 0).toLocaleString()} credits`}
-            </span>
-            <span className="text-valasys-gray-500"> {plan.creditsNote ?? "per user granted upfront"}</span>
+            {(() => { const d = planDisplay(plan, billing); return (
+              <>
+                <span className="font-medium">{d.credits}</span>
+              </>
+            ); })()}
           </div>
         </div>
 
         <div className="pt-3 grid grid-cols-1">
-          <Button onClick={onSelect} className="w-full bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white hover:from-valasys-orange/90 hover:to-valasys-orange-light/90">
-            {selected ? "Selected" : plan.id === "free" ? "Current Plan" : "Select Plan"}
+          <Button onClick={onSelect} className="w-full border-2 border-valasys-orange text-valasys-orange bg-white hover:bg-gradient-to-r hover:from-valasys-orange hover:to-valasys-orange-light hover:text-white">
+            Contact to our sales
           </Button>
         </div>
 
