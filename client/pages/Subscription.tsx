@@ -701,8 +701,8 @@ export default function Subscription() {
                   </button>
                 </div>
                 <div className="md:text-right">
-                  <div className="flex flex-col md:flex-row items-center md:items-center justify-center md:justify-end">
-                    <div className="md:pr-6">
+                  <div className="flex flex-wrap items-center justify-center md:justify-end">
+                    <div className="pr-6">
                       <div className="text-valasys-gray-500">Billed {billing === "annual" ? "Annually" : "Monthly"}</div>
                       <div className="font-semibold text-valasys-gray-900">
                         {(() => {
@@ -715,7 +715,7 @@ export default function Subscription() {
                         })()}
                       </div>
                     </div>
-                    <div className="mt-2 md:mt-0 md:pl-6 md:pr-6 md:border-l border-valasys-gray-200">
+                    <div className="pl-6 pr-6 border-l border-valasys-gray-200">
                       <div className="text-valasys-gray-500">Due Today</div>
                       <div className="font-semibold text-valasys-gray-900">
                         {(() => {
