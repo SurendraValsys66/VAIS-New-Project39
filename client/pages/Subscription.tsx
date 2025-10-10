@@ -58,16 +58,16 @@ const plans: Plan[] = [
 
 // Core modules from the provided design
 const coreRows: { label: string; values: (boolean | string | "-")[] }[] = [
-  { label: "Build Your ABM with VAIS", values: [false, true, true] },
-  { label: "ABM Verification", values: [false, true, true] },
-  { label: "Look-Alike Generation", values: [false, true, true] },
-  { label: "Find My Prospects", values: [false, true, true] },
+  { label: "Build Your ABM with VAIS", values: [false, true, true, true] },
+  { label: "ABM Verification", values: [false, true, true, true] },
+  { label: "Look-Alike Generation", values: [false, true, true, true] },
+  { label: "Find My Prospects", values: [false, true, true, true] },
   {
     label: "Download Center (Reports, Leads, Assets)",
-    values: [false, true, true],
+    values: [false, true, true, true],
   },
-  { label: "Buy Additional Credits", values: ["✖", "$1.50", "$1"] },
-  { label: "Support", values: ["Tickets", "Email", "Priority Email Support"] },
+  { label: "Buy Additional Credits", values: ["✖", "$1.50", "$1", "$1"] },
+  { label: "Support", values: ["Tickets", "Email", "Priority Email Support", "Priority Email Support"] },
 ];
 
 // High value account insights
