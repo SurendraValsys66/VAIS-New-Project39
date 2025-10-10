@@ -516,8 +516,27 @@ export default function Subscription() {
     });
   };
   const sortedPlans = useMemo(() => plans, []);
+  const pageRef = useRef<HTMLDivElement | null>(null);
+  const [summaryBounds, setSummaryBounds] = useState<{ left: number; width: number }>({ left: 0, width: 0 });
+  const recalcBounds = () => {
+    const el = pageRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    setSummaryBounds({ left: Math.round(rect.left), width: Math.round(rect.width) });
+  };
+  React.useEffect(() => {
+    recalcBounds();
+    const onResize = () => recalcBounds();
+    window.addEventListener("resize", onResize);
+    const tid = setTimeout(recalcBounds, 300);
+    return () => {
+      window.removeEventListener("resize", onResize);
+      clearTimeout(tid);
+    };
+  }, []);
   const selectPlan = (id: "free" | "growth" | "scale" | "enterprise") => {
     setSelectedPlan(id);
+    setTimeout(recalcBounds, 250);
   };
   const selectedPlanObj = useMemo(
     () => sortedPlans.find((p) => p.id === selectedPlan),
@@ -526,7 +545,7 @@ export default function Subscription() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-8 pb-28">
+      <div className="space-y-8 pb-28" ref={pageRef}>
         <div className="flex flex-col items-center gap-3 text-center">
           <h1 className="text-2xl font-bold text-valasys-gray-900">
             Empowering business growth from a single platform
@@ -597,7 +616,10 @@ export default function Subscription() {
         )}
 
         {selectedPlanObj && (
-          <div className="sticky bottom-0 z-[80] border-t border-valasys-gray-200 bg-white shadow-md rounded-t-lg">
+          <div
+            className="fixed bottom-0 z-[80] border-t border-valasys-gray-200 bg-white shadow-md rounded-t-lg"
+            style={{ left: `${summaryBounds.left}px`, width: `${summaryBounds.width}px` }}
+          >
             <div className="px-4 py-3">
               <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-6">
                 <div>
