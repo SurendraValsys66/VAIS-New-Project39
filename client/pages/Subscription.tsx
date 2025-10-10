@@ -562,11 +562,22 @@ export default function Subscription() {
   };
   React.useEffect(() => {
     recalcBounds();
+    const el = pageRef.current;
+    const ro = new ResizeObserver(() => recalcBounds());
+    if (el) ro.observe(el);
     const onResize = () => recalcBounds();
+    const onScroll = () => recalcBounds();
+    const onTransitionEnd = () => recalcBounds();
     window.addEventListener("resize", onResize);
+    window.addEventListener("scroll", onScroll, { passive: true } as any);
+    document.addEventListener("transitionend", onTransitionEnd);
     const tid = setTimeout(recalcBounds, 300);
     return () => {
+      if (el) ro.unobserve(el);
+      ro.disconnect();
       window.removeEventListener("resize", onResize);
+      window.removeEventListener("scroll", onScroll as any);
+      document.removeEventListener("transitionend", onTransitionEnd);
       clearTimeout(tid);
     };
   }, []);
