@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Check, Minus, CreditCard, Info } from "lucide-react";
+import { Check, Minus, CreditCard, Info, ChevronDown } from "lucide-react";
 import React, { useMemo, useState } from "react";
 
 interface Plan {
@@ -133,6 +133,7 @@ function PlanCard({
   selected?: boolean;
   planIndex: 0 | 1 | 2 | 3;
   onSelect: () => void;
+  onToggleComparison: () => void;
 }) {
   const includedCore = coreRows
     .map((r) => ({ label: r.label, v: r.values[planIndex] }))
@@ -178,19 +179,32 @@ function PlanCard({
 
         <div className="pt-3 grid grid-cols-1">
           {plan.id === "enterprise" ? (
-            <Button onClick={onSelect} className="w-full border-2 border-valasys-orange text-valasys-orange bg-white hover:bg-gradient-to-r hover:from-valasys-orange hover:to-valasys-orange-light hover:text-white">
+            <Button
+              onClick={onSelect}
+              className={`w-full ${selected ? "bg-[#424242] text-white border-2 border-[#424242]" : "border-2 border-valasys-orange text-valasys-orange bg-white hover:bg-gradient-to-r hover:from-valasys-orange hover:to-valasys-orange-light hover:text-white"}`}
+            >
+              {selected && <Check className="w-4 h-4 mr-2 text-white" />}
               Contact to our sales
             </Button>
           ) : (
             <Button
               onClick={onSelect}
-              className={`w-full bg-gradient-to-r from-valasys-orange to-valasys-orange-light ${selected ? "text-[#424242] hover:text-[#424242]" : "text-white"} hover:from-valasys-orange/90 hover:to-valasys-orange-light/90`}
+              className={`w-full ${selected ? "bg-[#424242] text-white" : "bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white hover:from-valasys-orange/90 hover:to-valasys-orange-light/90"}`}
             >
-              {selected && <Check className="w-4 h-4 mr-2 text-[#424242]" />}
+              {selected && <Check className="w-4 h-4 mr-2 text-white" />}
               {selected ? "Selected" : plan.id === "free" ? "Current Plan" : "Select Plan"}
             </Button>
           )}
         </div>
+
+        <button
+          type="button"
+          onClick={onToggleComparison}
+          className="mt-3 inline-flex items-center text-sm text-valasys-gray-700 hover:text-valasys-gray-900"
+        >
+          <ChevronDown className={`w-4 h-4 mr-1 transition-transform ${""}`} />
+          Show plan comparison
+        </button>
 
         <div className="space-y-3">
           <div className="text-xs font-semibold uppercase tracking-wide text-valasys-gray-500">
@@ -277,6 +291,7 @@ function FeatureRow({
 export default function Subscription() {
   const [billing, setBilling] = useState<"monthly" | "annual">("annual");
   const [selectedPlan, setSelectedPlan] = useState<"free" | "growth" | "scale" | "enterprise">("growth");
+  const [showComparison, setShowComparison] = useState(false);
   const sortedPlans = useMemo(() => plans, []);
 
   return (
@@ -313,64 +328,61 @@ export default function Subscription() {
               planIndex={idx as 0 | 1 | 2 | 3}
               selected={p.id === selectedPlan}
               onSelect={() => setSelectedPlan(p.id as any)}
+              onToggleComparison={() => setShowComparison((v) => !v)}
             />
           ))}
         </div>
 
-        {/* Core Modules */}
-        <Card>
-          <CardHeader className="pb-2">
-            <div className="flex items-center justify-between">
-              <CardTitle>Core Platform Modules</CardTitle>
-              <Badge variant="outline" className="text-xs">
-                <Info className="w-3 h-3 mr-1" /> Included features per plan
-              </Badge>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-5 gap-4 mb-3 text-xs uppercase tracking-wide text-valasys-gray-500">
-              <div>Features</div>
-              <div className="text-center">Free Plan</div>
-              <div className="text-center">Growth Plan</div>
-              <div className="text-center">Scale Plan</div>
-              <div className="text-center">Enterprise Plan</div>
-            </div>
-            <div className="divide-y divide-valasys-gray-200">
-              {coreRows.map((row) => (
-                <FeatureRow
-                  key={row.label}
-                  label={row.label}
-                  tiers={row.values}
-                />
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        {showComparison && (
+          <>
+            {/* Core Modules */}
+            <Card>
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle>Core Platform Modules</CardTitle>
+                  <Badge variant="outline" className="text-xs">
+                    <Info className="w-3 h-3 mr-1" /> Included features per plan
+                  </Badge>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-5 gap-4 mb-3 text-xs uppercase tracking-wide text-valasys-gray-500">
+                  <div>Features</div>
+                  <div className="text-center">Free Plan</div>
+                  <div className="text-center">Growth Plan</div>
+                  <div className="text-center">Scale Plan</div>
+                  <div className="text-center">Enterprise Plan</div>
+                </div>
+                <div className="divide-y divide-valasys-gray-200">
+                  {coreRows.map((row) => (
+                    <FeatureRow key={row.label} label={row.label} tiers={row.values} />
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
 
-        {/* Account Insights */}
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle>High Value Account Insights</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-5 gap-4 mb-3 text-xs uppercase tracking-wide text-valasys-gray-500">
-              <div>Insights</div>
-              <div className="text-center">Free Plan</div>
-              <div className="text-center">Growth Plan</div>
-              <div className="text-center">Scale Plan</div>
-              <div className="text-center">Enterprise Plan</div>
-            </div>
-            <div className="divide-y divide-valasys-gray-200">
-              {insightsRows.map((row) => (
-                <FeatureRow
-                  key={row.label}
-                  label={row.label}
-                  tiers={row.values}
-                />
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+            {/* Account Insights */}
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle>High Value Account Insights</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-5 gap-4 mb-3 text-xs uppercase tracking-wide text-valasys-gray-500">
+                  <div>Insights</div>
+                  <div className="text-center">Free Plan</div>
+                  <div className="text-center">Growth Plan</div>
+                  <div className="text-center">Scale Plan</div>
+                  <div className="text-center">Enterprise Plan</div>
+                </div>
+                <div className="divide-y divide-valasys-gray-200">
+                  {insightsRows.map((row) => (
+                    <FeatureRow key={row.label} label={row.label} tiers={row.values} />
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </>
+        )}
 
         <div className="flex justify-center">
           <Button
