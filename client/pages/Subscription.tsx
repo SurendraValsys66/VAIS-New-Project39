@@ -144,6 +144,7 @@ function PlanCard({
   planIndex,
   onSelect,
   onToggleComparison,
+  comparisonOpen,
 }: {
   plan: Plan;
   billing: "monthly" | "annual";
@@ -151,6 +152,7 @@ function PlanCard({
   planIndex: 0 | 1 | 2 | 3;
   onSelect: () => void;
   onToggleComparison: () => void;
+  comparisonOpen: boolean;
 }) {
   const includedCore = coreRows
     .map((r) => ({ label: r.label, v: r.values[planIndex] }))
