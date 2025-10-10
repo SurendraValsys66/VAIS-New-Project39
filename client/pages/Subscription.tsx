@@ -598,14 +598,6 @@ export default function Subscription() {
           </div>
         )}
 
-        <div className="flex justify-center">
-          <Button
-            size="lg"
-            className="bg-valasys-orange text-white hover:bg-valasys-orange/90"
-          >
-            <CreditCard className="w-5 h-5 mr-2" /> Credit Usage Comparison
-          </Button>
-        </div>
       </div>
       {selectedPlanObj && (
         <div className="fixed bottom-0 left-0 right-0 z-[80] border-t border-valasys-gray-200 bg-white/90 backdrop-blur">
