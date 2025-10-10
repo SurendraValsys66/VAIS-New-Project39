@@ -45,6 +45,7 @@ const plans: Plan[] = [
     priceMonthly: 99,
     priceAnnual: 79,
     creditsPerMonth: 6000,
+    popular: true,
   },
   {
     id: "enterprise",
