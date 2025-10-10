@@ -287,7 +287,7 @@ export default function Subscription() {
               billing={billing}
               planIndex={idx as 0 | 1 | 2 | 3}
               selected={p.id === selectedPlan}
-              onSelect={() => setSelectedPlan(p.id)}
+              onSelect={() => setSelectedPlan(p.id as any)}
             />
           ))}
         </div>
