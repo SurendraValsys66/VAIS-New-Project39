@@ -694,8 +694,12 @@ export default function Subscription() {
           <div className="max-w-7xl mx-auto px-4 py-3">
             <div className="grid grid-cols-1 md:grid-cols-5 items-center gap-4">
               <div>
-                <div className="text-xs font-medium text-valasys-gray-500">Summary</div>
-                <div className="text-sm font-semibold text-valasys-gray-900">{selectedPlanObj.name}</div>
+                <div className="text-xs font-medium text-valasys-gray-500">
+                  Summary
+                </div>
+                <div className="text-sm font-semibold text-valasys-gray-900">
+                  {selectedPlanObj.name}
+                </div>
                 <button
                   className="text-xs underline text-valasys-gray-600 hover:text-valasys-gray-900"
                   onClick={() => {
@@ -716,16 +720,23 @@ export default function Subscription() {
               </div>
               <div className="flex items-center gap-2 md:justify-center">
                 <div className="text-xs text-valasys-gray-500">Seats</div>
-                <div className="text-sm font-medium text-valasys-gray-900">1 user</div>
+                <div className="text-sm font-medium text-valasys-gray-900">
+                  1 user
+                </div>
               </div>
               <div className="md:text-center">
-                <div className="text-xs text-valasys-gray-500">Billed {billing === "annual" ? "Annually" : "Monthly"}</div>
+                <div className="text-xs text-valasys-gray-500">
+                  Billed {billing === "annual" ? "Annually" : "Monthly"}
+                </div>
                 <div className="text-sm font-semibold text-valasys-gray-900">
                   {(() => {
                     const p = selectedPlanObj;
                     if (!p) return "";
                     if (p.id === "enterprise") return "Custom";
-                    const amt = billing === "annual" ? p.priceAnnual * 12 : p.priceMonthly;
+                    const amt =
+                      billing === "annual"
+                        ? p.priceAnnual * 12
+                        : p.priceMonthly;
                     const suffix = billing === "annual" ? "/yr" : "/mo";
                     return `$${amt}${suffix}`;
                   })()}
@@ -738,7 +749,10 @@ export default function Subscription() {
                     const p = selectedPlanObj;
                     if (!p) return "";
                     if (p.id === "enterprise") return "Custom";
-                    const amt = billing === "annual" ? p.priceAnnual * 12 : p.priceMonthly;
+                    const amt =
+                      billing === "annual"
+                        ? p.priceAnnual * 12
+                        : p.priceMonthly;
                     return `$${amt}`;
                   })()}
                 </div>
