@@ -566,7 +566,7 @@ export default function Subscription() {
     const el = pageRef.current;
     const ro = new ResizeObserver(() => recalcBounds());
     if (el) ro.observe(el);
-    const onResize = () => recalcBounds();
+    const onResize = () => { setIsDesktop(window.innerWidth >= 768); recalcBounds(); };
     const onScroll = () => recalcBounds();
     const onTransitionEnd = () => recalcBounds();
     window.addEventListener("resize", onResize);
