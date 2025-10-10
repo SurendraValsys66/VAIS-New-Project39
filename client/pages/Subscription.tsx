@@ -219,7 +219,7 @@ function FeatureRow({
   tiers: (boolean | string | "-")[];
 }) {
   return (
-    <div className="grid grid-cols-4 gap-4 items-center py-3 border-b border-valasys-gray-200">
+    <div className="grid grid-cols-5 gap-4 items-center py-3 border-b border-valasys-gray-200">
       <div className="text-sm font-medium text-valasys-gray-800">{label}</div>
       {tiers.map((t, i) => (
         <div key={i} className="flex justify-center text-sm">
