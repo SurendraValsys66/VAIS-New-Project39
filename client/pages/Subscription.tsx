@@ -388,7 +388,7 @@ export default function Subscription() {
                               {p.popular && (
                                 <Badge className="absolute top-2 right-2 bg-valasys-orange text-white">MOST POPULAR</Badge>
                               )}
-                              <div className="text-sm font-semibold text-valasys-gray-900 flex items-center gap-2">{planIcon(p.id)}<span>{p.name}</span></div>
+                              <div className="text-base md:text-lg font-semibold text-valasys-gray-900 flex items-center gap-2">{planIcon(p.id)}<span>{p.name}</span></div>
                               {p.description && (
                                 <div className="text-xs text-valasys-gray-600 mt-1 line-clamp-2">{p.description}</div>
                               )}
