@@ -243,7 +243,7 @@ function FeatureRow({
 
 export default function Subscription() {
   const [billing, setBilling] = useState<"monthly" | "annual">("monthly");
-  const [selectedPlan, setSelectedPlan] = useState<"free" | "basic" | "pro" | "org">("basic");
+  const [selectedPlan, setSelectedPlan] = useState<"free" | "growth" | "scale" | "enterprise">("growth");
   const sortedPlans = useMemo(() => plans, []);
 
   return (
