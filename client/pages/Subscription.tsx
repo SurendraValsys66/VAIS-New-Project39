@@ -610,7 +610,7 @@ export default function Subscription() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-8 pb-44 md:pb-28" ref={pageRef}>
+      <div className="space-y-8" ref={pageRef} style={{ paddingBottom: (summaryHeight || 0) + 24 }}>
         <div className="flex flex-col items-center gap-3 text-center">
           <h1 className="text-2xl font-bold text-valasys-gray-900">
             Empowering business growth from a single platform
