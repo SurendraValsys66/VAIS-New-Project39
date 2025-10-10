@@ -167,9 +167,6 @@ function PlanCard({
             {planIcon(plan.id)}
             <CardTitle className="text-base md:text-xl font-semibold">{plan.name}</CardTitle>
           </div>
-          {plan.popular && (
-            <Badge className="bg-valasys-orange text-white">Most Popular</Badge>
-          )}
         </div>
         <div className="mt-2 space-y-2">
           {plan.description && (
