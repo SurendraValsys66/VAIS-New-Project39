@@ -264,14 +264,6 @@ export default function Subscription() {
                 <TabsTrigger value="monthly" className="data-[state=active]:text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-valasys-orange data-[state=active]:to-valasys-orange-light">Monthly Plans</TabsTrigger>
               </TabsList>
             </Tabs>
-            {billing === "annual" && (
-              <Badge
-                variant="secondary"
-                className="bg-yellow-100 text-yellow-800 border-yellow-200"
-              >
-                Save up to $2000*
-              </Badge>
-            )}
           </div>
         </div>
 
