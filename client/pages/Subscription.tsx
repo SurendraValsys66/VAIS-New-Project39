@@ -383,7 +383,9 @@ function PlanComparisonTable({
       <table className="min-w-[720px] w-full text-sm">
         <thead>
           <tr className="bg-valasys-gray-50">
-            <th className="text-left p-3 font-semibold text-valasys-gray-700">Feature</th>
+            <th className="text-left p-3 font-semibold text-valasys-gray-700">
+              Feature
+            </th>
             {plans.map((p) => {
               const d = planDisplay(p, billing);
               const isSelected = p.id === selectedPlan;
@@ -400,10 +402,15 @@ function PlanComparisonTable({
                     <div className="text-[13px] font-medium">
                       {d.priceLabel}
                       {d.priceSuffix && (
-                        <span className="text-valasys-gray-500"> {d.priceSuffix}</span>
+                        <span className="text-valasys-gray-500">
+                          {" "}
+                          {d.priceSuffix}
+                        </span>
                       )}
                     </div>
-                    <div className="text-[11px] text-valasys-gray-500">{d.billedNote}</div>
+                    <div className="text-[11px] text-valasys-gray-500">
+                      {d.billedNote}
+                    </div>
                     <div className="text-[13px] font-semibold text-black flex items-center gap-2">
                       <Coins className="w-4 h-4 text-black" /> {d.credits}
                     </div>
@@ -413,7 +420,9 @@ function PlanComparisonTable({
                           asChild
                           className="w-full border-2 border-valasys-orange text-valasys-orange bg-white hover:bg-gradient-to-r hover:from-valasys-orange hover:to-valasys-orange-light hover:text-white"
                         >
-                          <a href="mailto:sales@valasys.ai">Contact to our sales</a>
+                          <a href="mailto:sales@valasys.ai">
+                            Contact to our sales
+                          </a>
                         </Button>
                       ) : (
                         <Button
@@ -422,7 +431,11 @@ function PlanComparisonTable({
                           className={`w-full ${isSelected ? "bg-[#424242] text-white" : "bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white hover:from-valasys-orange/90 hover:to-valasys-orange-light/90"}`}
                         >
                           {isSelected && <Check className="w-4 h-4 mr-2" />}
-                          {isSelected ? "Selected" : p.id === "free" ? "Current Plan" : "Select Plan"}
+                          {isSelected
+                            ? "Selected"
+                            : p.id === "free"
+                              ? "Current Plan"
+                              : "Select Plan"}
                         </Button>
                       )}
                     </div>
@@ -434,13 +447,18 @@ function PlanComparisonTable({
         </thead>
         <tbody>
           <tr>
-            <td colSpan={1 + plans.length} className="p-3 text-[12px] font-semibold uppercase tracking-wide text-valasys-gray-500 bg-white">
+            <td
+              colSpan={1 + plans.length}
+              className="p-3 text-[12px] font-semibold uppercase tracking-wide text-valasys-gray-500 bg-white"
+            >
               Core Platform Modules
             </td>
           </tr>
           {coreRows.map((row, i) => (
             <tr key={`core-${i}`} className="border-t border-valasys-gray-200">
-              <td className="p-3 text-valasys-gray-800 font-medium">{row.label}</td>
+              <td className="p-3 text-valasys-gray-800 font-medium">
+                {row.label}
+              </td>
               {row.values.map((v, idx) => (
                 <td
                   key={idx}
@@ -453,7 +471,9 @@ function PlanComparisonTable({
                   ) : v === false ? (
                     <CircleX className="w-5 h-5 text-red-500" />
                   ) : typeof v === "string" ? (
-                    <span className="inline-block rounded-full border px-2 py-0.5 text-xs text-valasys-gray-700">{v}</span>
+                    <span className="inline-block rounded-full border px-2 py-0.5 text-xs text-valasys-gray-700">
+                      {v}
+                    </span>
                   ) : null}
                 </td>
               ))}
@@ -461,13 +481,21 @@ function PlanComparisonTable({
           ))}
 
           <tr>
-            <td colSpan={1 + plans.length} className="p-3 text-[12px] font-semibold uppercase tracking-wide text-valasys-gray-500 bg-white">
+            <td
+              colSpan={1 + plans.length}
+              className="p-3 text-[12px] font-semibold uppercase tracking-wide text-valasys-gray-500 bg-white"
+            >
               High Value Account Insights
             </td>
           </tr>
           {insightsRows.map((row, i) => (
-            <tr key={`insights-${i}`} className="border-t border-valasys-gray-200">
-              <td className="p-3 text-valasys-gray-800 font-medium">{row.label}</td>
+            <tr
+              key={`insights-${i}`}
+              className="border-t border-valasys-gray-200"
+            >
+              <td className="p-3 text-valasys-gray-800 font-medium">
+                {row.label}
+              </td>
               {row.values.map((v, idx) => (
                 <td
                   key={idx}
@@ -480,7 +508,9 @@ function PlanComparisonTable({
                   ) : v === false ? (
                     <CircleX className="w-5 h-5 text-red-500" />
                   ) : typeof v === "string" ? (
-                    <span className="inline-block rounded-full border px-2 py-0.5 text-xs text-valasys-gray-700">{v}</span>
+                    <span className="inline-block rounded-full border px-2 py-0.5 text-xs text-valasys-gray-700">
+                      {v}
+                    </span>
                   ) : null}
                 </td>
               ))}
@@ -517,12 +547,18 @@ export default function Subscription() {
   };
   const sortedPlans = useMemo(() => plans, []);
   const pageRef = useRef<HTMLDivElement | null>(null);
-  const [summaryBounds, setSummaryBounds] = useState<{ left: number; width: number }>({ left: 0, width: 0 });
+  const [summaryBounds, setSummaryBounds] = useState<{
+    left: number;
+    width: number;
+  }>({ left: 0, width: 0 });
   const recalcBounds = () => {
     const el = pageRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
-    setSummaryBounds({ left: Math.round(rect.left), width: Math.round(rect.width) });
+    setSummaryBounds({
+      left: Math.round(rect.left),
+      width: Math.round(rect.width),
+    });
   };
   React.useEffect(() => {
     recalcBounds();
@@ -618,13 +654,20 @@ export default function Subscription() {
         {selectedPlanObj && (
           <div
             className="fixed bottom-0 z-[80] border-t border-valasys-gray-200 bg-white shadow-md rounded-t-lg"
-            style={{ left: `${summaryBounds.left}px`, width: `${summaryBounds.width}px` }}
+            style={{
+              left: `${summaryBounds.left}px`,
+              width: `${summaryBounds.width}px`,
+            }}
           >
             <div className="px-4 py-3">
               <div className="grid grid-cols-1 md:grid-cols-4 items-center gap-6">
                 <div>
-                  <div className="text-xs font-medium text-valasys-gray-500">Summary</div>
-                  <div className="text-sm font-semibold text-valasys-gray-900">{selectedPlanObj.name}</div>
+                  <div className="text-xs font-medium text-valasys-gray-500">
+                    Summary
+                  </div>
+                  <div className="text-sm font-semibold text-valasys-gray-900">
+                    {selectedPlanObj.name}
+                  </div>
                   <button
                     className="text-xs underline text-valasys-gray-600 hover:text-valasys-gray-900"
                     onClick={() => {
@@ -644,13 +687,18 @@ export default function Subscription() {
                   </button>
                 </div>
                 <div className="md:text-center">
-                  <div className="text-xs text-valasys-gray-500">Billed {billing === "annual" ? "Annually" : "Monthly"}</div>
+                  <div className="text-xs text-valasys-gray-500">
+                    Billed {billing === "annual" ? "Annually" : "Monthly"}
+                  </div>
                   <div className="text-sm font-semibold text-valasys-gray-900">
                     {(() => {
                       const p = selectedPlanObj;
                       if (!p) return "";
                       if (p.id === "enterprise") return "Custom";
-                      const amt = billing === "annual" ? p.priceAnnual * 12 : p.priceMonthly;
+                      const amt =
+                        billing === "annual"
+                          ? p.priceAnnual * 12
+                          : p.priceMonthly;
                       const suffix = billing === "annual" ? "/yr" : "/mo";
                       return `$${amt}${suffix}`;
                     })()}
@@ -663,19 +711,23 @@ export default function Subscription() {
                       const p = selectedPlanObj;
                       if (!p) return "";
                       if (p.id === "enterprise") return "Custom";
-                      const amt = billing === "annual" ? p.priceAnnual * 12 : p.priceMonthly;
+                      const amt =
+                        billing === "annual"
+                          ? p.priceAnnual * 12
+                          : p.priceMonthly;
                       return `$${amt}`;
                     })()}
                   </div>
                 </div>
                 <div className="md:text-right">
-                  <Button className="bg-yellow-300 text-black hover:bg-yellow-400">Upgrade</Button>
+                  <Button className="bg-yellow-300 text-black hover:bg-yellow-400">
+                    Upgrade
+                  </Button>
                 </div>
               </div>
             </div>
           </div>
         )}
-
       </div>
     </DashboardLayout>
   );
