@@ -690,7 +690,7 @@ export default function Subscription() {
                   <div className="text-valasys-gray-500">
                     Billed {billing === "annual" ? "Annually" : "Monthly"}
                   </div>
-                  <div className="text-sm font-semibold text-valasys-gray-900">
+                  <div className="font-semibold text-valasys-gray-900">
                     {(() => {
                       const p = selectedPlanObj;
                       if (!p) return "";
