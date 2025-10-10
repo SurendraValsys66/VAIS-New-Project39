@@ -112,6 +112,12 @@ const utilityItems = [
     tourId: "integrations-nav",
   },
   {
+    name: "Subscription",
+    href: "/subscription",
+    icon: Crown,
+    tourId: "subscription-nav",
+  },
+  {
     name: "Manage Users",
     href: "/manage-users",
     icon: Users,
