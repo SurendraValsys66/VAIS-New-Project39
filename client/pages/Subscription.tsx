@@ -686,43 +686,35 @@ export default function Subscription() {
                     See price breakdown
                   </button>
                 </div>
-                <div className="md:text-center">
-                  <div className="text-valasys-gray-500">
-                    Billed {billing === "annual" ? "Annually" : "Monthly"}
-                  </div>
-                  <div className="font-semibold text-valasys-gray-900">
-                    {(() => {
-                      const p = selectedPlanObj;
-                      if (!p) return "";
-                      if (p.id === "enterprise") return "Custom";
-                      const amt =
-                        billing === "annual"
-                          ? p.priceAnnual * 12
-                          : p.priceMonthly;
-                      const suffix = billing === "annual" ? "/yr" : "/mo";
-                      return `$${amt}${suffix}`;
-                    })()}
-                  </div>
-                </div>
-                <div className="md:text-center">
-                  <div className="text-valasys-gray-500">Due Today</div>
-                  <div className="font-semibold text-valasys-gray-900">
-                    {(() => {
-                      const p = selectedPlanObj;
-                      if (!p) return "";
-                      if (p.id === "enterprise") return "Custom";
-                      const amt =
-                        billing === "annual"
-                          ? p.priceAnnual * 12
-                          : p.priceMonthly;
-                      return `$${amt}`;
-                    })()}
-                  </div>
-                </div>
                 <div className="md:text-right">
-                  <Button className="bg-yellow-300 text-black hover:bg-yellow-400">
-                    Upgrade
-                  </Button>
+                  <div className="flex items-center justify-end gap-6">
+                    <div>
+                      <div className="text-valasys-gray-500">Billed {billing === "annual" ? "Annually" : "Monthly"}</div>
+                      <div className="font-semibold text-valasys-gray-900">
+                        {(() => {
+                          const p = selectedPlanObj;
+                          if (!p) return "";
+                          if (p.id === "enterprise") return "Custom";
+                          const amt = billing === "annual" ? p.priceAnnual * 12 : p.priceMonthly;
+                          const suffix = billing === "annual" ? "/yr" : "/mo";
+                          return `$${amt}${suffix}`;
+                        })()}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-valasys-gray-500">Due Today</div>
+                      <div className="font-semibold text-valasys-gray-900">
+                        {(() => {
+                          const p = selectedPlanObj;
+                          if (!p) return "";
+                          if (p.id === "enterprise") return "Custom";
+                          const amt = billing === "annual" ? p.priceAnnual * 12 : p.priceMonthly;
+                          return `$${amt}`;
+                        })()}
+                      </div>
+                    </div>
+                    <Button className="bg-yellow-300 text-black hover:bg-yellow-400">Upgrade</Button>
+                  </div>
                 </div>
               </div>
             </div>
