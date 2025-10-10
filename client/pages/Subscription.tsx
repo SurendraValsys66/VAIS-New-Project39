@@ -247,6 +247,15 @@ function PlanCard({
           </ul>
         </div>
 
+        <button
+          type="button"
+          onClick={onToggleComparison}
+          className="mt-3 inline-flex items-center text-sm font-semibold text-valasys-gray-700 hover:text-valasys-gray-900"
+        >
+          Show plan comparison
+          <ChevronDown className="w-4 h-4 ml-1 transition-transform" />
+        </button>
+
       </CardContent>
     </Card>
   );
