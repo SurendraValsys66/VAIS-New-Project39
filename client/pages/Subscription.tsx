@@ -352,9 +352,14 @@ export default function Subscription() {
                       <th className="px-4 py-4"></th>
                       {sortedPlans.map((p) => {
                         const d = planDisplay(p, billing);
+                        const isSelected = selectedPlan === p.id;
+                        const isEnterprise = p.id === "enterprise";
                         return (
-                          <th key={p.id} className="px-4 py-4">
-                            <div className="rounded-xl border bg-white shadow-sm p-4 text-left">
+                          <th key={p.id} className="px-4 py-4 align-top">
+                            <div className="relative rounded-xl border bg-white shadow-sm p-4 text-left flex flex-col gap-2">
+                              {p.popular && (
+                                <Badge className="absolute top-2 right-2 bg-valasys-orange text-white">MOST POPULAR</Badge>
+                              )}
                               <div className="text-sm font-semibold text-valasys-gray-900">{p.name}</div>
                               {p.description && (
                                 <div className="text-xs text-valasys-gray-600 mt-1 line-clamp-2">{p.description}</div>
@@ -363,6 +368,25 @@ export default function Subscription() {
                               <div className="text-xs text-valasys-gray-500">{d.billedNote}</div>
                               <div className="my-3 h-px bg-valasys-gray-200" />
                               <div className="text-sm font-medium">{d.credits}</div>
+                              <div className="pt-2">
+                                {isEnterprise ? (
+                                  <Button
+                                    onClick={() => setSelectedPlan(p.id as any)}
+                                    className={`w-full ${isSelected ? "bg-[#424242] text-white border-2 border-[#424242]" : "border-2 border-valasys-orange text-valasys-orange bg-white hover:bg-gradient-to-r hover:from-valasys-orange hover:to-valasys-orange-light hover:text-white"}`}
+                                  >
+                                    {isSelected && <Check className="w-4 h-4 mr-2" />}
+                                    Contact to our sales
+                                  </Button>
+                                ) : (
+                                  <Button
+                                    onClick={() => setSelectedPlan(p.id as any)}
+                                    className={`w-full ${isSelected ? "bg-[#424242] text-white" : "bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white hover:from-valasys-orange/90 hover:to-valasys-orange-light/90"}`}
+                                  >
+                                    {isSelected && <Check className="w-4 h-4 mr-2" />}
+                                    {isSelected ? "Selected" : p.id === "free" ? "Current Plan" : "Select Plan"}
+                                  </Button>
+                                )}
+                              </div>
                             </div>
                           </th>
                         );
