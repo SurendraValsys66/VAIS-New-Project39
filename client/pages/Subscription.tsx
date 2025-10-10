@@ -551,6 +551,8 @@ export default function Subscription() {
     left: number;
     width: number;
   }>({ left: 0, width: 0 });
+  const summaryRef = useRef<HTMLDivElement | null>(null);
+  const [summaryHeight, setSummaryHeight] = useState(0);
   const [isDesktop, setIsDesktop] = useState<boolean>(typeof window !== "undefined" ? window.innerWidth >= 768 : true);
   const recalcBounds = () => {
     const el = pageRef.current;
