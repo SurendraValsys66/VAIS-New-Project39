@@ -3,22 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import {
-  Check,
-  Minus,
-  CreditCard,
-  Info,
-  ChevronDown,
-  ChevronUp,
-  CircleCheckBig,
-  CircleX,
-  Gift,
-  Rocket,
-  BarChart3,
-  Building2,
-  Coins,
-} from "lucide-react";
-import React, { useMemo, useState, useRef } from "react";
+import { Check, Gift, Rocket, BarChart3, Building2, Coins } from "lucide-react";
+import React, { useMemo, useState } from "react";
 
 interface Plan {
   id: "free" | "growth" | "scale" | "enterprise";
@@ -180,16 +166,12 @@ function PlanCard({
   selected,
   planIndex,
   onSelect,
-  onToggleComparison,
-  comparisonOpen,
 }: {
   plan: Plan;
   billing: "monthly" | "annual";
   selected?: boolean;
   planIndex: 0 | 1 | 2 | 3;
   onSelect: () => void;
-  onToggleComparison: () => void;
-  comparisonOpen: boolean;
 }) {
   const includedCore = coreRows
     .map((r) => ({ label: r.label, v: r.values[planIndex] }))
@@ -349,51 +331,8 @@ function PlanCard({
             ))}
           </ul>
         </div>
-
-        <button
-          type="button"
-          onClick={onToggleComparison}
-          aria-expanded={comparisonOpen}
-          className="mt-auto inline-flex items-center text-sm font-semibold text-valasys-gray-700 hover:text-valasys-gray-900"
-        >
-          {comparisonOpen ? "Hide plan comparison" : "Show plan comparison"}
-          {comparisonOpen ? (
-            <ChevronUp className="w-4 h-4 ml-1" />
-          ) : (
-            <ChevronDown className="w-4 h-4 ml-1" />
-          )}
-        </button>
       </CardContent>
     </Card>
-  );
-}
-
-function FeatureRow({
-  label,
-  tiers,
-}: {
-  label: string;
-  tiers: (boolean | string | "-")[];
-}) {
-  return (
-    <div className="grid grid-cols-5 gap-4 items-center py-3 border-b border-valasys-gray-200">
-      <div className="text-sm font-medium text-valasys-gray-800">{label}</div>
-      {tiers.map((t, i) => (
-        <div key={i} className="flex justify-center text-sm">
-          {typeof t === "string" ? (
-            <span className="px-2 py-0.5 rounded-full bg-valasys-gray-100 text-valasys-gray-800 border border-valasys-gray-200">
-              {t}
-            </span>
-          ) : t === "-" ? (
-            <Minus className="w-4 h-4 text-valasys-gray-400" />
-          ) : t ? (
-            <Check className="w-5 h-5 text-green-600" />
-          ) : (
-            <Minus className="w-4 h-4 text-valasys-gray-300" />
-          )}
-        </div>
-      ))}
-    </div>
   );
 }
 
@@ -402,24 +341,6 @@ export default function Subscription() {
   const [selectedPlan, setSelectedPlan] = useState<
     "free" | "growth" | "scale" | "enterprise"
   >("growth");
-  const [showComparison, setShowComparison] = useState(false);
-  const comparisonHeadingRef = useRef<HTMLDivElement | null>(null);
-  const handleToggleComparison = () => {
-    setShowComparison((prev) => {
-      const next = !prev;
-      if (next) {
-        requestAnimationFrame(() => {
-          const el = comparisonHeadingRef.current;
-          if (!el) return;
-          const rect = el.getBoundingClientRect();
-          const offset = 120; // account for sticky header
-          const top = rect.top + window.scrollY - offset;
-          window.scrollTo({ top, behavior: "smooth" });
-        });
-      }
-      return next;
-    });
-  };
   const sortedPlans = useMemo(() => plans, []);
   const selectPlan = (id: "free" | "growth" | "scale" | "enterprise") => {
     setSelectedPlan(id);
@@ -473,220 +394,8 @@ export default function Subscription() {
               planIndex={idx as 0 | 1 | 2 | 3}
               selected={p.id === selectedPlan}
               onSelect={() => selectPlan(p.id as any)}
-              onToggleComparison={handleToggleComparison}
-              comparisonOpen={showComparison}
             />
           ))}
-        </div>
-
-        {showComparison && (
-          <Card className="overflow-hidden" id="plan-comparison">
-            <div
-              ref={comparisonHeadingRef}
-              className="flex items-center gap-2 bg-valasys-gray-50 border rounded-t-lg px-4 py-3 text-valasys-gray-800"
-            >
-              <img src="/public/placeholder.svg" alt="" className="w-5 h-5" />
-              <div>
-                <div className="font-semibold">Plan comparison</div>
-                <div className="text-xs text-valasys-gray-600">
-                  Find the features available in each plan
-                </div>
-              </div>
-            </div>
-            <CardContent className="p-0">
-              <div className="overflow-auto">
-                <table className="w-full text-sm">
-                  <thead className="sticky top-0 bg-white">
-                    <tr className="border-b align-top">
-                      <th className="px-4 py-4"></th>
-                      {sortedPlans.map((p) => {
-                        const d = planDisplay(p, billing);
-                        const isSelected = selectedPlan === p.id;
-                        const isEnterprise = p.id === "enterprise";
-                        return (
-                          <th key={p.id} className="px-4 py-4 align-top">
-                            <div
-                              className={`relative rounded-xl border shadow-sm p-4 text-left flex flex-col gap-2 ${p.id === "free" || p.id === "enterprise" ? "cursor-default" : "cursor-pointer"} ${isSelected ? "ring-2 ring-yellow-300 bg-yellow-50" : "bg-white"}`}
-                              onClick={
-                                p.id === "free" || p.id === "enterprise"
-                                  ? undefined
-                                  : () => selectPlan(p.id as any)
-                              }
-                              role={
-                                p.id === "free" || p.id === "enterprise"
-                                  ? undefined
-                                  : "button"
-                              }
-                              tabIndex={
-                                p.id === "free" || p.id === "enterprise"
-                                  ? -1
-                                  : 0
-                              }
-                              onKeyDown={(e) => {
-                                if (
-                                  p.id !== "free" &&
-                                  p.id !== "enterprise" &&
-                                  (e.key === "Enter" || e.key === " ")
-                                ) {
-                                  e.preventDefault();
-                                  selectPlan(p.id as any);
-                                }
-                              }}
-                            >
-                              {p.popular && (
-                                <Badge className="bg-valasys-orange text-white w-fit mb-1">
-                                  MOST POPULAR
-                                </Badge>
-                              )}
-                              <div className="text-base md:text-lg font-semibold text-valasys-gray-900 flex items-center gap-2">
-                                {planIcon(p.id)}
-                                <span>{p.name}</span>
-                              </div>
-                              {p.description && (
-                                <div className="text-xs text-valasys-gray-600 mt-1 line-clamp-2">
-                                  {p.description}
-                                </div>
-                              )}
-                              <div className="text-2xl font-bold mt-3">
-                                {d.priceLabel}
-                                {d.priceSuffix && (
-                                  <span className="text-sm text-valasys-gray-500">
-                                    {" "}
-                                    {d.priceSuffix}
-                                  </span>
-                                )}
-                              </div>
-                              <div className="text-xs text-valasys-gray-500">
-                                {d.billedNote}
-                              </div>
-                              <div className="my-3 h-px bg-valasys-gray-200" />
-                              <div className="text-[17px] font-semibold text-black flex items-center gap-2">
-                                <Coins className="w-5 h-5 text-black" />
-                                {d.credits}
-                              </div>
-                              <div className="pt-2">
-                                {isEnterprise ? (
-                                  <Button
-                                    onClick={() => selectPlan(p.id as any)}
-                                    className={`w-full ${isSelected ? "bg-[#424242] text-white border-2 border-[#424242]" : "border-2 border-valasys-orange text-valasys-orange bg-white hover:bg-gradient-to-r hover:from-valasys-orange hover:to-valasys-orange-light hover:text-white"}`}
-                                  >
-                                    {isSelected && (
-                                      <Check className="w-4 h-4 mr-2" />
-                                    )}
-                                    Contact to our sales
-                                  </Button>
-                                ) : (
-                                  <Button
-                                    onClick={() => selectPlan(p.id as any)}
-                                    disabled={p.id === "free"}
-                                    className={`w-full ${isSelected ? "bg-[#424242] text-white" : "bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white hover:from-valasys-orange/90 hover:to-valasys-orange-light/90"}`}
-                                  >
-                                    {isSelected && (
-                                      <Check className="w-4 h-4 mr-2" />
-                                    )}
-                                    {isSelected
-                                      ? "Selected"
-                                      : p.id === "free"
-                                        ? "Current Plan"
-                                        : "Select Plan"}
-                                  </Button>
-                                )}
-                              </div>
-                            </div>
-                          </th>
-                        );
-                      })}
-                    </tr>
-                    <tr className="border-b">
-                      <th className="text-left px-4 py-3 font-medium text-valasys-gray-600">
-                        Features
-                      </th>
-                      <th className="px-4 py-3 text-center">Free</th>
-                      <th className="px-4 py-3 text-center">Growth</th>
-                      <th className="px-4 py-3 text-center">Scale</th>
-                      <th className="px-4 py-3 text-center">Enterprise</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="bg-valasys-gray-50/60">
-                      <td
-                        colSpan={5}
-                        className="px-4 py-2 text-xs uppercase tracking-wide text-valasys-gray-500"
-                      >
-                        Core Platform Modules
-                      </td>
-                    </tr>
-                    {coreRows.map((row) => (
-                      <tr key={row.label} className="border-b">
-                        <td className="px-4 py-3 font-medium text-valasys-gray-800">
-                          {row.label}
-                        </td>
-                        {row.values.map((v, i) => (
-                          <td key={i} className="px-4 py-3 text-center">
-                            {v === "-" ? (
-                              <span className="text-valasys-gray-300">—</span>
-                            ) : v === "✖" ? (
-                              <CircleX className="w-5 h-5 mx-auto text-red-500" />
-                            ) : typeof v === "string" ? (
-                              <span className="inline-block rounded-full border px-2 py-0.5 text-xs text-valasys-gray-700">
-                                {v}
-                              </span>
-                            ) : v ? (
-                              <CircleCheckBig className="w-5 h-5 mx-auto text-green-600" />
-                            ) : (
-                              <CircleX className="w-5 h-5 mx-auto text-red-500" />
-                            )}
-                          </td>
-                        ))}
-                      </tr>
-                    ))}
-
-                    <tr className="bg-valasys-gray-50/60">
-                      <td
-                        colSpan={5}
-                        className="px-4 py-2 text-xs uppercase tracking-wide text-valasys-gray-500"
-                      >
-                        High Value Account Insights
-                      </td>
-                    </tr>
-                    {insightsRows.map((row) => (
-                      <tr key={row.label} className="border-b">
-                        <td className="px-4 py-3 font-medium text-valasys-gray-800">
-                          {row.label}
-                        </td>
-                        {row.values.map((v, i) => (
-                          <td key={i} className="px-4 py-3 text-center">
-                            {v === "-" ? (
-                              <span className="text-valasys-gray-300">—</span>
-                            ) : v === "✖" ? (
-                              <CircleX className="w-5 h-5 mx-auto text-red-500" />
-                            ) : typeof v === "string" ? (
-                              <span className="inline-block rounded-full border px-2 py-0.5 text-xs text-valasys-gray-700">
-                                {v}
-                              </span>
-                            ) : v ? (
-                              <CircleCheckBig className="w-5 h-5 mx-auto text-green-600" />
-                            ) : (
-                              <CircleX className="w-5 h-5 mx-auto text-red-500" />
-                            )}
-                          </td>
-                        ))}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </CardContent>
-          </Card>
-        )}
-
-        <div className="flex justify-center">
-          <Button
-            size="lg"
-            className="bg-valasys-orange text-white hover:bg-valasys-orange/90"
-          >
-            <CreditCard className="w-5 h-5 mr-2" /> Credit Usage Comparison
-          </Button>
         </div>
       </div>
       {selectedPlanObj && (
@@ -700,23 +409,6 @@ export default function Subscription() {
                 <div className="text-sm font-semibold text-valasys-gray-900">
                   {selectedPlanObj.name}
                 </div>
-                <button
-                  className="text-xs underline text-valasys-gray-600 hover:text-valasys-gray-900"
-                  onClick={() => {
-                    if (!showComparison) handleToggleComparison();
-                    else {
-                      requestAnimationFrame(() => {
-                        const el = document.getElementById("plan-comparison");
-                        if (!el) return;
-                        const rect = el.getBoundingClientRect();
-                        const top = rect.top + window.scrollY - 120;
-                        window.scrollTo({ top, behavior: "smooth" });
-                      });
-                    }
-                  }}
-                >
-                  See price breakdown
-                </button>
               </div>
               <div className="flex items-center gap-2 md:justify-center">
                 <div className="text-xs text-valasys-gray-500">Seats</div>
