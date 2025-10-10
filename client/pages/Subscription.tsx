@@ -746,7 +746,7 @@ export default function Subscription() {
                 </div>
               </div>
               <div className="md:text-right">
-                <Button className="bg-valasys-yellow text-black hover:bg-valasys-yellow/90">
+                <Button className="bg-yellow-300 text-black hover:bg-yellow-400">
                   Upgrade
                 </Button>
               </div>
