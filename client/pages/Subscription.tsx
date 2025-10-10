@@ -124,12 +124,29 @@ function planDisplay(plan: Plan, billing: "monthly" | "annual") {
   // Price label
   const isEnterprise = plan.id === "enterprise";
   const price = priceFor(plan, billing);
-  const priceLabel = isEnterprise
-    ? "Custom Plan"
-    : price === 0
-      ? "$0"
-      : `$${price}`;
-  const priceSuffix = isEnterprise || price === 0 ? "" : "/month";
+
+  let priceLabel: React.ReactNode;
+  let priceSuffix: string = "";
+
+  if (isEnterprise) {
+    priceLabel = "Custom Plan";
+    priceSuffix = "";
+  } else if (price === 0) {
+    priceLabel = "$0";
+    priceSuffix = "";
+  } else if (billing === "annual" && plan.priceAnnual > 0 && plan.priceAnnual < plan.priceMonthly) {
+    // Show discount: original monthly price struck-through then discounted annual monthly price
+    priceLabel = (
+      <span className="inline-flex items-baseline gap-2">
+        <span className="line-through text-valasys-gray-400 text-2xl">${plan.priceMonthly}</span>
+        <span className="font-bold">${plan.priceAnnual}</span>
+      </span>
+    );
+    priceSuffix = "/month";
+  } else {
+    priceLabel = `$${price}`;
+    priceSuffix = "/month";
+  }
 
   // Billed note and credits text based on provided spec
   let billedNote =
