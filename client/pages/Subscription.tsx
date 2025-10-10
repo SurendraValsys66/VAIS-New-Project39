@@ -177,9 +177,15 @@ function PlanCard({
         </div>
 
         <div className="pt-3 grid grid-cols-1">
-          <Button onClick={onSelect} className="w-full border-2 border-valasys-orange text-valasys-orange bg-white hover:bg-gradient-to-r hover:from-valasys-orange hover:to-valasys-orange-light hover:text-white">
-            Contact to our sales
-          </Button>
+          {plan.id === "enterprise" ? (
+            <Button onClick={onSelect} className="w-full border-2 border-valasys-orange text-valasys-orange bg-white hover:bg-gradient-to-r hover:from-valasys-orange hover:to-valasys-orange-light hover:text-white">
+              Contact to our sales
+            </Button>
+          ) : (
+            <Button onClick={onSelect} className="w-full bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white hover:from-valasys-orange/90 hover:to-valasys-orange-light/90">
+              {selected ? "Selected" : plan.id === "free" ? "Current Plan" : "Select Plan"}
+            </Button>
+          )}
         </div>
 
         <div className="space-y-3">
