@@ -2253,19 +2253,17 @@ export default function ProspectResults() {
                                               </CardHeader>
                                               <CardContent className="space-y-3">
                                                 <div className="text-sm text-gray-700">
-                                                  {selectedProspect.companyName} is a leader in {selectedProspect.industry.toLowerCase()}.
+                                                  {dummyProfile.company.name} is guided by customer obsession and innovation.
                                                 </div>
                                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                                   <div className="flex items-center text-sm text-gray-700">
                                                     <MapPin className="w-4 h-4 mr-2 text-gray-400" />
-                                                    <span>
-                                                      {selectedProspect.city}, {selectedProspect.country}
-                                                    </span>
+                                                    <span>{dummyProfile.company.location}</span>
                                                   </div>
                                                   <div className="flex items-center text-sm text-gray-700">
                                                     <Globe className="w-4 h-4 mr-2 text-gray-400" />
                                                     <a
-                                                      href={`https://${selectedProspect.companyDomain}`}
+                                                      href={`https://${dummyProfile.company.domain}`}
                                                       target="_blank"
                                                       rel="noopener noreferrer"
                                                       className="text-blue-600 hover:underline"
@@ -2275,11 +2273,11 @@ export default function ProspectResults() {
                                                   </div>
                                                   <div className="flex items-center text-sm text-gray-700">
                                                     <BarChart3 className="w-4 h-4 mr-2 text-gray-400" />
-                                                    <span>{selectedProspect.revenue} in revenue</span>
+                                                    <span>{dummyProfile.company.revenue} in revenue</span>
                                                   </div>
                                                   <div className="flex items-center text-sm text-gray-700">
                                                     <Users className="w-4 h-4 mr-2 text-gray-400" />
-                                                    <span>{sizeToHeadcount(selectedProspect.companySize)}</span>
+                                                    <span>{dummyProfile.company.headcount}</span>
                                                   </div>
                                                 </div>
                                               </CardContent>
@@ -2292,7 +2290,7 @@ export default function ProspectResults() {
                                               </CardHeader>
                                               <CardContent>
                                                 <div className="flex flex-wrap gap-2">
-                                                  {(selectedProspect.matchedTopics?.length ? selectedProspect.matchedTopics : [selectedProspect.jobFunction]).map((tag) => (
+                                                  {dummyProfile.specialties.map((tag) => (
                                                     <span key={tag} className="px-2 py-1 rounded-md border text-xs bg-gray-50">
                                                       {tag}
                                                     </span>
@@ -2308,7 +2306,7 @@ export default function ProspectResults() {
                                               </CardHeader>
                                               <CardContent>
                                                 <div className="flex flex-wrap gap-2">
-                                                  {(selectedProspect.skills?.length ? selectedProspect.skills : ["CRM", "analytics"]).map((tech) => (
+                                                  {dummyProfile.technologies.map((tech) => (
                                                     <span key={tech} className="px-2 py-1 rounded-md border text-xs bg-gray-50">
                                                       {tech}
                                                     </span>
