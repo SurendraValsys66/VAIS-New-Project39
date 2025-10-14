@@ -1818,6 +1818,89 @@ export default function ProspectResults() {
 
                                     {selectedProspect && (
                                       <div className="space-y-6">
+                                        <div className="flex flex-wrap items-center gap-2">
+                                          <Button variant="outline" size="sm">CRM</Button>
+                                          <Button variant="outline" size="sm">List</Button>
+                                          <Button variant="outline" size="sm">Sequence</Button>
+                                          <Button variant="ghost" size="icon" aria-label="More">
+                                            <MoreVertical className="w-4 h-4" />
+                                          </Button>
+                                        </div>
+
+                                        <div className="space-y-3">
+                                          <a href="#" className="inline-flex items-center text-sm text-blue-600 hover:underline">
+                                            <Linkedin className="w-4 h-4 mr-2" /> LinkedIn profile
+                                          </a>
+                                          <div className="space-y-2">
+                                            {dummyProfile.phones.map((p, idx) => (
+                                              <div key={idx} className="flex items-center justify-between text-sm">
+                                                <div className="flex items-center">
+                                                  <Phone className="w-4 h-4 mr-2 text-gray-400" />
+                                                  <span>{p}</span>
+                                                </div>
+                                                <div className="flex items-center gap-2">
+                                                  <Tooltip>
+                                                    <TooltipTrigger asChild>
+                                                      <Button variant="outline" size="icon" onClick={() => handleCopy(p, "Phone")} aria-label="Copy phone">
+                                                        <Copy className="w-4 h-4" />
+                                                      </Button>
+                                                    </TooltipTrigger>
+                                                    <TooltipContent>Copy</TooltipContent>
+                                                  </Tooltip>
+                                                  <Tooltip>
+                                                    <TooltipTrigger asChild>
+                                                      <Button size="icon" asChild aria-label="Call">
+                                                        <a href={`tel:${p}`}>
+                                                          <Phone className="w-4 h-4" />
+                                                        </a>
+                                                      </Button>
+                                                    </TooltipTrigger>
+                                                    <TooltipContent>Call</TooltipContent>
+                                                  </Tooltip>
+                                                </div>
+                                              </div>
+                                            ))}
+                                            <div className="flex items-center justify-between text-sm">
+                                              <div className="flex items-center">
+                                                <Mail className="w-4 h-4 mr-2 text-gray-400" />
+                                                <span>{maskEmail(dummyProfile.email)}</span>
+                                              </div>
+                                              <div className="flex items-center gap-2">
+                                                <Tooltip>
+                                                  <TooltipTrigger asChild>
+                                                    <Button variant="outline" size="icon" onClick={() => handleCopy(dummyProfile.email, "Email")} aria-label="Copy email">
+                                                      <Copy className="w-4 h-4" />
+                                                    </Button>
+                                                  </TooltipTrigger>
+                                                  <TooltipContent>Copy</TooltipContent>
+                                                </Tooltip>
+                                                <Tooltip>
+                                                  <TooltipTrigger asChild>
+                                                    <Button size="icon" onClick={() => (window.location.href = `mailto:${dummyProfile.email}`)} aria-label="Send email">
+                                                      <Mail className="w-4 h-4" />
+                                                    </Button>
+                                                  </TooltipTrigger>
+                                                  <TooltipContent>Email</TooltipContent>
+                                                </Tooltip>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 border-t pt-4">
+                                          <div>
+                                            <div className="text-xs uppercase text-gray-500">Seniority</div>
+                                            <div className="text-sm">{dummyProfile.seniority}</div>
+                                          </div>
+                                          <div>
+                                            <div className="text-xs uppercase text-gray-500">Department</div>
+                                            <div className="text-sm">{dummyProfile.department}</div>
+                                          </div>
+                                          <div>
+                                            <div className="text-xs uppercase text-gray-500">Contact location</div>
+                                            <div className="text-sm">{dummyProfile.contactLocation}</div>
+                                          </div>
+                                        </div>
                                         <div className="rounded-xl border bg-gradient-to-r from-valasys-orange/10 via-orange-200/10 to-blue-200/10 p-4">
                                           <div className="flex flex-wrap items-center gap-4 justify-between">
                                             <div className="flex items-center gap-2">
