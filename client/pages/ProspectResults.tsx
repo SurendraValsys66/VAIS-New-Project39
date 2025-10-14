@@ -952,7 +952,11 @@ export default function ProspectResults() {
                 <div className="flex items-center space-x-4">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="outline" size="icon" aria-label="Columns">
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        aria-label="Columns"
+                      >
                         <Settings2 className="w-4 h-4" />
                       </Button>
                     </DropdownMenuTrigger>
@@ -1000,7 +1004,9 @@ export default function ProspectResults() {
                     variant="outline"
                     size="icon"
                     onClick={handleToggleFullscreen}
-                    aria-label={isFullScreen ? "Exit Full Screen" : "Full Screen"}
+                    aria-label={
+                      isFullScreen ? "Exit Full Screen" : "Full Screen"
+                    }
                   >
                     <Maximize className="w-4 h-4" />
                   </Button>
@@ -1820,7 +1826,9 @@ export default function ProspectResults() {
                                                           <Copy className="w-4 h-4" />
                                                         </Button>
                                                       </TooltipTrigger>
-                                                      <TooltipContent>Copy</TooltipContent>
+                                                      <TooltipContent>
+                                                        Copy
+                                                      </TooltipContent>
                                                     </Tooltip>
                                                     <Tooltip>
                                                       <TooltipTrigger asChild>
@@ -1834,7 +1842,9 @@ export default function ProspectResults() {
                                                           <Mail className="w-4 h-4" />
                                                         </Button>
                                                       </TooltipTrigger>
-                                                      <TooltipContent>Email</TooltipContent>
+                                                      <TooltipContent>
+                                                        Email
+                                                      </TooltipContent>
                                                     </Tooltip>
                                                   </div>
                                                 </div>
@@ -1850,35 +1860,45 @@ export default function ProspectResults() {
                                                       </a>
                                                     </div>
                                                     <div className="flex items-center gap-2">
-                                                    <Tooltip>
-                                                      <TooltipTrigger asChild>
-                                                        <Button
-                                                          variant="outline"
-                                                          size="icon"
-                                                          onClick={() =>
-                                                            handleCopy(
-                                                              selectedProspect.phone,
-                                                              "Phone",
-                                                            )
-                                                          }
-                                                          aria-label="Copy phone"
-                                                        >
-                                                          <Copy className="w-4 h-4" />
-                                                        </Button>
-                                                      </TooltipTrigger>
-                                                      <TooltipContent>Copy</TooltipContent>
-                                                    </Tooltip>
-                                                    <Tooltip>
-                                                      <TooltipTrigger asChild>
-                                                        <Button size="icon" asChild aria-label="Call">
-                                                          <a href={`tel:${selectedProspect.phone}`}>
-                                                            <Phone className="w-4 h-4" />
-                                                          </a>
-                                                        </Button>
-                                                      </TooltipTrigger>
-                                                      <TooltipContent>Call</TooltipContent>
-                                                    </Tooltip>
-                                                  </div>
+                                                      <Tooltip>
+                                                        <TooltipTrigger asChild>
+                                                          <Button
+                                                            variant="outline"
+                                                            size="icon"
+                                                            onClick={() =>
+                                                              handleCopy(
+                                                                selectedProspect.phone,
+                                                                "Phone",
+                                                              )
+                                                            }
+                                                            aria-label="Copy phone"
+                                                          >
+                                                            <Copy className="w-4 h-4" />
+                                                          </Button>
+                                                        </TooltipTrigger>
+                                                        <TooltipContent>
+                                                          Copy
+                                                        </TooltipContent>
+                                                      </Tooltip>
+                                                      <Tooltip>
+                                                        <TooltipTrigger asChild>
+                                                          <Button
+                                                            size="icon"
+                                                            asChild
+                                                            aria-label="Call"
+                                                          >
+                                                            <a
+                                                              href={`tel:${selectedProspect.phone}`}
+                                                            >
+                                                              <Phone className="w-4 h-4" />
+                                                            </a>
+                                                          </Button>
+                                                        </TooltipTrigger>
+                                                        <TooltipContent>
+                                                          Call
+                                                        </TooltipContent>
+                                                      </Tooltip>
+                                                    </div>
                                                   </div>
                                                 )}
                                                 {selectedProspect.linkedinUrl && (
@@ -1898,41 +1918,49 @@ export default function ProspectResults() {
                                                       </a>
                                                     </div>
                                                     <div className="flex items-center gap-2">
-                                                    <Tooltip>
-                                                      <TooltipTrigger asChild>
-                                                        <Button
-                                                          variant="outline"
-                                                          size="icon"
-                                                          onClick={() =>
-                                                            handleCopy(
-                                                              selectedProspect.linkedinUrl!,
-                                                              "LinkedIn URL",
-                                                            )
-                                                          }
-                                                          aria-label="Copy LinkedIn URL"
-                                                        >
-                                                          <Copy className="w-4 h-4" />
-                                                        </Button>
-                                                      </TooltipTrigger>
-                                                      <TooltipContent>Copy</TooltipContent>
-                                                    </Tooltip>
-                                                    <Tooltip>
-                                                      <TooltipTrigger asChild>
-                                                        <Button size="icon" asChild aria-label="Open LinkedIn">
-                                                          <a
-                                                            href={
-                                                              selectedProspect.linkedinUrl
+                                                      <Tooltip>
+                                                        <TooltipTrigger asChild>
+                                                          <Button
+                                                            variant="outline"
+                                                            size="icon"
+                                                            onClick={() =>
+                                                              handleCopy(
+                                                                selectedProspect.linkedinUrl!,
+                                                                "LinkedIn URL",
+                                                              )
                                                             }
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
+                                                            aria-label="Copy LinkedIn URL"
                                                           >
-                                                            <ExternalLink className="w-4 h-4" />
-                                                          </a>
-                                                        </Button>
-                                                      </TooltipTrigger>
-                                                      <TooltipContent>Open</TooltipContent>
-                                                    </Tooltip>
-                                                  </div>
+                                                            <Copy className="w-4 h-4" />
+                                                          </Button>
+                                                        </TooltipTrigger>
+                                                        <TooltipContent>
+                                                          Copy
+                                                        </TooltipContent>
+                                                      </Tooltip>
+                                                      <Tooltip>
+                                                        <TooltipTrigger asChild>
+                                                          <Button
+                                                            size="icon"
+                                                            asChild
+                                                            aria-label="Open LinkedIn"
+                                                          >
+                                                            <a
+                                                              href={
+                                                                selectedProspect.linkedinUrl
+                                                              }
+                                                              target="_blank"
+                                                              rel="noopener noreferrer"
+                                                            >
+                                                              <ExternalLink className="w-4 h-4" />
+                                                            </a>
+                                                          </Button>
+                                                        </TooltipTrigger>
+                                                        <TooltipContent>
+                                                          Open
+                                                        </TooltipContent>
+                                                      </Tooltip>
+                                                    </div>
                                                   </div>
                                                 )}
                                                 <div className="flex items-center text-gray-700">
@@ -1967,8 +1995,14 @@ export default function ProspectResults() {
                                                     <Briefcase className="w-4 h-4" />
                                                   </div>
                                                   <div>
-                                                    <div className="text-xs uppercase text-gray-500">Role</div>
-                                                    <div className="font-medium">{selectedProspect.jobTitle}</div>
+                                                    <div className="text-xs uppercase text-gray-500">
+                                                      Role
+                                                    </div>
+                                                    <div className="font-medium">
+                                                      {
+                                                        selectedProspect.jobTitle
+                                                      }
+                                                    </div>
                                                   </div>
                                                 </div>
                                                 <div className="flex items-center p-3 border rounded-lg">
@@ -1976,8 +2010,13 @@ export default function ProspectResults() {
                                                     <Sitemap className="w-4 h-4" />
                                                   </div>
                                                   <div>
-                                                    <div className="text-xs uppercase text-gray-500">Department</div>
-                                                    <div>{selectedProspect.department || "N/A"}</div>
+                                                    <div className="text-xs uppercase text-gray-500">
+                                                      Department
+                                                    </div>
+                                                    <div>
+                                                      {selectedProspect.department ||
+                                                        "N/A"}
+                                                    </div>
                                                   </div>
                                                 </div>
                                                 <div className="flex items-center p-3 border rounded-lg">
@@ -1985,8 +2024,14 @@ export default function ProspectResults() {
                                                     <BadgeCheck className="w-4 h-4" />
                                                   </div>
                                                   <div>
-                                                    <div className="text-xs uppercase text-gray-500">Level</div>
-                                                    <Badge variant="outline">{selectedProspect.jobLevel}</Badge>
+                                                    <div className="text-xs uppercase text-gray-500">
+                                                      Level
+                                                    </div>
+                                                    <Badge variant="outline">
+                                                      {
+                                                        selectedProspect.jobLevel
+                                                      }
+                                                    </Badge>
                                                   </div>
                                                 </div>
                                                 <div className="flex items-center p-3 border rounded-lg">
@@ -1994,8 +2039,14 @@ export default function ProspectResults() {
                                                     <Settings2 className="w-4 h-4" />
                                                   </div>
                                                   <div>
-                                                    <div className="text-xs uppercase text-gray-500">Function</div>
-                                                    <Badge variant="outline">{selectedProspect.jobFunction}</Badge>
+                                                    <div className="text-xs uppercase text-gray-500">
+                                                      Function
+                                                    </div>
+                                                    <Badge variant="outline">
+                                                      {
+                                                        selectedProspect.jobFunction
+                                                      }
+                                                    </Badge>
                                                   </div>
                                                 </div>
                                                 <div className="flex items-center p-3 border rounded-lg">
@@ -2003,8 +2054,14 @@ export default function ProspectResults() {
                                                     <Building className="w-4 h-4" />
                                                   </div>
                                                   <div>
-                                                    <div className="text-xs uppercase text-gray-500">Company</div>
-                                                    <div>{selectedProspect.companyName}</div>
+                                                    <div className="text-xs uppercase text-gray-500">
+                                                      Company
+                                                    </div>
+                                                    <div>
+                                                      {
+                                                        selectedProspect.companyName
+                                                      }
+                                                    </div>
                                                   </div>
                                                 </div>
                                                 {selectedProspect.yearsAtCompany && (
@@ -2013,14 +2070,21 @@ export default function ProspectResults() {
                                                       <Calendar className="w-4 h-4" />
                                                     </div>
                                                     <div className="w-full">
-                                                      <div className="text-xs uppercase text-gray-500">Tenure</div>
+                                                      <div className="text-xs uppercase text-gray-500">
+                                                        Tenure
+                                                      </div>
                                                       <div>
-                                                        {selectedProspect.yearsAtCompany} years at company
+                                                        {
+                                                          selectedProspect.yearsAtCompany
+                                                        }{" "}
+                                                        years at company
                                                       </div>
                                                       <div className="mt-2 h-2 bg-gray-200 rounded-full overflow-hidden">
                                                         <div
                                                           className="h-2 bg-valasys-orange"
-                                                          style={{ width: `${Math.min(100, selectedProspect.yearsAtCompany * 10)}%` }}
+                                                          style={{
+                                                            width: `${Math.min(100, selectedProspect.yearsAtCompany * 10)}%`,
+                                                          }}
                                                         />
                                                       </div>
                                                     </div>
