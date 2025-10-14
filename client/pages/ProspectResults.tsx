@@ -71,7 +71,6 @@ import {
   ArrowUp,
   Briefcase,
   BadgeCheck,
-  Sitemap,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -2007,7 +2006,7 @@ export default function ProspectResults() {
                                                 </div>
                                                 <div className="flex items-center p-3 border rounded-lg">
                                                   <div className="w-8 h-8 mr-3 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
-                                                    <Sitemap className="w-4 h-4" />
+                                                    <Globe className="w-4 h-4" />
                                                   </div>
                                                   <div>
                                                     <div className="text-xs uppercase text-gray-500">
