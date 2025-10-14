@@ -322,8 +322,16 @@ export default function MasteryBottomBar() {
       {/* Confetti celebration */}
       {showConfetti && (
         <div className="fixed inset-0 z-[70] pointer-events-none">
-          <ConfettiCanvas duration={2000} mode="blast" origin={{ x: 80, y: window.innerHeight - 80 }} />
-          <ConfettiCanvas duration={2000} mode="blast" origin={{ x: window.innerWidth - 80, y: window.innerHeight - 80 }} />
+          <ConfettiCanvas
+            duration={2000}
+            mode="blast"
+            origin={{ x: 80, y: window.innerHeight - 80 }}
+          />
+          <ConfettiCanvas
+            duration={2000}
+            mode="blast"
+            origin={{ x: window.innerWidth - 80, y: window.innerHeight - 80 }}
+          />
         </div>
       )}
 
