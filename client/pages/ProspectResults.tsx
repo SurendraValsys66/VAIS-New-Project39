@@ -2099,9 +2099,7 @@ export default function ProspectResults() {
                                                             aria-label="Open LinkedIn"
                                                           >
                                                             <a
-                                                              href={
-                                                                selectedProspect.linkedinUrl
-                                                              }
+                                                              href={"https://linkedin.com"}
                                                               target="_blank"
                                                               rel="noopener noreferrer"
                                                             >
