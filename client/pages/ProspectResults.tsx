@@ -2078,7 +2078,7 @@ export default function ProspectResults() {
                                                             size="icon"
                                                             onClick={() =>
                                                               handleCopy(
-                                                                selectedProspect.linkedinUrl!,
+                                                                "https://linkedin.com",
                                                                 "LinkedIn URL",
                                                               )
                                                             }
