@@ -70,6 +70,7 @@ import {
   ArrowUp,
   Briefcase,
   BadgeCheck,
+  MoreVertical,
 } from "lucide-react";
 import {
   DropdownMenu,
