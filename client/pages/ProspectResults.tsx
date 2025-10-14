@@ -65,7 +65,6 @@ import {
   CheckCircle,
   Clock,
   Activity,
-  Activity,
   Lock,
   Brain,
   ArrowUp,
