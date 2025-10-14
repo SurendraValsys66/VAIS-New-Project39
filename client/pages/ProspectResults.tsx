@@ -1804,27 +1804,38 @@ export default function ProspectResults() {
                                                     </a>
                                                   </div>
                                                   <div className="flex items-center gap-2">
-                                                    <Button
-                                                      variant="outline"
-                                                      size="sm"
-                                                      onClick={() =>
-                                                        handleCopy(
-                                                          selectedProspect.email,
-                                                          "Email",
-                                                        )
-                                                      }
-                                                    >
-                                                      <Copy className="w-4 h-4" />
-                                                      Copy
-                                                    </Button>
-                                                    <Button
-                                                      size="sm"
-                                                      onClick={() =>
-                                                        (window.location.href = `mailto:${selectedProspect.email}`)
-                                                      }
-                                                    >
-                                                      Email
-                                                    </Button>
+                                                    <Tooltip>
+                                                      <TooltipTrigger asChild>
+                                                        <Button
+                                                          variant="outline"
+                                                          size="icon"
+                                                          onClick={() =>
+                                                            handleCopy(
+                                                              selectedProspect.email,
+                                                              "Email",
+                                                            )
+                                                          }
+                                                          aria-label="Copy email"
+                                                        >
+                                                          <Copy className="w-4 h-4" />
+                                                        </Button>
+                                                      </TooltipTrigger>
+                                                      <TooltipContent>Copy</TooltipContent>
+                                                    </Tooltip>
+                                                    <Tooltip>
+                                                      <TooltipTrigger asChild>
+                                                        <Button
+                                                          size="icon"
+                                                          onClick={() =>
+                                                            (window.location.href = `mailto:${selectedProspect.email}`)
+                                                          }
+                                                          aria-label="Send email"
+                                                        >
+                                                          <Mail className="w-4 h-4" />
+                                                        </Button>
+                                                      </TooltipTrigger>
+                                                      <TooltipContent>Email</TooltipContent>
+                                                    </Tooltip>
                                                   </div>
                                                 </div>
                                                 {selectedProspect.phone && (
@@ -1839,27 +1850,35 @@ export default function ProspectResults() {
                                                       </a>
                                                     </div>
                                                     <div className="flex items-center gap-2">
-                                                      <Button
-                                                        variant="outline"
-                                                        size="sm"
-                                                        onClick={() =>
-                                                          handleCopy(
-                                                            selectedProspect.phone,
-                                                            "Phone",
-                                                          )
-                                                        }
-                                                      >
-                                                        <Copy className="w-4 h-4" />
-                                                        Copy
-                                                      </Button>
-                                                      <Button size="sm" asChild>
-                                                        <a
-                                                          href={`tel:${selectedProspect.phone}`}
+                                                    <Tooltip>
+                                                      <TooltipTrigger asChild>
+                                                        <Button
+                                                          variant="outline"
+                                                          size="icon"
+                                                          onClick={() =>
+                                                            handleCopy(
+                                                              selectedProspect.phone,
+                                                              "Phone",
+                                                            )
+                                                          }
+                                                          aria-label="Copy phone"
                                                         >
-                                                          Call
-                                                        </a>
-                                                      </Button>
-                                                    </div>
+                                                          <Copy className="w-4 h-4" />
+                                                        </Button>
+                                                      </TooltipTrigger>
+                                                      <TooltipContent>Copy</TooltipContent>
+                                                    </Tooltip>
+                                                    <Tooltip>
+                                                      <TooltipTrigger asChild>
+                                                        <Button size="icon" asChild aria-label="Call">
+                                                          <a href={`tel:${selectedProspect.phone}`}>
+                                                            <Phone className="w-4 h-4" />
+                                                          </a>
+                                                        </Button>
+                                                      </TooltipTrigger>
+                                                      <TooltipContent>Call</TooltipContent>
+                                                    </Tooltip>
+                                                  </div>
                                                   </div>
                                                 )}
                                                 {selectedProspect.linkedinUrl && (
@@ -1879,31 +1898,41 @@ export default function ProspectResults() {
                                                       </a>
                                                     </div>
                                                     <div className="flex items-center gap-2">
-                                                      <Button
-                                                        variant="outline"
-                                                        size="sm"
-                                                        onClick={() =>
-                                                          handleCopy(
-                                                            selectedProspect.linkedinUrl!,
-                                                            "LinkedIn URL",
-                                                          )
-                                                        }
-                                                      >
-                                                        <Copy className="w-4 h-4" />
-                                                        Copy
-                                                      </Button>
-                                                      <Button size="sm" asChild>
-                                                        <a
-                                                          href={
-                                                            selectedProspect.linkedinUrl
+                                                    <Tooltip>
+                                                      <TooltipTrigger asChild>
+                                                        <Button
+                                                          variant="outline"
+                                                          size="icon"
+                                                          onClick={() =>
+                                                            handleCopy(
+                                                              selectedProspect.linkedinUrl!,
+                                                              "LinkedIn URL",
+                                                            )
                                                           }
-                                                          target="_blank"
-                                                          rel="noopener noreferrer"
+                                                          aria-label="Copy LinkedIn URL"
                                                         >
-                                                          Open
-                                                        </a>
-                                                      </Button>
-                                                    </div>
+                                                          <Copy className="w-4 h-4" />
+                                                        </Button>
+                                                      </TooltipTrigger>
+                                                      <TooltipContent>Copy</TooltipContent>
+                                                    </Tooltip>
+                                                    <Tooltip>
+                                                      <TooltipTrigger asChild>
+                                                        <Button size="icon" asChild aria-label="Open LinkedIn">
+                                                          <a
+                                                            href={
+                                                              selectedProspect.linkedinUrl
+                                                            }
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                          >
+                                                            <ExternalLink className="w-4 h-4" />
+                                                          </a>
+                                                        </Button>
+                                                      </TooltipTrigger>
+                                                      <TooltipContent>Open</TooltipContent>
+                                                    </Tooltip>
+                                                  </div>
                                                   </div>
                                                 )}
                                                 <div className="flex items-center text-gray-700">
