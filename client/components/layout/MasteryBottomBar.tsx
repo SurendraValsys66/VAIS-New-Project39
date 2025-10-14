@@ -73,7 +73,6 @@ export default function MasteryBottomBar() {
   const prevRef = useRef<MasterySteps>({});
   const [showFinalDialog, setShowFinalDialog] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
-  const [showStepConfetti, setShowStepConfetti] = useState(false);
 
   useEffect(() => {
     setState(getMastery());
@@ -92,10 +91,6 @@ export default function MasteryBottomBar() {
     const prevPct = calculateMasteryPercentage(prev);
     const currPct = calculateMasteryPercentage(state);
 
-    if (currPct > prevPct) {
-      setShowStepConfetti(true);
-      setTimeout(() => setShowStepConfetti(false), 1600);
-    }
 
     if (prevPct < 100 && currPct >= 100) {
       let alreadyShown = false;
@@ -286,13 +281,6 @@ export default function MasteryBottomBar() {
         </div>
       )}
 
-      {showStepConfetti && (
-        <div className="fixed inset-x-0 bottom-0 z-40 pointer-events-none">
-          <div className="mx-auto w-[min(92vw,520px)] relative h-40">
-            <ConfettiCanvas duration={1600} direction="up" />
-          </div>
-        </div>
-      )}
 
       {shouldShowPanel && (
         <div className="fixed inset-x-0 bottom-4 z-50 pointer-events-none">
