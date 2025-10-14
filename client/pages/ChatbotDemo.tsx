@@ -114,7 +114,7 @@ const features: FeatureCard[] = [
     id: "screen-share",
     title: "Screen Sharing",
     description: "Share screens for technical support and demonstrations",
-    icon: Screen,
+    icon: Monitor,
     color: "bg-cyan-100 text-cyan-800 border-cyan-200",
     category: "media",
     implemented: true,
