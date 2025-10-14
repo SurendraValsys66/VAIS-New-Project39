@@ -5,7 +5,6 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   X,
   CheckCircle,
