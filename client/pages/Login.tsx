@@ -72,7 +72,10 @@ export default function Login() {
     await new Promise((resolve) => setTimeout(resolve, 800));
     console.log("Login attempt:", { email, password, rememberMe });
     setIsLoading(false);
-    navigate("/onboarding/role");
+    try {
+      localStorage.setItem("valasys-open-mastery-once", "1");
+    } catch {}
+    navigate("/");
   };
 
   const handleVerify2FA = async (e: React.FormEvent) => {
