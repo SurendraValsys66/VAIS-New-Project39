@@ -631,7 +631,9 @@ export default function MasteryBottomBar() {
               Congratulations
             </h3>
             <p className="mt-1 text-sm text-gray-700">
-              You've reached Level {level}! All steps completed.
+              You’ve completed all the steps — enjoy your reward of
+              <span className="ai-pulse text-valasys-orange font-semibold"> 50 bonus credits</span>!
+              <span aria-hidden className="ml-1">✨</span>
             </p>
           </div>
           <div className="px-6 pb-6 pt-4">
@@ -642,7 +644,7 @@ export default function MasteryBottomBar() {
               <ul className="list-none space-y-1 text-gray-700">
                 <li className="flex items-start gap-2">
                   <span className="mt-0.5 text-amber-500">★</span>
-                  <span>Mastery badge added to your profile</span>
+                  <span>50 bonus credits added</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="mt-0.5 text-amber-500">★</span>
@@ -651,10 +653,10 @@ export default function MasteryBottomBar() {
               </ul>
             </div>
             <Button
-              className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700"
-              onClick={() => setShowFinalDialog(false)}
+              asChild
+              className="w-full bg-gradient-to-r from-valasys-orange to-valasys-blue hover:from-[#FF6A00]/90 hover:to-[#1A73E8]/90 text-white"
             >
-              Claim Rewards
+              <Link to="/">Go to Dashboard</Link>
             </Button>
           </div>
         </DialogContent>
