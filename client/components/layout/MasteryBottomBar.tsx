@@ -38,8 +38,18 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import ConfettiCanvas from "@/components/onboarding/ConfettiCanvas";
+import { toast } from "@/components/ui/use-toast";
 
 const MASTERY_DISMISS_KEY = "valasys-mastery-dismissed";
+
+// Map mastery step keys to human-readable labels for toasts
+const STEP_LABELS: Record<string, string> = {
+  onboardingCompleted: "Completed onboarding questions",
+  vaisResultsGenerated: "Generated VAIS Results",
+  accountsDownloaded: "Downloaded Accounts",
+  prospectSearchGenerated: "Generated Prospect Search",
+  prospectDetailsDownloaded: "Downloaded Prospect Details",
+};
 
 type MasteryStepDefinition = {
   key: string;
@@ -71,8 +81,10 @@ export default function MasteryBottomBar() {
       return { [key]: true };
     });
   const prevRef = useRef<MasterySteps>({});
+  const initializedRef = useRef(false);
   const [showFinalDialog, setShowFinalDialog] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [showStepConfetti, setShowStepConfetti] = useState(false);
 
   useEffect(() => {
     setState(getMastery());
@@ -88,9 +100,18 @@ export default function MasteryBottomBar() {
 
   useEffect(() => {
     const prev = prevRef.current;
+
+    // Skip notifications on first initialization
+    if (!initializedRef.current) {
+      initializedRef.current = true;
+      prevRef.current = state;
+      return;
+    }
+
     const prevPct = calculateMasteryPercentage(prev);
     const currPct = calculateMasteryPercentage(state);
 
+    // Final completion celebration (full-screen)
     if (prevPct < 100 && currPct >= 100) {
       let alreadyShown = false;
       try {
@@ -104,6 +125,31 @@ export default function MasteryBottomBar() {
         setShowFinalDialog(true);
         setTimeout(() => setShowConfetti(false), 3000);
       }
+    }
+
+    // Detect newly completed steps and celebrate within the bottom bar
+    const stepKeys: (keyof MasterySteps)[] = [
+      "onboardingCompleted",
+      "vaisResultsGenerated",
+      "accountsDownloaded",
+      "prospectSearchGenerated",
+      "prospectDetailsDownloaded",
+    ];
+    const newlyCompleted = stepKeys.filter(
+      (k) => !(prev?.[k] as boolean) && !!(state?.[k] as boolean),
+    );
+
+    if (newlyCompleted.length > 0) {
+      setShowStepConfetti(true);
+      setTimeout(() => setShowStepConfetti(false), 2000);
+
+      newlyCompleted.forEach((k) => {
+        const label = STEP_LABELS[k as string] ?? "Step completed";
+        toast({
+          title: "Step completed",
+          description: `${label}. Your mastery is now ${currPct}%`,
+        });
+      });
     }
 
     prevRef.current = state;
@@ -454,6 +500,11 @@ export default function MasteryBottomBar() {
               onMouseEnter={handleOpenGuide}
               onKeyDown={handleGuideKeyDown}
             >
+              {showStepConfetti && (
+                <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-xl">
+                  <ConfettiCanvas duration={1800} />
+                </div>
+              )}
               {/* Top row: progress, chevron, close */}
               <div className="flex items-center gap-3">
                 <div className="flex-1 text-left">
