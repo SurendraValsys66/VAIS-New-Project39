@@ -2003,7 +2003,7 @@ export default function ProspectResults() {
                                                     </Tooltip>
                                                   </div>
                                                 </div>
-                                                {selectedProspect.phone && (
+                                                {true && (
                                                   <div className="flex items-center justify-between">
                                                     <div className="flex items-center">
                                                       <Phone className="w-4 h-4 mr-2 text-gray-400" />
