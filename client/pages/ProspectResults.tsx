@@ -809,6 +809,31 @@ export default function ProspectResults() {
     }
   };
 
+  const sizeToHeadcount = (size: string) => {
+    switch (size) {
+      case "1-10":
+        return "1 to 10 employees";
+      case "11-50":
+        return "11 to 50 employees";
+      case "51-200":
+        return "51 to 200 employees";
+      case "201-500":
+        return "201 to 500 employees";
+      case "501-1000":
+        return "501 to 1,000 employees";
+      case "1001-5000":
+        return "1,001 to 5,000 employees";
+      case "5001-10000":
+        return "5,001 to 10,000 employees";
+      case "10001-50000":
+        return "10,001 to 50,000 employees";
+      case "50001+":
+        return "50,001+ employees";
+      default:
+        return size;
+    }
+  };
+
   const PremiumOverlay = () => (
     <div className="relative">
       <div className="text-center mb-6">
@@ -1804,7 +1829,7 @@ export default function ProspectResults() {
                                                       href={`mailto:${selectedProspect.email}`}
                                                       className="text-blue-600 hover:underline"
                                                     >
-                                                      {selectedProspect.email}
+                                                      {maskEmail(selectedProspect.email)}
                                                     </a>
                                                   </div>
                                                   <div className="flex items-center gap-2">
@@ -2090,7 +2115,86 @@ export default function ProspectResults() {
                                                 )}
                                               </div>
                                             </CardContent>
-                                          </Card>
+                                            </Card>
+
+                                            {/* Company Information */}
+                                            <Card className="md:col-span-2">
+                                              <CardHeader className="pb-3">
+                                                <div className="flex items-center justify-between">
+                                                  <CardTitle className="text-sm flex items-center gap-2">
+                                                    <Building className="w-4 h-4" /> Company
+                                                  </CardTitle>
+                                                  <div className="flex gap-2">
+                                                    <Button variant="outline" size="sm">View employees</Button>
+                                                    <Button variant="outline" size="sm">Add to list</Button>
+                                                  </div>
+                                                </div>
+                                              </CardHeader>
+                                              <CardContent className="space-y-3">
+                                                <div className="text-sm text-gray-700">
+                                                  {selectedProspect.companyName} is a leader in {selectedProspect.industry.toLowerCase()}.
+                                                </div>
+                                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                                  <div className="flex items-center text-sm text-gray-700">
+                                                    <MapPin className="w-4 h-4 mr-2 text-gray-400" />
+                                                    <span>
+                                                      {selectedProspect.city}, {selectedProspect.country}
+                                                    </span>
+                                                  </div>
+                                                  <div className="flex items-center text-sm text-gray-700">
+                                                    <Globe className="w-4 h-4 mr-2 text-gray-400" />
+                                                    <a
+                                                      href={`https://${selectedProspect.companyDomain}`}
+                                                      target="_blank"
+                                                      rel="noopener noreferrer"
+                                                      className="text-blue-600 hover:underline"
+                                                    >
+                                                      View company page
+                                                    </a>
+                                                  </div>
+                                                  <div className="flex items-center text-sm text-gray-700">
+                                                    <BarChart3 className="w-4 h-4 mr-2 text-gray-400" />
+                                                    <span>{selectedProspect.revenue} in revenue</span>
+                                                  </div>
+                                                  <div className="flex items-center text-sm text-gray-700">
+                                                    <Users className="w-4 h-4 mr-2 text-gray-400" />
+                                                    <span>{sizeToHeadcount(selectedProspect.companySize)}</span>
+                                                  </div>
+                                                </div>
+                                              </CardContent>
+                                            </Card>
+
+                                            {/* Specialties & Technologies */}
+                                            <Card className="md:col-span-2">
+                                              <CardHeader className="pb-3">
+                                                <CardTitle className="text-sm">Specialties</CardTitle>
+                                              </CardHeader>
+                                              <CardContent>
+                                                <div className="flex flex-wrap gap-2">
+                                                  {(selectedProspect.matchedTopics?.length ? selectedProspect.matchedTopics : [selectedProspect.jobFunction]).map((tag) => (
+                                                    <span key={tag} className="px-2 py-1 rounded-md border text-xs bg-gray-50">
+                                                      {tag}
+                                                    </span>
+                                                  ))}
+                                                </div>
+                                              </CardContent>
+                                            </Card>
+
+                                            <Card className="md:col-span-2">
+                                              <CardHeader className="pb-3 flex flex-row items-center justify-between">
+                                                <CardTitle className="text-sm">Technologies</CardTitle>
+                                                <a href="#" className="text-xs text-blue-600 hover:underline">more technologies</a>
+                                              </CardHeader>
+                                              <CardContent>
+                                                <div className="flex flex-wrap gap-2">
+                                                  {(selectedProspect.skills?.length ? selectedProspect.skills : ["CRM", "analytics"]).map((tech) => (
+                                                    <span key={tech} className="px-2 py-1 rounded-md border text-xs bg-gray-50">
+                                                      {tech}
+                                                    </span>
+                                                  ))}
+                                                </div>
+                                              </CardContent>
+                                            </Card>
                                         </div>
                                       </div>
                                     )}
