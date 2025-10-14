@@ -673,6 +673,57 @@ export default function ProspectResults() {
     actions: true,
   });
 
+  const dummyProfile = useMemo(() => ({
+    email: "prospect@example.com",
+    phones: ["+1 555 012 3456", "+1 555 987 6543"],
+    seniority: "Executive",
+    department: "Customer Service",
+    contactLocation: "Gurgaon, Haryana, India",
+    company: {
+      name: "Acme Corp",
+      domain: "acme.com",
+      location: "Seattle, Washington, United States",
+      categories: ["Technology, Information & Media", "Software Development"],
+      revenue: "$1B to $10B",
+      headcount: "100,001+ Employee headcount",
+      description:
+        "Acme is guided by four principles: customer obsession rather than competitor focus, passion for invention, and operational excellence.",
+    },
+    specialties: [
+      "ecommerce",
+      "internet of things platform",
+      "operations",
+      "retail",
+    ],
+    technologies: [
+      "aptitude",
+      "oracle general ledger",
+      "tms",
+      "sap",
+      "workiva",
+      "blockchain",
+      "coinbase",
+      "ripple",
+      "dash",
+      "anaplan",
+      "blackline",
+      "ibm cognos tm1",
+      "oracle hyperion",
+      "sap fico",
+      "wdesk",
+      "auditboard",
+      "access compliance",
+      "contractor compliance",
+      "ibm openpages",
+      "metricstream",
+      "resolver",
+      "sag grc",
+      "enablon",
+      "adver",
+      "agc",
+    ],
+  }), []);
+
   const columns = [
     { key: "prospect", label: "Prospect" },
     { key: "company", label: "Company" },
