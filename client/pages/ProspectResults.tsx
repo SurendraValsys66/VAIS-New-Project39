@@ -673,56 +673,59 @@ export default function ProspectResults() {
     actions: true,
   });
 
-  const dummyProfile = useMemo(() => ({
-    email: "prospect@example.com",
-    phones: ["+1 555 012 3456", "+1 555 987 6543"],
-    seniority: "Executive",
-    department: "Customer Service",
-    contactLocation: "Gurgaon, Haryana, India",
-    company: {
-      name: "Acme Corp",
-      domain: "acme.com",
-      location: "Seattle, Washington, United States",
-      categories: ["Technology, Information & Media", "Software Development"],
-      revenue: "$1B to $10B",
-      headcount: "100,001+ Employee headcount",
-      description:
-        "Acme is guided by four principles: customer obsession rather than competitor focus, passion for invention, and operational excellence.",
-    },
-    specialties: [
-      "ecommerce",
-      "internet of things platform",
-      "operations",
-      "retail",
-    ],
-    technologies: [
-      "aptitude",
-      "oracle general ledger",
-      "tms",
-      "sap",
-      "workiva",
-      "blockchain",
-      "coinbase",
-      "ripple",
-      "dash",
-      "anaplan",
-      "blackline",
-      "ibm cognos tm1",
-      "oracle hyperion",
-      "sap fico",
-      "wdesk",
-      "auditboard",
-      "access compliance",
-      "contractor compliance",
-      "ibm openpages",
-      "metricstream",
-      "resolver",
-      "sag grc",
-      "enablon",
-      "adver",
-      "agc",
-    ],
-  }), []);
+  const dummyProfile = useMemo(
+    () => ({
+      email: "prospect@example.com",
+      phones: ["+1 555 012 3456", "+1 555 987 6543"],
+      seniority: "Executive",
+      department: "Customer Service",
+      contactLocation: "Gurgaon, Haryana, India",
+      company: {
+        name: "Acme Corp",
+        domain: "acme.com",
+        location: "Seattle, Washington, United States",
+        categories: ["Technology, Information & Media", "Software Development"],
+        revenue: "$1B to $10B",
+        headcount: "100,001+ Employee headcount",
+        description:
+          "Acme is guided by four principles: customer obsession rather than competitor focus, passion for invention, and operational excellence.",
+      },
+      specialties: [
+        "ecommerce",
+        "internet of things platform",
+        "operations",
+        "retail",
+      ],
+      technologies: [
+        "aptitude",
+        "oracle general ledger",
+        "tms",
+        "sap",
+        "workiva",
+        "blockchain",
+        "coinbase",
+        "ripple",
+        "dash",
+        "anaplan",
+        "blackline",
+        "ibm cognos tm1",
+        "oracle hyperion",
+        "sap fico",
+        "wdesk",
+        "auditboard",
+        "access compliance",
+        "contractor compliance",
+        "ibm openpages",
+        "metricstream",
+        "resolver",
+        "sag grc",
+        "enablon",
+        "adver",
+        "agc",
+      ],
+    }),
+    [],
+  );
 
   const columns = [
     { key: "prospect", label: "Prospect" },
@@ -1737,7 +1740,10 @@ export default function ProspectResults() {
                                       <Eye className="w-4 h-4" />
                                     </Button>
                                   </SheetTrigger>
-                                  <SheetContent side="right" className="sm:max-w-md md:max-w-lg lg:max-w-xl w-[90vw] max-h-[90vh] overflow-y-auto">
+                                  <SheetContent
+                                    side="right"
+                                    className="sm:max-w-md md:max-w-lg lg:max-w-xl w-[90vw] max-h-[90vh] overflow-y-auto"
+                                  >
                                     <SheetHeader>
                                       <SheetTitle className="flex items-center justify-between">
                                         <div className="flex items-center space-x-3">
@@ -1752,9 +1758,12 @@ export default function ProspectResults() {
                                             </AvatarFallback>
                                           </Avatar>
                                           <div>
-                                            <div className="text-xl font-bold">Prospect Name</div>
+                                            <div className="text-xl font-bold">
+                                              Prospect Name
+                                            </div>
                                             <div className="text-sm text-gray-600 font-normal">
-                                              Chief Technology Officer at Acme Corp
+                                              Chief Technology Officer at Acme
+                                              Corp
                                             </div>
                                           </div>
                                         </div>
@@ -1819,68 +1828,129 @@ export default function ProspectResults() {
                                     {selectedProspect && (
                                       <div className="space-y-6">
                                         <div className="flex flex-wrap items-center gap-2">
-                                          <Button variant="outline" size="sm">CRM</Button>
-                                          <Button variant="outline" size="sm">List</Button>
-                                          <Button variant="outline" size="sm">Sequence</Button>
-                                          <Button variant="ghost" size="icon" aria-label="More">
+                                          <Button variant="outline" size="sm">
+                                            CRM
+                                          </Button>
+                                          <Button variant="outline" size="sm">
+                                            List
+                                          </Button>
+                                          <Button variant="outline" size="sm">
+                                            Sequence
+                                          </Button>
+                                          <Button
+                                            variant="ghost"
+                                            size="icon"
+                                            aria-label="More"
+                                          >
                                             <MoreVertical className="w-4 h-4" />
                                           </Button>
                                         </div>
 
                                         <div className="space-y-3">
-                                          <a href="#" className="inline-flex items-center text-sm text-blue-600 hover:underline">
-                                            <Linkedin className="w-4 h-4 mr-2" /> LinkedIn profile
+                                          <a
+                                            href="#"
+                                            className="inline-flex items-center text-sm text-blue-600 hover:underline"
+                                          >
+                                            <Linkedin className="w-4 h-4 mr-2" />{" "}
+                                            LinkedIn profile
                                           </a>
                                           <div className="space-y-2">
-                                            {dummyProfile.phones.map((p, idx) => (
-                                              <div key={idx} className="flex items-center justify-between text-sm">
-                                                <div className="flex items-center">
-                                                  <Phone className="w-4 h-4 mr-2 text-gray-400" />
-                                                  <span>{p}</span>
+                                            {dummyProfile.phones.map(
+                                              (p, idx) => (
+                                                <div
+                                                  key={idx}
+                                                  className="flex items-center justify-between text-sm"
+                                                >
+                                                  <div className="flex items-center">
+                                                    <Phone className="w-4 h-4 mr-2 text-gray-400" />
+                                                    <span>{p}</span>
+                                                  </div>
+                                                  <div className="flex items-center gap-2">
+                                                    <Tooltip>
+                                                      <TooltipTrigger asChild>
+                                                        <Button
+                                                          variant="outline"
+                                                          size="icon"
+                                                          onClick={() =>
+                                                            handleCopy(
+                                                              p,
+                                                              "Phone",
+                                                            )
+                                                          }
+                                                          aria-label="Copy phone"
+                                                        >
+                                                          <Copy className="w-4 h-4" />
+                                                        </Button>
+                                                      </TooltipTrigger>
+                                                      <TooltipContent>
+                                                        Copy
+                                                      </TooltipContent>
+                                                    </Tooltip>
+                                                    <Tooltip>
+                                                      <TooltipTrigger asChild>
+                                                        <Button
+                                                          size="icon"
+                                                          asChild
+                                                          aria-label="Call"
+                                                        >
+                                                          <a href={`tel:${p}`}>
+                                                            <Phone className="w-4 h-4" />
+                                                          </a>
+                                                        </Button>
+                                                      </TooltipTrigger>
+                                                      <TooltipContent>
+                                                        Call
+                                                      </TooltipContent>
+                                                    </Tooltip>
+                                                  </div>
                                                 </div>
-                                                <div className="flex items-center gap-2">
-                                                  <Tooltip>
-                                                    <TooltipTrigger asChild>
-                                                      <Button variant="outline" size="icon" onClick={() => handleCopy(p, "Phone")} aria-label="Copy phone">
-                                                        <Copy className="w-4 h-4" />
-                                                      </Button>
-                                                    </TooltipTrigger>
-                                                    <TooltipContent>Copy</TooltipContent>
-                                                  </Tooltip>
-                                                  <Tooltip>
-                                                    <TooltipTrigger asChild>
-                                                      <Button size="icon" asChild aria-label="Call">
-                                                        <a href={`tel:${p}`}>
-                                                          <Phone className="w-4 h-4" />
-                                                        </a>
-                                                      </Button>
-                                                    </TooltipTrigger>
-                                                    <TooltipContent>Call</TooltipContent>
-                                                  </Tooltip>
-                                                </div>
-                                              </div>
-                                            ))}
+                                              ),
+                                            )}
                                             <div className="flex items-center justify-between text-sm">
                                               <div className="flex items-center">
                                                 <Mail className="w-4 h-4 mr-2 text-gray-400" />
-                                                <span>{maskEmail(dummyProfile.email)}</span>
+                                                <span>
+                                                  {maskEmail(
+                                                    dummyProfile.email,
+                                                  )}
+                                                </span>
                                               </div>
                                               <div className="flex items-center gap-2">
                                                 <Tooltip>
                                                   <TooltipTrigger asChild>
-                                                    <Button variant="outline" size="icon" onClick={() => handleCopy(dummyProfile.email, "Email")} aria-label="Copy email">
+                                                    <Button
+                                                      variant="outline"
+                                                      size="icon"
+                                                      onClick={() =>
+                                                        handleCopy(
+                                                          dummyProfile.email,
+                                                          "Email",
+                                                        )
+                                                      }
+                                                      aria-label="Copy email"
+                                                    >
                                                       <Copy className="w-4 h-4" />
                                                     </Button>
                                                   </TooltipTrigger>
-                                                  <TooltipContent>Copy</TooltipContent>
+                                                  <TooltipContent>
+                                                    Copy
+                                                  </TooltipContent>
                                                 </Tooltip>
                                                 <Tooltip>
                                                   <TooltipTrigger asChild>
-                                                    <Button size="icon" onClick={() => (window.location.href = `mailto:${dummyProfile.email}`)} aria-label="Send email">
+                                                    <Button
+                                                      size="icon"
+                                                      onClick={() =>
+                                                        (window.location.href = `mailto:${dummyProfile.email}`)
+                                                      }
+                                                      aria-label="Send email"
+                                                    >
                                                       <Mail className="w-4 h-4" />
                                                     </Button>
                                                   </TooltipTrigger>
-                                                  <TooltipContent>Email</TooltipContent>
+                                                  <TooltipContent>
+                                                    Email
+                                                  </TooltipContent>
                                                 </Tooltip>
                                               </div>
                                             </div>
@@ -1889,16 +1959,28 @@ export default function ProspectResults() {
 
                                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 border-t pt-4">
                                           <div>
-                                            <div className="text-xs uppercase text-gray-500">Seniority</div>
-                                            <div className="text-sm">{dummyProfile.seniority}</div>
+                                            <div className="text-xs uppercase text-gray-500">
+                                              Seniority
+                                            </div>
+                                            <div className="text-sm">
+                                              {dummyProfile.seniority}
+                                            </div>
                                           </div>
                                           <div>
-                                            <div className="text-xs uppercase text-gray-500">Department</div>
-                                            <div className="text-sm">{dummyProfile.department}</div>
+                                            <div className="text-xs uppercase text-gray-500">
+                                              Department
+                                            </div>
+                                            <div className="text-sm">
+                                              {dummyProfile.department}
+                                            </div>
                                           </div>
                                           <div>
-                                            <div className="text-xs uppercase text-gray-500">Contact location</div>
-                                            <div className="text-sm">{dummyProfile.contactLocation}</div>
+                                            <div className="text-xs uppercase text-gray-500">
+                                              Contact location
+                                            </div>
+                                            <div className="text-sm">
+                                              {dummyProfile.contactLocation}
+                                            </div>
                                           </div>
                                         </div>
                                         <div className="rounded-xl border bg-gradient-to-r from-valasys-orange/10 via-orange-200/10 to-blue-200/10 p-4">
@@ -1961,7 +2043,9 @@ export default function ProspectResults() {
                                                       href={`mailto:${dummyProfile.email}`}
                                                       className="text-blue-600 hover:underline"
                                                     >
-                                                      {maskEmail(dummyProfile.email)}
+                                                      {maskEmail(
+                                                        dummyProfile.email,
+                                                      )}
                                                     </a>
                                                   </div>
                                                   <div className="flex items-center gap-2">
@@ -2061,7 +2145,9 @@ export default function ProspectResults() {
                                                     <div className="flex items-center">
                                                       <Linkedin className="w-4 h-4 mr-2 text-blue-600" />
                                                       <a
-                                                        href={"https://linkedin.com"}
+                                                        href={
+                                                          "https://linkedin.com"
+                                                        }
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                         className="text-blue-600 hover:underline flex items-center"
@@ -2099,7 +2185,9 @@ export default function ProspectResults() {
                                                             aria-label="Open LinkedIn"
                                                           >
                                                             <a
-                                                              href={"https://linkedin.com"}
+                                                              href={
+                                                                "https://linkedin.com"
+                                                              }
                                                               target="_blank"
                                                               rel="noopener noreferrer"
                                                             >
@@ -2116,11 +2204,21 @@ export default function ProspectResults() {
                                                 )}
                                                 <div className="flex items-center text-gray-700">
                                                   <MapPin className="w-4 h-4 mr-2 text-gray-400" />
-                                                  <span>{dummyProfile.company.location}</span>
+                                                  <span>
+                                                    {
+                                                      dummyProfile.company
+                                                        .location
+                                                    }
+                                                  </span>
                                                 </div>
                                                 <div className="flex items-center text-gray-700">
                                                   <Globe className="w-4 h-4 mr-2 text-gray-400" />
-                                                  <span>{dummyProfile.company.domain}</span>
+                                                  <span>
+                                                    {
+                                                      dummyProfile.company
+                                                        .domain
+                                                    }
+                                                  </span>
                                                 </div>
                                               </div>
                                             </CardContent>
@@ -2236,84 +2334,132 @@ export default function ProspectResults() {
                                                 )}
                                               </div>
                                             </CardContent>
-                                            </Card>
+                                          </Card>
 
-                                            {/* Company Information */}
-                                            <Card className="md:col-span-2">
-                                              <CardHeader className="pb-3">
-                                                <div className="flex items-center justify-between">
-                                                  <CardTitle className="text-sm flex items-center gap-2">
-                                                    <Building className="w-4 h-4" /> Company
-                                                  </CardTitle>
-                                                  <div className="flex gap-2">
-                                                    <Button variant="outline" size="sm">View employees</Button>
-                                                    <Button variant="outline" size="sm">Add to list</Button>
-                                                  </div>
+                                          {/* Company Information */}
+                                          <Card className="md:col-span-2">
+                                            <CardHeader className="pb-3">
+                                              <div className="flex items-center justify-between">
+                                                <CardTitle className="text-sm flex items-center gap-2">
+                                                  <Building className="w-4 h-4" />{" "}
+                                                  Company
+                                                </CardTitle>
+                                                <div className="flex gap-2">
+                                                  <Button
+                                                    variant="outline"
+                                                    size="sm"
+                                                  >
+                                                    View employees
+                                                  </Button>
+                                                  <Button
+                                                    variant="outline"
+                                                    size="sm"
+                                                  >
+                                                    Add to list
+                                                  </Button>
                                                 </div>
-                                              </CardHeader>
-                                              <CardContent className="space-y-3">
-                                                <div className="text-sm text-gray-700">
-                                                  {dummyProfile.company.name} is guided by customer obsession and innovation.
+                                              </div>
+                                            </CardHeader>
+                                            <CardContent className="space-y-3">
+                                              <div className="text-sm text-gray-700">
+                                                {dummyProfile.company.name} is
+                                                guided by customer obsession and
+                                                innovation.
+                                              </div>
+                                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                                <div className="flex items-center text-sm text-gray-700">
+                                                  <MapPin className="w-4 h-4 mr-2 text-gray-400" />
+                                                  <span>
+                                                    {
+                                                      dummyProfile.company
+                                                        .location
+                                                    }
+                                                  </span>
                                                 </div>
-                                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                                  <div className="flex items-center text-sm text-gray-700">
-                                                    <MapPin className="w-4 h-4 mr-2 text-gray-400" />
-                                                    <span>{dummyProfile.company.location}</span>
-                                                  </div>
-                                                  <div className="flex items-center text-sm text-gray-700">
-                                                    <Globe className="w-4 h-4 mr-2 text-gray-400" />
-                                                    <a
-                                                      href={`https://${dummyProfile.company.domain}`}
-                                                      target="_blank"
-                                                      rel="noopener noreferrer"
-                                                      className="text-blue-600 hover:underline"
+                                                <div className="flex items-center text-sm text-gray-700">
+                                                  <Globe className="w-4 h-4 mr-2 text-gray-400" />
+                                                  <a
+                                                    href={`https://${dummyProfile.company.domain}`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="text-blue-600 hover:underline"
+                                                  >
+                                                    View company page
+                                                  </a>
+                                                </div>
+                                                <div className="flex items-center text-sm text-gray-700">
+                                                  <BarChart3 className="w-4 h-4 mr-2 text-gray-400" />
+                                                  <span>
+                                                    {
+                                                      dummyProfile.company
+                                                        .revenue
+                                                    }{" "}
+                                                    in revenue
+                                                  </span>
+                                                </div>
+                                                <div className="flex items-center text-sm text-gray-700">
+                                                  <Users className="w-4 h-4 mr-2 text-gray-400" />
+                                                  <span>
+                                                    {
+                                                      dummyProfile.company
+                                                        .headcount
+                                                    }
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </CardContent>
+                                          </Card>
+
+                                          {/* Specialties & Technologies */}
+                                          <Card className="md:col-span-2">
+                                            <CardHeader className="pb-3">
+                                              <CardTitle className="text-sm">
+                                                Specialties
+                                              </CardTitle>
+                                            </CardHeader>
+                                            <CardContent>
+                                              <div className="flex flex-wrap gap-2">
+                                                {dummyProfile.specialties.map(
+                                                  (tag) => (
+                                                    <span
+                                                      key={tag}
+                                                      className="px-2 py-1 rounded-md border text-xs bg-gray-50"
                                                     >
-                                                      View company page
-                                                    </a>
-                                                  </div>
-                                                  <div className="flex items-center text-sm text-gray-700">
-                                                    <BarChart3 className="w-4 h-4 mr-2 text-gray-400" />
-                                                    <span>{dummyProfile.company.revenue} in revenue</span>
-                                                  </div>
-                                                  <div className="flex items-center text-sm text-gray-700">
-                                                    <Users className="w-4 h-4 mr-2 text-gray-400" />
-                                                    <span>{dummyProfile.company.headcount}</span>
-                                                  </div>
-                                                </div>
-                                              </CardContent>
-                                            </Card>
-
-                                            {/* Specialties & Technologies */}
-                                            <Card className="md:col-span-2">
-                                              <CardHeader className="pb-3">
-                                                <CardTitle className="text-sm">Specialties</CardTitle>
-                                              </CardHeader>
-                                              <CardContent>
-                                                <div className="flex flex-wrap gap-2">
-                                                  {dummyProfile.specialties.map((tag) => (
-                                                    <span key={tag} className="px-2 py-1 rounded-md border text-xs bg-gray-50">
                                                       {tag}
                                                     </span>
-                                                  ))}
-                                                </div>
-                                              </CardContent>
-                                            </Card>
+                                                  ),
+                                                )}
+                                              </div>
+                                            </CardContent>
+                                          </Card>
 
-                                            <Card className="md:col-span-2">
-                                              <CardHeader className="pb-3 flex flex-row items-center justify-between">
-                                                <CardTitle className="text-sm">Technologies</CardTitle>
-                                                <a href="#" className="text-xs text-blue-600 hover:underline">more technologies</a>
-                                              </CardHeader>
-                                              <CardContent>
-                                                <div className="flex flex-wrap gap-2">
-                                                  {dummyProfile.technologies.map((tech) => (
-                                                    <span key={tech} className="px-2 py-1 rounded-md border text-xs bg-gray-50">
+                                          <Card className="md:col-span-2">
+                                            <CardHeader className="pb-3 flex flex-row items-center justify-between">
+                                              <CardTitle className="text-sm">
+                                                Technologies
+                                              </CardTitle>
+                                              <a
+                                                href="#"
+                                                className="text-xs text-blue-600 hover:underline"
+                                              >
+                                                more technologies
+                                              </a>
+                                            </CardHeader>
+                                            <CardContent>
+                                              <div className="flex flex-wrap gap-2">
+                                                {dummyProfile.technologies.map(
+                                                  (tech) => (
+                                                    <span
+                                                      key={tech}
+                                                      className="px-2 py-1 rounded-md border text-xs bg-gray-50"
+                                                    >
                                                       {tech}
                                                     </span>
-                                                  ))}
-                                                </div>
-                                              </CardContent>
-                                            </Card>
+                                                  ),
+                                                )}
+                                              </div>
+                                            </CardContent>
+                                          </Card>
                                         </div>
                                       </div>
                                     )}
