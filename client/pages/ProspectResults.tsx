@@ -655,7 +655,7 @@ export default function ProspectResults() {
     if (!url) return "LinkedIn (masked)";
     try {
       const u = new URL(url);
-      return `${u.hostname}/•••��••`;
+      return `${u.hostname}/•••��•��`;
     } catch {
       return "LinkedIn (masked)";
     }
@@ -2116,10 +2116,7 @@ export default function ProspectResults() {
                                                 )}
                                                 <div className="flex items-center text-gray-700">
                                                   <MapPin className="w-4 h-4 mr-2 text-gray-400" />
-                                                  <span>
-                                                    {selectedProspect.city},{" "}
-                                                    {selectedProspect.country}
-                                                  </span>
+                                                  <span>{dummyProfile.company.location}</span>
                                                 </div>
                                                 <div className="flex items-center text-gray-700">
                                                   <Globe className="w-4 h-4 mr-2 text-gray-400" />
