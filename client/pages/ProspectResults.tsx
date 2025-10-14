@@ -57,7 +57,7 @@ import {
   Calendar,
   Star,
   ExternalLink,
-  Share2,
+  Copy,
   Zap,
   TrendingUp,
   Globe,
@@ -609,6 +609,18 @@ export default function ProspectResults() {
       });
       return next;
     });
+  };
+
+  const handleCopy = (value: string, label?: string) => {
+    try {
+      navigator.clipboard.writeText(value);
+      toast({
+        title: "Copied",
+        description: label
+          ? `${label} copied to clipboard`
+          : "Copied to clipboard",
+      });
+    } catch {}
   };
 
   // Helpers to mask contact info
@@ -1760,46 +1772,136 @@ export default function ProspectResults() {
                                                 Contact Information
                                               </CardTitle>
                                             </CardHeader>
-                                            <CardContent className="space-y-3">
-                                              <div className="flex items-center">
-                                                <Mail className="w-4 h-4 mr-2 text-gray-400" />
-                                                <a
-                                                  href={`mailto:${selectedProspect.email}`}
-                                                  className="text-blue-600 hover:underline"
-                                                >
-                                                  {selectedProspect.email}
-                                                </a>
-                                              </div>
-                                              {selectedProspect.phone && (
-                                                <div className="flex items-center">
-                                                  <Phone className="w-4 h-4 mr-2 text-gray-400" />
+                                            <CardContent className="space-y-4">
+                                              <div className="space-y-3">
+                                                <div className="flex items-center justify-between">
+                                                  <div className="flex items-center">
+                                                    <Mail className="w-4 h-4 mr-2 text-gray-400" />
+                                                    <a
+                                                      href={`mailto:${selectedProspect.email}`}
+                                                      className="text-blue-600 hover:underline"
+                                                    >
+                                                      {selectedProspect.email}
+                                                    </a>
+                                                  </div>
+                                                  <div className="flex items-center gap-2">
+                                                    <Button
+                                                      variant="outline"
+                                                      size="sm"
+                                                      onClick={() =>
+                                                        handleCopy(
+                                                          selectedProspect.email,
+                                                          "Email",
+                                                        )
+                                                      }
+                                                    >
+                                                      <Copy className="w-4 h-4" />
+                                                      Copy
+                                                    </Button>
+                                                    <Button
+                                                      size="sm"
+                                                      onClick={() =>
+                                                        (window.location.href = `mailto:${selectedProspect.email}`)
+                                                      }
+                                                    >
+                                                      Email
+                                                    </Button>
+                                                  </div>
+                                                </div>
+                                                {selectedProspect.phone && (
+                                                  <div className="flex items-center justify-between">
+                                                    <div className="flex items-center">
+                                                      <Phone className="w-4 h-4 mr-2 text-gray-400" />
+                                                      <a
+                                                        href={`tel:${selectedProspect.phone}`}
+                                                        className="hover:underline"
+                                                      >
+                                                        {selectedProspect.phone}
+                                                      </a>
+                                                    </div>
+                                                    <div className="flex items-center gap-2">
+                                                      <Button
+                                                        variant="outline"
+                                                        size="sm"
+                                                        onClick={() =>
+                                                          handleCopy(
+                                                            selectedProspect.phone,
+                                                            "Phone",
+                                                          )
+                                                        }
+                                                      >
+                                                        <Copy className="w-4 h-4" />
+                                                        Copy
+                                                      </Button>
+                                                      <Button size="sm" asChild>
+                                                        <a
+                                                          href={`tel:${selectedProspect.phone}`}
+                                                        >
+                                                          Call
+                                                        </a>
+                                                      </Button>
+                                                    </div>
+                                                  </div>
+                                                )}
+                                                {selectedProspect.linkedinUrl && (
+                                                  <div className="flex items-center justify-between">
+                                                    <div className="flex items-center">
+                                                      <Linkedin className="w-4 h-4 mr-2 text-blue-600" />
+                                                      <a
+                                                        href={
+                                                          selectedProspect.linkedinUrl
+                                                        }
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="text-blue-600 hover:underline flex items-center"
+                                                      >
+                                                        LinkedIn Profile
+                                                        <ExternalLink className="w-3 h-3 ml-1" />
+                                                      </a>
+                                                    </div>
+                                                    <div className="flex items-center gap-2">
+                                                      <Button
+                                                        variant="outline"
+                                                        size="sm"
+                                                        onClick={() =>
+                                                          handleCopy(
+                                                            selectedProspect.linkedinUrl!,
+                                                            "LinkedIn URL",
+                                                          )
+                                                        }
+                                                      >
+                                                        <Copy className="w-4 h-4" />
+                                                        Copy
+                                                      </Button>
+                                                      <Button size="sm" asChild>
+                                                        <a
+                                                          href={
+                                                            selectedProspect.linkedinUrl
+                                                          }
+                                                          target="_blank"
+                                                          rel="noopener noreferrer"
+                                                        >
+                                                          Open
+                                                        </a>
+                                                      </Button>
+                                                    </div>
+                                                  </div>
+                                                )}
+                                                <div className="flex items-center text-gray-700">
+                                                  <MapPin className="w-4 h-4 mr-2 text-gray-400" />
                                                   <span>
-                                                    {selectedProspect.phone}
+                                                    {selectedProspect.city},{" "}
+                                                    {selectedProspect.country}
                                                   </span>
                                                 </div>
-                                              )}
-                                              {selectedProspect.linkedinUrl && (
-                                                <div className="flex items-center">
-                                                  <Linkedin className="w-4 h-4 mr-2 text-blue-600" />
-                                                  <a
-                                                    href={
-                                                      selectedProspect.linkedinUrl
+                                                <div className="flex items-center text-gray-700">
+                                                  <Globe className="w-4 h-4 mr-2 text-gray-400" />
+                                                  <span>
+                                                    {
+                                                      selectedProspect.companyDomain
                                                     }
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="text-blue-600 hover:underline flex items-center"
-                                                  >
-                                                    LinkedIn Profile
-                                                    <ExternalLink className="w-3 h-3 ml-1" />
-                                                  </a>
+                                                  </span>
                                                 </div>
-                                              )}
-                                              <div className="flex items-center">
-                                                <MapPin className="w-4 h-4 mr-2 text-gray-400" />
-                                                <span>
-                                                  {selectedProspect.city},{" "}
-                                                  {selectedProspect.country}
-                                                </span>
                                               </div>
                                             </CardContent>
                                           </Card>
@@ -1810,27 +1912,27 @@ export default function ProspectResults() {
                                                 Professional Details
                                               </CardTitle>
                                             </CardHeader>
-                                            <CardContent className="space-y-3">
-                                              <div>
-                                                <div className="text-sm text-gray-600">
-                                                  Current Role
-                                                </div>
-                                                <div className="font-medium">
-                                                  {selectedProspect.jobTitle}
-                                                </div>
-                                              </div>
-                                              <div>
-                                                <div className="text-sm text-gray-600">
-                                                  Department
-                                                </div>
-                                                <div>
-                                                  {selectedProspect.department ||
-                                                    "N/A"}
-                                                </div>
-                                              </div>
+                                            <CardContent className="space-y-4">
                                               <div className="grid grid-cols-2 gap-4">
                                                 <div>
-                                                  <div className="text-sm text-gray-600">
+                                                  <div className="text-xs uppercase text-gray-500">
+                                                    Role
+                                                  </div>
+                                                  <div className="font-medium">
+                                                    {selectedProspect.jobTitle}
+                                                  </div>
+                                                </div>
+                                                <div>
+                                                  <div className="text-xs uppercase text-gray-500">
+                                                    Department
+                                                  </div>
+                                                  <div>
+                                                    {selectedProspect.department ||
+                                                      "N/A"}
+                                                  </div>
+                                                </div>
+                                                <div>
+                                                  <div className="text-xs uppercase text-gray-500">
                                                     Level
                                                   </div>
                                                   <Badge variant="outline">
@@ -1838,7 +1940,7 @@ export default function ProspectResults() {
                                                   </Badge>
                                                 </div>
                                                 <div>
-                                                  <div className="text-sm text-gray-600">
+                                                  <div className="text-xs uppercase text-gray-500">
                                                     Function
                                                   </div>
                                                   <Badge variant="outline">
@@ -1847,120 +1949,43 @@ export default function ProspectResults() {
                                                     }
                                                   </Badge>
                                                 </div>
-                                              </div>
-                                              {selectedProspect.yearsAtCompany && (
                                                 <div>
-                                                  <div className="text-sm text-gray-600">
-                                                    Tenure
+                                                  <div className="text-xs uppercase text-gray-500">
+                                                    Company
                                                   </div>
-                                                  <div>
-                                                    {
-                                                      selectedProspect.yearsAtCompany
-                                                    }{" "}
-                                                    years at company
+                                                  <div className="flex items-center">
+                                                    <Building className="w-4 h-4 mr-2 text-gray-400" />
+                                                    <span>
+                                                      {
+                                                        selectedProspect.companyName
+                                                      }
+                                                    </span>
                                                   </div>
                                                 </div>
-                                              )}
+                                                {selectedProspect.yearsAtCompany && (
+                                                  <div>
+                                                    <div className="text-xs uppercase text-gray-500">
+                                                      Tenure
+                                                    </div>
+                                                    <div>
+                                                      {
+                                                        selectedProspect.yearsAtCompany
+                                                      }{" "}
+                                                      years at company
+                                                    </div>
+                                                    <div className="mt-2 h-2 bg-gray-200 rounded-full overflow-hidden">
+                                                      <div
+                                                        className="h-2 bg-valasys-orange"
+                                                        style={{
+                                                          width: `${Math.min(100, selectedProspect.yearsAtCompany * 10)}%`,
+                                                        }}
+                                                      />
+                                                    </div>
+                                                  </div>
+                                                )}
+                                              </div>
                                             </CardContent>
                                           </Card>
-                                        </div>
-
-                                        {/* Engagement & Intent Scores */}
-                                        <Card>
-                                          <CardHeader className="pb-3">
-                                            <CardTitle className="text-sm">
-                                              Engagement & Intent Analysis
-                                            </CardTitle>
-                                          </CardHeader>
-                                          <CardContent>
-                                            <div className="grid grid-cols-3 gap-6">
-                                              <div className="text-center">
-                                                <div className="text-2xl font-bold text-green-600">
-                                                  {
-                                                    selectedProspect.engagementScore
-                                                  }
-                                                </div>
-                                                <div className="text-sm text-gray-600">
-                                                  Engagement Score
-                                                </div>
-                                              </div>
-                                              <div className="text-center">
-                                                <div className="text-2xl font-bold text-blue-600">
-                                                  {selectedProspect.intentScore}
-                                                </div>
-                                                <div className="text-sm text-gray-600">
-                                                  Intent Score
-                                                </div>
-                                              </div>
-                                              <div className="text-center">
-                                                <div className="text-2xl font-bold text-orange-600">
-                                                  {
-                                                    selectedProspect.confidenceScore
-                                                  }
-                                                  %
-                                                </div>
-                                                <div className="text-sm text-gray-600">
-                                                  Confidence
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </CardContent>
-                                        </Card>
-
-                                        {/* Recent Activities */}
-                                        <Card>
-                                          <CardHeader className="pb-3">
-                                            <CardTitle className="text-sm">
-                                              Recent Activities
-                                            </CardTitle>
-                                          </CardHeader>
-                                          <CardContent>
-                                            <div className="space-y-2">
-                                              {selectedProspect.recentActivities.map(
-                                                (activity, i) => (
-                                                  <div
-                                                    key={i}
-                                                    className="flex items-center text-sm"
-                                                  >
-                                                    <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
-                                                    {activity}
-                                                  </div>
-                                                ),
-                                              )}
-                                            </div>
-                                          </CardContent>
-                                        </Card>
-
-                                        {/* Matched Topics */}
-                                        <Card>
-                                          <CardHeader className="pb-3">
-                                            <CardTitle className="text-sm">
-                                              Matched Intent Topics
-                                            </CardTitle>
-                                          </CardHeader>
-                                          <CardContent>
-                                            <div className="flex flex-wrap gap-2">
-                                              {selectedProspect.matchedTopics.map(
-                                                (topic, i) => (
-                                                  <Badge
-                                                    key={i}
-                                                    variant="secondary"
-                                                    className="text-xs"
-                                                  >
-                                                    {topic}
-                                                  </Badge>
-                                                ),
-                                              )}
-                                            </div>
-                                          </CardContent>
-                                        </Card>
-
-                                        {/* Action Buttons */}
-                                        <div className="flex justify-end space-x-2 pt-4 border-t">
-                                          <Button variant="outline" size="sm">
-                                            <Share2 className="w-4 h-4 mr-2" />
-                                            Share
-                                          </Button>
                                         </div>
                                       </div>
                                     )}
