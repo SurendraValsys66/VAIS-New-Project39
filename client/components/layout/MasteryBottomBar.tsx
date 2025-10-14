@@ -437,6 +437,7 @@ export default function MasteryBottomBar() {
               tabIndex={0}
               aria-expanded={expanded}
               onClick={handleOpenGuide}
+              onMouseEnter={handleOpenGuide}
               onKeyDown={handleGuideKeyDown}
             >
               {/* Top row: progress, chevron, close */}
