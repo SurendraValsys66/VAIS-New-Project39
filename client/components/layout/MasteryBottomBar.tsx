@@ -262,7 +262,8 @@ export default function MasteryBottomBar() {
 
   useEffect(() => {
     try {
-      const openOnce = localStorage.getItem("valasys-open-mastery-once") === "1";
+      const openOnce =
+        localStorage.getItem("valasys-open-mastery-once") === "1";
       if (openOnce) {
         setHidden(false);
         setExpanded(true);
