@@ -69,6 +69,9 @@ import {
   Lock,
   Brain,
   ArrowUp,
+  Briefcase,
+  BadgeCheck,
+  Sitemap,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -911,16 +914,21 @@ export default function ProspectResults() {
           {/* Header */}
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <Link to="/find-prospect">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="text-valasys-orange hover:bg-valasys-orange hover:text-white"
-                >
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  Back to Search
-                </Button>
-              </Link>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link to="/find-prospect">
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="text-valasys-orange hover:bg-valasys-orange hover:text-white"
+                      aria-label="Back"
+                    >
+                      <ArrowLeft className="w-4 h-4" />
+                    </Button>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent>Back</TooltipContent>
+              </Tooltip>
               <div>
                 <h1 className="text-2xl font-bold text-gray-900 flex items-center">
                   <Users className="w-6 h-6 mr-3 text-valasys-orange" />
@@ -944,9 +952,8 @@ export default function ProspectResults() {
                 <div className="flex items-center space-x-4">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="outline" size="sm">
-                        <Settings2 className="w-4 h-4 mr-2" />
-                        Columns
+                      <Button variant="outline" size="icon" aria-label="Columns">
+                        <Settings2 className="w-4 h-4" />
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="start" className="w-56">
@@ -991,11 +998,11 @@ export default function ProspectResults() {
                   </DropdownMenu>
                   <Button
                     variant="outline"
-                    size="sm"
+                    size="icon"
                     onClick={handleToggleFullscreen}
+                    aria-label={isFullScreen ? "Exit Full Screen" : "Full Screen"}
                   >
-                    <Maximize className="w-4 h-4 mr-2" />
-                    {isFullScreen ? "Exit Full Screen" : "Full Screen"}
+                    <Maximize className="w-4 h-4" />
                   </Button>
                 </div>
                 <div className="text-sm text-gray-500">
@@ -1103,22 +1110,28 @@ export default function ProspectResults() {
                   </SelectContent>
                 </Select>
 
-                <Button
-                  onClick={() =>
-                    setFilters({
-                      jobFunction: "",
-                      jobLevel: "",
-                      company: "",
-                      country: "",
-                      revenue: "",
-                      engagementRange: { min: 0, max: 100 },
-                    })
-                  }
-                  variant="outline"
-                >
-                  <RefreshCw className="w-4 h-4 mr-2" />
-                  Reset
-                </Button>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      onClick={() =>
+                        setFilters({
+                          jobFunction: "",
+                          jobLevel: "",
+                          company: "",
+                          country: "",
+                          revenue: "",
+                          engagementRange: { min: 0, max: 100 },
+                        })
+                      }
+                      variant="outline"
+                      size="icon"
+                      aria-label="Reset filters"
+                    >
+                      <RefreshCw className="w-4 h-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>Reset</TooltipContent>
+                </Tooltip>
               </div>
             </CardContent>
           </Card>
@@ -1134,16 +1147,22 @@ export default function ProspectResults() {
                   </Badge>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Button
-                    className="bg-valasys-orange hover:bg-valasys-orange/90"
-                    disabled={selectedItems.length === 0 || isPremiumPage}
-                    onClick={() =>
-                      markStepCompleted("prospectDetailsDownloaded")
-                    }
-                  >
-                    <Download className="w-4 h-4 mr-2" />
-                    Export ({selectedItems.length})
-                  </Button>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        className="bg-valasys-orange hover:bg-valasys-orange/90"
+                        disabled={selectedItems.length === 0 || isPremiumPage}
+                        onClick={() =>
+                          markStepCompleted("prospectDetailsDownloaded")
+                        }
+                        size="icon"
+                        aria-label={`Export ${selectedItems.length}`}
+                      >
+                        <Download className="w-4 h-4" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>Export</TooltipContent>
+                  </Tooltip>
                 </div>
               </div>
             </CardHeader>
@@ -1913,73 +1932,68 @@ export default function ProspectResults() {
                                               </CardTitle>
                                             </CardHeader>
                                             <CardContent className="space-y-4">
-                                              <div className="grid grid-cols-2 gap-4">
-                                                <div>
-                                                  <div className="text-xs uppercase text-gray-500">
-                                                    Role
-                                                  </div>
-                                                  <div className="font-medium">
-                                                    {selectedProspect.jobTitle}
-                                                  </div>
-                                                </div>
-                                                <div>
-                                                  <div className="text-xs uppercase text-gray-500">
-                                                    Department
+                                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                                <div className="flex items-center p-3 border rounded-lg">
+                                                  <div className="w-8 h-8 mr-3 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center">
+                                                    <Briefcase className="w-4 h-4" />
                                                   </div>
                                                   <div>
-                                                    {selectedProspect.department ||
-                                                      "N/A"}
+                                                    <div className="text-xs uppercase text-gray-500">Role</div>
+                                                    <div className="font-medium">{selectedProspect.jobTitle}</div>
                                                   </div>
                                                 </div>
-                                                <div>
-                                                  <div className="text-xs uppercase text-gray-500">
-                                                    Level
+                                                <div className="flex items-center p-3 border rounded-lg">
+                                                  <div className="w-8 h-8 mr-3 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
+                                                    <Sitemap className="w-4 h-4" />
                                                   </div>
-                                                  <Badge variant="outline">
-                                                    {selectedProspect.jobLevel}
-                                                  </Badge>
+                                                  <div>
+                                                    <div className="text-xs uppercase text-gray-500">Department</div>
+                                                    <div>{selectedProspect.department || "N/A"}</div>
+                                                  </div>
                                                 </div>
-                                                <div>
-                                                  <div className="text-xs uppercase text-gray-500">
-                                                    Function
+                                                <div className="flex items-center p-3 border rounded-lg">
+                                                  <div className="w-8 h-8 mr-3 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
+                                                    <BadgeCheck className="w-4 h-4" />
                                                   </div>
-                                                  <Badge variant="outline">
-                                                    {
-                                                      selectedProspect.jobFunction
-                                                    }
-                                                  </Badge>
+                                                  <div>
+                                                    <div className="text-xs uppercase text-gray-500">Level</div>
+                                                    <Badge variant="outline">{selectedProspect.jobLevel}</Badge>
+                                                  </div>
                                                 </div>
-                                                <div>
-                                                  <div className="text-xs uppercase text-gray-500">
-                                                    Company
+                                                <div className="flex items-center p-3 border rounded-lg">
+                                                  <div className="w-8 h-8 mr-3 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center">
+                                                    <Settings2 className="w-4 h-4" />
                                                   </div>
-                                                  <div className="flex items-center">
-                                                    <Building className="w-4 h-4 mr-2 text-gray-400" />
-                                                    <span>
-                                                      {
-                                                        selectedProspect.companyName
-                                                      }
-                                                    </span>
+                                                  <div>
+                                                    <div className="text-xs uppercase text-gray-500">Function</div>
+                                                    <Badge variant="outline">{selectedProspect.jobFunction}</Badge>
+                                                  </div>
+                                                </div>
+                                                <div className="flex items-center p-3 border rounded-lg">
+                                                  <div className="w-8 h-8 mr-3 rounded-full bg-gray-100 text-gray-600 flex items-center justify-center">
+                                                    <Building className="w-4 h-4" />
+                                                  </div>
+                                                  <div>
+                                                    <div className="text-xs uppercase text-gray-500">Company</div>
+                                                    <div>{selectedProspect.companyName}</div>
                                                   </div>
                                                 </div>
                                                 {selectedProspect.yearsAtCompany && (
-                                                  <div>
-                                                    <div className="text-xs uppercase text-gray-500">
-                                                      Tenure
+                                                  <div className="flex items-center p-3 border rounded-lg">
+                                                    <div className="w-8 h-8 mr-3 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center">
+                                                      <Calendar className="w-4 h-4" />
                                                     </div>
-                                                    <div>
-                                                      {
-                                                        selectedProspect.yearsAtCompany
-                                                      }{" "}
-                                                      years at company
-                                                    </div>
-                                                    <div className="mt-2 h-2 bg-gray-200 rounded-full overflow-hidden">
-                                                      <div
-                                                        className="h-2 bg-valasys-orange"
-                                                        style={{
-                                                          width: `${Math.min(100, selectedProspect.yearsAtCompany * 10)}%`,
-                                                        }}
-                                                      />
+                                                    <div className="w-full">
+                                                      <div className="text-xs uppercase text-gray-500">Tenure</div>
+                                                      <div>
+                                                        {selectedProspect.yearsAtCompany} years at company
+                                                      </div>
+                                                      <div className="mt-2 h-2 bg-gray-200 rounded-full overflow-hidden">
+                                                        <div
+                                                          className="h-2 bg-valasys-orange"
+                                                          style={{ width: `${Math.min(100, selectedProspect.yearsAtCompany * 10)}%` }}
+                                                        />
+                                                      </div>
                                                     </div>
                                                   </div>
                                                 )}
