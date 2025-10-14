@@ -12,6 +12,7 @@ import {
   Coins,
   ChevronDown,
   ChevronUp,
+  Star,
 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
@@ -23,6 +24,7 @@ import {
   MASTERY_EVENT,
 } from "@/lib/masteryStorage";
 import { AnimatePresence, motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 import {
   Tooltip,
   TooltipTrigger,
@@ -273,6 +275,7 @@ export default function MasteryBottomBar() {
   }, [state]);
 
   const percent = calculateMasteryPercentage(state);
+  const level = useMemo(() => Math.max(1, Math.min(5, Math.ceil(percent / 20))), [percent]);
 
   const handleConfirmRemove = useCallback(() => {
     try {
@@ -588,18 +591,52 @@ export default function MasteryBottomBar() {
 
       {/* Final completion dialog */}
       <Dialog open={showFinalDialog} onOpenChange={setShowFinalDialog}>
-        <DialogContent className="max-w-md text-center">
-          <DialogHeader>
-            <DialogTitle>
-              Congratulations! You completed every VAIS mastery step.
-            </DialogTitle>
-          </DialogHeader>
-          <div className="mt-2 text-sm text-gray-600">
-            Keep exploring VAIS to put your new skills to work.
+        <DialogContent className="max-w-sm p-0 overflow-hidden rounded-2xl border-0">
+          <div className="bg-gradient-to-b from-amber-200 via-amber-100 to-white p-6 text-center">
+            <div className="mx-auto mb-4 flex items-end justify-center gap-2">
+              <Star className="h-10 w-10 text-amber-400 drop-shadow" />
+              <Star className="h-14 w-14 text-amber-400 drop-shadow" />
+              <Star className="h-10 w-10 text-amber-400 drop-shadow" />
+            </div>
+            <div className="mx-auto mb-4 flex w-full max-w-xs items-center gap-1">
+              {[1, 2, 3, 4, 5].map((n) => (
+                <div
+                  key={n}
+                  className={cn(
+                    "relative flex-1 h-4",
+                    n === 1 ? "rounded-l-full" : n === 5 ? "rounded-r-full" : "",
+                    n <= level ? "bg-amber-400" : "bg-gray-200",
+                  )}
+                >
+                  <span className={cn(
+                    "absolute inset-0 flex items-center justify-center text-[10px] font-semibold",
+                    n <= level ? "text-white" : "text-gray-700",
+                  )}>
+                    {n}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <h3 className="text-lg font-semibold text-gray-900">Congratulations</h3>
+            <p className="mt-1 text-sm text-gray-700">
+              Youve reached Level {level}! All steps completed.
+            </p>
           </div>
-          <DialogFooter className="sm:justify-center">
-            <Button onClick={() => setShowFinalDialog(false)}>OK</Button>
-          </DialogFooter>
+          <div className="px-6 pb-6 pt-4">
+            <div className="mb-3 text-left text-sm">
+              <div className="mb-1 font-semibold text-gray-900">Rewards Unlocked:</div>
+              <ul className="list-none space-y-1 text-gray-700">
+                <li className="flex items-start gap-2"><span className="mt-0.5 text-amber-500">★</span><span>Mastery badge added to your profile</span></li>
+                <li className="flex items-start gap-2"><span className="mt-0.5 text-amber-500">★</span><span>Priority access to new features</span></li>
+              </ul>
+            </div>
+            <Button
+              className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700"
+              onClick={() => setShowFinalDialog(false)}
+            >
+              Claim Rewards
+            </Button>
+          </div>
         </DialogContent>
       </Dialog>
     </>
