@@ -12,6 +12,7 @@ import {
   Coins,
   ChevronDown,
   ChevronUp,
+  Gift,
 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
@@ -454,6 +455,10 @@ export default function MasteryBottomBar() {
                         className="pointer-events-none select-none absolute top-1/2 -translate-y-1/2 -translate-x-1/2 h-6 w-6 sm:h-7 sm:w-7 drop-shadow"
                         style={{ left: `${manPos}%` }}
                       />
+                    </div>
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20">
+                      <Gift className="h-4 w-4" aria-hidden="true" />
+                      <span className="sr-only">View rewards</span>
                     </div>
                   </div>
                 </div>
