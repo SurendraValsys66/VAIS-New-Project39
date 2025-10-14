@@ -12,7 +12,6 @@ import {
   Coins,
   ChevronDown,
   ChevronUp,
-  Star,
 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
@@ -596,10 +595,12 @@ export default function MasteryBottomBar() {
       <Dialog open={showFinalDialog} onOpenChange={setShowFinalDialog}>
         <DialogContent className="max-w-sm p-0 overflow-hidden rounded-2xl border-0">
           <div className="bg-gradient-to-b from-amber-200 via-amber-100 to-white p-6 text-center">
-            <div className="mx-auto mb-4 flex items-end justify-center gap-2">
-              <Star className="h-10 w-10 text-amber-400 drop-shadow" />
-              <Star className="h-14 w-14 text-amber-400 drop-shadow" />
-              <Star className="h-10 w-10 text-amber-400 drop-shadow" />
+            <div className="mx-auto mb-4 flex items-center justify-center">
+              <img
+                src="https://cdn.builder.io/o/assets%2F6bf9f940afaa47adb0dc2265d0f0cc7d%2Fb6757c28effa47b997680f4cce7b558d?alt=media&token=314bff09-2dc0-48a8-9030-ccb545eaefcb&apiKey=6bf9f940afaa47adb0dc2265d0f0cc7d"
+                alt="Rewards celebration"
+                className="h-24 w-auto rounded-md shadow"
+              />
             </div>
             <div className="mx-auto mb-4 flex w-full max-w-xs items-center gap-1">
               {[1, 2, 3, 4, 5].map((n) => (
