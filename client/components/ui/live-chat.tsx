@@ -108,15 +108,14 @@ export function LiveChat({
           status: "read",
         };
 
-        setMessages((prev) =>
-          prev
-            .map((msg) =>
-              msg.sender === "user" && msg.status === "sending"
-                ? { ...msg, status: "read" }
-                : msg,
-            )
-            .concat(agentMessage),
-        );
+        setMessages((prev) => {
+          const updated = prev.map<ChatMessage>((msg) =>
+            msg.sender === "user" && msg.status === "sending"
+              ? { ...msg, status: "read" }
+              : msg,
+          );
+          return [...updated, agentMessage];
+        });
         setIsTyping(false);
       },
       1500 + Math.random() * 2000,
@@ -140,7 +139,7 @@ export function LiveChat({
     // Simulate message delivery
     setTimeout(() => {
       setMessages((prev) =>
-        prev.map((msg) =>
+        prev.map<ChatMessage>((msg) =>
           msg.id === userMessage.id ? { ...msg, status: "delivered" } : msg,
         ),
       );
