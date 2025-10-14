@@ -275,7 +275,10 @@ export default function MasteryBottomBar() {
   }, [state]);
 
   const percent = calculateMasteryPercentage(state);
-  const level = useMemo(() => Math.max(1, Math.min(5, Math.ceil(percent / 20))), [percent]);
+  const level = useMemo(
+    () => Math.max(1, Math.min(5, Math.ceil(percent / 20))),
+    [percent],
+  );
 
   const handleConfirmRemove = useCallback(() => {
     try {
@@ -604,30 +607,46 @@ export default function MasteryBottomBar() {
                   key={n}
                   className={cn(
                     "relative flex-1 h-4",
-                    n === 1 ? "rounded-l-full" : n === 5 ? "rounded-r-full" : "",
+                    n === 1
+                      ? "rounded-l-full"
+                      : n === 5
+                        ? "rounded-r-full"
+                        : "",
                     n <= level ? "bg-amber-400" : "bg-gray-200",
                   )}
                 >
-                  <span className={cn(
-                    "absolute inset-0 flex items-center justify-center text-[10px] font-semibold",
-                    n <= level ? "text-white" : "text-gray-700",
-                  )}>
+                  <span
+                    className={cn(
+                      "absolute inset-0 flex items-center justify-center text-[10px] font-semibold",
+                      n <= level ? "text-white" : "text-gray-700",
+                    )}
+                  >
                     {n}
                   </span>
                 </div>
               ))}
             </div>
-            <h3 className="text-lg font-semibold text-gray-900">Congratulations</h3>
+            <h3 className="text-lg font-semibold text-gray-900">
+              Congratulations
+            </h3>
             <p className="mt-1 text-sm text-gray-700">
               You've reached Level {level}! All steps completed.
             </p>
           </div>
           <div className="px-6 pb-6 pt-4">
             <div className="mb-3 text-left text-sm">
-              <div className="mb-1 font-semibold text-gray-900">Rewards Unlocked:</div>
+              <div className="mb-1 font-semibold text-gray-900">
+                Rewards Unlocked:
+              </div>
               <ul className="list-none space-y-1 text-gray-700">
-                <li className="flex items-start gap-2"><span className="mt-0.5 text-amber-500">★</span><span>Mastery badge added to your profile</span></li>
-                <li className="flex items-start gap-2"><span className="mt-0.5 text-amber-500">★</span><span>Priority access to new features</span></li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-0.5 text-amber-500">★</span>
+                  <span>Mastery badge added to your profile</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-0.5 text-amber-500">★</span>
+                  <span>Priority access to new features</span>
+                </li>
               </ul>
             </div>
             <Button
