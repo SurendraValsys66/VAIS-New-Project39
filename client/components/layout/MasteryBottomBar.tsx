@@ -322,7 +322,7 @@ export default function MasteryBottomBar() {
       {/* Confetti celebration */}
       {showConfetti && (
         <div className="fixed inset-0 z-[70] pointer-events-none">
-          <ConfettiCanvas duration={2800} />
+          <ConfettiCanvas duration={2000} mode="blast" />
         </div>
       )}
 
@@ -502,7 +502,7 @@ export default function MasteryBottomBar() {
             >
               {showStepConfetti && (
                 <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-xl">
-                  <ConfettiCanvas duration={1800} />
+                  <ConfettiCanvas duration={1400} mode="blast" />
                 </div>
               )}
               {/* Top row: progress, chevron, close */}
