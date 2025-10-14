@@ -91,7 +91,6 @@ export default function MasteryBottomBar() {
     const prevPct = calculateMasteryPercentage(prev);
     const currPct = calculateMasteryPercentage(state);
 
-
     if (prevPct < 100 && currPct >= 100) {
       let alreadyShown = false;
       try {
@@ -280,7 +279,6 @@ export default function MasteryBottomBar() {
           <ConfettiCanvas duration={2800} />
         </div>
       )}
-
 
       {shouldShowPanel && (
         <div className="fixed inset-x-0 bottom-4 z-50 pointer-events-none">
