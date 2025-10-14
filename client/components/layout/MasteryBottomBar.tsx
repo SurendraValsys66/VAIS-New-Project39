@@ -5,7 +5,6 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   X,
   CheckCircle,
@@ -13,6 +12,7 @@ import {
   Coins,
   ChevronDown,
   ChevronUp,
+  Gift,
 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
@@ -439,17 +439,8 @@ export default function MasteryBottomBar() {
               onClick={handleOpenGuide}
               onKeyDown={handleGuideKeyDown}
             >
-              {/* Top row: avatar, progress, chevron, close */}
+              {/* Top row: progress, chevron, close */}
               <div className="flex items-center gap-3">
-                <div className="flex-shrink-0 hidden sm:block">
-                  <Avatar className="h-7 w-7">
-                    <AvatarImage src="" alt="VAIS" />
-                    <AvatarFallback className="bg-white/30 text-white text-[10px]">
-                      VA
-                    </AvatarFallback>
-                  </Avatar>
-                </div>
-
                 <div className="flex-1 text-left">
                   <div className="flex items-center gap-3">
                     <div className="relative flex-1">
@@ -464,6 +455,10 @@ export default function MasteryBottomBar() {
                         className="pointer-events-none select-none absolute top-1/2 -translate-y-1/2 -translate-x-1/2 h-6 w-6 sm:h-7 sm:w-7 drop-shadow"
                         style={{ left: `${manPos}%` }}
                       />
+                    </div>
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20">
+                      <Gift className="h-4 w-4" aria-hidden="true" />
+                      <span className="sr-only">View rewards</span>
                     </div>
                   </div>
                 </div>
