@@ -1958,7 +1958,7 @@ export default function ProspectResults() {
                                                   <div className="flex items-center">
                                                     <Mail className="w-4 h-4 mr-2 text-gray-400" />
                                                     <a
-                                                      href={`mailto:${selectedProspect.email}`}
+                                                      href={`mailto:${dummyProfile.email}`}
                                                       className="text-blue-600 hover:underline"
                                                     >
                                                       {maskEmail(selectedProspect.email)}
