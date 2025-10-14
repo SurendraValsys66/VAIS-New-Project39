@@ -1990,7 +1990,7 @@ export default function ProspectResults() {
                                                         <Button
                                                           size="icon"
                                                           onClick={() =>
-                                                            (window.location.href = `mailto:${selectedProspect.email}`)
+                                                            (window.location.href = `mailto:${dummyProfile.email}`)
                                                           }
                                                           aria-label="Send email"
                                                         >
