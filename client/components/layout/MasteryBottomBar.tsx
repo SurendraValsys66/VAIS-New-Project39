@@ -500,6 +500,11 @@ export default function MasteryBottomBar() {
               onMouseEnter={handleOpenGuide}
               onKeyDown={handleGuideKeyDown}
             >
+              {showStepConfetti && (
+                <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-xl">
+                  <ConfettiCanvas duration={1800} />
+                </div>
+              )}
               {/* Top row: progress, chevron, close */}
               <div className="flex items-center gap-3">
                 <div className="flex-1 text-left">
