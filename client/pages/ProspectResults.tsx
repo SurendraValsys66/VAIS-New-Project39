@@ -1579,8 +1579,17 @@ export default function ProspectResults() {
                                     <Button
                                       variant="ghost"
                                       size="sm"
-                                      aria-label={isFavorite(prospect.id) ? "Remove favorite" : "Add favorite"}
-                                      onClick={() => toggleFavorite(prospect.id, prospect.fullName)}
+                                      aria-label={
+                                        isFavorite(prospect.id)
+                                          ? "Remove favorite"
+                                          : "Add favorite"
+                                      }
+                                      onClick={() =>
+                                        toggleFavorite(
+                                          prospect.id,
+                                          prospect.fullName,
+                                        )
+                                      }
                                     >
                                       <Star
                                         className={cn(
@@ -1589,12 +1598,18 @@ export default function ProspectResults() {
                                             ? "text-yellow-500"
                                             : "text-gray-500",
                                         )}
-                                        fill={isFavorite(prospect.id) ? "currentColor" : "none"}
+                                        fill={
+                                          isFavorite(prospect.id)
+                                            ? "currentColor"
+                                            : "none"
+                                        }
                                       />
                                     </Button>
                                   </TooltipTrigger>
                                   <TooltipContent>
-                                    {isFavorite(prospect.id) ? "Unfavorite" : "Add to favorites"}
+                                    {isFavorite(prospect.id)
+                                      ? "Unfavorite"
+                                      : "Add to favorites"}
                                   </TooltipContent>
                                 </Tooltip>
 
@@ -1603,7 +1618,9 @@ export default function ProspectResults() {
                                     <Button
                                       variant="ghost"
                                       size="sm"
-                                      onClick={() => setSelectedProspect(prospect)}
+                                      onClick={() =>
+                                        setSelectedProspect(prospect)
+                                      }
                                     >
                                       <Eye className="w-4 h-4" />
                                     </Button>
@@ -1627,12 +1644,21 @@ export default function ProspectResults() {
                                               {prospect.fullName}
                                             </div>
                                             <div className="text-sm text-gray-600 font-normal">
-                                              {prospect.jobTitle} at {prospect.companyName}
+                                              {prospect.jobTitle} at{" "}
+                                              {prospect.companyName}
                                             </div>
                                           </div>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                          <Badge variant="secondary" className={cn("border", getIntentSignalColor(prospect.intentSignal))}>
+                                          <Badge
+                                            variant="secondary"
+                                            className={cn(
+                                              "border",
+                                              getIntentSignalColor(
+                                                prospect.intentSignal,
+                                              ),
+                                            )}
+                                          >
                                             {prospect.intentSignal}
                                           </Badge>
                                           <Tooltip>
@@ -1640,8 +1666,17 @@ export default function ProspectResults() {
                                               <Button
                                                 variant="ghost"
                                                 size="sm"
-                                                aria-label={isFavorite(prospect.id) ? "Remove favorite" : "Add favorite"}
-                                                onClick={() => toggleFavorite(prospect.id, prospect.fullName)}
+                                                aria-label={
+                                                  isFavorite(prospect.id)
+                                                    ? "Remove favorite"
+                                                    : "Add favorite"
+                                                }
+                                                onClick={() =>
+                                                  toggleFavorite(
+                                                    prospect.id,
+                                                    prospect.fullName,
+                                                  )
+                                                }
                                               >
                                                 <Star
                                                   className={cn(
@@ -1650,18 +1685,25 @@ export default function ProspectResults() {
                                                       ? "text-yellow-500"
                                                       : "text-gray-500",
                                                   )}
-                                                  fill={isFavorite(prospect.id) ? "currentColor" : "none"}
+                                                  fill={
+                                                    isFavorite(prospect.id)
+                                                      ? "currentColor"
+                                                      : "none"
+                                                  }
                                                 />
                                               </Button>
                                             </TooltipTrigger>
                                             <TooltipContent>
-                                              {isFavorite(prospect.id) ? "Unfavorite" : "Add to favorites"}
+                                              {isFavorite(prospect.id)
+                                                ? "Unfavorite"
+                                                : "Add to favorites"}
                                             </TooltipContent>
                                           </Tooltip>
                                         </div>
                                       </DialogTitle>
                                       <DialogDescription>
-                                        Detailed prospect information and engagement data
+                                        Detailed prospect information and
+                                        engagement data
                                       </DialogDescription>
                                     </DialogHeader>
 
@@ -1671,22 +1713,42 @@ export default function ProspectResults() {
                                           <div className="flex flex-wrap items-center gap-4 justify-between">
                                             <div className="flex items-center gap-2">
                                               <Activity className="w-4 h-4 text-green-600" />
-                                              <span className="text-sm text-gray-700">Engagement:</span>
-                                              <span className="font-semibold text-green-700">{selectedProspect.engagementScore}</span>
+                                              <span className="text-sm text-gray-700">
+                                                Engagement:
+                                              </span>
+                                              <span className="font-semibold text-green-700">
+                                                {
+                                                  selectedProspect.engagementScore
+                                                }
+                                              </span>
                                             </div>
                                             <div className="flex items-center gap-2">
                                               <Target className="w-4 h-4 text-blue-600" />
-                                              <span className="text-sm text-gray-700">Intent:</span>
-                                              <span className="font-semibold text-blue-700">{selectedProspect.intentScore}</span>
+                                              <span className="text-sm text-gray-700">
+                                                Intent:
+                                              </span>
+                                              <span className="font-semibold text-blue-700">
+                                                {selectedProspect.intentScore}
+                                              </span>
                                             </div>
                                             <div className="flex items-center gap-2">
                                               <CheckCircle className="w-4 h-4 text-orange-600" />
-                                              <span className="text-sm text-gray-700">Confidence:</span>
-                                              <span className="font-semibold text-orange-700">{selectedProspect.confidenceScore}%</span>
+                                              <span className="text-sm text-gray-700">
+                                                Confidence:
+                                              </span>
+                                              <span className="font-semibold text-orange-700">
+                                                {
+                                                  selectedProspect.confidenceScore
+                                                }
+                                                %
+                                              </span>
                                             </div>
                                             <div className="flex items-center gap-2 text-sm text-gray-600">
                                               <Clock className="w-4 h-4" />
-                                              Last activity {formatDate(selectedProspect.lastActivity)}
+                                              Last activity{" "}
+                                              {formatDate(
+                                                selectedProspect.lastActivity,
+                                              )}
                                             </div>
                                           </div>
                                         </div>
