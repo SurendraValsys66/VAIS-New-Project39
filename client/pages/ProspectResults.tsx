@@ -616,7 +616,9 @@ export default function ProspectResults() {
       navigator.clipboard.writeText(value);
       toast({
         title: "Copied",
-        description: label ? `${label} copied to clipboard` : "Copied to clipboard",
+        description: label
+          ? `${label} copied to clipboard`
+          : "Copied to clipboard",
       });
     } catch {}
   };
@@ -1783,11 +1785,25 @@ export default function ProspectResults() {
                                                     </a>
                                                   </div>
                                                   <div className="flex items-center gap-2">
-                                                    <Button variant="outline" size="sm" onClick={() => handleCopy(selectedProspect.email, "Email")}>
+                                                    <Button
+                                                      variant="outline"
+                                                      size="sm"
+                                                      onClick={() =>
+                                                        handleCopy(
+                                                          selectedProspect.email,
+                                                          "Email",
+                                                        )
+                                                      }
+                                                    >
                                                       <Copy className="w-4 h-4" />
                                                       Copy
                                                     </Button>
-                                                    <Button size="sm" onClick={() => (window.location.href = `mailto:${selectedProspect.email}`)}>
+                                                    <Button
+                                                      size="sm"
+                                                      onClick={() =>
+                                                        (window.location.href = `mailto:${selectedProspect.email}`)
+                                                      }
+                                                    >
                                                       Email
                                                     </Button>
                                                   </div>
@@ -1796,17 +1812,33 @@ export default function ProspectResults() {
                                                   <div className="flex items-center justify-between">
                                                     <div className="flex items-center">
                                                       <Phone className="w-4 h-4 mr-2 text-gray-400" />
-                                                      <a href={`tel:${selectedProspect.phone}`} className="hover:underline">
+                                                      <a
+                                                        href={`tel:${selectedProspect.phone}`}
+                                                        className="hover:underline"
+                                                      >
                                                         {selectedProspect.phone}
                                                       </a>
                                                     </div>
                                                     <div className="flex items-center gap-2">
-                                                      <Button variant="outline" size="sm" onClick={() => handleCopy(selectedProspect.phone, "Phone")}>
+                                                      <Button
+                                                        variant="outline"
+                                                        size="sm"
+                                                        onClick={() =>
+                                                          handleCopy(
+                                                            selectedProspect.phone,
+                                                            "Phone",
+                                                          )
+                                                        }
+                                                      >
                                                         <Copy className="w-4 h-4" />
                                                         Copy
                                                       </Button>
                                                       <Button size="sm" asChild>
-                                                        <a href={`tel:${selectedProspect.phone}`}>Call</a>
+                                                        <a
+                                                          href={`tel:${selectedProspect.phone}`}
+                                                        >
+                                                          Call
+                                                        </a>
                                                       </Button>
                                                     </div>
                                                   </div>
@@ -1816,7 +1848,9 @@ export default function ProspectResults() {
                                                     <div className="flex items-center">
                                                       <Linkedin className="w-4 h-4 mr-2 text-blue-600" />
                                                       <a
-                                                        href={selectedProspect.linkedinUrl}
+                                                        href={
+                                                          selectedProspect.linkedinUrl
+                                                        }
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                         className="text-blue-600 hover:underline flex items-center"
@@ -1826,12 +1860,29 @@ export default function ProspectResults() {
                                                       </a>
                                                     </div>
                                                     <div className="flex items-center gap-2">
-                                                      <Button variant="outline" size="sm" onClick={() => handleCopy(selectedProspect.linkedinUrl!, "LinkedIn URL")}>
+                                                      <Button
+                                                        variant="outline"
+                                                        size="sm"
+                                                        onClick={() =>
+                                                          handleCopy(
+                                                            selectedProspect.linkedinUrl!,
+                                                            "LinkedIn URL",
+                                                          )
+                                                        }
+                                                      >
                                                         <Copy className="w-4 h-4" />
                                                         Copy
                                                       </Button>
                                                       <Button size="sm" asChild>
-                                                        <a href={selectedProspect.linkedinUrl} target="_blank" rel="noopener noreferrer">Open</a>
+                                                        <a
+                                                          href={
+                                                            selectedProspect.linkedinUrl
+                                                          }
+                                                          target="_blank"
+                                                          rel="noopener noreferrer"
+                                                        >
+                                                          Open
+                                                        </a>
                                                       </Button>
                                                     </div>
                                                   </div>
@@ -1839,12 +1890,17 @@ export default function ProspectResults() {
                                                 <div className="flex items-center text-gray-700">
                                                   <MapPin className="w-4 h-4 mr-2 text-gray-400" />
                                                   <span>
-                                                    {selectedProspect.city}, {selectedProspect.country}
+                                                    {selectedProspect.city},{" "}
+                                                    {selectedProspect.country}
                                                   </span>
                                                 </div>
                                                 <div className="flex items-center text-gray-700">
                                                   <Globe className="w-4 h-4 mr-2 text-gray-400" />
-                                                  <span>{selectedProspect.companyDomain}</span>
+                                                  <span>
+                                                    {
+                                                      selectedProspect.companyDomain
+                                                    }
+                                                  </span>
                                                 </div>
                                               </div>
                                             </CardContent>
@@ -1871,7 +1927,8 @@ export default function ProspectResults() {
                                                     Department
                                                   </div>
                                                   <div>
-                                                    {selectedProspect.department || "N/A"}
+                                                    {selectedProspect.department ||
+                                                      "N/A"}
                                                   </div>
                                                 </div>
                                                 <div>
@@ -1887,7 +1944,9 @@ export default function ProspectResults() {
                                                     Function
                                                   </div>
                                                   <Badge variant="outline">
-                                                    {selectedProspect.jobFunction}
+                                                    {
+                                                      selectedProspect.jobFunction
+                                                    }
                                                   </Badge>
                                                 </div>
                                                 <div>
@@ -1896,7 +1955,11 @@ export default function ProspectResults() {
                                                   </div>
                                                   <div className="flex items-center">
                                                     <Building className="w-4 h-4 mr-2 text-gray-400" />
-                                                    <span>{selectedProspect.companyName}</span>
+                                                    <span>
+                                                      {
+                                                        selectedProspect.companyName
+                                                      }
+                                                    </span>
                                                   </div>
                                                 </div>
                                                 {selectedProspect.yearsAtCompany && (
@@ -1905,12 +1968,17 @@ export default function ProspectResults() {
                                                       Tenure
                                                     </div>
                                                     <div>
-                                                      {selectedProspect.yearsAtCompany} years at company
+                                                      {
+                                                        selectedProspect.yearsAtCompany
+                                                      }{" "}
+                                                      years at company
                                                     </div>
                                                     <div className="mt-2 h-2 bg-gray-200 rounded-full overflow-hidden">
                                                       <div
                                                         className="h-2 bg-valasys-orange"
-                                                        style={{ width: `${Math.min(100, selectedProspect.yearsAtCompany * 10)}%` }}
+                                                        style={{
+                                                          width: `${Math.min(100, selectedProspect.yearsAtCompany * 10)}%`,
+                                                        }}
                                                       />
                                                     </div>
                                                   </div>
@@ -1919,10 +1987,6 @@ export default function ProspectResults() {
                                             </CardContent>
                                           </Card>
                                         </div>
-
-
-
-
                                       </div>
                                     )}
                                   </DialogContent>
