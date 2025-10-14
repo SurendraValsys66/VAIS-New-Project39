@@ -12,7 +12,6 @@ import {
   Coins,
   ChevronDown,
   ChevronUp,
-  Gift,
 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
@@ -74,6 +73,7 @@ export default function MasteryBottomBar() {
   const prevRef = useRef<MasterySteps>({});
   const [showFinalDialog, setShowFinalDialog] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [showStepConfetti, setShowStepConfetti] = useState(false);
 
   useEffect(() => {
     setState(getMastery());
@@ -91,6 +91,11 @@ export default function MasteryBottomBar() {
     const prev = prevRef.current;
     const prevPct = calculateMasteryPercentage(prev);
     const currPct = calculateMasteryPercentage(state);
+
+    if (currPct > prevPct) {
+      setShowStepConfetti(true);
+      setTimeout(() => setShowStepConfetti(false), 1600);
+    }
 
     if (prevPct < 100 && currPct >= 100) {
       let alreadyShown = false;
@@ -266,6 +271,14 @@ export default function MasteryBottomBar() {
         </div>
       )}
 
+      {showStepConfetti && (
+        <div className="fixed inset-x-0 bottom-0 z-40 pointer-events-none">
+          <div className="mx-auto w-[min(92vw,520px)] relative h-40">
+            <ConfettiCanvas duration={1600} direction="up" />
+          </div>
+        </div>
+      )}
+
       {shouldShowPanel && (
         <div className="fixed inset-x-0 bottom-4 z-50 pointer-events-none">
           <div
@@ -437,6 +450,7 @@ export default function MasteryBottomBar() {
               tabIndex={0}
               aria-expanded={expanded}
               onClick={handleOpenGuide}
+              onMouseEnter={handleOpenGuide}
               onKeyDown={handleGuideKeyDown}
             >
               {/* Top row: progress, chevron, close */}
@@ -446,8 +460,8 @@ export default function MasteryBottomBar() {
                     <div className="relative flex-1">
                       <Progress
                         value={percent}
-                        className="h-[14px] bg-white/30"
-                        indicatorClassName="bg-gradient-to-r from-valasys-blue to-valasys-green"
+                        className="h-[14px] bg-[#F1F1F1]"
+                        indicatorClassName="bg-[#eab308]"
                       />
                       <img
                         src="https://cdn.builder.io/o/assets%2F1d0d3cbc213245beba3786aa1a6f12a3%2F56aede21efb849a7aa049e8e2f87be99?alt=media&token=e4598e27-8e81-4e91-8d2c-e890a2c118e8&apiKey=1d0d3cbc213245beba3786aa1a6f12a3"
@@ -456,13 +470,15 @@ export default function MasteryBottomBar() {
                         style={{ left: `${manPos}%` }}
                       />
                     </div>
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20">
-                      <Gift className="h-4 w-4" aria-hidden="true" />
-                      <span className="sr-only">View rewards</span>
-                    </div>
                   </div>
                 </div>
 
+                <img
+                  src="https://cdn.builder.io/o/assets%2F1d0d3cbc213245beba3786aa1a6f12a3%2F515d18c2065f4103840ed7e794f0f02f?alt=media&token=b6ff5c54-de26-42ea-960d-cf00e42191cf&apiKey=1d0d3cbc213245beba3786aa1a6f12a3"
+                  alt="Gift"
+                  className="h-5 w-5 rounded-full bg-white p-0.5 shadow-sm"
+                  loading="lazy"
+                />
                 <button
                   aria-label="Hide for now"
                   onClick={(event) => {

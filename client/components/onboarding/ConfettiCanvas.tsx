@@ -13,8 +13,10 @@ type Particle = {
 
 export default function ConfettiCanvas({
   duration = 2500,
+  direction = "down",
 }: {
   duration?: number;
+  direction?: "down" | "up";
 }) {
   const ref = useRef<HTMLCanvasElement | null>(null);
 
@@ -33,16 +35,21 @@ export default function ConfettiCanvas({
     resize();
 
     const colors = ["#FF6A00", "#F5A243", "#1A73E8", "#00C48C"];
-    const parts: Particle[] = Array.from({ length: 120 }).map(() => ({
-      x: Math.random() * canvas.clientWidth,
-      y: -20 - Math.random() * 60,
-      r: 6 + Math.random() * 6,
-      c: colors[(Math.random() * colors.length) | 0],
-      vx: -1 + Math.random() * 2,
-      vy: 2 + Math.random() * 2,
-      rot: Math.random() * Math.PI,
-      vr: -0.1 + Math.random() * 0.2,
-    }));
+    const parts: Particle[] = Array.from({ length: 120 }).map(() => {
+      const isUp = direction === "up";
+      return {
+        x: Math.random() * canvas.clientWidth,
+        y: isUp
+          ? canvas.clientHeight + 20 + Math.random() * 60
+          : -20 - Math.random() * 60,
+        r: 6 + Math.random() * 6,
+        c: colors[(Math.random() * colors.length) | 0],
+        vx: -1 + Math.random() * 2,
+        vy: isUp ? -(2 + Math.random() * 2) : 2 + Math.random() * 2,
+        rot: Math.random() * Math.PI,
+        vr: -0.1 + Math.random() * 0.2,
+      };
+    });
 
     let start = performance.now();
     let raf = 0;
@@ -54,7 +61,11 @@ export default function ConfettiCanvas({
         p.x += p.vx;
         p.y += p.vy;
         p.rot += p.vr;
-        if (p.y > canvas.clientHeight + 20) p.y = -20;
+        if (direction === "up") {
+          if (p.y < -20) p.y = canvas.clientHeight + 20;
+        } else {
+          if (p.y > canvas.clientHeight + 20) p.y = -20;
+        }
         ctx.save();
         ctx.translate(p.x, p.y);
         ctx.rotate(p.rot);
