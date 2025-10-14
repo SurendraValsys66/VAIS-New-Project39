@@ -260,6 +260,21 @@ export default function MasteryBottomBar() {
     return null;
   }
 
+  useEffect(() => {
+    try {
+      const openOnce =
+        localStorage.getItem("valasys-open-mastery-once") === "1";
+      if (openOnce) {
+        setHidden(false);
+        setExpanded(true);
+        localStorage.removeItem("valasys-open-mastery-once");
+        try {
+          localStorage.removeItem(MASTERY_DISMISS_KEY);
+        } catch {}
+      }
+    } catch {}
+  }, []);
+
   const shouldShowPanel = !hidden && !doneAll;
 
   return (
