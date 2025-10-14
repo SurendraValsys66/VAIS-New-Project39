@@ -12,7 +12,6 @@ import {
   Coins,
   ChevronDown,
   ChevronUp,
-  Star,
 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
@@ -596,10 +595,12 @@ export default function MasteryBottomBar() {
       <Dialog open={showFinalDialog} onOpenChange={setShowFinalDialog}>
         <DialogContent className="max-w-sm p-0 overflow-hidden rounded-2xl border-0">
           <div className="bg-gradient-to-b from-amber-200 via-amber-100 to-white p-6 text-center">
-            <div className="mx-auto mb-4 flex items-end justify-center gap-2">
-              <Star className="h-10 w-10 text-amber-400 drop-shadow" />
-              <Star className="h-14 w-14 text-amber-400 drop-shadow" />
-              <Star className="h-10 w-10 text-amber-400 drop-shadow" />
+            <div className="mx-auto mb-4 flex items-center justify-center">
+              <img
+                src="https://cdn.builder.io/o/assets%2F6bf9f940afaa47adb0dc2265d0f0cc7d%2Fb6757c28effa47b997680f4cce7b558d?alt=media&token=314bff09-2dc0-48a8-9030-ccb545eaefcb&apiKey=6bf9f940afaa47adb0dc2265d0f0cc7d"
+                alt="Rewards celebration"
+                className="h-24 w-auto rounded-md shadow"
+              />
             </div>
             <div className="mx-auto mb-4 flex w-full max-w-xs items-center gap-1">
               {[1, 2, 3, 4, 5].map((n) => (
@@ -630,7 +631,15 @@ export default function MasteryBottomBar() {
               Congratulations
             </h3>
             <p className="mt-1 text-sm text-gray-700">
-              You've reached Level {level}! All steps completed.
+              You’ve completed all the steps — enjoy your reward of
+              <span className="ai-pulse text-valasys-orange font-semibold">
+                {" "}
+                50 bonus credits
+              </span>
+              !
+              <span aria-hidden className="ml-1">
+                ✨
+              </span>
             </p>
           </div>
           <div className="px-6 pb-6 pt-4">
@@ -641,7 +650,7 @@ export default function MasteryBottomBar() {
               <ul className="list-none space-y-1 text-gray-700">
                 <li className="flex items-start gap-2">
                   <span className="mt-0.5 text-amber-500">★</span>
-                  <span>Mastery badge added to your profile</span>
+                  <span>50 bonus credits added</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="mt-0.5 text-amber-500">★</span>
@@ -650,10 +659,10 @@ export default function MasteryBottomBar() {
               </ul>
             </div>
             <Button
-              className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700"
-              onClick={() => setShowFinalDialog(false)}
+              asChild
+              className="w-full bg-gradient-to-r from-valasys-orange to-valasys-blue hover:from-[#FF6A00]/90 hover:to-[#1A73E8]/90 text-white"
             >
-              Claim Rewards
+              <Link to="/">Go to Dashboard</Link>
             </Button>
           </div>
         </DialogContent>
