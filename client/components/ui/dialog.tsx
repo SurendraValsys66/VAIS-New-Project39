@@ -39,7 +39,11 @@ const containsDialogTitle = (children: React.ReactNode): boolean => {
         found = true;
         return;
       }
-      if (type && (type.displayName === DialogPrimitive.Title.displayName || type.displayName === "DialogTitle")) {
+      if (
+        type &&
+        (type.displayName === DialogPrimitive.Title.displayName ||
+          type.displayName === "DialogTitle")
+      ) {
         found = true;
         return;
       }
@@ -71,7 +75,9 @@ const DialogContent = React.forwardRef<
       >
         {/* If consumers didn't provide a DialogTitle, render a visually hidden one for screen readers */}
         {!hasTitle && (
-          <DialogPrimitive.Title className="sr-only">Dialog</DialogPrimitive.Title>
+          <DialogPrimitive.Title className="sr-only">
+            Dialog
+          </DialogPrimitive.Title>
         )}
 
         {children}
