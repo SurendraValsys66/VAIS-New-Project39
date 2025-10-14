@@ -1961,7 +1961,7 @@ export default function ProspectResults() {
                                                       href={`mailto:${dummyProfile.email}`}
                                                       className="text-blue-600 hover:underline"
                                                     >
-                                                      {maskEmail(selectedProspect.email)}
+                                                      {maskEmail(dummyProfile.email)}
                                                     </a>
                                                   </div>
                                                   <div className="flex items-center gap-2">
