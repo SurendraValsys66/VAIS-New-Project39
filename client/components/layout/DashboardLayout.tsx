@@ -230,6 +230,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [profileInfo, setProfileInfo] = useState<{
     avatarUrl?: string | null;
     fullName?: string;
+    email?: string;
   }>({});
 
   useEffect(() => {
