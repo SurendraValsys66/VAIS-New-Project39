@@ -1752,12 +1752,9 @@ export default function ProspectResults() {
                                             </AvatarFallback>
                                           </Avatar>
                                           <div>
-                                            <div className="text-xl font-bold">
-                                              {prospect.fullName}
-                                            </div>
+                                            <div className="text-xl font-bold">Prospect Name</div>
                                             <div className="text-sm text-gray-600 font-normal">
-                                              {prospect.jobTitle} at{" "}
-                                              {prospect.companyName}
+                                              Chief Technology Officer at Acme Corp
                                             </div>
                                           </div>
                                         </div>
