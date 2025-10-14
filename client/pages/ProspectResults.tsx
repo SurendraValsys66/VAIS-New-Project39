@@ -82,6 +82,7 @@ import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { FloatingStatsWidget } from "@/components/ui/floating-stats-widget";
 import { markStepCompleted } from "@/lib/masteryStorage";
+import { useToast } from "@/hooks/use-toast";
 
 interface ProspectData {
   id: string;
@@ -581,6 +582,35 @@ export default function ProspectResults() {
     engagementRange: { min: 0, max: 100 },
   });
 
+  const { toast } = useToast();
+  const [favorites, setFavorites] = useState<string[]>(() => {
+    try {
+      const raw = localStorage.getItem("prospect:favorites");
+      return raw ? (JSON.parse(raw) as string[]) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("prospect:favorites", JSON.stringify(favorites));
+    } catch {}
+  }, [favorites]);
+
+  const isFavorite = (id: string) => favorites.includes(id);
+  const toggleFavorite = (id: string, name?: string) => {
+    setFavorites((prev) => {
+      const exists = prev.includes(id);
+      const next = exists ? prev.filter((x) => x !== id) : [...prev, id];
+      toast({
+        title: exists ? "Removed from favorites" : "Added to favorites",
+        description: name ? `${name}` : undefined,
+      });
+      return next;
+    });
+  };
+
   // Helpers to mask contact info
   const maskEmail = (email: string) => {
     const [user, domain] = email.split("@");
@@ -611,7 +641,7 @@ export default function ProspectResults() {
     if (!url) return "LinkedIn (masked)";
     try {
       const u = new URL(url);
-      return `${u.hostname}/••••••`;
+      return `${u.hostname}/•••��••`;
     } catch {
       return "LinkedIn (masked)";
     }
@@ -1544,6 +1574,45 @@ export default function ProspectResults() {
                             {/* Actions */}
                             {columnVisibility.actions && (
                               <TableCell>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Button
+                                      variant="ghost"
+                                      size="sm"
+                                      aria-label={
+                                        isFavorite(prospect.id)
+                                          ? "Remove favorite"
+                                          : "Add favorite"
+                                      }
+                                      onClick={() =>
+                                        toggleFavorite(
+                                          prospect.id,
+                                          prospect.fullName,
+                                        )
+                                      }
+                                    >
+                                      <Star
+                                        className={cn(
+                                          "w-4 h-4",
+                                          isFavorite(prospect.id)
+                                            ? "text-yellow-500"
+                                            : "text-gray-500",
+                                        )}
+                                        fill={
+                                          isFavorite(prospect.id)
+                                            ? "currentColor"
+                                            : "none"
+                                        }
+                                      />
+                                    </Button>
+                                  </TooltipTrigger>
+                                  <TooltipContent>
+                                    {isFavorite(prospect.id)
+                                      ? "Unfavorite"
+                                      : "Add to favorites"}
+                                  </TooltipContent>
+                                </Tooltip>
+
                                 <Dialog>
                                   <DialogTrigger asChild>
                                     <Button
@@ -1558,25 +1627,78 @@ export default function ProspectResults() {
                                   </DialogTrigger>
                                   <DialogContent className="max-w-2xl max-h-[80vh] overflow-auto">
                                     <DialogHeader>
-                                      <DialogTitle className="flex items-center space-x-3">
-                                        <Avatar className="h-12 w-12">
-                                          <AvatarImage
-                                            src={prospect.profileImageUrl}
-                                            alt={prospect.fullName}
-                                          />
-                                          <AvatarFallback className="bg-valasys-orange text-white">
-                                            {prospect.firstName[0]}
-                                            {prospect.lastName[0]}
-                                          </AvatarFallback>
-                                        </Avatar>
-                                        <div>
-                                          <div className="text-xl font-bold">
-                                            {prospect.fullName}
+                                      <DialogTitle className="flex items-center justify-between">
+                                        <div className="flex items-center space-x-3">
+                                          <Avatar className="h-12 w-12">
+                                            <AvatarImage
+                                              src={prospect.profileImageUrl}
+                                              alt={prospect.fullName}
+                                            />
+                                            <AvatarFallback className="bg-valasys-orange text-white">
+                                              {prospect.firstName[0]}
+                                              {prospect.lastName[0]}
+                                            </AvatarFallback>
+                                          </Avatar>
+                                          <div>
+                                            <div className="text-xl font-bold">
+                                              {prospect.fullName}
+                                            </div>
+                                            <div className="text-sm text-gray-600 font-normal">
+                                              {prospect.jobTitle} at{" "}
+                                              {prospect.companyName}
+                                            </div>
                                           </div>
-                                          <div className="text-sm text-gray-600 font-normal">
-                                            {prospect.jobTitle} at{" "}
-                                            {prospect.companyName}
-                                          </div>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                          <Badge
+                                            variant="secondary"
+                                            className={cn(
+                                              "border",
+                                              getIntentSignalColor(
+                                                prospect.intentSignal,
+                                              ),
+                                            )}
+                                          >
+                                            {prospect.intentSignal}
+                                          </Badge>
+                                          <Tooltip>
+                                            <TooltipTrigger asChild>
+                                              <Button
+                                                variant="ghost"
+                                                size="sm"
+                                                aria-label={
+                                                  isFavorite(prospect.id)
+                                                    ? "Remove favorite"
+                                                    : "Add favorite"
+                                                }
+                                                onClick={() =>
+                                                  toggleFavorite(
+                                                    prospect.id,
+                                                    prospect.fullName,
+                                                  )
+                                                }
+                                              >
+                                                <Star
+                                                  className={cn(
+                                                    "w-4 h-4",
+                                                    isFavorite(prospect.id)
+                                                      ? "text-yellow-500"
+                                                      : "text-gray-500",
+                                                  )}
+                                                  fill={
+                                                    isFavorite(prospect.id)
+                                                      ? "currentColor"
+                                                      : "none"
+                                                  }
+                                                />
+                                              </Button>
+                                            </TooltipTrigger>
+                                            <TooltipContent>
+                                              {isFavorite(prospect.id)
+                                                ? "Unfavorite"
+                                                : "Add to favorites"}
+                                            </TooltipContent>
+                                          </Tooltip>
                                         </div>
                                       </DialogTitle>
                                       <DialogDescription>
@@ -1587,6 +1709,49 @@ export default function ProspectResults() {
 
                                     {selectedProspect && (
                                       <div className="space-y-6">
+                                        <div className="rounded-xl border bg-gradient-to-r from-valasys-orange/10 via-orange-200/10 to-blue-200/10 p-4">
+                                          <div className="flex flex-wrap items-center gap-4 justify-between">
+                                            <div className="flex items-center gap-2">
+                                              <Activity className="w-4 h-4 text-green-600" />
+                                              <span className="text-sm text-gray-700">
+                                                Engagement:
+                                              </span>
+                                              <span className="font-semibold text-green-700">
+                                                {
+                                                  selectedProspect.engagementScore
+                                                }
+                                              </span>
+                                            </div>
+                                            <div className="flex items-center gap-2">
+                                              <Target className="w-4 h-4 text-blue-600" />
+                                              <span className="text-sm text-gray-700">
+                                                Intent:
+                                              </span>
+                                              <span className="font-semibold text-blue-700">
+                                                {selectedProspect.intentScore}
+                                              </span>
+                                            </div>
+                                            <div className="flex items-center gap-2">
+                                              <CheckCircle className="w-4 h-4 text-orange-600" />
+                                              <span className="text-sm text-gray-700">
+                                                Confidence:
+                                              </span>
+                                              <span className="font-semibold text-orange-700">
+                                                {
+                                                  selectedProspect.confidenceScore
+                                                }
+                                                %
+                                              </span>
+                                            </div>
+                                            <div className="flex items-center gap-2 text-sm text-gray-600">
+                                              <Clock className="w-4 h-4" />
+                                              Last activity{" "}
+                                              {formatDate(
+                                                selectedProspect.lastActivity,
+                                              )}
+                                            </div>
+                                          </div>
+                                        </div>
                                         {/* Contact & Professional Info */}
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                           <Card>
