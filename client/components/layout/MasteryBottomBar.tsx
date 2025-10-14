@@ -632,8 +632,14 @@ export default function MasteryBottomBar() {
             </h3>
             <p className="mt-1 text-sm text-gray-700">
               You’ve completed all the steps — enjoy your reward of
-              <span className="ai-pulse text-valasys-orange font-semibold"> 50 bonus credits</span>!
-              <span aria-hidden className="ml-1">✨</span>
+              <span className="ai-pulse text-valasys-orange font-semibold">
+                {" "}
+                50 bonus credits
+              </span>
+              !
+              <span aria-hidden className="ml-1">
+                ✨
+              </span>
             </p>
           </div>
           <div className="px-6 pb-6 pt-4">
