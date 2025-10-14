@@ -12,7 +12,6 @@ import {
   Coins,
   ChevronDown,
   ChevronUp,
-  Gift,
 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
@@ -457,17 +456,13 @@ export default function MasteryBottomBar() {
                         style={{ left: `${manPos}%` }}
                       />
                     </div>
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20">
-                      <Gift className="h-4 w-4" aria-hidden="true" />
-                      <span className="sr-only">View rewards</span>
-                    </div>
                   </div>
                 </div>
 
                 <img
                   src="https://cdn.builder.io/o/assets%2F1d0d3cbc213245beba3786aa1a6f12a3%2F515d18c2065f4103840ed7e794f0f02f?alt=media&token=b6ff5c54-de26-42ea-960d-cf00e42191cf&apiKey=1d0d3cbc213245beba3786aa1a6f12a3"
                   alt="Gift"
-                  className="h-5 w-5 rounded"
+                  className="h-5 w-5 rounded-full bg-white p-0.5 shadow-sm"
                   loading="lazy"
                 />
                 <button
