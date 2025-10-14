@@ -1972,7 +1972,7 @@ export default function ProspectResults() {
                                                           size="icon"
                                                           onClick={() =>
                                                             handleCopy(
-                                                              selectedProspect.email,
+                                                              dummyProfile.email,
                                                               "Email",
                                                             )
                                                           }
