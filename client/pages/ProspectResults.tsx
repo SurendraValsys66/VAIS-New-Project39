@@ -22,13 +22,13 @@ import {
 } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import {
   Tooltip,
   TooltipContent,
@@ -1648,8 +1648,8 @@ export default function ProspectResults() {
                                   </TooltipContent>
                                 </Tooltip>
 
-                                <Dialog>
-                                  <DialogTrigger asChild>
+                                <Sheet>
+                                  <SheetTrigger asChild>
                                     <Button
                                       variant="ghost"
                                       size="sm"
@@ -1659,10 +1659,10 @@ export default function ProspectResults() {
                                     >
                                       <Eye className="w-4 h-4" />
                                     </Button>
-                                  </DialogTrigger>
-                                  <DialogContent className="max-w-2xl max-h-[80vh] overflow-auto">
-                                    <DialogHeader>
-                                      <DialogTitle className="flex items-center justify-between">
+                                  </SheetTrigger>
+                                  <SheetContent side="right" className="sm:max-w-md md:max-w-lg lg:max-w-xl w-[90vw] max-h-[90vh] overflow-y-auto">
+                                    <SheetHeader>
+                                      <SheetTitle className="flex items-center justify-between">
                                         <div className="flex items-center space-x-3">
                                           <Avatar className="h-12 w-12">
                                             <AvatarImage
@@ -1735,12 +1735,12 @@ export default function ProspectResults() {
                                             </TooltipContent>
                                           </Tooltip>
                                         </div>
-                                      </DialogTitle>
-                                      <DialogDescription>
+                                      </SheetTitle>
+                                      <SheetDescription>
                                         Detailed prospect information and
                                         engagement data
-                                      </DialogDescription>
-                                    </DialogHeader>
+                                      </SheetDescription>
+                                    </SheetHeader>
 
                                     {selectedProspect && (
                                       <div className="space-y-6">
@@ -2094,8 +2094,8 @@ export default function ProspectResults() {
                                         </div>
                                       </div>
                                     )}
-                                  </DialogContent>
-                                </Dialog>
+                                  </SheetContent>
+                                </Sheet>
                               </TableCell>
                             )}
                           </TableRow>
