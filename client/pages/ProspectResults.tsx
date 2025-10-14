@@ -2061,9 +2061,7 @@ export default function ProspectResults() {
                                                     <div className="flex items-center">
                                                       <Linkedin className="w-4 h-4 mr-2 text-blue-600" />
                                                       <a
-                                                        href={
-                                                          selectedProspect.linkedinUrl
-                                                        }
+                                                        href={"https://linkedin.com"}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                         className="text-blue-600 hover:underline flex items-center"
