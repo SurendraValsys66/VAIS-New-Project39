@@ -456,6 +456,7 @@ export default function MasteryBottomBar() {
                       <Progress
                         value={percent}
                         className="h-[14px] bg-[#F1F1F1]"
+                        indicatorClassName="bg-[#eab308]"
                       />
                       <img
                         src="https://cdn.builder.io/o/assets%2F1d0d3cbc213245beba3786aa1a6f12a3%2F56aede21efb849a7aa049e8e2f87be99?alt=media&token=e4598e27-8e81-4e91-8d2c-e890a2c118e8&apiKey=1d0d3cbc213245beba3786aa1a6f12a3"
