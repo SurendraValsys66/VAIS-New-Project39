@@ -42,6 +42,7 @@ import OnboardingExperience from "./pages/OnboardingExperience";
 import OnboardingIndustry from "./pages/OnboardingIndustry";
 import OnboardingCategory from "./pages/OnboardingCategory";
 import OnboardingThankYou from "./pages/OnboardingThankYou";
+import MasteryGuide from "./pages/MasteryGuide";
 
 const queryClient = new QueryClient();
 
@@ -91,6 +92,7 @@ const App = () => (
               <Route path="/notifications" element={<AllNotifications />} />
               <Route path="/spending-history" element={<SpendingHistory />} />
               <Route path="/integrations" element={<Integrations />} />
+              <Route path="/mastery" element={<MasteryGuide />} />
 
               {/* Onboarding flow */}
               <Route path="/onboarding/role" element={<OnboardingRole />} />
