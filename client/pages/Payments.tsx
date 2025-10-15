@@ -345,9 +345,15 @@ export default function Payments() {
                         onSelect={(range) => setTempDateRange(range)}
                         numberOfMonths={2}
                       />
+                      <div className="text-center text-sm text-muted-foreground">
+                        {tempDateRange?.from && tempDateRange?.to
+                          ? `${format(tempDateRange.from, "MM/dd/yyyy")} - ${format(tempDateRange.to, "MM/dd/yyyy")}`
+                          : ""
+                        }
+                      </div>
                       <div className="flex items-center justify-end gap-2">
                         <Button variant="outline" size="sm" onClick={()=> setDatePopoverOpen(false)}>Cancel</Button>
-                        <Button size="sm" className="bg-valasys-orange text-white" onClick={()=>{ setDateRange(tempDateRange); setDatePopoverOpen(false); }}>Apply</Button>
+                        <Button size="sm" className="bg-valasys-orange text-white" disabled={!tempDateRange?.from || !tempDateRange?.to} onClick={()=>{ setDateRange(tempDateRange); setDatePopoverOpen(false); }}>Apply</Button>
                       </div>
                     </div>
                   </PopoverContent>
