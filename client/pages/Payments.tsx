@@ -282,20 +282,20 @@ export default function Payments() {
   }) => (
     <button
       onClick={() => handleSort(field)}
-      className={`group inline-flex items-center gap-1 text-left hover:text-valasys-orange ${
-        alignRight ? "justify-end w-full" : ""
-      }`}
+      className="group flex items-center justify-between gap-2 text-left hover:text-valasys-orange w-full"
     >
       <span>{label}</span>
-      {sortField === field ? (
-        sortDir === "asc" ? (
-          <ArrowUp className="w-3.5 h-3.5 text-valasys-orange" />
+      <div className="flex-shrink-0">
+        {sortField === field ? (
+          sortDir === "asc" ? (
+            <ArrowUp className="w-3.5 h-3.5 text-valasys-orange" />
+          ) : (
+            <ArrowDown className="w-3.5 h-3.5 text-valasys-orange" />
+          )
         ) : (
-          <ArrowDown className="w-3.5 h-3.5 text-valasys-orange" />
-        )
-      ) : (
-        <span className="opacity-40 group-hover:opacity-70">↕</span>
-      )}
+          <span className="opacity-40 group-hover:opacity-70">↕</span>
+        )}
+      </div>
     </button>
   );
 
