@@ -636,8 +636,43 @@ export default function Subscription() {
     [sortedPlans, selectedPlan],
   );
 
+  const now = new Date();
+  let dateStr = now.toLocaleString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+  dateStr = dateStr.replace(", ", " at ").replace(" ", "");
+  const dueAmount = (() => {
+    const p = selectedPlanObj;
+    if (!p) return 0;
+    if (p.id === "enterprise") return 0;
+    return billing === "annual" ? p.priceAnnual * 12 : p.priceMonthly;
+  })();
+  const invoiceContent = [
+    "Payment Receipt",
+    `Plan: ${selectedPlanObj?.name ?? ""}`,
+    `Billing: ${billing === "annual" ? "Annually" : "Monthly"}`,
+    `Amount: $${dueAmount}`,
+  ].join("\n");
+
   return (
     <DashboardLayout>
+      <PaymentSuccessModal
+        open={showSuccess}
+        onOpenChange={setShowSuccess}
+        data={{
+          status: "Successful",
+          date: `${dateStr}`,
+          methodBrand: "Mastercard",
+          last4: "1887",
+          invoiceFileName: `invoice-${selectedPlan}-${Date.now()}.txt`,
+          invoiceContent,
+        }}
+      />
       <div
         className="space-y-8"
         ref={pageRef}
