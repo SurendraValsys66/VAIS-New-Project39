@@ -9,6 +9,7 @@ export type AIVoiceCircleProps = {
   className?: string;
   diameter?: number; // px
   anchorAngle?: number; // degrees where selected label should align (CSS clockwise, 0deg at +X)
+  origin?: "top-right" | "top-left" | "bottom-right" | "bottom-left"; // where the big circle is anchored within its container
 };
 
 /**
@@ -23,6 +24,7 @@ export default function AIVoiceCircle({
   className,
   diameter = 820,
   anchorAngle = 0, // align selected to right center
+  origin = "top-right",
 }: AIVoiceCircleProps) {
   const radius = diameter / 2;
   const step = 360 / (items.length || 1);
@@ -49,16 +51,28 @@ export default function AIVoiceCircle({
     return items.map((_, idx) => idx * step);
   }, [items, step]);
 
+  const cornerStyle = React.useMemo(() => {
+    const offset = -diameter * 0.25;
+    switch (origin) {
+      case "bottom-left":
+        return { bottom: offset, left: offset } as const;
+      case "bottom-right":
+        return { bottom: offset, right: offset } as const;
+      case "top-left":
+        return { top: offset, left: offset } as const;
+      case "top-right":
+      default:
+        return { top: offset, right: offset } as const;
+    }
+  }, [origin, diameter]);
+
   return (
     <div className={cn("relative h-full w-full overflow-hidden", className)}>
       {/* Gradient background for subtle depth */}
       <div className="absolute inset-0 bg-gradient-to-br from-valasys-blue/20 via-valasys-orange/10 to-valasys-green/10" />
 
-      {/* Giant circle, half outside the viewport (top-right) */}
-      <div
-        className="absolute"
-        style={{ top: -diameter * 0.25, right: -diameter * 0.25 }}
-      >
+      {/* Giant circle, half outside the viewport (corner) */}
+      <div className="absolute" style={cornerStyle}>
         {/* Outer glow */}
         <motion.div
           className="relative rounded-full"
