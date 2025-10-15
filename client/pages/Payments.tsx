@@ -12,7 +12,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Download, CreditCard, ArrowUp, ArrowDown, Search, Filter, Calendar as CalendarIcon } from "lucide-react";
+import { Download, CreditCard, ArrowUp, ArrowDown, Search, Filter } from "lucide-react";
 
 import { DateRangePicker as RsuiteDateRangePicker } from "rsuite";
 
