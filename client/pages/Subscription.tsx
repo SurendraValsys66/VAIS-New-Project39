@@ -578,6 +578,7 @@ export default function Subscription() {
   const [isDesktop, setIsDesktop] = useState<boolean>(
     typeof window !== "undefined" ? window.innerWidth >= 768 : true,
   );
+  const [showSuccess, setShowSuccess] = useState(false);
   const recalcBounds = () => {
     const el = pageRef.current;
     if (!el) return;
