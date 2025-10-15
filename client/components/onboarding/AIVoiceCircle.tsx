@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { motion, useMotionValue, animate } from "framer-motion";
+import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export type AIVoiceCircleProps = {
@@ -42,6 +42,8 @@ export default function AIVoiceCircle({
     });
     return () => controls.stop();
   }, [targetRotation]);
+
+  const negRotation = useTransform(rotation, (v) => -v);
 
   const positions = useMemo(() => {
     return items.map((_, idx) => idx * step);
@@ -113,7 +115,7 @@ export default function AIVoiceCircle({
                   style={{
                     left: x,
                     top: y,
-                    rotate: rotation.to((v) => -v),
+                    rotate: negRotation,
                   }}
                   whileHover={{ scale: 1.06 }}
                   whileTap={{ scale: 0.98 }}
