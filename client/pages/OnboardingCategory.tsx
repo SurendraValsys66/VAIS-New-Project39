@@ -64,7 +64,7 @@ const CATEGORY_OPTIONS: readonly CategoryOption[] = [
   { label: "Other", icon: Sparkles },
 ];
 
-type CategoryValue = (typeof CATEGORY_OPTIONS)[number]["label"];
+type CategoryValue = string;
 
 export default function OnboardingCategory() {
   const navigate = useNavigate();
