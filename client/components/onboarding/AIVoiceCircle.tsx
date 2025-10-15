@@ -53,7 +53,10 @@ export default function AIVoiceCircle({
       <div className="absolute inset-0 bg-gradient-to-br from-valasys-blue/20 via-valasys-orange/10 to-valasys-green/10" />
 
       {/* Giant circle, half outside the viewport (top-right) */}
-      <div className="absolute" style={{ top: -diameter * 0.35, right: -diameter * 0.35 }}>
+      <div
+        className="absolute"
+        style={{ top: -diameter * 0.35, right: -diameter * 0.35 }}
+      >
         {/* Outer glow */}
         <motion.div
           className="relative rounded-full"
@@ -78,7 +81,8 @@ export default function AIVoiceCircle({
           <div
             className="absolute inset-0 rounded-full"
             style={{
-              boxShadow: "0 0 0 2px rgba(255,106,0,0.7) inset, 0 10px 30px rgba(0,0,0,0.08)",
+              boxShadow:
+                "0 0 0 2px rgba(255,106,0,0.7) inset, 0 10px 30px rgba(0,0,0,0.08)",
               background:
                 "conic-gradient(from 0deg, rgba(26,115,232,0.25), rgba(255,106,0,0.4), rgba(0,196,140,0.25), rgba(26,115,232,0.25))",
               mask: "radial-gradient(farthest-side, transparent calc(50% - 2px), black calc(50% - 2px))",
@@ -88,10 +92,7 @@ export default function AIVoiceCircle({
           />
 
           {/* Rotating items layer */}
-          <motion.div
-            className="absolute inset-0"
-            style={{ rotate: rotation }}
-          >
+          <motion.div className="absolute inset-0" style={{ rotate: rotation }}>
             {positions.map((angle, idx) => {
               const item = items[idx];
               const isActive = item === selected;
@@ -107,7 +108,7 @@ export default function AIVoiceCircle({
                     "absolute -translate-x-1/2 -translate-y-1/2 select-none px-2.5 py-1.5 rounded-full text-xs font-medium transition-colors",
                     isActive
                       ? "bg-valasys-orange text-white shadow-md"
-                      : "bg-white/85 text-valasys-gray-800 hover:bg-white shadow"
+                      : "bg-white/85 text-valasys-gray-800 hover:bg-white shadow",
                   )}
                   style={{
                     left: x,
@@ -127,8 +128,14 @@ export default function AIVoiceCircle({
           <div
             className="absolute z-10 h-3 w-3 rounded-full bg-valasys-orange shadow"
             style={{
-              left: radius + (radius - 2) * Math.cos((anchorAngle * Math.PI) / 180) - 6,
-              top: radius + (radius - 2) * Math.sin((anchorAngle * Math.PI) / 180) - 6,
+              left:
+                radius +
+                (radius - 2) * Math.cos((anchorAngle * Math.PI) / 180) -
+                6,
+              top:
+                radius +
+                (radius - 2) * Math.sin((anchorAngle * Math.PI) / 180) -
+                6,
             }}
           />
         </motion.div>
@@ -136,7 +143,9 @@ export default function AIVoiceCircle({
 
       {/* Right side helper text card */}
       <div className="absolute bottom-8 right-8 max-w-sm rounded-xl bg-white/90 p-4 shadow-xl ring-1 ring-black/5 backdrop-blur">
-        <div className="text-sm font-semibold text-valasys-gray-900">AI Voice Assistant</div>
+        <div className="text-sm font-semibold text-valasys-gray-900">
+          AI Voice Assistant
+        </div>
         <div className="mt-1 text-xs text-valasys-gray-700">
           Your role selection tunes guidance, prompts, and defaults.
         </div>
