@@ -40,7 +40,7 @@ const INDUSTRY_OPTIONS: readonly IndustryOption[] = [
   { label: "Other", icon: Sparkles },
 ];
 
-type IndustryValue = (typeof INDUSTRY_OPTIONS)[number]["label"];
+type IndustryValue = string;
 
 export default function OnboardingIndustry() {
   const navigate = useNavigate();
