@@ -67,7 +67,7 @@ import {
   Activity,
   Lock,
   Brain,
-  ArrowUp,
+  ArrowUp, ArrowDown, ArrowUpDown,
   Briefcase,
   BadgeCheck,
   MoreVertical,
