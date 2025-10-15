@@ -1328,7 +1328,7 @@ export default function ProspectResults() {
                                   <ArrowDown className="w-3 h-3 text-valasys-orange" />
                                 )
                               ) : (
-                                <span className="text-gray-400">��</span>
+                                <ArrowUpDown className="w-3 h-3 text-gray-400" />
                               )}
                             </div>
                           </div>
