@@ -282,7 +282,7 @@ export default function Payments() {
   }) => (
     <button
       onClick={() => handleSort(field)}
-      className="group flex items-center justify-between gap-2 text-left hover:text-valasys-orange w-full"
+      className="group flex items-center justify-between gap-2 text-left hover:text-valasys-orange w-full h-full px-4 py-2 cursor-pointer"
     >
       <span>{label}</span>
       <div className="flex-shrink-0">
