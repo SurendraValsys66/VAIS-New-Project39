@@ -11,14 +11,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Download, CreditCard, ArrowUp, ArrowDown, Search, Filter } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Download, CreditCard, ArrowUp, ArrowDown, Search, Filter, Calendar as CalendarIcon } from "lucide-react";
+
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
 
 interface PaymentRow {
   id: string;
@@ -169,8 +167,6 @@ type SortDir = "asc" | "desc";
 export default function Payments() {
   const [query, setQuery] = useState("");
   const [typeFilter, setTypeFilter] = useState<string>("all");
-  const [providerFilter, setProviderFilter] = useState<string>("all");
-  const [currencyFilter, setCurrencyFilter] = useState<string>("all");
   const [sortField, setSortField] = useState<SortField>("transactionDate");
   const [sortDir, setSortDir] = useState<SortDir>("desc");
 
@@ -178,14 +174,10 @@ export default function Payments() {
     () => Array.from(new Set(rows.map((r) => r.type))).sort(),
     [],
   );
-  const uniqueProviders = useMemo(
-    () => Array.from(new Set(rows.map((r) => r.serviceProvider))).sort(),
-    [],
-  );
-  const uniqueCurrencies = useMemo(
-    () => Array.from(new Set(rows.map((r) => r.currency))).sort(),
-    [],
-  );
+
+  const [dateRange, setDateRange] = useState<{ from: Date | undefined; to: Date | undefined } | undefined>();
+  const [datePopoverOpen, setDatePopoverOpen] = useState(false);
+  const [tempDateRange, setTempDateRange] = useState<{ from: Date | undefined; to: Date | undefined } | undefined>();
 
   const filtered = useMemo(() => {
     return rows.filter((r) => {
@@ -198,19 +190,18 @@ export default function Payments() {
         : true;
 
       const matchesType = typeFilter === "all" ? true : r.type === typeFilter;
-      const matchesProvider =
-        providerFilter === "all" ? true : r.serviceProvider === providerFilter;
-      const matchesCurrency =
-        currencyFilter === "all" ? true : r.currency === currencyFilter;
 
-      return (
-        matchesQuery &&
-        matchesType &&
-        matchesProvider &&
-        matchesCurrency
-      );
+      let inRange = true;
+      if (dateRange?.from && dateRange?.to) {
+        const dt = parsePaymentDate(r.transactionDate);
+        if (!dt) return false;
+        const t = dt.getTime();
+        inRange = t >= dateRange.from.getTime() && t <= dateRange.to.getTime();
+      }
+
+      return matchesQuery && matchesType && inRange;
     });
-  }, [query, typeFilter, providerFilter, currencyFilter]);
+  }, [query, typeFilter, dateRange]);
 
   const sorted = useMemo(() => {
     const arr = [...filtered];
@@ -263,8 +254,7 @@ export default function Payments() {
   const resetFilters = () => {
     setQuery("");
     setTypeFilter("all");
-    setProviderFilter("all");
-    setCurrencyFilter("all");
+    setDateRange(undefined);
   };
 
   const HeaderSort = ({
@@ -317,12 +307,51 @@ export default function Payments() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div className="md:col-span-2">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                   <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search invoices, methods, provider..." className="pl-10" aria-label="Search payments" />
                 </div>
+              </div>
+              <div>
+                <Popover open={datePopoverOpen} onOpenChange={(o)=>{ setDatePopoverOpen(o); if(o){ setTempDateRange(dateRange); } }}>
+                  <PopoverTrigger asChild>
+                    <Button variant="outline" className="w-full justify-start">
+                      <CalendarIcon className="w-4 h-4 mr-2" />
+                      {dateRange?.from && dateRange?.to ? (
+                        `${format(dateRange.from, "MM/dd/yyyy")} - ${format(dateRange.to, "MM/dd/yyyy")}`
+                      ) : (
+                        <span>Select date range</span>
+                      )}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-3" align="start">
+                    <div className="space-y-3">
+                      <Input
+                        readOnly
+                        value={
+                          tempDateRange?.from && tempDateRange?.to
+                            ? `${format(tempDateRange.from, "MM/dd/yyyy")} - ${format(tempDateRange.to, "MM/dd/yyyy")}`
+                            : ""
+                        }
+                        placeholder="MM/DD/YYYY - MM/DD/YYYY"
+                      />
+                      <Calendar
+                        initialFocus
+                        mode="range"
+                        defaultMonth={tempDateRange?.from}
+                        selected={tempDateRange}
+                        onSelect={setTempDateRange as any}
+                        numberOfMonths={2}
+                      />
+                      <div className="flex items-center justify-end gap-2">
+                        <Button variant="outline" size="sm" onClick={()=> setDatePopoverOpen(false)}>Cancel</Button>
+                        <Button size="sm" className="bg-valasys-orange text-white" onClick={()=>{ setDateRange(tempDateRange); setDatePopoverOpen(false); }}>Apply</Button>
+                      </div>
+                    </div>
+                  </PopoverContent>
+                </Popover>
               </div>
               <div>
                 <Select value={typeFilter} onValueChange={setTypeFilter}>
@@ -331,28 +360,6 @@ export default function Payments() {
                     <SelectItem value="all">All Types</SelectItem>
                     {uniqueTypes.map((t) => (
                       <SelectItem key={t} value={t}>{t}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <Select value={providerFilter} onValueChange={setProviderFilter}>
-                  <SelectTrigger><SelectValue placeholder="Provider" /></SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Providers</SelectItem>
-                    {uniqueProviders.map((p) => (
-                      <SelectItem key={p} value={p}>{p}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <Select value={currencyFilter} onValueChange={setCurrencyFilter}>
-                  <SelectTrigger><SelectValue placeholder="Currency" /></SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Currencies</SelectItem>
-                    {uniqueCurrencies.map((c) => (
-                      <SelectItem key={c} value={c}>{c}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
