@@ -342,7 +342,7 @@ export default function Payments() {
                         mode="range"
                         defaultMonth={tempDateRange?.from}
                         selected={tempDateRange}
-                        onSelect={setTempDateRange as any}
+                        onSelect={(range) => setTempDateRange(range)}
                         numberOfMonths={2}
                       />
                       <div className="flex items-center justify-end gap-2">
