@@ -109,7 +109,7 @@ export default function AIVoiceCircle({
                   className={cn(
                     "absolute -translate-x-1/2 -translate-y-1/2 select-none px-3 py-1.5 rounded-full text-xs font-medium transition-all",
                     isActive
-                      ? "bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white shadow-xl px-4 py-2"
+                      ? "bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white shadow-2xl px-5 py-2.5 text-sm font-semibold"
                       : "bg-white/90 text-valasys-gray-800 hover:bg-white shadow",
                   )}
                   style={{
@@ -123,7 +123,14 @@ export default function AIVoiceCircle({
                   whileHover={{ scale: isActive ? 1.12 : 1.06 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  {item}
+                  {isActive ? (
+                    <span className="inline-flex items-center">
+                      <span className="mr-2 h-2.5 w-2.5 rounded-full bg-white/90 shadow-sm" />
+                      {item}
+                    </span>
+                  ) : (
+                    item
+                  )}
                 </motion.button>
               );
             })}
