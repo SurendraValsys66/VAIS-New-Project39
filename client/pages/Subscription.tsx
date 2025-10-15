@@ -19,6 +19,7 @@ import {
   Coins,
 } from "lucide-react";
 import React, { useMemo, useState, useRef } from "react";
+import PaymentSuccessModal from "@/components/billing/PaymentSuccessModal";
 
 interface Plan {
   id: "free" | "growth" | "scale" | "enterprise";
@@ -577,6 +578,7 @@ export default function Subscription() {
   const [isDesktop, setIsDesktop] = useState<boolean>(
     typeof window !== "undefined" ? window.innerWidth >= 768 : true,
   );
+  const [showSuccess, setShowSuccess] = useState(false);
   const recalcBounds = () => {
     const el = pageRef.current;
     if (!el) return;
@@ -634,8 +636,43 @@ export default function Subscription() {
     [sortedPlans, selectedPlan],
   );
 
+  const now = new Date();
+  let dateStr = now.toLocaleString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+  dateStr = dateStr.replace(", ", " at ").replace(" ", "");
+  const dueAmount = (() => {
+    const p = selectedPlanObj;
+    if (!p) return 0;
+    if (p.id === "enterprise") return 0;
+    return billing === "annual" ? p.priceAnnual * 12 : p.priceMonthly;
+  })();
+  const invoiceContent = [
+    "Payment Receipt",
+    `Plan: ${selectedPlanObj?.name ?? ""}`,
+    `Billing: ${billing === "annual" ? "Annually" : "Monthly"}`,
+    `Amount: $${dueAmount}`,
+  ].join("\n");
+
   return (
     <DashboardLayout>
+      <PaymentSuccessModal
+        open={showSuccess}
+        onOpenChange={setShowSuccess}
+        data={{
+          status: "Successful",
+          date: `${dateStr}`,
+          methodBrand: "Mastercard",
+          last4: "1887",
+          invoiceFileName: `invoice-${selectedPlan}-${Date.now()}.txt`,
+          invoiceContent,
+        }}
+      />
       <div
         className="space-y-8"
         ref={pageRef}
@@ -786,7 +823,10 @@ export default function Subscription() {
                       </div>
                     </div>
                     <div className="mt-3 md:mt-0 md:pl-6 md:border-l border-valasys-gray-200 w-full md:w-auto flex justify-center">
-                      <Button className="bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white hover:from-valasys-orange/90 hover:to-valasys-orange-light/90 mx-auto">
+                      <Button
+                        onClick={() => setShowSuccess(true)}
+                        className="bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white hover:from-valasys-orange/90 hover:to-valasys-orange-light/90 mx-auto"
+                      >
                         <CreditCard className="w-5 h-5 mr-2" /> Upgrade Plan
                       </Button>
                     </div>
