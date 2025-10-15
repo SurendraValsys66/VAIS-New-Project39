@@ -11,8 +11,21 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Download, CreditCard, ArrowUp, ArrowDown, Search, Filter } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Download,
+  CreditCard,
+  ArrowUp,
+  ArrowDown,
+  Search,
+  Filter,
+} from "lucide-react";
 
 import { DateRangePicker as RsuiteDateRangePicker } from "rsuite";
 
@@ -173,7 +186,9 @@ export default function Payments() {
     [],
   );
 
-  const [dateRange, setDateRange] = useState<{ from: Date | undefined; to: Date | undefined } | undefined>();
+  const [dateRange, setDateRange] = useState<
+    { from: Date | undefined; to: Date | undefined } | undefined
+  >();
   const [pickerValue, setPickerValue] = useState<[Date, Date] | null>(null);
 
   const filtered = useMemo(() => {
@@ -309,7 +324,13 @@ export default function Payments() {
               <div className="md:col-span-2">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search invoices, methods, provider..." className="pl-10" aria-label="Search payments" />
+                  <Input
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search invoices, methods, provider..."
+                    className="pl-10"
+                    aria-label="Search payments"
+                  />
                 </div>
               </div>
               <div>
@@ -336,17 +357,27 @@ export default function Payments() {
               </div>
               <div>
                 <Select value={typeFilter} onValueChange={setTypeFilter}>
-                  <SelectTrigger><SelectValue placeholder="Type" /></SelectTrigger>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Type" />
+                  </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All Types</SelectItem>
                     {uniqueTypes.map((t) => (
-                      <SelectItem key={t} value={t}>{t}</SelectItem>
+                      <SelectItem key={t} value={t}>
+                        {t}
+                      </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
               <div>
-                <Button variant="outline" onClick={resetFilters} className="w-full">Reset Filters</Button>
+                <Button
+                  variant="outline"
+                  onClick={resetFilters}
+                  className="w-full"
+                >
+                  Reset Filters
+                </Button>
               </div>
             </div>
           </CardContent>
@@ -362,13 +393,19 @@ export default function Payments() {
                 <TableHeader>
                   <TableRow className="bg-gray-50 hover:bg-gray-50">
                     <TableHead className="min-w-[180px]">
-                      <HeaderSort label="Transaction Date" field="transactionDate" />
+                      <HeaderSort
+                        label="Transaction Date"
+                        field="transactionDate"
+                      />
                     </TableHead>
                     <TableHead className="min-w-[160px]">
                       <HeaderSort label="Invoice ID" field="invoiceId" />
                     </TableHead>
                     <TableHead className="min-w-[200px]">
-                      <HeaderSort label="Payment Method" field="paymentMethod" />
+                      <HeaderSort
+                        label="Payment Method"
+                        field="paymentMethod"
+                      />
                     </TableHead>
                     <TableHead className="min-w-[140px]">
                       <HeaderSort label="Type" field="type" />
@@ -377,10 +414,17 @@ export default function Payments() {
                       <HeaderSort label="Currency" field="currency" />
                     </TableHead>
                     <TableHead className="text-right min-w-[150px]">
-                      <HeaderSort label="Invoice Amount" field="invoiceAmount" alignRight />
+                      <HeaderSort
+                        label="Invoice Amount"
+                        field="invoiceAmount"
+                        alignRight
+                      />
                     </TableHead>
                     <TableHead className="min-w-[160px]">
-                      <HeaderSort label="Service Provider" field="serviceProvider" />
+                      <HeaderSort
+                        label="Service Provider"
+                        field="serviceProvider"
+                      />
                     </TableHead>
                   </TableRow>
                 </TableHeader>
@@ -421,7 +465,10 @@ export default function Payments() {
                   ))}
                   {sorted.length === 0 && (
                     <TableRow>
-                      <TableCell colSpan={7} className="text-center py-8 text-sm text-gray-500">
+                      <TableCell
+                        colSpan={7}
+                        className="text-center py-8 text-sm text-gray-500"
+                      >
                         No transactions match your filters.
                       </TableCell>
                     </TableRow>
