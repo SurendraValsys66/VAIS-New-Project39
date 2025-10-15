@@ -64,18 +64,16 @@ const CATEGORY_OPTIONS: readonly CategoryOption[] = [
   { label: "Other", icon: Sparkles },
 ];
 
-type CategoryValue = (typeof CATEGORY_OPTIONS)[number]["label"];
+type CategoryValue = string;
 
 export default function OnboardingCategory() {
   const navigate = useNavigate();
   const initial = getOnboarding().vaisCategory ?? "";
-  const [value, setValue] = useState<CategoryValue | "">(
-    initial as CategoryValue | "",
-  );
+  const [value, setValue] = useState<string>(initial as string);
 
   const onNext = () => {
     if (!value) return;
-    saveOnboarding({ vaisCategory: value });
+    saveOnboarding({ vaisCategory: value as any });
     navigate("/onboarding/complete");
   };
 
@@ -110,9 +108,9 @@ export default function OnboardingCategory() {
             <RadioGroup
               value={value}
               onValueChange={(v) => {
-                setValue(v as CategoryValue);
+                setValue(v as any);
                 if (v) {
-                  saveOnboarding({ vaisCategory: v as CategoryValue });
+                  saveOnboarding({ vaisCategory: v as any });
                 }
               }}
               className="grid grid-cols-1 sm:grid-cols-2 gap-3"
