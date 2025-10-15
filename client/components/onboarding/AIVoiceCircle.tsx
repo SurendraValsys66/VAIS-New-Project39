@@ -22,7 +22,7 @@ export default function AIVoiceCircle({
   onSelect,
   className,
   diameter = 820,
-  anchorAngle = -45, // top-right edge
+  anchorAngle = 0, // align selected to right center
 }: AIVoiceCircleProps) {
   const radius = diameter / 2;
   const step = 360 / (items.length || 1);
@@ -57,7 +57,7 @@ export default function AIVoiceCircle({
       {/* Giant circle, half outside the viewport (top-right) */}
       <div
         className="absolute"
-        style={{ top: -diameter * 0.35, right: -diameter * 0.35 }}
+        style={{ top: -diameter * 0.25, right: -diameter * 0.25 }}
       >
         {/* Outer glow */}
         <motion.div
@@ -107,17 +107,20 @@ export default function AIVoiceCircle({
                   type="button"
                   onClick={() => onSelect?.(item)}
                   className={cn(
-                    "absolute -translate-x-1/2 -translate-y-1/2 select-none px-2.5 py-1.5 rounded-full text-xs font-medium transition-colors",
+                    "absolute -translate-x-1/2 -translate-y-1/2 select-none px-3 py-1.5 rounded-full text-xs font-medium transition-all",
                     isActive
-                      ? "bg-valasys-orange text-white shadow-md"
-                      : "bg-white/85 text-valasys-gray-800 hover:bg-white shadow",
+                      ? "bg-valasys-orange text-white ring-2 ring-white shadow-xl"
+                      : "bg-white/90 text-valasys-gray-800 hover:bg-white shadow",
                   )}
                   style={{
                     left: x,
                     top: y,
                     rotate: negRotation,
+                    zIndex: isActive ? 2 : 1,
                   }}
-                  whileHover={{ scale: 1.06 }}
+                  animate={{ scale: isActive ? 1.1 : 1 }}
+                  transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                  whileHover={{ scale: isActive ? 1.12 : 1.06 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   {item}
