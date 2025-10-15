@@ -18,7 +18,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import DateRangePicker from "@/components/dashboard/DateRangePicker";
 import { Download, CreditCard, ArrowUp, ArrowDown, Search, Filter } from "lucide-react";
 
 interface PaymentRow {
@@ -172,9 +171,6 @@ export default function Payments() {
   const [typeFilter, setTypeFilter] = useState<string>("all");
   const [providerFilter, setProviderFilter] = useState<string>("all");
   const [currencyFilter, setCurrencyFilter] = useState<string>("all");
-  const [dateRange, setDateRange] = useState<{ value: string; days: number } | null>(
-    { value: "30d", days: 30 },
-  );
   const [sortField, setSortField] = useState<SortField>("transactionDate");
   const [sortDir, setSortDir] = useState<SortDir>("desc");
 
@@ -192,7 +188,6 @@ export default function Payments() {
   );
 
   const filtered = useMemo(() => {
-    const now = new Date();
     return rows.filter((r) => {
       const q = query.trim().toLowerCase();
       const matchesQuery = q
@@ -208,24 +203,14 @@ export default function Payments() {
       const matchesCurrency =
         currencyFilter === "all" ? true : r.currency === currencyFilter;
 
-      let matchesRange = true;
-      if (dateRange && dateRange.days > 0) {
-        const dt = parsePaymentDate(r.transactionDate);
-        if (!dt) return false;
-        const diffMs = now.getTime() - dt.getTime();
-        const diffDays = diffMs / (1000 * 60 * 60 * 24);
-        matchesRange = diffDays <= dateRange.days;
-      }
-
       return (
         matchesQuery &&
         matchesType &&
         matchesProvider &&
-        matchesCurrency &&
-        matchesRange
+        matchesCurrency
       );
     });
-  }, [query, typeFilter, providerFilter, currencyFilter, dateRange]);
+  }, [query, typeFilter, providerFilter, currencyFilter]);
 
   const sorted = useMemo(() => {
     const arr = [...filtered];
@@ -280,7 +265,6 @@ export default function Payments() {
     setTypeFilter("all");
     setProviderFilter("all");
     setCurrencyFilter("all");
-    setDateRange({ value: "30d", days: 30 });
   };
 
   const HeaderSort = ({
@@ -333,15 +317,12 @@ export default function Payments() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
               <div className="md:col-span-2">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                   <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search invoices, methods, provider..." className="pl-10" aria-label="Search payments" />
                 </div>
-              </div>
-              <div>
-                <DateRangePicker onRangeChange={(r) => setDateRange({ value: r.value, days: r.days })} defaultRange={dateRange?.value || "30d"} />
               </div>
               <div>
                 <Select value={typeFilter} onValueChange={setTypeFilter}>
