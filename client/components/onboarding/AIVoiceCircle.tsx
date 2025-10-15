@@ -112,7 +112,7 @@ export default function AIVoiceCircle({
                   style={{
                     left: x,
                     top: y,
-                    transform: `translate(-50%, -50%) rotate(${-targetRotation}deg)`,
+                    rotate: rotation.to((v) => -v),
                   }}
                   whileHover={{ scale: 1.06 }}
                   whileTap={{ scale: 0.98 }}
