@@ -14,9 +14,7 @@ import {
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Download, CreditCard, ArrowUp, ArrowDown, Search, Filter, Calendar as CalendarIcon } from "lucide-react";
 
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
-import { format } from "date-fns";
+import { DateRangePicker as RsuiteDateRangePicker } from "rsuite";
 
 interface PaymentRow {
   id: string;
@@ -176,8 +174,7 @@ export default function Payments() {
   );
 
   const [dateRange, setDateRange] = useState<{ from: Date | undefined; to: Date | undefined } | undefined>();
-  const [datePopoverOpen, setDatePopoverOpen] = useState(false);
-  const [tempDateRange, setTempDateRange] = useState<{ from: Date | undefined; to: Date | undefined } | undefined>();
+  const [pickerValue, setPickerValue] = useState<[Date, Date] | null>(null);
 
   const filtered = useMemo(() => {
     return rows.filter((r) => {
@@ -255,6 +252,7 @@ export default function Payments() {
     setQuery("");
     setTypeFilter("all");
     setDateRange(undefined);
+    setPickerValue(null);
   };
 
   const HeaderSort = ({
@@ -315,49 +313,26 @@ export default function Payments() {
                 </div>
               </div>
               <div>
-                <Popover open={datePopoverOpen} onOpenChange={(o)=>{ setDatePopoverOpen(o); if(o){ setTempDateRange(dateRange); } }}>
-                  <PopoverTrigger asChild>
-                    <Button variant="outline" className="w-full justify-start">
-                      <CalendarIcon className="w-4 h-4 mr-2" />
-                      {dateRange?.from && dateRange?.to ? (
-                        `${format(dateRange.from, "MM/dd/yyyy")} - ${format(dateRange.to, "MM/dd/yyyy")}`
-                      ) : (
-                        <span>Select date range</span>
-                      )}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-3" align="start">
-                    <div className="space-y-3">
-                      <Input
-                        readOnly
-                        value={
-                          tempDateRange?.from && tempDateRange?.to
-                            ? `${format(tempDateRange.from, "MM/dd/yyyy")} - ${format(tempDateRange.to, "MM/dd/yyyy")}`
-                            : ""
-                        }
-                        placeholder="MM/DD/YYYY - MM/DD/YYYY"
-                      />
-                      <Calendar
-                        initialFocus
-                        mode="range"
-                        defaultMonth={tempDateRange?.from}
-                        selected={tempDateRange}
-                        onSelect={(range) => setTempDateRange(range)}
-                        numberOfMonths={2}
-                      />
-                      <div className="text-center text-sm text-muted-foreground">
-                        {tempDateRange?.from && tempDateRange?.to
-                          ? `${format(tempDateRange.from, "MM/dd/yyyy")} - ${format(tempDateRange.to, "MM/dd/yyyy")}`
-                          : ""
-                        }
-                      </div>
-                      <div className="flex items-center justify-end gap-2">
-                        <Button variant="outline" size="sm" onClick={()=> setDatePopoverOpen(false)}>Cancel</Button>
-                        <Button size="sm" className="bg-valasys-orange text-white" disabled={!tempDateRange?.from || !tempDateRange?.to} onClick={()=>{ setDateRange(tempDateRange); setDatePopoverOpen(false); }}>Apply</Button>
-                      </div>
-                    </div>
-                  </PopoverContent>
-                </Popover>
+                <RsuiteDateRangePicker
+                  value={pickerValue as any}
+                  onChange={(val) => setPickerValue(val as any)}
+                  onOk={(val) => {
+                    setPickerValue(val as any);
+                    if (val && Array.isArray(val)) {
+                      setDateRange({ from: val[0], to: val[1] });
+                    }
+                  }}
+                  onClean={() => {
+                    setPickerValue(null);
+                    setDateRange(undefined);
+                  }}
+                  placeholder="MM/DD/YYYY - MM/DD/YYYY"
+                  format="MM/dd/yyyy"
+                  character=" - "
+                  placement="bottomStart"
+                  showOneCalendar={false}
+                  style={{ width: "100%" }}
+                />
               </div>
               <div>
                 <Select value={typeFilter} onValueChange={setTypeFilter}>
