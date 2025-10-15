@@ -44,6 +44,7 @@ import {
   Info,
   Plus,
   Save,
+  Loader2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -545,9 +546,7 @@ export default function MyDownloadedList() {
                       <div className="flex items-center justify-center">
                         <Checkbox
                           checked={isAllSelected}
-                          ref={(el) => {
-                            if (el) el.indeterminate = isIndeterminate;
-                          }}
+                          indeterminate={isIndeterminate}
                           onCheckedChange={handleSelectAll}
                         />
                       </div>
