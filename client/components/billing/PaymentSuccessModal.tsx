@@ -30,7 +30,11 @@ function formatInvoiceContent(d: PaymentSuccessData) {
   return lines.join("\n");
 }
 
-export const PaymentSuccessModal: React.FC<Props> = ({ open, onOpenChange, data }) => {
+export const PaymentSuccessModal: React.FC<Props> = ({
+  open,
+  onOpenChange,
+  data,
+}) => {
   const onDownload = React.useCallback(() => {
     const content = data.invoiceContent ?? formatInvoiceContent(data);
     const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
@@ -64,7 +68,9 @@ export const PaymentSuccessModal: React.FC<Props> = ({ open, onOpenChange, data 
                 <Check className="h-6 w-6" />
               </div>
               <div className="text-center">
-                <h2 className="text-2xl font-bold tracking-tight">Payment Successful !</h2>
+                <h2 className="text-2xl font-bold tracking-tight">
+                  Payment Successful !
+                </h2>
                 <p className="mt-2 text-sm text-gray-600">
                   We have received your membership request.
                 </p>
@@ -93,8 +99,12 @@ export const PaymentSuccessModal: React.FC<Props> = ({ open, onOpenChange, data 
                       <span className="absolute right-0 top-1/2 -translate-y-1/2 h-6 w-6 rounded-full bg-[#F79E1B] mix-blend-multiply" />
                     </div>
                     <div className="leading-tight">
-                      <div className="text-sm font-semibold text-gray-900">{data.methodBrand}</div>
-                      <div className="text-xs text-gray-600">Ending in {data.last4}</div>
+                      <div className="text-sm font-semibold text-gray-900">
+                        {data.methodBrand}
+                      </div>
+                      <div className="text-xs text-gray-600">
+                        Ending in {data.last4}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -105,7 +115,7 @@ export const PaymentSuccessModal: React.FC<Props> = ({ open, onOpenChange, data 
                   onClick={onDownload}
                   className={cn(
                     "w-full rounded-xl bg-black text-white hover:bg-black/90",
-                    "flex items-center justify-center gap-2 py-5 text-[15px] font-semibold"
+                    "flex items-center justify-center gap-2 py-5 text-[15px] font-semibold",
                   )}
                 >
                   Invoice Download
