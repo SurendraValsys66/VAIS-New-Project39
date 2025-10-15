@@ -19,7 +19,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import DateRangePicker from "@/components/dashboard/DateRangePicker";
-import { Download, CreditCard, ArrowUp, ArrowDown, Search } from "lucide-react";
+import { Download, CreditCard, ArrowUp, ArrowDown, Search, Filter } from "lucide-react";
 
 interface PaymentRow {
   id: string;
@@ -325,31 +325,27 @@ export default function Payments() {
           </div>
         </div>
 
-        <Card className="border border-valasys-gray-200 shadow-sm">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base">Transactions</CardTitle>
+        <Card className="mb-6">
+          <CardHeader className="pb-4">
+            <CardTitle className="flex items-center text-lg">
+              <Filter className="w-5 h-5 mr-2 text-valasys-orange" />
+              Search & Filters
+            </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-              <div className="flex items-center gap-2 w-full md:w-auto">
-                <div className="relative w-full md:w-72">
-                  <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                  <Input
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search invoices, methods, provider..."
-                    className="pl-9"
-                    aria-label="Search payments"
-                  />
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
+              <div className="md:col-span-2">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search invoices, methods, provider..." className="pl-10" aria-label="Search payments" />
                 </div>
               </div>
-              <div className="flex flex-wrap gap-2 items-center">
-                <DateRangePicker
-                  onRangeChange={(r) => setDateRange({ value: r.value, days: r.days })}
-                  defaultRange={dateRange?.value || "30d"}
-                />
+              <div>
+                <DateRangePicker onRangeChange={(r) => setDateRange({ value: r.value, days: r.days })} defaultRange={dateRange?.value || "30d"} />
+              </div>
+              <div>
                 <Select value={typeFilter} onValueChange={setTypeFilter}>
-                  <SelectTrigger className="w-[160px]"><SelectValue placeholder="Type" /></SelectTrigger>
+                  <SelectTrigger><SelectValue placeholder="Type" /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All Types</SelectItem>
                     {uniqueTypes.map((t) => (
@@ -357,8 +353,10 @@ export default function Payments() {
                     ))}
                   </SelectContent>
                 </Select>
+              </div>
+              <div>
                 <Select value={providerFilter} onValueChange={setProviderFilter}>
-                  <SelectTrigger className="w-[160px]"><SelectValue placeholder="Provider" /></SelectTrigger>
+                  <SelectTrigger><SelectValue placeholder="Provider" /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All Providers</SelectItem>
                     {uniqueProviders.map((p) => (
@@ -366,8 +364,10 @@ export default function Payments() {
                     ))}
                   </SelectContent>
                 </Select>
+              </div>
+              <div>
                 <Select value={currencyFilter} onValueChange={setCurrencyFilter}>
-                  <SelectTrigger className="w-[140px]"><SelectValue placeholder="Currency" /></SelectTrigger>
+                  <SelectTrigger><SelectValue placeholder="Currency" /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All Currencies</SelectItem>
                     {uniqueCurrencies.map((c) => (
@@ -375,12 +375,19 @@ export default function Payments() {
                     ))}
                   </SelectContent>
                 </Select>
-                <Button variant="outline" onClick={resetFilters}>
-                  Reset
-                </Button>
+              </div>
+              <div>
+                <Button variant="outline" onClick={resetFilters} className="w-full">Reset Filters</Button>
               </div>
             </div>
+          </CardContent>
+        </Card>
 
+        <Card className="border border-valasys-gray-200 shadow-sm">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-base">Transactions</CardTitle>
+          </CardHeader>
+          <CardContent className="p-0">
             <div className="border rounded-lg overflow-hidden">
               <Table>
                 <TableHeader>
