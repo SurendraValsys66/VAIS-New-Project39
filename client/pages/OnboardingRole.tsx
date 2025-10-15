@@ -92,13 +92,17 @@ export default function OnboardingRole() {
                     htmlFor={`role-${r.label}`}
                     className={`flex items-center gap-3 rounded-lg border p-3 cursor-pointer transition-colors ${
                       value === r.label
-                        ? "border-valasys-orange bg-valasys-orange/5"
+                        ? "border-transparent bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white"
                         : "border-valasys-gray-200 hover:border-valasys-orange/60"
                     }`}
                   >
-                    <RadioGroupItem id={`role-${r.label}`} value={r.label} />
-                    <r.icon className="h-4 w-4 text-valasys-orange" />
-                    <span className="text-sm text-valasys-gray-800">
+                    <RadioGroupItem
+                      id={`role-${r.label}`}
+                      value={r.label}
+                      className={value === r.label ? "border-white text-white" : undefined}
+                    />
+                    <r.icon className={value === r.label ? "h-4 w-4 text-white" : "h-4 w-4 text-valasys-orange"} />
+                    <span className={value === r.label ? "text-sm text-white" : "text-sm text-valasys-gray-800"}>
                       {r.label}
                     </span>
                   </Label>
