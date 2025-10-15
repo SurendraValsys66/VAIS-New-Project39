@@ -149,7 +149,7 @@ export default function OnboardingRole() {
         <AIVoiceCircle
           items={ROLES.map((r) => r.label)}
           selected={value}
-          anchorAngle={210}
+          anchorAngle={180}
           onSelect={(v) => {
             setValue(v);
             if (v) saveOnboarding({ role: v as any });
