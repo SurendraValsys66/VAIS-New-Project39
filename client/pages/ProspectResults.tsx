@@ -68,6 +68,8 @@ import {
   Lock,
   Brain,
   ArrowUp,
+  ArrowDown,
+  ArrowUpDown,
   Briefcase,
   BadgeCheck,
   MoreVertical,
@@ -1280,11 +1282,13 @@ export default function ProspectResults() {
                             Prospect
                             <div className="ml-2">
                               {sortField === "fullName" ? (
-                                <span className="text-valasys-orange">
-                                  {sortDirection === "asc" ? "↑" : "↓"}
-                                </span>
+                                sortDirection === "asc" ? (
+                                  <ArrowUp className="w-3 h-3 text-valasys-orange" />
+                                ) : (
+                                  <ArrowDown className="w-3 h-3 text-valasys-orange" />
+                                )
                               ) : (
-                                <span className="text-gray-400">↕</span>
+                                <ArrowUpDown className="w-3 h-3 text-gray-400" />
                               )}
                             </div>
                           </div>
@@ -1299,11 +1303,13 @@ export default function ProspectResults() {
                             Company
                             <div className="ml-2">
                               {sortField === "companyName" ? (
-                                <span className="text-valasys-orange">
-                                  {sortDirection === "asc" ? "↑" : "↓"}
-                                </span>
+                                sortDirection === "asc" ? (
+                                  <ArrowUp className="w-3 h-3 text-valasys-orange" />
+                                ) : (
+                                  <ArrowDown className="w-3 h-3 text-valasys-orange" />
+                                )
                               ) : (
-                                <span className="text-gray-400">↕</span>
+                                <ArrowUpDown className="w-3 h-3 text-gray-400" />
                               )}
                             </div>
                           </div>
@@ -1318,11 +1324,13 @@ export default function ProspectResults() {
                             Job Title
                             <div className="ml-2">
                               {sortField === "jobTitle" ? (
-                                <span className="text-valasys-orange">
-                                  {sortDirection === "asc" ? "↑" : "↓"}
-                                </span>
+                                sortDirection === "asc" ? (
+                                  <ArrowUp className="w-3 h-3 text-valasys-orange" />
+                                ) : (
+                                  <ArrowDown className="w-3 h-3 text-valasys-orange" />
+                                )
                               ) : (
-                                <span className="text-gray-400">��</span>
+                                <ArrowUpDown className="w-3 h-3 text-gray-400" />
                               )}
                             </div>
                           </div>
@@ -1337,11 +1345,13 @@ export default function ProspectResults() {
                             Job Function
                             <div className="ml-2">
                               {sortField === "jobFunction" ? (
-                                <span className="text-valasys-orange">
-                                  {sortDirection === "asc" ? "↑" : "↓"}
-                                </span>
+                                sortDirection === "asc" ? (
+                                  <ArrowUp className="w-3 h-3 text-valasys-orange" />
+                                ) : (
+                                  <ArrowDown className="w-3 h-3 text-valasys-orange" />
+                                )
                               ) : (
-                                <span className="text-gray-400">↕</span>
+                                <ArrowUpDown className="w-3 h-3 text-gray-400" />
                               )}
                             </div>
                           </div>
@@ -1356,11 +1366,13 @@ export default function ProspectResults() {
                             Revenue
                             <div className="ml-2">
                               {sortField === "revenue" ? (
-                                <span className="text-valasys-orange">
-                                  {sortDirection === "asc" ? "↑" : "↓"}
-                                </span>
+                                sortDirection === "asc" ? (
+                                  <ArrowUp className="w-3 h-3 text-valasys-orange" />
+                                ) : (
+                                  <ArrowDown className="w-3 h-3 text-valasys-orange" />
+                                )
                               ) : (
-                                <span className="text-gray-400">↕</span>
+                                <ArrowUpDown className="w-3 h-3 text-gray-400" />
                               )}
                             </div>
                           </div>
@@ -1375,11 +1387,13 @@ export default function ProspectResults() {
                             Main Industry
                             <div className="ml-2">
                               {sortField === "industry" ? (
-                                <span className="text-valasys-orange">
-                                  {sortDirection === "asc" ? "↑" : "↓"}
-                                </span>
+                                sortDirection === "asc" ? (
+                                  <ArrowUp className="w-3 h-3 text-valasys-orange" />
+                                ) : (
+                                  <ArrowDown className="w-3 h-3 text-valasys-orange" />
+                                )
                               ) : (
-                                <span className="text-gray-400">↕</span>
+                                <ArrowUpDown className="w-3 h-3 text-gray-400" />
                               )}
                             </div>
                           </div>
@@ -1394,11 +1408,13 @@ export default function ProspectResults() {
                             Country
                             <div className="ml-2">
                               {sortField === "country" ? (
-                                <span className="text-valasys-orange">
-                                  {sortDirection === "asc" ? "↑" : "↓"}
-                                </span>
+                                sortDirection === "asc" ? (
+                                  <ArrowUp className="w-3 h-3 text-valasys-orange" />
+                                ) : (
+                                  <ArrowDown className="w-3 h-3 text-valasys-orange" />
+                                )
                               ) : (
-                                <span className="text-gray-400">↕</span>
+                                <ArrowUpDown className="w-3 h-3 text-gray-400" />
                               )}
                             </div>
                           </div>
