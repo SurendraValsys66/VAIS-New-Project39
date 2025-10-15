@@ -966,6 +966,24 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                           className="cursor-pointer items-start gap-3 py-3"
                         >
                           <Link
+                            to="/payments"
+                            className="flex items-start gap-3 w-full"
+                          >
+                            <CreditCard className="mt-0.5 h-4 w-4 text-gray-600" />
+                            <div>
+                              <div className="font-medium">Payments</div>
+                              <div className="text-xs text-gray-500">
+                                Transactions & invoices
+                              </div>
+                            </div>
+                          </Link>
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem
+                          asChild
+                          className="cursor-pointer items-start gap-3 py-3"
+                        >
+                          <Link
                             to="/settings"
                             className="flex items-start gap-3 w-full"
                           >
