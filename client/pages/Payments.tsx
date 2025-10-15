@@ -351,7 +351,7 @@ export default function Payments() {
                   placeholder="MM/DD/YYYY - MM/DD/YYYY"
                   format="MM/dd/yyyy"
                   character=" - "
-                  placement="bottomStart"
+                  placement="leftStart"
                   showOneCalendar={false}
                   style={{ width: "100%" }}
                 />
