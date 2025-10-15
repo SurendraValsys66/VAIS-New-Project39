@@ -109,7 +109,7 @@ export default function AIVoiceCircle({
                   className={cn(
                     "absolute -translate-x-1/2 -translate-y-1/2 select-none px-3 py-1.5 rounded-full text-xs font-medium transition-all",
                     isActive
-                      ? "bg-valasys-orange text-white ring-2 ring-white shadow-xl"
+                      ? "bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white shadow-xl px-4 py-2"
                       : "bg-white/90 text-valasys-gray-800 hover:bg-white shadow",
                   )}
                   style={{
