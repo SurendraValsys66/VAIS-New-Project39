@@ -45,13 +45,11 @@ type IndustryValue = string;
 export default function OnboardingIndustry() {
   const navigate = useNavigate();
   const initial = getOnboarding().targetIndustry ?? "";
-  const [value, setValue] = useState<IndustryValue | "">(
-    initial as IndustryValue | "",
-  );
+  const [value, setValue] = useState<string>(initial as string);
 
   const onNext = () => {
     if (!value) return;
-    saveOnboarding({ targetIndustry: value });
+    saveOnboarding({ targetIndustry: value as any });
     navigate("/onboarding/category");
   };
 
@@ -84,9 +82,9 @@ export default function OnboardingIndustry() {
           <RadioGroup
             value={value}
             onValueChange={(v) => {
-              setValue(v as IndustryValue);
+              setValue(v as any);
               if (v) {
-                saveOnboarding({ targetIndustry: v as IndustryValue });
+                saveOnboarding({ targetIndustry: v as any });
               }
             }}
             className="grid grid-cols-1 sm:grid-cols-2 gap-3"
