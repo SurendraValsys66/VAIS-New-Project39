@@ -465,7 +465,7 @@ export default function Login() {
                     <Checkbox
                       id="remember"
                       checked={rememberMe}
-                      onCheckedChange={setRememberMe}
+                      onCheckedChange={(v) => setRememberMe(Boolean(v))}
                       className="border-valasys-gray-300 hover:border-valasys-orange transition-colors duration-200"
                     />
                     <Label
