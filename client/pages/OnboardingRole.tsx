@@ -99,10 +99,26 @@ export default function OnboardingRole() {
                     <RadioGroupItem
                       id={`role-${r.label}`}
                       value={r.label}
-                      className={value === r.label ? "border-white text-white" : undefined}
+                      className={
+                        value === r.label
+                          ? "border-white text-white"
+                          : undefined
+                      }
                     />
-                    <r.icon className={value === r.label ? "h-4 w-4 text-white" : "h-4 w-4 text-valasys-orange"} />
-                    <span className={value === r.label ? "text-sm text-white" : "text-sm text-valasys-gray-800"}>
+                    <r.icon
+                      className={
+                        value === r.label
+                          ? "h-4 w-4 text-white"
+                          : "h-4 w-4 text-valasys-orange"
+                      }
+                    />
+                    <span
+                      className={
+                        value === r.label
+                          ? "text-sm text-white"
+                          : "text-sm text-valasys-gray-800"
+                      }
+                    >
                       {r.label}
                     </span>
                   </Label>
