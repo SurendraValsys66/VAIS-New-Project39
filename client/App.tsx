@@ -1,5 +1,6 @@
 import "./global.css";
 import React from "react";
+import "rsuite/dist/rsuite-no-reset.min.css";
 
 import { Toaster } from "@/components/ui/toaster";
 import { createRoot } from "react-dom/client";
