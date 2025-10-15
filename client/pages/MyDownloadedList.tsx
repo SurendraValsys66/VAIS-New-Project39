@@ -546,7 +546,9 @@ export default function MyDownloadedList() {
                       <div className="flex items-center justify-center">
                         <Checkbox
                           checked={isAllSelected}
-                          indeterminate={isIndeterminate}
+                          ref={(el) => {
+                            if (el) (el as any).indeterminate = isIndeterminate;
+                          }}
                           onCheckedChange={handleSelectAll}
                         />
                       </div>
