@@ -2,7 +2,14 @@ import React from "react";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Download, CreditCard } from "lucide-react";
 
 interface PaymentRow {
@@ -111,7 +118,9 @@ function downloadInvoice(row: PaymentRow) {
     `Amount: ${row.invoiceAmount}`,
     `Service Provider: ${row.serviceProvider}`,
   ];
-  const blob = new Blob([lines.join("\n")], { type: "text/plain;charset=utf-8" });
+  const blob = new Blob([lines.join("\n")], {
+    type: "text/plain;charset=utf-8",
+  });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
@@ -131,7 +140,9 @@ export default function Payments() {
             <h1 className="text-2xl font-bold text-valasys-gray-900 flex items-center gap-2">
               <CreditCard className="w-6 h-6 text-valasys-orange" /> Payments
             </h1>
-            <p className="text-sm text-valasys-gray-600">View your recent transactions and download invoices.</p>
+            <p className="text-sm text-valasys-gray-600">
+              View your recent transactions and download invoices.
+            </p>
           </div>
         </div>
 
@@ -156,7 +167,9 @@ export default function Payments() {
                 <TableBody>
                   {rows.map((row) => (
                     <TableRow key={row.id}>
-                      <TableCell className="text-sm text-gray-700">{row.transactionDate}</TableCell>
+                      <TableCell className="text-sm text-gray-700">
+                        {row.transactionDate}
+                      </TableCell>
                       <TableCell className="font-mono text-sm flex items-center gap-2">
                         <button
                           className="inline-flex items-center gap-1 text-valasys-orange hover:underline"
@@ -167,13 +180,23 @@ export default function Payments() {
                           <Download className="w-4 h-4" />
                         </button>
                       </TableCell>
-                      <TableCell className="text-sm text-gray-700">{row.paymentMethod}</TableCell>
-                      <TableCell className="text-sm text-gray-700">{row.type}</TableCell>
-                      <TableCell className="text-sm text-gray-700">{row.currency}</TableCell>
-                      <TableCell className="text-right font-medium text-gray-900">
-                        {row.currency === "USD" ? `$${row.invoiceAmount.toLocaleString()}` : `${row.invoiceAmount.toLocaleString()} ${row.currency}`}
+                      <TableCell className="text-sm text-gray-700">
+                        {row.paymentMethod}
                       </TableCell>
-                      <TableCell className="text-sm text-gray-700">{row.serviceProvider}</TableCell>
+                      <TableCell className="text-sm text-gray-700">
+                        {row.type}
+                      </TableCell>
+                      <TableCell className="text-sm text-gray-700">
+                        {row.currency}
+                      </TableCell>
+                      <TableCell className="text-right font-medium text-gray-900">
+                        {row.currency === "USD"
+                          ? `$${row.invoiceAmount.toLocaleString()}`
+                          : `${row.invoiceAmount.toLocaleString()} ${row.currency}`}
+                      </TableCell>
+                      <TableCell className="text-sm text-gray-700">
+                        {row.serviceProvider}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
