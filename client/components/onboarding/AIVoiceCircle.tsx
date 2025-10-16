@@ -75,8 +75,8 @@ export default function AIVoiceCircle({
 
       {/* Giant circle, half outside the viewport (corner) */}
       <div className="absolute" style={cornerStyle}>
-        {/* Wavy ripple layers */}
-        {[0, 1, 2].map((layer) => (
+        {/* Wavy ripple layers - Broader waves */}
+        {[0, 1, 2, 3].map((layer) => (
           <motion.div
             key={`wave-${layer}`}
             className="absolute rounded-full"
@@ -84,16 +84,16 @@ export default function AIVoiceCircle({
               width: diameter,
               height: diameter,
               border: "2px solid",
-              borderColor: `rgba(255,106,0,${0.3 - layer * 0.1})`,
+              borderColor: `rgba(255,106,0,${0.25 - layer * 0.06})`,
             }}
             animate={{
-              scale: [1, 1.15, 1.3],
-              opacity: [0.8, 0.4, 0],
+              scale: [1, 1.25, 1.5, 1.75],
+              opacity: [0.9, 0.5, 0.2, 0],
             }}
             transition={{
               repeat: Infinity,
-              duration: 3.5,
-              delay: layer * 0.6,
+              duration: 4.5,
+              delay: layer * 0.8,
               ease: "easeOut",
             }}
           />
