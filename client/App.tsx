@@ -45,6 +45,7 @@ import OnboardingIndustry from "./pages/OnboardingIndustry";
 import OnboardingCategory from "./pages/OnboardingCategory";
 import OnboardingThankYou from "./pages/OnboardingThankYou";
 import MasteryGuide from "./pages/MasteryGuide";
+import ContactSales from "./pages/ContactSales";
 
 const queryClient = new QueryClient();
 
