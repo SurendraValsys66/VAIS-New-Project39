@@ -577,6 +577,7 @@ export default function ChatbotDemo() {
                 size="lg"
                 variant="outline"
                 className="border-white text-white hover:bg-white/10"
+                onClick={() => navigate("/contact-sales")}
               >
                 <HeadphonesIcon className="w-5 h-5 mr-2" />
                 Contact Sales
