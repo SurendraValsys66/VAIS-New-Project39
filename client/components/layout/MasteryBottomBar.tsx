@@ -614,7 +614,7 @@ export default function MasteryBottomBar() {
               <img
                 src="https://cdn.builder.io/o/assets%2F6bf9f940afaa47adb0dc2265d0f0cc7d%2Fb6757c28effa47b997680f4cce7b558d?alt=media&token=314bff09-2dc0-48a8-9030-ccb545eaefcb&apiKey=6bf9f940afaa47adb0dc2265d0f0cc7d"
                 alt="Rewards celebration"
-                className="h-24 w-auto rounded-md shadow"
+                className="h-40 w-auto rounded-md"
               />
             </div>
             <div className="mx-auto mb-4 flex w-full max-w-xs items-center gap-1">
