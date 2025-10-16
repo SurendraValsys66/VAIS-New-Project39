@@ -19,6 +19,7 @@ import {
   Coins,
 } from "lucide-react";
 import React, { useMemo, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import PaymentSuccessModal from "@/components/billing/PaymentSuccessModal";
 
 interface Plan {
