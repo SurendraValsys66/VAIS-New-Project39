@@ -25,14 +25,54 @@ import OnboardingSplitLayout from "@/components/onboarding/OnboardingSplitLayout
 import AIVoiceCircle from "@/components/onboarding/AIVoiceCircle";
 
 const ROLES = [
-  { label: "Founder", icon: Brain },
-  { label: "Marketer", icon: Target },
-  { label: "Business Development", icon: Building2 },
-  { label: "Sales Leader", icon: Users },
-  { label: "Talent Acquisition", icon: UserCog },
-  { label: "Ops & Support", icon: Headphones },
-  { label: "Customer Success", icon: Smile },
-  { label: "Sales Representative", icon: UserRound },
+  {
+    label: "Founder",
+    icon: Brain,
+    description:
+      "Build strategy with AI-powered insights. Get real-time market intelligence and prospect data to make faster, smarter business decisions.",
+  },
+  {
+    label: "Marketer",
+    icon: Target,
+    description:
+      "Amplify campaigns with AI assistance. Create targeted campaigns with advanced audience insights and automated lead generation.",
+  },
+  {
+    label: "Business Development",
+    icon: Building2,
+    description:
+      "Accelerate partnerships and growth. Discover high-potential prospects and streamline business development workflows.",
+  },
+  {
+    label: "Sales Leader",
+    icon: Users,
+    description:
+      "Lead high-performing teams with data. Get visibility into pipeline, predict outcomes, and empower your sales team with AI insights.",
+  },
+  {
+    label: "Talent Acquisition",
+    icon: UserCog,
+    description:
+      "Find and hire top talent faster. Identify qualified candidates and streamline your recruitment process with AI-powered matching.",
+  },
+  {
+    label: "Ops & Support",
+    icon: Headphones,
+    description:
+      "Optimize operations with intelligent automation. Streamline workflows and improve efficiency across your support team.",
+  },
+  {
+    label: "Customer Success",
+    icon: Smile,
+    description:
+      "Deliver exceptional customer experiences. Proactively identify at-risk customers and maximize retention with AI guidance.",
+  },
+  {
+    label: "Sales Representative",
+    icon: UserRound,
+    description:
+      "Close deals faster with AI coaching. Get real-time insights on prospects, personalized talking points, and next best actions.",
+  },
 ] as const;
 
 export default function OnboardingRole() {
