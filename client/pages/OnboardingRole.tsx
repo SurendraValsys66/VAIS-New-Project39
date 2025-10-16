@@ -179,24 +179,75 @@ export default function OnboardingRole() {
             }}
           />
 
-          {/* Role Description with Slide Animation */}
-          <div className="absolute bottom-12 left-0 right-0 px-8 max-w-md mx-auto">
-            {value && (
-              <motion.div
-                key={value}
-                initial={{ opacity: 0, x: 100 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -100 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="bg-white/95 backdrop-blur-sm rounded-lg p-4 shadow-lg border border-valasys-orange/20"
-              >
-                <p className="text-sm text-valasys-gray-700 leading-relaxed">
-                  {
-                    ROLES.find((r) => r.label === value)?.description
-                  }
-                </p>
-              </motion.div>
-            )}
+          {/* Role Description with Slide Animation - Premium Design */}
+          <div className="absolute bottom-12 left-0 right-0 px-8 max-w-lg mx-auto">
+            {value && (() => {
+              const selectedRole = ROLES.find((r) => r.label === value);
+              const Icon = selectedRole?.icon;
+              return (
+                <motion.div
+                  key={value}
+                  initial={{ opacity: 0, x: 120, y: 20 }}
+                  animate={{ opacity: 1, x: 0, y: 0 }}
+                  exit={{ opacity: 0, x: -120, y: 20 }}
+                  transition={{ duration: 0.6, ease: [0.23, 1, 0.320, 1] }}
+                  className="relative"
+                >
+                  {/* Gradient background */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-valasys-orange/10 to-valasys-orange/5 rounded-2xl blur-xl" />
+
+                  {/* Card */}
+                  <div className="relative bg-white/98 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-valasys-orange/20 overflow-hidden">
+                    {/* Accent line */}
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-valasys-orange to-valasys-orange-light" />
+
+                    {/* Header with Icon and Role Name */}
+                    <div className="flex items-center gap-3 mb-4">
+                      {Icon && (
+                        <motion.div
+                          initial={{ scale: 0, rotate: -180 }}
+                          animate={{ scale: 1, rotate: 0 }}
+                          transition={{ duration: 0.6, delay: 0.1 }}
+                          className="p-3 bg-gradient-to-br from-valasys-orange/20 to-valasys-orange/10 rounded-lg"
+                        >
+                          <Icon className="w-6 h-6 text-valasys-orange" />
+                        </motion.div>
+                      )}
+                      <motion.div
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, delay: 0.15 }}
+                      >
+                        <h3 className="text-lg font-bold text-valasys-gray-900">
+                          {value}
+                        </h3>
+                        <p className="text-xs text-valasys-orange font-semibold tracking-wide">
+                          ROLE OVERVIEW
+                        </p>
+                      </motion.div>
+                    </div>
+
+                    {/* Description */}
+                    <motion.p
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.2 }}
+                      className="text-sm text-valasys-gray-700 leading-relaxed font-light mb-4"
+                    >
+                      {selectedRole?.description}
+                    </motion.p>
+
+                    {/* Bottom accent bar */}
+                    <motion.div
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+                      className="h-0.5 w-16 bg-gradient-to-r from-valasys-orange to-transparent origin-left"
+                    />
+                  </div>
+                </motion.div>
+              );
+            })()}
           </div>
         </div>
       }
