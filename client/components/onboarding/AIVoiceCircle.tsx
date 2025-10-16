@@ -104,7 +104,12 @@ export default function AIVoiceCircle({
               filter: "blur(20px)",
             }}
             animate={{ scale: [1.05, 1.15, 1.05] }}
-            transition={{ repeat: Infinity, duration: 3.6, ease: "easeInOut", delay: 0.2 }}
+            transition={{
+              repeat: Infinity,
+              duration: 3.6,
+              ease: "easeInOut",
+              delay: 0.2,
+            }}
           />
 
           {/* Ring border - Enhanced gradient */}
@@ -180,7 +185,8 @@ export default function AIVoiceCircle({
                 radius +
                 (radius - 2) * Math.sin((anchorAngle * Math.PI) / 180) -
                 6,
-              boxShadow: "0 0 20px rgba(255,106,0,0.6), 0 0 40px rgba(255,106,0,0.3)",
+              boxShadow:
+                "0 0 20px rgba(255,106,0,0.6), 0 0 40px rgba(255,106,0,0.3)",
             }}
             animate={{ scale: [1, 1.3, 1] }}
             transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
@@ -204,7 +210,12 @@ export default function AIVoiceCircle({
               borderWidth: "2px",
             }}
             animate={{ scale: [0.8, 1.2, 0.8] }}
-            transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut", delay: 0.1 }}
+            transition={{
+              repeat: Infinity,
+              duration: 2.5,
+              ease: "easeInOut",
+              delay: 0.1,
+            }}
           />
         </motion.div>
       </div>
@@ -213,7 +224,9 @@ export default function AIVoiceCircle({
       <div
         className={cn(
           "absolute max-w-sm rounded-xl bg-white/90 p-4 shadow-xl ring-1 ring-black/5 backdrop-blur",
-          helperTextPosition === "top-left" ? "top-8 left-8" : "bottom-8 right-8",
+          helperTextPosition === "top-left"
+            ? "top-8 left-8"
+            : "bottom-8 right-8",
         )}
       >
         <div className="text-sm font-semibold text-valasys-gray-900">

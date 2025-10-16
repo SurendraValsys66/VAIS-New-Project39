@@ -209,7 +209,10 @@ export default function ContactSales() {
                   <label className="block text-xs font-semibold text-valasys-gray-700 mb-2">
                     How many people will attend our chat?
                   </label>
-                  <Select value={formData.attendeeCount} onValueChange={handleSelectChange}>
+                  <Select
+                    value={formData.attendeeCount}
+                    onValueChange={handleSelectChange}
+                  >
                     <SelectTrigger className="h-10">
                       <SelectValue placeholder="Please provide the required info" />
                     </SelectTrigger>
