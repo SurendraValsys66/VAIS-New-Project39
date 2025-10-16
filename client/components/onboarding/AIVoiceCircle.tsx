@@ -271,28 +271,35 @@ export default function AIVoiceCircle({
       </div>
 
       {/* Center image - Positioned at the center of the AI circle origin with pulse animation */}
-      <motion.img
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        src="https://cdn.builder.io/api/v1/image/assets%2F6bf9f940afaa47adb0dc2265d0f0cc7d%2F5066687f08314bf495e1c0977c221069?format=webp&width=800"
-        alt="AI Voice Logo"
-        className="absolute w-48 h-48 object-contain shadow-2xl z-20"
+      <motion.div
         style={{
+          position: "absolute",
           left: `calc(-${diameter * 0.25}px + ${radius}px - 96px)`,
           top: `calc(-${diameter * 0.25}px + ${radius}px - 96px)`,
-          boxShadow:
-            "0 0 60px rgba(255,106,0,0.3), inset 0 0 30px rgba(255,255,255,0.2)",
+          zIndex: 20,
         }}
-        animate={{
-          scale: [1, 1.15, 1],
-        }}
-        transition={{
-          repeat: Infinity,
-          duration: 4,
-          ease: "easeInOut",
-        }}
-      />
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
+        <motion.img
+          src="https://cdn.builder.io/api/v1/image/assets%2F6bf9f940afaa47adb0dc2265d0f0cc7d%2F5066687f08314bf495e1c0977c221069?format=webp&width=800"
+          alt="AI Voice Logo"
+          className="w-48 h-48 object-contain"
+          style={{
+            boxShadow:
+              "0 0 60px rgba(255,106,0,0.3), inset 0 0 30px rgba(255,255,255,0.2)",
+          }}
+          animate={{
+            scale: [1, 1.15, 1],
+          }}
+          transition={{
+            repeat: Infinity,
+            duration: 4,
+            ease: "easeInOut",
+          }}
+        />
+      </motion.div>
     </div>
   );
 }
