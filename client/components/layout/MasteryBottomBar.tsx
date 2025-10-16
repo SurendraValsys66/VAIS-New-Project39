@@ -126,6 +126,9 @@ export default function MasteryBottomBar() {
         setShowConfetti(true);
         setShowFinalDialog(true);
         setTimeout(() => setShowConfetti(false), 3000);
+        // Second confetti blast after a delay
+        setTimeout(() => setShowConfetti2(true), 1500);
+        setTimeout(() => setShowConfetti2(false), 4500);
       }
     }
 
