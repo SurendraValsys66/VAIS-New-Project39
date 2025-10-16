@@ -107,17 +107,28 @@ export default function AIVoiceCircle({
             transition={{ repeat: Infinity, duration: 3.6, ease: "easeInOut", delay: 0.2 }}
           />
 
-          {/* Ring border */}
+          {/* Ring border - Enhanced gradient */}
+          <motion.div
+            className="absolute inset-0 rounded-full"
+            style={{
+              boxShadow:
+                "0 0 0 3px rgba(255,106,0,0.9) inset, 0 0 40px rgba(255,106,0,0.3), 0 10px 30px rgba(0,0,0,0.1)",
+              background:
+                "conic-gradient(from 0deg, rgba(26,115,232,0.4), rgba(255,106,0,0.6), rgba(0,196,140,0.4), rgba(26,115,232,0.4))",
+              mask: "radial-gradient(farthest-side, transparent calc(50% - 3px), black calc(50% - 3px))",
+              WebkitMask:
+                "radial-gradient(farthest-side, transparent calc(50% - 3px), black calc(50% - 3px))",
+            }}
+            animate={{ opacity: [0.6, 1, 0.6] }}
+            transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+          />
+
+          {/* Accent glow rings */}
           <div
             className="absolute inset-0 rounded-full"
             style={{
               boxShadow:
-                "0 0 0 2px rgba(255,106,0,0.7) inset, 0 10px 30px rgba(0,0,0,0.08)",
-              background:
-                "conic-gradient(from 0deg, rgba(26,115,232,0.25), rgba(255,106,0,0.4), rgba(0,196,140,0.25), rgba(26,115,232,0.25))",
-              mask: "radial-gradient(farthest-side, transparent calc(50% - 2px), black calc(50% - 2px))",
-              WebkitMask:
-                "radial-gradient(farthest-side, transparent calc(50% - 2px), black calc(50% - 2px))",
+                "inset 0 0 60px rgba(255,106,0,0.2), 0 0 100px rgba(255,106,0,0.15)",
             }}
           />
 
