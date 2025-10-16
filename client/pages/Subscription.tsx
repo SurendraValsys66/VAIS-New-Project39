@@ -546,6 +546,7 @@ function PlanComparisonTable({
 }
 
 export default function Subscription() {
+  const navigate = useNavigate();
   const [billing, setBilling] = useState<"monthly" | "annual">("annual");
   const [selectedPlan, setSelectedPlan] = useState<
     "free" | "growth" | "scale" | "enterprise"
