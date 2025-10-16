@@ -270,22 +270,27 @@ export default function AIVoiceCircle({
         </motion.div>
       </div>
 
-      {/* Center video - Positioned at the center of the AI circle origin */}
-      <motion.video
-        initial={{ scale: 0, opacity: 0 }}
+      {/* Center image - Positioned at the center of the AI circle origin with pulse animation */}
+      <motion.img
+        initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        src="https://cdn.builder.io/o/assets%2F6bf9f940afaa47adb0dc2265d0f0cc7d%2Ffb49b9fd9db645198660ea5c0f25f7b7?alt=media&token=a842e804-6116-4aff-816f-a1febaf24f83&apiKey=6bf9f940afaa47adb0dc2265d0f0cc7d"
-        className="absolute w-48 h-48 rounded-full object-cover shadow-2xl z-20"
-        autoPlay
-        loop
-        muted
-        playsInline
+        src="https://cdn.builder.io/api/v1/image/assets%2F6bf9f940afaa47adb0dc2265d0f0cc7d%2F5066687f08314bf495e1c0977c221069?format=webp&width=800"
+        alt="AI Voice Logo"
+        className="absolute w-48 h-48 object-contain shadow-2xl z-20"
         style={{
           left: `calc(-${diameter * 0.25}px + ${radius}px - 96px)`,
           top: `calc(-${diameter * 0.25}px + ${radius}px - 96px)`,
           boxShadow:
             "0 0 60px rgba(255,106,0,0.3), inset 0 0 30px rgba(255,255,255,0.2)",
+        }}
+        animate={{
+          scale: [1, 1.15, 1],
+        }}
+        transition={{
+          repeat: Infinity,
+          duration: 4,
+          ease: "easeInOut",
         }}
       />
     </div>
