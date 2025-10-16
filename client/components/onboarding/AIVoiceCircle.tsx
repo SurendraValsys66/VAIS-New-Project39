@@ -275,7 +275,7 @@ export default function AIVoiceCircle({
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        src="https://cdn.builder.io/o/assets%2F6bf9f940afaa47adb0dc2265d0f0cc7d%2Ff306852e99834075ae8a72e6e67becf5?alt=media&token=4c436f0a-9e39-439e-919a-3b6eb360c13e&apiKey=6bf9f940afaa47adb0dc2265d0f0cc7d"
+        src="https://cdn.builder.io/o/assets%2F6bf9f940afaa47adb0dc2265d0f0cc7d%2Ffb49b9fd9db645198660ea5c0f25f7b7?alt=media&token=a842e804-6116-4aff-816f-a1febaf24f83&apiKey=6bf9f940afaa47adb0dc2265d0f0cc7d"
         className="absolute w-48 h-48 rounded-full object-cover shadow-2xl z-20"
         autoPlay
         loop
