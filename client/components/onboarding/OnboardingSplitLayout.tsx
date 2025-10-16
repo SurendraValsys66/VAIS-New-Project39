@@ -31,7 +31,7 @@ export default function OnboardingSplitLayout({
       </div>
 
       {/* Right side */}
-      <div className="relative hidden md:block">{right}</div>
+      <div className="relative hidden md:block bg-white">{right}</div>
     </div>
   );
 }
