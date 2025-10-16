@@ -193,11 +193,8 @@ export default function OnboardingRole() {
                   transition={{ duration: 0.6, ease: [0.23, 1, 0.320, 1] }}
                   className="relative"
                 >
-                  {/* Gradient background */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-valasys-orange/10 to-valasys-orange/5 rounded-2xl blur-xl" />
-
                   {/* Card */}
-                  <div className="relative bg-white/98 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-valasys-orange/20 overflow-hidden">
+                  <div className="relative bg-white rounded-2xl p-6 shadow-lg border border-valasys-orange/20 overflow-hidden">
                     {/* Accent line */}
                     <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-valasys-orange to-valasys-orange-light" />
 
