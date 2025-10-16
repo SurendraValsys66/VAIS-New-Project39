@@ -26,6 +26,7 @@ export default function AIVoiceCircle({
   diameter = 820,
   anchorAngle = 0, // align selected to right center
   origin = "top-right",
+  helperTextPosition = "bottom-right",
 }: AIVoiceCircleProps) {
   const radius = diameter / 2;
   const step = 360 / (items.length || 1);
