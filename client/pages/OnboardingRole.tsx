@@ -130,7 +130,8 @@ export default function OnboardingRole() {
           items={ROLES.map((r) => r.label)}
           selected={value}
           anchorAngle={360 / ROLES.length}
-          origin="bottom-left"
+          origin="top-left"
+          helperTextPosition="top-left"
           onSelect={(v) => {
             setValue(v);
             if (v) saveOnboarding({ role: v as any });
