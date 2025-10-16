@@ -86,6 +86,7 @@ export default function MasteryBottomBar() {
   const [showFinalDialog, setShowFinalDialog] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [showStepConfetti, setShowStepConfetti] = useState(false);
+  const [dialogBlast, setDialogBlast] = useState(0);
 
   useEffect(() => {
     setState(getMastery());
@@ -322,23 +323,18 @@ export default function MasteryBottomBar() {
 
   const shouldShowPanel = !hidden && !doneAll;
 
+  useEffect(() => {
+    if (showFinalDialog && showConfetti) {
+      setDialogBlast(1);
+      const t = setTimeout(() => setDialogBlast(2), 650);
+      return () => clearTimeout(t);
+    }
+    setDialogBlast(0);
+  }, [showFinalDialog, showConfetti]);
+
   return (
     <>
-      {/* Confetti celebration */}
-      {showConfetti && (
-        <div className="fixed inset-0 z-[70] pointer-events-none">
-          <ConfettiCanvas
-            duration={2000}
-            mode="blast"
-            origin={{ x: 80, y: window.innerHeight - 80 }}
-          />
-          <ConfettiCanvas
-            duration={2000}
-            mode="blast"
-            origin={{ x: window.innerWidth - 80, y: window.innerHeight - 80 }}
-          />
-        </div>
-      )}
+      {/* Confetti celebration moved inside dialog to blast from behind modal (two times) */}
 
       {shouldShowPanel && (
         <div className="fixed inset-x-0 bottom-4 z-50 pointer-events-none">
@@ -593,13 +589,31 @@ export default function MasteryBottomBar() {
 
       {/* Final completion dialog */}
       <Dialog open={showFinalDialog} onOpenChange={setShowFinalDialog}>
-        <DialogContent className="max-w-sm p-0 overflow-hidden rounded-2xl border-0">
-          <div className="bg-gradient-to-b from-amber-200 via-amber-100 to-white p-6 text-center">
+        <DialogContent className="relative max-w-sm p-0 overflow-hidden rounded-2xl border-0">
+          {showConfetti && (
+            <div className="pointer-events-none absolute inset-0 z-0">
+              {dialogBlast >= 1 && (
+                <ConfettiCanvas
+                  key={`blast-1-${dialogBlast}`}
+                  duration={1800}
+                  mode="blast"
+                />
+              )}
+              {dialogBlast >= 2 && (
+                <ConfettiCanvas
+                  key={`blast-2-${dialogBlast}`}
+                  duration={1800}
+                  mode="blast"
+                />
+              )}
+            </div>
+          )}
+          <div className="relative z-10 bg-gradient-to-b from-amber-200 via-amber-100 to-white p-6 text-center">
             <div className="mx-auto mb-4 flex items-center justify-center">
               <img
                 src="https://cdn.builder.io/o/assets%2F6bf9f940afaa47adb0dc2265d0f0cc7d%2Fb6757c28effa47b997680f4cce7b558d?alt=media&token=314bff09-2dc0-48a8-9030-ccb545eaefcb&apiKey=6bf9f940afaa47adb0dc2265d0f0cc7d"
                 alt="Rewards celebration"
-                className="h-24 w-auto rounded-md shadow"
+                className="h-32 w-auto rounded-md"
               />
             </div>
             <div className="mx-auto mb-4 flex w-full max-w-xs items-center gap-1">
@@ -642,7 +656,7 @@ export default function MasteryBottomBar() {
               </span>
             </p>
           </div>
-          <div className="px-6 pb-6 pt-4">
+          <div className="relative z-10 px-6 pb-6 pt-4">
             <div className="mb-3 text-left text-sm">
               <div className="mb-1 font-semibold text-gray-900">
                 Rewards Unlocked:
