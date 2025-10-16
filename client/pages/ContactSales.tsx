@@ -78,7 +78,13 @@ export default function ContactSales() {
 
   return (
     <DashboardLayout>
-      <div className="min-h-screen bg-gradient-to-br from-orange-50 via-orange-50/80 to-orange-100/60 py-12">
+      <div
+        className="min-h-screen bg-cover bg-center bg-no-repeat py-12"
+        style={{
+          backgroundImage:
+            "url('https://cdn.builder.io/api/v1/image/assets%2F6bf9f940afaa47adb0dc2265d0f0cc7d%2Ffc8c3bd2186641d3b22a304a7dab0288?format=webp&width=800')",
+        }}
+      >
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Left Column - FAQ Section */}
