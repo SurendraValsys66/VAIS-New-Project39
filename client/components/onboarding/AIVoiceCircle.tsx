@@ -83,16 +83,28 @@ export default function AIVoiceCircle({
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6 }}
         >
-          {/* Pulsing halo */}
+          {/* Pulsing halo - Enhanced AI glow */}
           <motion.div
             className="absolute inset-0 rounded-full"
             style={{
               background:
-                "radial-gradient(closest-side, rgba(255,106,0,0.18), rgba(255,106,0,0.08) 60%, transparent)",
-              filter: "blur(8px)",
+                "radial-gradient(closest-side, rgba(255,106,0,0.45), rgba(255,106,0,0.2) 50%, transparent)",
+              filter: "blur(12px)",
             }}
-            animate={{ scale: [1, 1.03, 1] }}
-            transition={{ repeat: Infinity, duration: 3.2, ease: "easeInOut" }}
+            animate={{ scale: [1, 1.08, 1] }}
+            transition={{ repeat: Infinity, duration: 2.4, ease: "easeInOut" }}
+          />
+
+          {/* Secondary pulsing layer for depth */}
+          <motion.div
+            className="absolute inset-0 rounded-full"
+            style={{
+              background:
+                "radial-gradient(closest-side, rgba(26,115,232,0.25), transparent 70%)",
+              filter: "blur(20px)",
+            }}
+            animate={{ scale: [1.05, 1.15, 1.05] }}
+            transition={{ repeat: Infinity, duration: 3.6, ease: "easeInOut", delay: 0.2 }}
           />
 
           {/* Ring border */}
