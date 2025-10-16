@@ -10,6 +10,7 @@ export type AIVoiceCircleProps = {
   diameter?: number; // px
   anchorAngle?: number; // degrees where selected label should align (CSS clockwise, 0deg at +X)
   origin?: "top-right" | "top-left" | "bottom-right" | "bottom-left"; // where the big circle is anchored within its container
+  helperTextPosition?: "bottom-right" | "top-left"; // where to position the helper text card
 };
 
 /**
