@@ -593,10 +593,18 @@ export default function MasteryBottomBar() {
           {showConfetti && (
             <div className="pointer-events-none absolute inset-0 z-0">
               {dialogBlast >= 1 && (
-                <ConfettiCanvas key={`blast-1-${dialogBlast}`} duration={1800} mode="blast" />
+                <ConfettiCanvas
+                  key={`blast-1-${dialogBlast}`}
+                  duration={1800}
+                  mode="blast"
+                />
               )}
               {dialogBlast >= 2 && (
-                <ConfettiCanvas key={`blast-2-${dialogBlast}`} duration={1800} mode="blast" />
+                <ConfettiCanvas
+                  key={`blast-2-${dialogBlast}`}
+                  duration={1800}
+                  mode="blast"
+                />
               )}
             </div>
           )}
