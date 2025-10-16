@@ -322,7 +322,6 @@ export default function MasteryBottomBar() {
 
   const shouldShowPanel = !hidden && !doneAll;
 
-
   return (
     <>
       {/* Confetti celebration moved inside dialog to blast from behind modal (two times) */}
