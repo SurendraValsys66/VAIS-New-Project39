@@ -328,7 +328,7 @@ export default function MasteryBottomBar() {
 
   return (
     <>
-      {/* Confetti celebration */}
+      {/* Confetti celebration - bottom blasts */}
       {showConfetti && (
         <div className="fixed inset-0 z-[70] pointer-events-none">
           <ConfettiCanvas
@@ -340,6 +340,17 @@ export default function MasteryBottomBar() {
             duration={2000}
             mode="blast"
             origin={{ x: window.innerWidth - 80, y: window.innerHeight - 80 }}
+          />
+        </div>
+      )}
+
+      {/* Confetti celebration - backside blasts (behind modal) */}
+      {showConfetti2 && (
+        <div className="fixed inset-0 z-[50] pointer-events-none">
+          <ConfettiCanvas
+            duration={2500}
+            mode="blast"
+            origin={{ x: window.innerWidth / 2, y: window.innerHeight / 2 - 100 }}
           />
         </div>
       )}
