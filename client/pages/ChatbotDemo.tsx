@@ -277,6 +277,7 @@ const categoryInfo = {
 };
 
 export default function ChatbotDemo() {
+  const navigate = useNavigate();
   const [chatOpen, setChatOpen] = useState(false);
   const [chatMinimized, setChatMinimized] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
