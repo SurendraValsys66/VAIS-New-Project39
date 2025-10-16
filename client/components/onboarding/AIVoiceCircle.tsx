@@ -169,8 +169,8 @@ export default function AIVoiceCircle({
           </motion.div>
 
           {/* Anchor indicator at the alignment point (top-right). */}
-          <div
-            className="absolute z-10 h-3 w-3 rounded-full bg-valasys-orange shadow"
+          <motion.div
+            className="absolute z-10 h-3 w-3 rounded-full bg-gradient-to-br from-valasys-orange to-valasys-orange-light shadow-lg"
             style={{
               left:
                 radius +
@@ -180,7 +180,31 @@ export default function AIVoiceCircle({
                 radius +
                 (radius - 2) * Math.sin((anchorAngle * Math.PI) / 180) -
                 6,
+              boxShadow: "0 0 20px rgba(255,106,0,0.6), 0 0 40px rgba(255,106,0,0.3)",
             }}
+            animate={{ scale: [1, 1.3, 1] }}
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          />
+
+          {/* Anchor glow ring */}
+          <motion.div
+            className="absolute z-9 rounded-full border"
+            style={{
+              left:
+                radius +
+                (radius - 2) * Math.cos((anchorAngle * Math.PI) / 180) -
+                12,
+              top:
+                radius +
+                (radius - 2) * Math.sin((anchorAngle * Math.PI) / 180) -
+                12,
+              width: "24px",
+              height: "24px",
+              borderColor: "rgba(255,106,0,0.4)",
+              borderWidth: "2px",
+            }}
+            animate={{ scale: [0.8, 1.2, 0.8] }}
+            transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut", delay: 0.1 }}
           />
         </motion.div>
       </div>
