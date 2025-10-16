@@ -270,23 +270,24 @@ export default function AIVoiceCircle({
         </motion.div>
       </div>
 
-      {/* Center video - Placed in the middle of the circle */}
-      <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-        <motion.video
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          src="https://cdn.builder.io/o/assets%2F6bf9f940afaa47adb0dc2265d0f0cc7d%2Ff306852e99834075ae8a72e6e67becf5?alt=media&token=4c436f0a-9e39-439e-919a-3b6eb360c13e&apiKey=6bf9f940afaa47adb0dc2265d0f0cc7d"
-          className="w-48 h-48 rounded-full object-cover shadow-2xl pointer-events-auto"
-          autoPlay
-          loop
-          muted
-          playsInline
-          style={{
-            boxShadow: "0 0 60px rgba(255,106,0,0.3), inset 0 0 30px rgba(255,255,255,0.2)",
-          }}
-        />
-      </div>
+      {/* Center video - Positioned at the center of the AI circle */}
+      <motion.video
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        src="https://cdn.builder.io/o/assets%2F6bf9f940afaa47adb0dc2265d0f0cc7d%2Ff306852e99834075ae8a72e6e67becf5?alt=media&token=4c436f0a-9e39-439e-919a-3b6eb360c13e&apiKey=6bf9f940afaa47adb0dc2265d0f0cc7d"
+        className="absolute w-48 h-48 rounded-full object-cover shadow-2xl z-20"
+        autoPlay
+        loop
+        muted
+        playsInline
+        style={{
+          left: "50%",
+          top: "50%",
+          transform: "translate(-50%, -50%)",
+          boxShadow: "0 0 60px rgba(255,106,0,0.3), inset 0 0 30px rgba(255,255,255,0.2)",
+        }}
+      />
     </div>
   );
 }
