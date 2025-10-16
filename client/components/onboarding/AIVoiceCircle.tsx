@@ -163,7 +163,12 @@ export default function AIVoiceCircle({
       </div>
 
       {/* Right side helper text card */}
-      <div className="absolute bottom-8 right-8 max-w-sm rounded-xl bg-white/90 p-4 shadow-xl ring-1 ring-black/5 backdrop-blur">
+      <div
+        className={cn(
+          "absolute max-w-sm rounded-xl bg-white/90 p-4 shadow-xl ring-1 ring-black/5 backdrop-blur",
+          helperTextPosition === "top-left" ? "top-8 left-8" : "bottom-8 right-8",
+        )}
+      >
         <div className="text-sm font-semibold text-valasys-gray-900">
           AI Voice Assistant
         </div>
