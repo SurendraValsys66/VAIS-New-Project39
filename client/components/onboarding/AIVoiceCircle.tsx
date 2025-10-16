@@ -107,7 +107,7 @@ export default function AIVoiceCircle({
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6 }}
         >
-          {/* Pulsing halo - Enhanced AI glow */}
+          {/* Pulsing halo - Enhanced AI glow with wave motion */}
           <motion.div
             className="absolute inset-0 rounded-full"
             style={{
@@ -115,8 +115,11 @@ export default function AIVoiceCircle({
                 "radial-gradient(closest-side, rgba(255,106,0,0.45), rgba(255,106,0,0.2) 50%, transparent)",
               filter: "blur(12px)",
             }}
-            animate={{ scale: [1, 1.08, 1] }}
-            transition={{ repeat: Infinity, duration: 2.4, ease: "easeInOut" }}
+            animate={{
+              scale: [1, 1.04, 1.08, 1.04, 1],
+              opacity: [0.7, 0.85, 1, 0.85, 0.7],
+            }}
+            transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
           />
 
           {/* Secondary pulsing layer for depth */}
