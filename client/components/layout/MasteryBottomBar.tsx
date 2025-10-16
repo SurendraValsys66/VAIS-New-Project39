@@ -324,21 +324,7 @@ export default function MasteryBottomBar() {
 
   return (
     <>
-      {/* Confetti celebration */}
-      {showConfetti && (
-        <div className="fixed inset-0 z-[70] pointer-events-none">
-          <ConfettiCanvas
-            duration={2000}
-            mode="blast"
-            origin={{ x: 80, y: window.innerHeight - 80 }}
-          />
-          <ConfettiCanvas
-            duration={2000}
-            mode="blast"
-            origin={{ x: window.innerWidth - 80, y: window.innerHeight - 80 }}
-          />
-        </div>
-      )}
+      {/* Confetti celebration moved inside dialog to blast from behind modal (two times) */}
 
       {shouldShowPanel && (
         <div className="fixed inset-x-0 bottom-4 z-50 pointer-events-none">
