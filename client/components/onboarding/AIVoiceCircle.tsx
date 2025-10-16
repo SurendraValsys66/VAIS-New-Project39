@@ -122,20 +122,43 @@ export default function AIVoiceCircle({
             transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
           />
 
-          {/* Secondary pulsing layer for depth */}
+          {/* Secondary pulsing layer for depth - Wavy phase 1 */}
           <motion.div
             className="absolute inset-0 rounded-full"
             style={{
               background:
-                "radial-gradient(closest-side, rgba(26,115,232,0.25), transparent 70%)",
+                "radial-gradient(closest-side, rgba(26,115,232,0.3), transparent 70%)",
               filter: "blur(20px)",
             }}
-            animate={{ scale: [1.05, 1.15, 1.05] }}
+            animate={{
+              scale: [1.05, 1.08, 1.15, 1.10, 1.05],
+              opacity: [0.4, 0.5, 0.7, 0.5, 0.4],
+            }}
             transition={{
               repeat: Infinity,
-              duration: 3.6,
+              duration: 4,
               ease: "easeInOut",
-              delay: 0.2,
+              delay: 0.3,
+            }}
+          />
+
+          {/* Tertiary wave layer - Wavy phase 2 */}
+          <motion.div
+            className="absolute inset-0 rounded-full"
+            style={{
+              background:
+                "radial-gradient(closest-side, rgba(0,196,140,0.15), transparent 75%)",
+              filter: "blur(28px)",
+            }}
+            animate={{
+              scale: [1, 1.06, 1.12, 1.08, 1],
+              opacity: [0.2, 0.35, 0.5, 0.35, 0.2],
+            }}
+            transition={{
+              repeat: Infinity,
+              duration: 5,
+              ease: "easeInOut",
+              delay: 0.5,
             }}
           />
 
