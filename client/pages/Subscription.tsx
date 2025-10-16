@@ -216,6 +216,7 @@ function PlanCard({
   onToggleComparison: () => void;
   comparisonOpen: boolean;
 }) {
+  const navigate = useNavigate();
   const includedCore = coreRows
     .map((r) => ({ label: r.label, v: r.values[planIndex] }))
     .filter((r) => r.v !== false && r.v !== "-");
@@ -401,6 +402,7 @@ function PlanComparisonTable({
   selectedPlan: Plan["id"];
   onSelect: (id: Plan["id"]) => void;
 }) {
+  const navigate = useNavigate();
   return (
     <div className="overflow-x-auto border border-valasys-gray-200 rounded-lg">
       <table className="min-w-[720px] w-full text-sm">
