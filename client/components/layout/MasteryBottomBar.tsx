@@ -350,7 +350,10 @@ export default function MasteryBottomBar() {
           <ConfettiCanvas
             duration={2500}
             mode="blast"
-            origin={{ x: window.innerWidth / 2, y: window.innerHeight / 2 - 100 }}
+            origin={{
+              x: window.innerWidth / 2,
+              y: window.innerHeight / 2 - 100,
+            }}
           />
         </div>
       )}
