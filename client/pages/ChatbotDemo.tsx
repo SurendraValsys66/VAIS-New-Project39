@@ -38,6 +38,7 @@ import {
   Target,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
 
 interface FeatureCard {
   id: string;
@@ -276,6 +277,7 @@ const categoryInfo = {
 };
 
 export default function ChatbotDemo() {
+  const navigate = useNavigate();
   const [chatOpen, setChatOpen] = useState(false);
   const [chatMinimized, setChatMinimized] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -575,6 +577,7 @@ export default function ChatbotDemo() {
                 size="lg"
                 variant="outline"
                 className="border-white text-white hover:bg-white/10"
+                onClick={() => navigate("/contact-sales")}
               >
                 <HeadphonesIcon className="w-5 h-5 mr-2" />
                 Contact Sales

@@ -10,6 +10,7 @@ export type AIVoiceCircleProps = {
   diameter?: number; // px
   anchorAngle?: number; // degrees where selected label should align (CSS clockwise, 0deg at +X)
   origin?: "top-right" | "top-left" | "bottom-right" | "bottom-left"; // where the big circle is anchored within its container
+  helperTextPosition?: "bottom-right" | "top-left"; // where to position the helper text card
 };
 
 /**
@@ -25,6 +26,7 @@ export default function AIVoiceCircle({
   diameter = 820,
   anchorAngle = 0, // align selected to right center
   origin = "top-right",
+  helperTextPosition = "bottom-right",
 }: AIVoiceCircleProps) {
   const radius = diameter / 2;
   const step = 360 / (items.length || 1);
@@ -73,6 +75,30 @@ export default function AIVoiceCircle({
 
       {/* Giant circle, half outside the viewport (corner) */}
       <div className="absolute" style={cornerStyle}>
+        {/* Wavy ripple layers - Broader waves */}
+        {[0, 1, 2, 3].map((layer) => (
+          <motion.div
+            key={`wave-${layer}`}
+            className="absolute rounded-full"
+            style={{
+              width: diameter,
+              height: diameter,
+              border: "2px solid",
+              borderColor: `rgba(255,106,0,${0.25 - layer * 0.06})`,
+            }}
+            animate={{
+              scale: [1, 1.25, 1.5, 1.75],
+              opacity: [0.9, 0.5, 0.2, 0],
+            }}
+            transition={{
+              repeat: Infinity,
+              duration: 4.5,
+              delay: layer * 0.8,
+              ease: "easeOut",
+            }}
+          />
+        ))}
+
         {/* Outer glow */}
         <motion.div
           className="relative rounded-full"
@@ -81,29 +107,83 @@ export default function AIVoiceCircle({
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6 }}
         >
-          {/* Pulsing halo */}
+          {/* Pulsing halo - Enhanced AI glow with wave motion */}
           <motion.div
             className="absolute inset-0 rounded-full"
             style={{
               background:
-                "radial-gradient(closest-side, rgba(255,106,0,0.18), rgba(255,106,0,0.08) 60%, transparent)",
-              filter: "blur(8px)",
+                "radial-gradient(closest-side, rgba(255,106,0,0.45), rgba(255,106,0,0.2) 50%, transparent)",
+              filter: "blur(12px)",
             }}
-            animate={{ scale: [1, 1.03, 1] }}
-            transition={{ repeat: Infinity, duration: 3.2, ease: "easeInOut" }}
+            animate={{
+              scale: [1, 1.04, 1.08, 1.04, 1],
+              opacity: [0.7, 0.85, 1, 0.85, 0.7],
+            }}
+            transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
           />
 
-          {/* Ring border */}
+          {/* Secondary pulsing layer for depth - Wavy phase 1 */}
+          <motion.div
+            className="absolute inset-0 rounded-full"
+            style={{
+              background:
+                "radial-gradient(closest-side, rgba(26,115,232,0.3), transparent 70%)",
+              filter: "blur(20px)",
+            }}
+            animate={{
+              scale: [1.05, 1.08, 1.15, 1.1, 1.05],
+              opacity: [0.4, 0.5, 0.7, 0.5, 0.4],
+            }}
+            transition={{
+              repeat: Infinity,
+              duration: 4,
+              ease: "easeInOut",
+              delay: 0.3,
+            }}
+          />
+
+          {/* Tertiary wave layer - Wavy phase 2 */}
+          <motion.div
+            className="absolute inset-0 rounded-full"
+            style={{
+              background:
+                "radial-gradient(closest-side, rgba(0,196,140,0.15), transparent 75%)",
+              filter: "blur(28px)",
+            }}
+            animate={{
+              scale: [1, 1.06, 1.12, 1.08, 1],
+              opacity: [0.2, 0.35, 0.5, 0.35, 0.2],
+            }}
+            transition={{
+              repeat: Infinity,
+              duration: 5,
+              ease: "easeInOut",
+              delay: 0.5,
+            }}
+          />
+
+          {/* Ring border - Enhanced gradient */}
+          <motion.div
+            className="absolute inset-0 rounded-full"
+            style={{
+              boxShadow:
+                "0 0 0 3px rgba(255,106,0,0.9) inset, 0 0 40px rgba(255,106,0,0.3), 0 10px 30px rgba(0,0,0,0.1)",
+              background:
+                "conic-gradient(from 0deg, rgba(26,115,232,0.4), rgba(255,106,0,0.6), rgba(0,196,140,0.4), rgba(26,115,232,0.4))",
+              mask: "radial-gradient(farthest-side, transparent calc(50% - 3px), black calc(50% - 3px))",
+              WebkitMask:
+                "radial-gradient(farthest-side, transparent calc(50% - 3px), black calc(50% - 3px))",
+            }}
+            animate={{ opacity: [0.6, 1, 0.6] }}
+            transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+          />
+
+          {/* Accent glow rings */}
           <div
             className="absolute inset-0 rounded-full"
             style={{
               boxShadow:
-                "0 0 0 2px rgba(255,106,0,0.7) inset, 0 10px 30px rgba(0,0,0,0.08)",
-              background:
-                "conic-gradient(from 0deg, rgba(26,115,232,0.25), rgba(255,106,0,0.4), rgba(0,196,140,0.25), rgba(26,115,232,0.25))",
-              mask: "radial-gradient(farthest-side, transparent calc(50% - 2px), black calc(50% - 2px))",
-              WebkitMask:
-                "radial-gradient(farthest-side, transparent calc(50% - 2px), black calc(50% - 2px))",
+                "inset 0 0 60px rgba(255,106,0,0.2), 0 0 100px rgba(255,106,0,0.15)",
             }}
           />
 
@@ -121,10 +201,10 @@ export default function AIVoiceCircle({
                   type="button"
                   onClick={() => onSelect?.(item)}
                   className={cn(
-                    "absolute -translate-x-1/2 -translate-y-1/2 select-none px-3 py-1.5 rounded-full text-xs font-medium transition-all",
+                    "absolute -translate-x-1/2 -translate-y-1/2 select-none px-3 py-1.5 rounded-full text-xs font-medium transition-all backdrop-blur-sm border",
                     isActive
-                      ? "bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white shadow-xl px-4 py-2"
-                      : "bg-white/90 text-valasys-gray-800 hover:bg-white shadow",
+                      ? "bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white shadow-2xl shadow-valasys-orange/50 px-4 py-2 border-valasys-orange/50"
+                      : "bg-white/80 text-valasys-gray-800 hover:bg-white shadow-lg border-white/60 hover:border-valasys-orange/30",
                   )}
                   style={{
                     left: x,
@@ -144,8 +224,8 @@ export default function AIVoiceCircle({
           </motion.div>
 
           {/* Anchor indicator at the alignment point (top-right). */}
-          <div
-            className="absolute z-10 h-3 w-3 rounded-full bg-valasys-orange shadow"
+          <motion.div
+            className="absolute z-10 h-3 w-3 rounded-full bg-gradient-to-br from-valasys-orange to-valasys-orange-light shadow-lg"
             style={{
               left:
                 radius +
@@ -155,20 +235,74 @@ export default function AIVoiceCircle({
                 radius +
                 (radius - 2) * Math.sin((anchorAngle * Math.PI) / 180) -
                 6,
+              boxShadow:
+                "0 0 20px rgba(255,106,0,0.6), 0 0 40px rgba(255,106,0,0.3)",
+            }}
+            animate={{ scale: [1, 1.3, 1] }}
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          />
+
+          {/* Anchor glow ring */}
+          <motion.div
+            className="absolute z-9 rounded-full border"
+            style={{
+              left:
+                radius +
+                (radius - 2) * Math.cos((anchorAngle * Math.PI) / 180) -
+                12,
+              top:
+                radius +
+                (radius - 2) * Math.sin((anchorAngle * Math.PI) / 180) -
+                12,
+              width: "24px",
+              height: "24px",
+              borderColor: "rgba(255,106,0,0.4)",
+              borderWidth: "2px",
+            }}
+            animate={{ scale: [0.8, 1.2, 0.8] }}
+            transition={{
+              repeat: Infinity,
+              duration: 2.5,
+              ease: "easeInOut",
+              delay: 0.1,
             }}
           />
         </motion.div>
       </div>
 
-      {/* Right side helper text card */}
-      <div className="absolute bottom-8 right-8 max-w-sm rounded-xl bg-white/90 p-4 shadow-xl ring-1 ring-black/5 backdrop-blur">
-        <div className="text-sm font-semibold text-valasys-gray-900">
-          AI Voice Assistant
-        </div>
-        <div className="mt-1 text-xs text-valasys-gray-700">
-          Your role selection tunes guidance, prompts, and defaults.
-        </div>
-      </div>
+      {/* Center image - Positioned at the center of the AI circle origin with pulse animation */}
+      <motion.div
+        style={{
+          position: "absolute",
+          left: `calc(-${diameter * 0.25}px + ${radius}px - 96px)`,
+          top: `calc(-${diameter * 0.25}px + ${radius}px - 96px)`,
+          zIndex: 20,
+        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
+        <motion.img
+          src="https://cdn.builder.io/api/v1/image/assets%2F6bf9f940afaa47adb0dc2265d0f0cc7d%2F5066687f08314bf495e1c0977c221069?format=webp&width=800"
+          alt="AI Voice Logo"
+          className="w-48 h-48 object-contain rounded-full"
+          style={{
+            boxShadow:
+              "0 0 60px rgba(255,106,0,0.3), inset 0 0 30px rgba(255,255,255,0.2)",
+            backgroundColor: "transparent",
+            mixBlendMode: "screen",
+            filter: "drop-shadow(0 0 30px rgba(255,106,0,0.2))",
+          }}
+          animate={{
+            scale: [1, 1.15, 1],
+          }}
+          transition={{
+            repeat: Infinity,
+            duration: 4,
+            ease: "easeInOut",
+          }}
+        />
+      </motion.div>
     </div>
   );
 }

@@ -19,6 +19,7 @@ import {
   Coins,
 } from "lucide-react";
 import React, { useMemo, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import PaymentSuccessModal from "@/components/billing/PaymentSuccessModal";
 
 interface Plan {
@@ -215,6 +216,7 @@ function PlanCard({
   onToggleComparison: () => void;
   comparisonOpen: boolean;
 }) {
+  const navigate = useNavigate();
   const includedCore = coreRows
     .map((r) => ({ label: r.label, v: r.values[planIndex] }))
     .filter((r) => r.v !== false && r.v !== "-");
@@ -302,10 +304,10 @@ function PlanCard({
         <div className="pt-3 grid grid-cols-1">
           {plan.id === "enterprise" ? (
             <Button
-              asChild
+              onClick={() => navigate("/contact-sales")}
               className="w-full border-2 border-valasys-orange text-valasys-orange bg-white hover:bg-gradient-to-r hover:from-valasys-orange hover:to-valasys-orange-light hover:text-white"
             >
-              <a href="mailto:sales@valasys.ai">Contact to our sales</a>
+              Contact to our sales
             </Button>
           ) : (
             <Button
@@ -400,6 +402,7 @@ function PlanComparisonTable({
   selectedPlan: Plan["id"];
   onSelect: (id: Plan["id"]) => void;
 }) {
+  const navigate = useNavigate();
   return (
     <div className="overflow-x-auto border border-valasys-gray-200 rounded-lg">
       <table className="min-w-[720px] w-full text-sm">
@@ -439,12 +442,10 @@ function PlanComparisonTable({
                     <div className="pt-2">
                       {p.id === "enterprise" ? (
                         <Button
-                          asChild
+                          onClick={() => navigate("/contact-sales")}
                           className="w-full border-2 border-valasys-orange text-valasys-orange bg-white hover:bg-gradient-to-r hover:from-valasys-orange hover:to-valasys-orange-light hover:text-white"
                         >
-                          <a href="mailto:sales@valasys.ai">
-                            Contact to our sales
-                          </a>
+                          Contact to our sales
                         </Button>
                       ) : (
                         <Button
@@ -545,6 +546,7 @@ function PlanComparisonTable({
 }
 
 export default function Subscription() {
+  const navigate = useNavigate();
   const [billing, setBilling] = useState<"monthly" | "annual">("annual");
   const [selectedPlan, setSelectedPlan] = useState<
     "free" | "growth" | "scale" | "enterprise"
