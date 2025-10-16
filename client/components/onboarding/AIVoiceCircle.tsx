@@ -270,7 +270,7 @@ export default function AIVoiceCircle({
         </motion.div>
       </div>
 
-      {/* Center video - Positioned at the center of the AI circle */}
+      {/* Center video - Positioned at the center of the AI circle origin */}
       <motion.video
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -282,9 +282,8 @@ export default function AIVoiceCircle({
         muted
         playsInline
         style={{
-          left: "50%",
-          top: "50%",
-          transform: "translate(-50%, -50%)",
+          left: `calc(-${diameter * 0.25}px + ${radius}px - 96px)`,
+          top: `calc(-${diameter * 0.25}px + ${radius}px - 96px)`,
           boxShadow: "0 0 60px rgba(255,106,0,0.3), inset 0 0 30px rgba(255,255,255,0.2)",
         }}
       />
