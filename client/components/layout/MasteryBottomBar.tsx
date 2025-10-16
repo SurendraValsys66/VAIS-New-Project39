@@ -86,7 +86,6 @@ export default function MasteryBottomBar() {
   const [showFinalDialog, setShowFinalDialog] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [showStepConfetti, setShowStepConfetti] = useState(false);
-  const [dialogBlast, setDialogBlast] = useState(0);
 
   useEffect(() => {
     setState(getMastery());
@@ -323,14 +322,6 @@ export default function MasteryBottomBar() {
 
   const shouldShowPanel = !hidden && !doneAll;
 
-  useEffect(() => {
-    if (showFinalDialog && showConfetti) {
-      setDialogBlast(1);
-      const t = setTimeout(() => setDialogBlast(2), 650);
-      return () => clearTimeout(t);
-    }
-    setDialogBlast(0);
-  }, [showFinalDialog, showConfetti]);
 
   return (
     <>
@@ -592,20 +583,8 @@ export default function MasteryBottomBar() {
         <DialogContent className="relative max-w-sm p-0 overflow-hidden rounded-2xl border-0">
           {showConfetti && (
             <div className="pointer-events-none absolute inset-0 z-0">
-              {dialogBlast >= 1 && (
-                <ConfettiCanvas
-                  key={`blast-1-${dialogBlast}`}
-                  duration={1800}
-                  mode="blast"
-                />
-              )}
-              {dialogBlast >= 2 && (
-                <ConfettiCanvas
-                  key={`blast-2-${dialogBlast}`}
-                  duration={1800}
-                  mode="blast"
-                />
-              )}
+              <ConfettiCanvas key="blast-1" duration={1800} mode="blast" />
+              <ConfettiCanvas key="blast-2" duration={1800} mode="blast" />
             </div>
           )}
           <div className="relative z-10 bg-gradient-to-b from-amber-200 via-amber-100 to-white p-6 text-center">
