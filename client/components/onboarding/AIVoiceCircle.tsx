@@ -285,10 +285,13 @@ export default function AIVoiceCircle({
         <motion.img
           src="https://cdn.builder.io/api/v1/image/assets%2F6bf9f940afaa47adb0dc2265d0f0cc7d%2F5066687f08314bf495e1c0977c221069?format=webp&width=800"
           alt="AI Voice Logo"
-          className="w-48 h-48 object-contain"
+          className="w-48 h-48 object-contain rounded-full"
           style={{
             boxShadow:
               "0 0 60px rgba(255,106,0,0.3), inset 0 0 30px rgba(255,255,255,0.2)",
+            backgroundColor: "transparent",
+            mixBlendMode: "screen",
+            filter: "drop-shadow(0 0 30px rgba(255,106,0,0.2))",
           }}
           animate={{
             scale: [1, 1.15, 1],
