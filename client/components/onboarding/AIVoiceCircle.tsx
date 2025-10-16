@@ -146,10 +146,10 @@ export default function AIVoiceCircle({
                   type="button"
                   onClick={() => onSelect?.(item)}
                   className={cn(
-                    "absolute -translate-x-1/2 -translate-y-1/2 select-none px-3 py-1.5 rounded-full text-xs font-medium transition-all",
+                    "absolute -translate-x-1/2 -translate-y-1/2 select-none px-3 py-1.5 rounded-full text-xs font-medium transition-all backdrop-blur-sm border",
                     isActive
-                      ? "bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white shadow-xl px-4 py-2"
-                      : "bg-white/90 text-valasys-gray-800 hover:bg-white shadow",
+                      ? "bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white shadow-2xl shadow-valasys-orange/50 px-4 py-2 border-valasys-orange/50"
+                      : "bg-white/80 text-valasys-gray-800 hover:bg-white shadow-lg border-white/60 hover:border-valasys-orange/30",
                   )}
                   style={{
                     left: x,
