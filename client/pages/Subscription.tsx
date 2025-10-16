@@ -440,12 +440,10 @@ function PlanComparisonTable({
                     <div className="pt-2">
                       {p.id === "enterprise" ? (
                         <Button
-                          asChild
+                          onClick={() => navigate("/contact-sales")}
                           className="w-full border-2 border-valasys-orange text-valasys-orange bg-white hover:bg-gradient-to-r hover:from-valasys-orange hover:to-valasys-orange-light hover:text-white"
                         >
-                          <a href="mailto:sales@valasys.ai">
-                            Contact to our sales
-                          </a>
+                          Contact to our sales
                         </Button>
                       ) : (
                         <Button
