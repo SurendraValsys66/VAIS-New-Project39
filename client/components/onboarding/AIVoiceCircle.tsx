@@ -131,7 +131,7 @@ export default function AIVoiceCircle({
               filter: "blur(20px)",
             }}
             animate={{
-              scale: [1.05, 1.08, 1.15, 1.10, 1.05],
+              scale: [1.05, 1.08, 1.15, 1.1, 1.05],
               opacity: [0.4, 0.5, 0.7, 0.5, 0.4],
             }}
             transition={{
@@ -284,7 +284,8 @@ export default function AIVoiceCircle({
         style={{
           left: `calc(-${diameter * 0.25}px + ${radius}px - 96px)`,
           top: `calc(-${diameter * 0.25}px + ${radius}px - 96px)`,
-          boxShadow: "0 0 60px rgba(255,106,0,0.3), inset 0 0 30px rgba(255,255,255,0.2)",
+          boxShadow:
+            "0 0 60px rgba(255,106,0,0.3), inset 0 0 30px rgba(255,255,255,0.2)",
         }}
       />
     </div>
