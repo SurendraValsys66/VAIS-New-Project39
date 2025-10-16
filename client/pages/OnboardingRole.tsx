@@ -166,17 +166,39 @@ export default function OnboardingRole() {
         </div>
       }
       right={
-        <AIVoiceCircle
-          items={ROLES.map((r) => r.label)}
-          selected={value}
-          anchorAngle={360 / ROLES.length}
-          origin="top-left"
-          helperTextPosition="top-left"
-          onSelect={(v) => {
-            setValue(v);
-            if (v) saveOnboarding({ role: v as any });
-          }}
-        />
+        <div className="flex flex-col items-center justify-start h-full">
+          <AIVoiceCircle
+            items={ROLES.map((r) => r.label)}
+            selected={value}
+            anchorAngle={360 / ROLES.length}
+            origin="top-left"
+            helperTextPosition="top-left"
+            onSelect={(v) => {
+              setValue(v);
+              if (v) saveOnboarding({ role: v as any });
+            }}
+          />
+
+          {/* Role Description with Slide Animation */}
+          <div className="absolute bottom-12 left-0 right-0 px-8 max-w-md mx-auto">
+            {value && (
+              <motion.div
+                key={value}
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -100 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="bg-white/95 backdrop-blur-sm rounded-lg p-4 shadow-lg border border-valasys-orange/20"
+              >
+                <p className="text-sm text-valasys-gray-700 leading-relaxed">
+                  {
+                    ROLES.find((r) => r.label === value)?.description
+                  }
+                </p>
+              </motion.div>
+            )}
+          </div>
+        </div>
       }
     />
   );
