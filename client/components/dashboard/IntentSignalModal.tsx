@@ -257,9 +257,7 @@ export default function IntentSignalModal({
             </div>
 
             <div>
-              <h4 className="text-sm font-semibold mb-3">
-                Current Metrics
-              </h4>
+              <h4 className="text-sm font-semibold mb-3">Current Metrics</h4>
 
               {/* Current Metrics */}
               <div className="grid grid-cols-3 gap-3 text-xs">
@@ -396,8 +394,8 @@ export default function IntentSignalModal({
               <p className="flex items-center space-x-2">
                 <span>📈</span>
                 <span>
-                  Spline chart analysis showing composite score, delta score, and
-                  matched topics trends over 12 months
+                  Spline chart analysis showing composite score, delta score,
+                  and matched topics trends over 12 months
                 </span>
               </p>
             </div>

@@ -48,10 +48,7 @@ export default function IntentSignalChart({
   return (
     <>
       <div
-        className={cn(
-          "relative inline-block cursor-pointer group",
-          className,
-        )}
+        className={cn("relative inline-block cursor-pointer group", className)}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
         onClick={() => setIsModalOpen(true)}
