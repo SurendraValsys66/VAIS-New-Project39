@@ -392,6 +392,21 @@ export default function Payments() {
                   </SelectContent>
                 </Select>
               </div>
+              <div className="w-full md:w-auto">
+                <Select value={planFilter} onValueChange={setPlanFilter}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="All Plans" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Plans</SelectItem>
+                    {uniquePlans.map((p) => (
+                      <SelectItem key={p} value={p}>
+                        {p}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
               <Button
                 variant="outline"
                 size="icon"
