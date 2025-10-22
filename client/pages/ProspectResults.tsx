@@ -442,7 +442,7 @@ const COMPANY_POOL = [
     industry: "Software and IT Services",
     revenue: "$1B - $10B",
     country: "France",
-    city: "Vélizy-Villacoublay",
+    city: "V��lizy-Villacoublay",
   },
   {
     name: "Siemens PLM Software",
@@ -1758,7 +1758,7 @@ export default function ProspectResults() {
                                   </SheetTrigger>
                                   <SheetContent
                                     side="right"
-                                    className="sm:max-w-md md:max-w-lg lg:max-w-xl w-[90vw] max-h-[90vh] overflow-y-auto"
+                                    className="sm:max-w-md md:max-w-lg lg:max-w-xl w-[90vw] h-screen overflow-y-auto"
                                   >
                                     <SheetHeader>
                                       <SheetTitle className="flex items-center justify-between">
@@ -2052,7 +2052,7 @@ export default function ProspectResults() {
                                             </CardHeader>
                                             <CardContent className="space-y-4">
                                               <div className="space-y-3">
-                                                <div className="flex items-center justify-between">
+                                                <div className="flex flex-col items-start gap-2">
                                                   <div className="flex items-center">
                                                     <Mail className="w-4 h-4 mr-2 text-gray-400" />
                                                     <a
@@ -2104,7 +2104,7 @@ export default function ProspectResults() {
                                                   </div>
                                                 </div>
                                                 {true && (
-                                                  <div className="flex items-center justify-between">
+                                                  <div className="flex flex-col items-start gap-2">
                                                     <div className="flex items-center">
                                                       <Phone className="w-4 h-4 mr-2 text-gray-400" />
                                                       <a
@@ -2157,7 +2157,7 @@ export default function ProspectResults() {
                                                   </div>
                                                 )}
                                                 {selectedProspect.linkedinUrl && (
-                                                  <div className="flex items-center justify-between">
+                                                  <div className="flex flex-col items-start gap-2">
                                                     <div className="flex items-center">
                                                       <Linkedin className="w-4 h-4 mr-2 text-blue-600" />
                                                       <a
@@ -2247,7 +2247,7 @@ export default function ProspectResults() {
                                               </CardTitle>
                                             </CardHeader>
                                             <CardContent className="space-y-4">
-                                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                              <div className="grid grid-cols-1 gap-3">
                                                 <div className="flex items-center p-3 border rounded-lg">
                                                   <div className="w-8 h-8 mr-3 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center">
                                                     <Briefcase className="w-4 h-4" />
