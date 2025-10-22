@@ -2043,7 +2043,7 @@ export default function ProspectResults() {
                                           </div>
                                         </div>
                                         {/* Contact & Professional Info */}
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div className="space-y-6">
                                           <Card>
                                             <CardHeader className="pb-3">
                                               <CardTitle className="text-sm">
@@ -2353,7 +2353,7 @@ export default function ProspectResults() {
                                           </Card>
 
                                           {/* Company Information */}
-                                          <Card className="md:col-span-2">
+                                          <Card>
                                             <CardHeader className="pb-3">
                                               <div className="flex items-center justify-between">
                                                 <CardTitle className="text-sm flex items-center gap-2">
@@ -2427,7 +2427,7 @@ export default function ProspectResults() {
                                           </Card>
 
                                           {/* Specialties & Technologies */}
-                                          <Card className="md:col-span-2">
+                                          <Card>
                                             <CardHeader className="pb-3">
                                               <CardTitle className="text-sm">
                                                 Specialties
@@ -2449,7 +2449,7 @@ export default function ProspectResults() {
                                             </CardContent>
                                           </Card>
 
-                                          <Card className="md:col-span-2">
+                                          <Card>
                                             <CardHeader className="pb-3 flex flex-row items-center justify-between">
                                               <CardTitle className="text-sm">
                                                 Technologies
