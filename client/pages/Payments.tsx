@@ -252,6 +252,8 @@ export default function Payments() {
             return r.paymentMethod.toLowerCase();
           case "type":
             return r.type.toLowerCase();
+          case "plan":
+            return r.plan.toLowerCase();
           case "currency":
             return r.currency.toLowerCase();
           case "serviceProvider":
