@@ -287,6 +287,7 @@ export default function Payments() {
   const resetFilters = () => {
     setQuery("");
     setTypeFilter("all");
+    setPlanFilter("all");
     setDateRange(undefined);
     setPickerValue(null);
   };
