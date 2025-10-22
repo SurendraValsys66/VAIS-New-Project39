@@ -2052,19 +2052,19 @@ export default function ProspectResults() {
                                             </CardHeader>
                                             <CardContent className="space-y-4">
                                               <div className="space-y-3">
-                                                <div className="flex flex-col items-start gap-2">
-                                                  <div className="flex items-center">
+                                                <div className="flex items-center justify-between w-full text-sm">
+                                                  <div className="flex items-center min-w-0">
                                                     <Mail className="w-4 h-4 mr-2 text-gray-400" />
                                                     <a
                                                       href={`mailto:${dummyProfile.email}`}
-                                                      className="text-blue-600 hover:underline"
+                                                      className="text-blue-600 hover:underline truncate"
                                                     >
                                                       {maskEmail(
                                                         dummyProfile.email,
                                                       )}
                                                     </a>
                                                   </div>
-                                                  <div className="flex items-center gap-2">
+                                                  <div className="flex items-center gap-2 flex-shrink-0">
                                                     <Tooltip>
                                                       <TooltipTrigger asChild>
                                                         <Button
@@ -2104,17 +2104,17 @@ export default function ProspectResults() {
                                                   </div>
                                                 </div>
                                                 {true && (
-                                                  <div className="flex flex-col items-start gap-2">
-                                                    <div className="flex items-center">
+                                                  <div className="flex items-center justify-between w-full text-sm">
+                                                    <div className="flex items-center min-w-0">
                                                       <Phone className="w-4 h-4 mr-2 text-gray-400" />
                                                       <a
                                                         href={`tel:${selectedProspect.phone}`}
-                                                        className="hover:underline"
+                                                        className="hover:underline truncate"
                                                       >
                                                         {selectedProspect.phone}
                                                       </a>
                                                     </div>
-                                                    <div className="flex items-center gap-2">
+                                                    <div className="flex items-center gap-2 flex-shrink-0">
                                                       <Tooltip>
                                                         <TooltipTrigger asChild>
                                                           <Button
@@ -2157,8 +2157,8 @@ export default function ProspectResults() {
                                                   </div>
                                                 )}
                                                 {selectedProspect.linkedinUrl && (
-                                                  <div className="flex flex-col items-start gap-2">
-                                                    <div className="flex items-center">
+                                                  <div className="flex items-center justify-between w-full text-sm">
+                                                    <div className="flex items-center min-w-0">
                                                       <Linkedin className="w-4 h-4 mr-2 text-blue-600" />
                                                       <a
                                                         href={
@@ -2166,13 +2166,13 @@ export default function ProspectResults() {
                                                         }
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="text-blue-600 hover:underline flex items-center"
+                                                        className="text-blue-600 hover:underline flex items-center truncate"
                                                       >
                                                         LinkedIn Profile
                                                         <ExternalLink className="w-3 h-3 ml-1" />
                                                       </a>
                                                     </div>
-                                                    <div className="flex items-center gap-2">
+                                                    <div className="flex items-center gap-2 flex-shrink-0">
                                                       <Tooltip>
                                                         <TooltipTrigger asChild>
                                                           <Button
@@ -2247,7 +2247,7 @@ export default function ProspectResults() {
                                               </CardTitle>
                                             </CardHeader>
                                             <CardContent className="space-y-4">
-                                              <div className="grid grid-cols-1 gap-3">
+                                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                                 <div className="flex items-center p-3 border rounded-lg">
                                                   <div className="w-8 h-8 mr-3 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center">
                                                     <Briefcase className="w-4 h-4" />
@@ -2360,20 +2360,6 @@ export default function ProspectResults() {
                                                   <Building className="w-4 h-4" />{" "}
                                                   Company
                                                 </CardTitle>
-                                                <div className="flex gap-2">
-                                                  <Button
-                                                    variant="outline"
-                                                    size="sm"
-                                                  >
-                                                    View employees
-                                                  </Button>
-                                                  <Button
-                                                    variant="outline"
-                                                    size="sm"
-                                                  >
-                                                    Add to list
-                                                  </Button>
-                                                </div>
                                               </div>
                                             </CardHeader>
                                             <CardContent className="space-y-3">
