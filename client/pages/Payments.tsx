@@ -343,7 +343,7 @@ export default function Payments() {
           </CardHeader>
           <CardContent>
             <div className="flex flex-col md:flex-row gap-4 items-end">
-              <div className="w-full md:w-auto">
+              <div className="w-full flex-1">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                   <Input
@@ -355,7 +355,7 @@ export default function Payments() {
                   />
                 </div>
               </div>
-              <div className="w-full md:w-auto">
+              <div className="w-full flex-1">
                 <RsuiteDateRangePicker
                   value={pickerValue as any}
                   onChange={(val) => setPickerValue(val as any)}
@@ -377,7 +377,7 @@ export default function Payments() {
                   style={{ width: "100%" }}
                 />
               </div>
-              <div className="w-full md:w-auto">
+              <div className="w-full flex-1">
                 <Select value={typeFilter} onValueChange={setTypeFilter}>
                   <SelectTrigger>
                     <SelectValue placeholder="All Types" />
@@ -392,7 +392,7 @@ export default function Payments() {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="w-full md:w-auto">
+              <div className="w-full flex-1">
                 <Select value={planFilter} onValueChange={setPlanFilter}>
                   <SelectTrigger>
                     <SelectValue placeholder="All Plans" />
