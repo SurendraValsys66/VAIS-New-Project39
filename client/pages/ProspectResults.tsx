@@ -992,7 +992,7 @@ export default function ProspectResults() {
           className={cn("space-y-6", isFullScreen && "app-fullscreen")}
         >
           {/* Header */}
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col items-start gap-2">
             <div className="flex items-center space-x-4">
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -1225,7 +1225,7 @@ export default function ProspectResults() {
           {/* Data Table */}
           <Card className="shadow-sm">
             <CardHeader className="pb-4">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col items-start gap-2">
                 <div className="flex items-center space-x-4">
                   <CardTitle className="text-lg">Prospect Results</CardTitle>
                   <Badge variant="secondary" className="bg-gray-100">
@@ -1278,7 +1278,7 @@ export default function ProspectResults() {
                           className="cursor-pointer hover:bg-gray-100 transition-colors"
                           onClick={() => handleSort("fullName")}
                         >
-                          <div className="flex items-center justify-between">
+                          <div className="flex flex-col items-start gap-2">
                             Prospect
                             <div className="ml-2">
                               {sortField === "fullName" ? (
@@ -1299,7 +1299,7 @@ export default function ProspectResults() {
                           className="cursor-pointer hover:bg-gray-100 transition-colors"
                           onClick={() => handleSort("companyName")}
                         >
-                          <div className="flex items-center justify-between">
+                          <div className="flex flex-col items-start gap-2">
                             Company
                             <div className="ml-2">
                               {sortField === "companyName" ? (
@@ -1320,7 +1320,7 @@ export default function ProspectResults() {
                           className="cursor-pointer hover:bg-gray-100 transition-colors"
                           onClick={() => handleSort("jobTitle")}
                         >
-                          <div className="flex items-center justify-between">
+                          <div className="flex flex-col items-start gap-2">
                             Job Title
                             <div className="ml-2">
                               {sortField === "jobTitle" ? (
@@ -1341,7 +1341,7 @@ export default function ProspectResults() {
                           className="cursor-pointer hover:bg-gray-100 transition-colors"
                           onClick={() => handleSort("jobFunction")}
                         >
-                          <div className="flex items-center justify-between">
+                          <div className="flex flex-col items-start gap-2">
                             Job Function
                             <div className="ml-2">
                               {sortField === "jobFunction" ? (
@@ -1362,7 +1362,7 @@ export default function ProspectResults() {
                           className="cursor-pointer hover:bg-gray-100 transition-colors"
                           onClick={() => handleSort("revenue")}
                         >
-                          <div className="flex items-center justify-between">
+                          <div className="flex flex-col items-start gap-2">
                             Revenue
                             <div className="ml-2">
                               {sortField === "revenue" ? (
@@ -1383,7 +1383,7 @@ export default function ProspectResults() {
                           className="cursor-pointer hover:bg-gray-100 transition-colors"
                           onClick={() => handleSort("industry")}
                         >
-                          <div className="flex items-center justify-between">
+                          <div className="flex flex-col items-start gap-2">
                             Main Industry
                             <div className="ml-2">
                               {sortField === "industry" ? (
@@ -1404,7 +1404,7 @@ export default function ProspectResults() {
                           className="cursor-pointer hover:bg-gray-100 transition-colors"
                           onClick={() => handleSort("country")}
                         >
-                          <div className="flex items-center justify-between">
+                          <div className="flex flex-col items-start gap-2">
                             Country
                             <div className="ml-2">
                               {sortField === "country" ? (
@@ -1758,7 +1758,7 @@ export default function ProspectResults() {
                                   </SheetTrigger>
                                   <SheetContent
                                     side="right"
-                                    className="sm:max-w-md md:max-w-lg lg:max-w-xl w-[90vw] max-h-[90vh] overflow-y-auto"
+                                    className="sm:max-w-md md:max-w-lg lg:max-w-xl w-[90vw] h-screen overflow-y-auto"
                                   >
                                     <SheetHeader>
                                       <SheetTitle className="flex items-center justify-between">
@@ -2052,7 +2052,7 @@ export default function ProspectResults() {
                                             </CardHeader>
                                             <CardContent className="space-y-4">
                                               <div className="space-y-3">
-                                                <div className="flex items-center justify-between">
+                                                <div className="flex flex-col items-start gap-2">
                                                   <div className="flex items-center">
                                                     <Mail className="w-4 h-4 mr-2 text-gray-400" />
                                                     <a
@@ -2104,7 +2104,7 @@ export default function ProspectResults() {
                                                   </div>
                                                 </div>
                                                 {true && (
-                                                  <div className="flex items-center justify-between">
+                                                  <div className="flex flex-col items-start gap-2">
                                                     <div className="flex items-center">
                                                       <Phone className="w-4 h-4 mr-2 text-gray-400" />
                                                       <a
@@ -2157,7 +2157,7 @@ export default function ProspectResults() {
                                                   </div>
                                                 )}
                                                 {selectedProspect.linkedinUrl && (
-                                                  <div className="flex items-center justify-between">
+                                                  <div className="flex flex-col items-start gap-2">
                                                     <div className="flex items-center">
                                                       <Linkedin className="w-4 h-4 mr-2 text-blue-600" />
                                                       <a
@@ -2247,7 +2247,7 @@ export default function ProspectResults() {
                                               </CardTitle>
                                             </CardHeader>
                                             <CardContent className="space-y-4">
-                                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                              <div className="grid grid-cols-1 gap-3">
                                                 <div className="flex items-center p-3 border rounded-lg">
                                                   <div className="w-8 h-8 mr-3 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center">
                                                     <Briefcase className="w-4 h-4" />
@@ -2355,7 +2355,7 @@ export default function ProspectResults() {
                                           {/* Company Information */}
                                           <Card className="md:col-span-2">
                                             <CardHeader className="pb-3">
-                                              <div className="flex items-center justify-between">
+                                              <div className="flex flex-col items-start gap-2">
                                                 <CardTitle className="text-sm flex items-center gap-2">
                                                   <Building className="w-4 h-4" />{" "}
                                                   Company
