@@ -190,11 +190,17 @@ type SortDir = "asc" | "desc";
 export default function Payments() {
   const [query, setQuery] = useState("");
   const [typeFilter, setTypeFilter] = useState<string>("all");
+  const [planFilter, setPlanFilter] = useState<string>("all");
   const [sortField, setSortField] = useState<SortField>("transactionDate");
   const [sortDir, setSortDir] = useState<SortDir>("desc");
 
   const uniqueTypes = useMemo(
     () => Array.from(new Set(rows.map((r) => r.type))).sort(),
+    [],
+  );
+
+  const uniquePlans = useMemo(
+    () => Array.from(new Set(rows.map((r) => r.plan))).sort(),
     [],
   );
 
