@@ -491,6 +491,9 @@ export default function Payments() {
                         {row.type}
                       </TableCell>
                       <TableCell className="text-sm text-gray-700">
+                        {row.plan}
+                      </TableCell>
+                      <TableCell className="text-sm text-gray-700">
                         {row.currency}
                       </TableCell>
                       <TableCell className="text-right font-medium text-gray-900">
@@ -506,7 +509,7 @@ export default function Payments() {
                   {sorted.length === 0 && (
                     <TableRow>
                       <TableCell
-                        colSpan={7}
+                        colSpan={8}
                         className="text-center py-8 text-sm text-gray-500"
                       >
                         No transactions match your filters.
