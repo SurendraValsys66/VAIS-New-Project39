@@ -141,6 +141,7 @@ function downloadInvoice(row: PaymentRow) {
     `Date: ${row.transactionDate}`,
     `Payment Method: ${row.paymentMethod}`,
     `Type: ${row.type}`,
+    `Plan: ${row.plan}`,
     `Currency: ${row.currency}`,
     `Amount: ${row.invoiceAmount}`,
     `Service Provider: ${row.serviceProvider}`,
