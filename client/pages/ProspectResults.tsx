@@ -1843,25 +1843,6 @@ export default function ProspectResults() {
 
                                     {selectedProspect && (
                                       <div className="space-y-6">
-                                        <div className="flex flex-wrap items-center gap-2">
-                                          <Button variant="outline" size="sm">
-                                            CRM
-                                          </Button>
-                                          <Button variant="outline" size="sm">
-                                            List
-                                          </Button>
-                                          <Button variant="outline" size="sm">
-                                            Sequence
-                                          </Button>
-                                          <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            aria-label="More"
-                                          >
-                                            <MoreVertical className="w-4 h-4" />
-                                          </Button>
-                                        </div>
-
                                         <div className="space-y-3">
                                           <a
                                             href="#"
@@ -1996,49 +1977,6 @@ export default function ProspectResults() {
                                             </div>
                                             <div className="text-sm">
                                               {dummyProfile.contactLocation}
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div className="rounded-xl border bg-gradient-to-r from-valasys-orange/10 via-orange-200/10 to-blue-200/10 p-4">
-                                          <div className="flex flex-wrap items-center gap-4 justify-between">
-                                            <div className="flex items-center gap-2">
-                                              <Activity className="w-4 h-4 text-green-600" />
-                                              <span className="text-sm text-gray-700">
-                                                Engagement:
-                                              </span>
-                                              <span className="font-semibold text-green-700">
-                                                {
-                                                  selectedProspect.engagementScore
-                                                }
-                                              </span>
-                                            </div>
-                                            <div className="flex items-center gap-2">
-                                              <Target className="w-4 h-4 text-blue-600" />
-                                              <span className="text-sm text-gray-700">
-                                                Intent:
-                                              </span>
-                                              <span className="font-semibold text-blue-700">
-                                                {selectedProspect.intentScore}
-                                              </span>
-                                            </div>
-                                            <div className="flex items-center gap-2">
-                                              <CheckCircle className="w-4 h-4 text-orange-600" />
-                                              <span className="text-sm text-gray-700">
-                                                Confidence:
-                                              </span>
-                                              <span className="font-semibold text-orange-700">
-                                                {
-                                                  selectedProspect.confidenceScore
-                                                }
-                                                %
-                                              </span>
-                                            </div>
-                                            <div className="flex items-center gap-2 text-sm text-gray-600">
-                                              <Clock className="w-4 h-4" />
-                                              Last activity{" "}
-                                              {formatDate(
-                                                selectedProspect.lastActivity,
-                                              )}
                                             </div>
                                           </div>
                                         </div>
