@@ -180,6 +180,7 @@ type SortField =
   | "invoiceId"
   | "paymentMethod"
   | "type"
+  | "plan"
   | "currency"
   | "invoiceAmount"
   | "serviceProvider";
