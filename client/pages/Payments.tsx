@@ -36,6 +36,7 @@ interface PaymentRow {
   invoiceId: string;
   paymentMethod: string; // e.g., Mastercard **** 1887
   type: string; // e.g., Subscription, Add-on
+  plan: string; // e.g., Growth Plan, Scale Plan, Custom Plan
   currency: string; // e.g., USD
   invoiceAmount: number; // numeric amount
   serviceProvider: string; // e.g., Stripe
