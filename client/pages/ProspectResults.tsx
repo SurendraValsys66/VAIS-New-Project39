@@ -1843,24 +1843,6 @@ export default function ProspectResults() {
 
                                     {selectedProspect && (
                                       <div className="space-y-6">
-                                        <div className="flex flex-wrap items-center gap-2">
-                                          <Button variant="outline" size="sm">
-                                            CRM
-                                          </Button>
-                                          <Button variant="outline" size="sm">
-                                            List
-                                          </Button>
-                                          <Button variant="outline" size="sm">
-                                            Sequence
-                                          </Button>
-                                          <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            aria-label="More"
-                                          >
-                                            <MoreVertical className="w-4 h-4" />
-                                          </Button>
-                                        </div>
 
                                         <div className="space-y-3">
                                           <a
