@@ -442,7 +442,7 @@ const COMPANY_POOL = [
     industry: "Software and IT Services",
     revenue: "$1B - $10B",
     country: "France",
-    city: "Vélizy-Villacoublay",
+    city: "V��lizy-Villacoublay",
   },
   {
     name: "Siemens PLM Software",
@@ -992,7 +992,7 @@ export default function ProspectResults() {
           className={cn("space-y-6", isFullScreen && "app-fullscreen")}
         >
           {/* Header */}
-          <div className="flex flex-col items-start gap-2">
+          <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -1225,7 +1225,7 @@ export default function ProspectResults() {
           {/* Data Table */}
           <Card className="shadow-sm">
             <CardHeader className="pb-4">
-              <div className="flex flex-col items-start gap-2">
+              <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
                   <CardTitle className="text-lg">Prospect Results</CardTitle>
                   <Badge variant="secondary" className="bg-gray-100">
@@ -1278,7 +1278,7 @@ export default function ProspectResults() {
                           className="cursor-pointer hover:bg-gray-100 transition-colors"
                           onClick={() => handleSort("fullName")}
                         >
-                          <div className="flex flex-col items-start gap-2">
+                          <div className="flex items-center justify-between">
                             Prospect
                             <div className="ml-2">
                               {sortField === "fullName" ? (
@@ -1299,7 +1299,7 @@ export default function ProspectResults() {
                           className="cursor-pointer hover:bg-gray-100 transition-colors"
                           onClick={() => handleSort("companyName")}
                         >
-                          <div className="flex flex-col items-start gap-2">
+                          <div className="flex items-center justify-between">
                             Company
                             <div className="ml-2">
                               {sortField === "companyName" ? (
@@ -1320,7 +1320,7 @@ export default function ProspectResults() {
                           className="cursor-pointer hover:bg-gray-100 transition-colors"
                           onClick={() => handleSort("jobTitle")}
                         >
-                          <div className="flex flex-col items-start gap-2">
+                          <div className="flex items-center justify-between">
                             Job Title
                             <div className="ml-2">
                               {sortField === "jobTitle" ? (
@@ -1341,7 +1341,7 @@ export default function ProspectResults() {
                           className="cursor-pointer hover:bg-gray-100 transition-colors"
                           onClick={() => handleSort("jobFunction")}
                         >
-                          <div className="flex flex-col items-start gap-2">
+                          <div className="flex items-center justify-between">
                             Job Function
                             <div className="ml-2">
                               {sortField === "jobFunction" ? (
@@ -1362,7 +1362,7 @@ export default function ProspectResults() {
                           className="cursor-pointer hover:bg-gray-100 transition-colors"
                           onClick={() => handleSort("revenue")}
                         >
-                          <div className="flex flex-col items-start gap-2">
+                          <div className="flex items-center justify-between">
                             Revenue
                             <div className="ml-2">
                               {sortField === "revenue" ? (
@@ -1383,7 +1383,7 @@ export default function ProspectResults() {
                           className="cursor-pointer hover:bg-gray-100 transition-colors"
                           onClick={() => handleSort("industry")}
                         >
-                          <div className="flex flex-col items-start gap-2">
+                          <div className="flex items-center justify-between">
                             Main Industry
                             <div className="ml-2">
                               {sortField === "industry" ? (
@@ -1404,7 +1404,7 @@ export default function ProspectResults() {
                           className="cursor-pointer hover:bg-gray-100 transition-colors"
                           onClick={() => handleSort("country")}
                         >
-                          <div className="flex flex-col items-start gap-2">
+                          <div className="flex items-center justify-between">
                             Country
                             <div className="ml-2">
                               {sortField === "country" ? (
@@ -2355,7 +2355,7 @@ export default function ProspectResults() {
                                           {/* Company Information */}
                                           <Card className="md:col-span-2">
                                             <CardHeader className="pb-3">
-                                              <div className="flex flex-col items-start gap-2">
+                                              <div className="flex items-center justify-between">
                                                 <CardTitle className="text-sm flex items-center gap-2">
                                                   <Building className="w-4 h-4" />{" "}
                                                   Company
