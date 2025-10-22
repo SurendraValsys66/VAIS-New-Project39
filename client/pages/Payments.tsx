@@ -447,6 +447,9 @@ export default function Payments() {
                     <TableHead className="min-w-[140px]">
                       <HeaderSort label="Type" field="type" />
                     </TableHead>
+                    <TableHead className="min-w-[140px]">
+                      <HeaderSort label="Plan" field="plan" />
+                    </TableHead>
                     <TableHead className="min-w-[120px]">
                       <HeaderSort label="Currency" field="currency" />
                     </TableHead>
