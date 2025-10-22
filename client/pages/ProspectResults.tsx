@@ -2247,7 +2247,7 @@ export default function ProspectResults() {
                                               </CardTitle>
                                             </CardHeader>
                                             <CardContent className="space-y-4">
-                                              <div className="grid grid-cols-1 gap-3">
+                                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                                 <div className="flex items-center p-3 border rounded-lg">
                                                   <div className="w-8 h-8 mr-3 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center">
                                                     <Briefcase className="w-4 h-4" />
@@ -2360,20 +2360,6 @@ export default function ProspectResults() {
                                                   <Building className="w-4 h-4" />{" "}
                                                   Company
                                                 </CardTitle>
-                                                <div className="flex gap-2">
-                                                  <Button
-                                                    variant="outline"
-                                                    size="sm"
-                                                  >
-                                                    View employees
-                                                  </Button>
-                                                  <Button
-                                                    variant="outline"
-                                                    size="sm"
-                                                  >
-                                                    Add to list
-                                                  </Button>
-                                                </div>
                                               </div>
                                             </CardHeader>
                                             <CardContent className="space-y-3">
