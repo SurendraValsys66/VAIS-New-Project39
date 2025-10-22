@@ -120,7 +120,9 @@ export default function IntentSignalPopover({
                   </div>
                 </div>
                 <div className="bg-green-50 p-2 rounded border border-green-200">
-                  <div className="text-green-600 font-medium text-xs">Delta</div>
+                  <div className="text-green-600 font-medium text-xs">
+                    Delta
+                  </div>
                   <div className="text-lg font-bold text-green-800">
                     {data.deltaScore.toFixed(1)}
                   </div>
