@@ -213,13 +213,14 @@ export default function Payments() {
     return rows.filter((r) => {
       const q = query.trim().toLowerCase();
       const matchesQuery = q
-        ? [r.invoiceId, r.paymentMethod, r.type, r.serviceProvider]
+        ? [r.invoiceId, r.paymentMethod, r.type, r.plan, r.serviceProvider]
             .join(" ")
             .toLowerCase()
             .includes(q)
         : true;
 
       const matchesType = typeFilter === "all" ? true : r.type === typeFilter;
+      const matchesPlan = planFilter === "all" ? true : r.plan === planFilter;
 
       let inRange = true;
       if (dateRange?.from && dateRange?.to) {
@@ -229,9 +230,9 @@ export default function Payments() {
         inRange = t >= dateRange.from.getTime() && t <= dateRange.to.getTime();
       }
 
-      return matchesQuery && matchesType && inRange;
+      return matchesQuery && matchesType && matchesPlan && inRange;
     });
-  }, [query, typeFilter, dateRange]);
+  }, [query, typeFilter, planFilter, dateRange]);
 
   const sorted = useMemo(() => {
     const arr = [...filtered];
