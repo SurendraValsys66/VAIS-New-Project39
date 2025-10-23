@@ -158,6 +158,36 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   // Contact Sales dialog
   const [showContactSalesDialog, setShowContactSalesDialog] = useState(false);
 
+  // Favorites and submenu state
+  const [favorites, setFavorites] = useState<string[]>([]);
+  const [expandedSubmenu, setExpandedSubmenu] = useState<string | null>(null);
+
+  const hasFavorites = favorites.length > 0;
+
+  useEffect(() => {
+    const loadFavorites = () => {
+      try {
+        const raw = localStorage.getItem("prospect:favorites");
+        setFavorites(raw ? (JSON.parse(raw) as string[]) : []);
+      } catch {}
+    };
+    loadFavorites();
+
+    const handleFavoritesUpdate = (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      setFavorites(detail || []);
+    };
+
+    window.addEventListener("storage", loadFavorites);
+    // Also listen for custom events from the app when favorites change
+    window.addEventListener("prospect:favorites-updated", handleFavoritesUpdate);
+
+    return () => {
+      window.removeEventListener("storage", loadFavorites);
+      window.removeEventListener("prospect:favorites-updated", handleFavoritesUpdate);
+    };
+  }, []);
+
   const showManageUsersTooltip = (e: React.MouseEvent) => {
     const el = e.currentTarget as HTMLElement;
     const rect = el.getBoundingClientRect();
