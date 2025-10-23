@@ -67,9 +67,8 @@ import {
   Lock,
   ArrowUp,
 } from "lucide-react";
-import { Link } from "react-router-dom";
 import { markStepCompleted } from "@/lib/masteryStorage";
-import { cn } from "@/lib/utils";
+import { cn, Link } from "@/lib/utils";
 import IntentSignalChart from "@/components/dashboard/IntentSignalChart";
 
 interface CompanyData {

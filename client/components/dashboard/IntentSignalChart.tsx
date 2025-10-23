@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Badge } from "@/components/ui/badge";
-import IntentSignalModal from "./IntentSignalModal";
-import { Info } from "lucide-react";
+import IntentSignalPopover from "./IntentSignalPopover";
 import { cn } from "@/lib/utils";
 
 interface IntentSignalData {
@@ -42,45 +41,17 @@ export default function IntentSignalChart({
   data,
   className,
 }: IntentSignalChartProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isHovering, setIsHovering] = useState(false);
-
   return (
-    <>
-      <div
-        className={cn("relative inline-block cursor-pointer group", className)}
-        onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
-        onClick={() => setIsModalOpen(true)}
-      >
-        <Badge
-          className={cn(
-            "font-medium hover:shadow-md transition-shadow",
-            getIntentSignalColor(data.intentSignal),
-          )}
-        >
-          {data.intentSignal}
-        </Badge>
-
-        {isHovering && (
-          <button
-            className="absolute -right-5 top-1/2 -translate-y-1/2 w-5 h-5 bg-valasys-orange text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-valasys-orange/90 shadow-md"
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsModalOpen(true);
-            }}
-            title="View intent signal breakdown"
-          >
-            <Info className="w-3 h-3" />
-          </button>
+    <IntentSignalPopover data={data}>
+      <Badge
+        className={cn(
+          "font-medium hover:shadow-md transition-shadow cursor-pointer",
+          getIntentSignalColor(data.intentSignal),
+          className,
         )}
-      </div>
-
-      <IntentSignalModal
-        data={data}
-        isOpen={isModalOpen}
-        onOpenChange={setIsModalOpen}
-      />
-    </>
+      >
+        {data.intentSignal}
+      </Badge>
+    </IntentSignalPopover>
   );
 }
