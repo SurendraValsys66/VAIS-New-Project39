@@ -421,45 +421,86 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               {coreNavigationItems.map((item) => {
                 const isActive = location.pathname === item.href;
                 const IconComponent = item.icon;
+                const isFavoritesItem = item.href === "/favorites-prospects";
+                const isDisabled = isFavoritesItem && !hasFavorites;
 
                 return (
                   <li key={item.name}>
-                    <Link
-                      to={item.href}
-                      data-tour={item.tourId}
-                      onClick={(e) => handleNavigationClick(item, e)}
-                      className={cn(
-                        "flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 group",
-                        !isExpanded && "justify-center",
-                        isActive
-                          ? "bg-valasys-orange text-white shadow-sm"
-                          : "text-valasys-gray-600 hover:text-valasys-gray-900 hover:bg-valasys-gray-100",
-                      )}
-                      title={!isExpanded ? item.name : undefined}
-                    >
-                      {isExpanded ? (
-                        <IconComponent
-                          className={cn(
-                            "w-4 h-4 flex-shrink-0 mr-3",
-                            isActive ? "text-white" : "text-valasys-gray-500",
-                          )}
-                        />
-                      ) : (
-                        <div
-                          className={cn(
-                            "w-10 h-10 rounded-md flex items-center justify-center",
-                            isActive
-                              ? "bg-valasys-orange text-white shadow-sm"
-                              : "bg-valasys-gray-100 text-valasys-gray-600 group-hover:bg-valasys-gray-200",
-                          )}
-                        >
-                          <IconComponent className="w-4 h-4" />
-                        </div>
-                      )}
-                      {isExpanded && (
-                        <span className="truncate">{item.name}</span>
-                      )}
-                    </Link>
+                    {isDisabled ? (
+                      <div
+                        className={cn(
+                          "relative group flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 border border-transparent hover:border-amber-500 hover:shadow-md",
+                          !isExpanded && "justify-center",
+                          "text-valasys-gray-600 bg-transparent cursor-not-allowed opacity-60",
+                        )}
+                        title={!isExpanded ? item.name : undefined}
+                        role="button"
+                        tabIndex={0}
+                      >
+                        {isExpanded ? (
+                          <IconComponent
+                            className={cn(
+                              "w-4 h-4 flex-shrink-0 mr-3",
+                              "text-valasys-gray-500",
+                            )}
+                          />
+                        ) : (
+                          <div
+                            className={cn(
+                              "w-10 h-10 rounded-md flex items-center justify-center border border-transparent group-hover:border-amber-500 group-hover:shadow-md",
+                              "bg-valasys-gray-100 text-valasys-gray-600",
+                            )}
+                          >
+                            <IconComponent className="w-4 h-4" />
+                          </div>
+                        )}
+
+                        {isExpanded && (
+                          <span className="truncate flex-1">{item.name}</span>
+                        )}
+
+                        {isExpanded && (
+                          <Lock className="ml-auto w-4 h-4 text-valasys-gray-400 group-hover:text-amber-500" />
+                        )}
+                      </div>
+                    ) : (
+                      <Link
+                        to={item.href}
+                        data-tour={item.tourId}
+                        onClick={(e) => handleNavigationClick(item, e)}
+                        className={cn(
+                          "flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 group",
+                          !isExpanded && "justify-center",
+                          isActive
+                            ? "bg-valasys-orange text-white shadow-sm"
+                            : "text-valasys-gray-600 hover:text-valasys-gray-900 hover:bg-valasys-gray-100",
+                        )}
+                        title={!isExpanded ? item.name : undefined}
+                      >
+                        {isExpanded ? (
+                          <IconComponent
+                            className={cn(
+                              "w-4 h-4 flex-shrink-0 mr-3",
+                              isActive ? "text-white" : "text-valasys-gray-500",
+                            )}
+                          />
+                        ) : (
+                          <div
+                            className={cn(
+                              "w-10 h-10 rounded-md flex items-center justify-center",
+                              isActive
+                                ? "bg-valasys-orange text-white shadow-sm"
+                                : "bg-valasys-gray-100 text-valasys-gray-600 group-hover:bg-valasys-gray-200",
+                            )}
+                          >
+                            <IconComponent className="w-4 h-4" />
+                          </div>
+                        )}
+                        {isExpanded && (
+                          <span className="truncate">{item.name}</span>
+                        )}
+                      </Link>
+                    )}
                   </li>
                 );
               })}
