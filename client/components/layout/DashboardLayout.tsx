@@ -274,8 +274,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     email?: string;
   }>({});
 
-  const [hasFavorites, setHasFavorites] = useState(false);
-
   useEffect(() => {
     try {
       const raw = localStorage.getItem("app.profile");
