@@ -54,6 +54,8 @@ export default function ContactSales() {
     message: "",
   });
 
+  const [submitted, setSubmitted] = useState(false);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -71,9 +73,23 @@ export default function ContactSales() {
     }));
   };
 
+  const isFormValid = () => {
+    return (
+      formData.firstName.trim() !== "" &&
+      formData.lastName.trim() !== "" &&
+      formData.workEmail.trim() !== "" &&
+      formData.phoneNumber.trim() !== "" &&
+      formData.companyName.trim() !== "" &&
+      formData.attendeeCount !== ""
+    );
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    if (isFormValid()) {
+      setSubmitted(true);
+      console.log("Form submitted:", formData);
+    }
   };
 
   return (
