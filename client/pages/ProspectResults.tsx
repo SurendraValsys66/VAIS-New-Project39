@@ -568,7 +568,7 @@ export default function ProspectResults() {
   const [data, setData] = useState<ProspectData[]>(initialProspects);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
   const [sortField, setSortField] =
     useState<keyof ProspectData>("engagementScore");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
