@@ -431,7 +431,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                 const isActive = location.pathname === item.href;
                 const IconComponent = item.icon;
                 const isSubmenuOpen = expandedSubmenu === item.name;
-                const hasSubmenu = "submenu" in item && item.submenu && item.submenu.length > 0;
+                const hasSubmenu =
+                  "submenu" in item && item.submenu && item.submenu.length > 0;
 
                 return (
                   <li key={item.name}>
@@ -483,14 +484,18 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                               }
                               className="ml-auto p-1 hover:bg-white/10 rounded transition-colors"
                               aria-label={
-                                isSubmenuOpen ? "Collapse submenu" : "Expand submenu"
+                                isSubmenuOpen
+                                  ? "Collapse submenu"
+                                  : "Expand submenu"
                               }
                             >
                               <ChevronDown
                                 className={cn(
                                   "w-4 h-4 transition-transform",
                                   isSubmenuOpen && "rotate-180",
-                                  isActive ? "text-white" : "text-valasys-gray-500",
+                                  isActive
+                                    ? "text-white"
+                                    : "text-valasys-gray-500",
                                 )}
                               />
                             </button>
