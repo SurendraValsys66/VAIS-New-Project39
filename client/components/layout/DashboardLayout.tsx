@@ -84,12 +84,14 @@ const coreNavigationItems = [
     href: "/find-prospect",
     icon: Search,
     tourId: "prospect-nav",
-  },
-  {
-    name: "Favorites Prospects",
-    href: "/favorites-prospects",
-    icon: Heart,
-    tourId: "favorites-nav",
+    submenu: [
+      {
+        name: "Favorites Prospects",
+        href: "/favorites-prospects",
+        icon: Heart,
+        tourId: "favorites-nav",
+      },
+    ],
   },
   {
     name: "Build My Campaign",
