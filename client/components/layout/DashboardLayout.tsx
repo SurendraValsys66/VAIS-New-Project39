@@ -33,6 +33,7 @@ import {
   Plug,
   ChevronDown,
   Lock,
+  Heart,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
