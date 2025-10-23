@@ -1234,6 +1234,9 @@ export default function ProspectResults() {
                   </Badge>
                 </div>
                 <div className="flex items-center space-x-2">
+                  <span className="text-sm text-gray-600 font-medium">
+                    Total items shows
+                  </span>
                   <Select
                     value={itemsPerPage.toString()}
                     onValueChange={(value) => {
