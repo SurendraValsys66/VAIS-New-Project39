@@ -142,7 +142,8 @@ export default function ContactSales() {
                     Thank you!
                   </h3>
                   <p className="text-lg text-valasys-gray-600">
-                    Thanks for your request to learn more! We'll be in touch soon.
+                    Thanks for your request to learn more! We'll be in touch
+                    soon.
                   </p>
                 </div>
               ) : (
@@ -235,7 +236,8 @@ export default function ContactSales() {
                     {/* Attendee Count */}
                     <div>
                       <label className="block text-xs font-semibold text-valasys-gray-700 mb-2">
-                        How many people will attend our chat? <span className="text-red-500">*</span>
+                        How many people will attend our chat?{" "}
+                        <span className="text-red-500">*</span>
                       </label>
                       <Select
                         value={formData.attendeeCount}
