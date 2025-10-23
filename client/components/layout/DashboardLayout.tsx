@@ -510,62 +510,35 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                           const isSubmenuActive =
                             location.pathname === submenuItem.href;
                           const SubMenuIconComponent = submenuItem.icon;
-                          const isFavoritesSubmenu =
-                            submenuItem.href === "/favorites-prospects";
-                          const isSubmenuDisabled =
-                            isFavoritesSubmenu && !hasFavorites;
 
                           return (
                             <li key={submenuItem.name}>
-                              {isSubmenuDisabled ? (
-                                <div
+                              <Link
+                                to={submenuItem.href}
+                                data-tour={submenuItem.tourId}
+                                onClick={(e) =>
+                                  handleNavigationClick(submenuItem, e)
+                                }
+                                className={cn(
+                                  "flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 group",
+                                  isSubmenuActive
+                                    ? "bg-valasys-orange text-white shadow-sm"
+                                    : "text-valasys-gray-600 hover:text-valasys-gray-900 hover:bg-valasys-gray-100",
+                                )}
+                                title={submenuItem.name}
+                              >
+                                <SubMenuIconComponent
                                   className={cn(
-                                    "relative group flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 border border-transparent hover:border-amber-500 hover:shadow-md",
-                                    "text-valasys-gray-600 bg-transparent cursor-not-allowed opacity-60",
-                                  )}
-                                  title={submenuItem.name}
-                                  role="button"
-                                  tabIndex={0}
-                                >
-                                  <SubMenuIconComponent
-                                    className={cn(
-                                      "w-4 h-4 flex-shrink-0 mr-3",
-                                      "text-valasys-gray-500",
-                                    )}
-                                  />
-                                  <span className="truncate flex-1">
-                                    {submenuItem.name}
-                                  </span>
-                                  <Lock className="ml-auto w-4 h-4 text-valasys-gray-400 group-hover:text-amber-500" />
-                                </div>
-                              ) : (
-                                <Link
-                                  to={submenuItem.href}
-                                  data-tour={submenuItem.tourId}
-                                  onClick={(e) =>
-                                    handleNavigationClick(submenuItem, e)
-                                  }
-                                  className={cn(
-                                    "flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 group",
+                                    "w-4 h-4 flex-shrink-0 mr-3",
                                     isSubmenuActive
-                                      ? "bg-valasys-orange text-white shadow-sm"
-                                      : "text-valasys-gray-600 hover:text-valasys-gray-900 hover:bg-valasys-gray-100",
+                                      ? "text-white"
+                                      : "text-valasys-gray-500",
                                   )}
-                                  title={submenuItem.name}
-                                >
-                                  <SubMenuIconComponent
-                                    className={cn(
-                                      "w-4 h-4 flex-shrink-0 mr-3",
-                                      isSubmenuActive
-                                        ? "text-white"
-                                        : "text-valasys-gray-500",
-                                    )}
-                                  />
-                                  <span className="truncate">
-                                    {submenuItem.name}
-                                  </span>
-                                </Link>
-                              )}
+                                />
+                                <span className="truncate">
+                                  {submenuItem.name}
+                                </span>
+                              </Link>
                             </li>
                           );
                         })}
