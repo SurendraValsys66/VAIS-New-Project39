@@ -84,12 +84,14 @@ const coreNavigationItems = [
     href: "/find-prospect",
     icon: Search,
     tourId: "prospect-nav",
-  },
-  {
-    name: "Favorites Prospects",
-    href: "/favorites-prospects",
-    icon: Heart,
-    tourId: "favorites-nav",
+    submenu: [
+      {
+        name: "Favorites Prospects",
+        href: "/favorites-prospects",
+        icon: Heart,
+        tourId: "favorites-nav",
+      },
+    ],
   },
   {
     name: "Build My Campaign",
@@ -166,37 +168,34 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [showContactSalesDialog, setShowContactSalesDialog] = useState(false);
 
   // Favorites and submenu state
-  const [favorites, setFavorites] = useState<string[]>([]);
   const [expandedSubmenu, setExpandedSubmenu] = useState<string | null>(null);
 
-  const hasFavorites = favorites.length > 0;
+  const [hasFavorites, setHasFavorites] = useState(false);
 
   useEffect(() => {
-    const loadFavorites = () => {
+    const checkFavorites = () => {
       try {
         const raw = localStorage.getItem("prospect:favorites");
-        setFavorites(raw ? (JSON.parse(raw) as string[]) : []);
-      } catch {}
-    };
-    loadFavorites();
-
-    const handleFavoritesUpdate = (e: Event) => {
-      const detail = (e as CustomEvent).detail;
-      setFavorites(detail || []);
+        const favorites = raw ? (JSON.parse(raw) as string[]) : [];
+        setHasFavorites(favorites.length > 0);
+      } catch {
+        setHasFavorites(false);
+      }
     };
 
-    window.addEventListener("storage", loadFavorites);
-    // Also listen for custom events from the app when favorites change
+    checkFavorites();
+    const handleStorageChange = () => checkFavorites();
+    window.addEventListener("storage", handleStorageChange);
     window.addEventListener(
-      "prospect:favorites-updated",
-      handleFavoritesUpdate,
+      "app:favorites-updated",
+      handleStorageChange as EventListener,
     );
 
     return () => {
-      window.removeEventListener("storage", loadFavorites);
+      window.removeEventListener("storage", handleStorageChange);
       window.removeEventListener(
-        "prospect:favorites-updated",
-        handleFavoritesUpdate,
+        "app:favorites-updated",
+        handleStorageChange as EventListener,
       );
     };
   }, []);
@@ -277,8 +276,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     email?: string;
   }>({});
 
-  const [hasFavorites, setHasFavorites] = useState(false);
-
   useEffect(() => {
     try {
       const raw = localStorage.getItem("app.profile");
@@ -294,34 +291,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         "app:profile-updated",
         onUpdate as EventListener,
       );
-  }, []);
-
-  useEffect(() => {
-    const checkFavorites = () => {
-      try {
-        const raw = localStorage.getItem("prospect:favorites");
-        const favorites = raw ? (JSON.parse(raw) as string[]) : [];
-        setHasFavorites(favorites.length > 0);
-      } catch {
-        setHasFavorites(false);
-      }
-    };
-
-    checkFavorites();
-    const handleStorageChange = () => checkFavorites();
-    window.addEventListener("storage", handleStorageChange);
-    window.addEventListener(
-      "app:favorites-updated",
-      handleStorageChange as EventListener,
-    );
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-      window.removeEventListener(
-        "app:favorites-updated",
-        handleStorageChange as EventListener,
-      );
-    };
   }, []);
 
   const {
@@ -461,85 +430,146 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               {coreNavigationItems.map((item) => {
                 const isActive = location.pathname === item.href;
                 const IconComponent = item.icon;
-                const isFavoritesItem = item.href === "/favorites-prospects";
-                const isDisabled = isFavoritesItem && !hasFavorites;
+                const isSubmenuOpen = expandedSubmenu === item.name;
+                const hasSubmenu =
+                  "submenu" in item && item.submenu && item.submenu.length > 0;
 
                 return (
                   <li key={item.name}>
-                    {isDisabled ? (
-                      <div
-                        className={cn(
-                          "relative group flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 border border-transparent hover:border-amber-500 hover:shadow-md",
-                          !isExpanded && "justify-center",
-                          "text-valasys-gray-600 bg-transparent cursor-not-allowed opacity-60",
-                        )}
-                        title={!isExpanded ? item.name : undefined}
-                        role="button"
-                        tabIndex={0}
-                      >
-                        {isExpanded ? (
-                          <IconComponent
-                            className={cn(
-                              "w-4 h-4 flex-shrink-0 mr-3",
-                              "text-valasys-gray-500",
-                            )}
-                          />
-                        ) : (
-                          <div
-                            className={cn(
-                              "w-10 h-10 rounded-md flex items-center justify-center border border-transparent group-hover:border-amber-500 group-hover:shadow-md",
-                              "bg-valasys-gray-100 text-valasys-gray-600",
-                            )}
+                    <div
+                      className={cn(
+                        "flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 group",
+                        !isExpanded && "justify-center",
+                        isActive
+                          ? "bg-valasys-orange text-white shadow-sm"
+                          : "text-valasys-gray-600 hover:text-valasys-gray-900 hover:bg-valasys-gray-100",
+                      )}
+                      title={!isExpanded ? item.name : undefined}
+                    >
+                      {isExpanded ? (
+                        <IconComponent
+                          className={cn(
+                            "w-4 h-4 flex-shrink-0 mr-3",
+                            isActive ? "text-white" : "text-valasys-gray-500",
+                          )}
+                        />
+                      ) : (
+                        <div
+                          className={cn(
+                            "w-10 h-10 rounded-md flex items-center justify-center",
+                            isActive
+                              ? "bg-valasys-orange text-white shadow-sm"
+                              : "bg-valasys-gray-100 text-valasys-gray-600 group-hover:bg-valasys-gray-200",
+                          )}
+                        >
+                          <IconComponent className="w-4 h-4" />
+                        </div>
+                      )}
+                      {isExpanded && (
+                        <>
+                          <Link
+                            to={item.href}
+                            data-tour={item.tourId}
+                            onClick={(e) => handleNavigationClick(item, e)}
+                            className="truncate flex-1"
                           >
-                            <IconComponent className="w-4 h-4" />
-                          </div>
-                        )}
+                            {item.name}
+                          </Link>
+                          {hasSubmenu && (
+                            <button
+                              onClick={() =>
+                                setExpandedSubmenu(
+                                  isSubmenuOpen ? null : item.name,
+                                )
+                              }
+                              className="ml-auto p-1 hover:bg-white/10 rounded transition-colors"
+                              aria-label={
+                                isSubmenuOpen
+                                  ? "Collapse submenu"
+                                  : "Expand submenu"
+                              }
+                            >
+                              <ChevronDown
+                                className={cn(
+                                  "w-4 h-4 transition-transform",
+                                  isSubmenuOpen && "rotate-180",
+                                  isActive
+                                    ? "text-white"
+                                    : "text-valasys-gray-500",
+                                )}
+                              />
+                            </button>
+                          )}
+                        </>
+                      )}
+                    </div>
 
-                        {isExpanded && (
-                          <span className="truncate flex-1">{item.name}</span>
-                        )}
+                    {hasSubmenu && isExpanded && isSubmenuOpen && (
+                      <ul className="ml-4 mt-1 space-y-1 border-l border-valasys-gray-200 pl-0">
+                        {item.submenu!.map((submenuItem) => {
+                          const isSubmenuActive =
+                            location.pathname === submenuItem.href;
+                          const SubMenuIconComponent = submenuItem.icon;
+                          const isFavoritesSubmenu =
+                            submenuItem.href === "/favorites-prospects";
+                          const isSubmenuDisabled =
+                            isFavoritesSubmenu && !hasFavorites;
 
-                        {isExpanded && (
-                          <Lock className="ml-auto w-4 h-4 text-valasys-gray-400 group-hover:text-amber-500" />
-                        )}
-                      </div>
-                    ) : (
-                      <Link
-                        to={item.href}
-                        data-tour={item.tourId}
-                        onClick={(e) => handleNavigationClick(item, e)}
-                        className={cn(
-                          "flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 group",
-                          !isExpanded && "justify-center",
-                          isActive
-                            ? "bg-valasys-orange text-white shadow-sm"
-                            : "text-valasys-gray-600 hover:text-valasys-gray-900 hover:bg-valasys-gray-100",
-                        )}
-                        title={!isExpanded ? item.name : undefined}
-                      >
-                        {isExpanded ? (
-                          <IconComponent
-                            className={cn(
-                              "w-4 h-4 flex-shrink-0 mr-3",
-                              isActive ? "text-white" : "text-valasys-gray-500",
-                            )}
-                          />
-                        ) : (
-                          <div
-                            className={cn(
-                              "w-10 h-10 rounded-md flex items-center justify-center",
-                              isActive
-                                ? "bg-valasys-orange text-white shadow-sm"
-                                : "bg-valasys-gray-100 text-valasys-gray-600 group-hover:bg-valasys-gray-200",
-                            )}
-                          >
-                            <IconComponent className="w-4 h-4" />
-                          </div>
-                        )}
-                        {isExpanded && (
-                          <span className="truncate">{item.name}</span>
-                        )}
-                      </Link>
+                          return (
+                            <li key={submenuItem.name}>
+                              {isSubmenuDisabled ? (
+                                <div
+                                  className={cn(
+                                    "relative group flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 border border-transparent hover:border-amber-500 hover:shadow-md",
+                                    "text-valasys-gray-600 bg-transparent cursor-not-allowed opacity-60",
+                                  )}
+                                  title={submenuItem.name}
+                                  role="button"
+                                  tabIndex={0}
+                                >
+                                  <SubMenuIconComponent
+                                    className={cn(
+                                      "w-4 h-4 flex-shrink-0 mr-3",
+                                      "text-valasys-gray-500",
+                                    )}
+                                  />
+                                  <span className="truncate flex-1">
+                                    {submenuItem.name}
+                                  </span>
+                                  <Lock className="ml-auto w-4 h-4 text-valasys-gray-400 group-hover:text-amber-500" />
+                                </div>
+                              ) : (
+                                <Link
+                                  to={submenuItem.href}
+                                  data-tour={submenuItem.tourId}
+                                  onClick={(e) =>
+                                    handleNavigationClick(submenuItem, e)
+                                  }
+                                  className={cn(
+                                    "flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 group",
+                                    isSubmenuActive
+                                      ? "bg-valasys-orange text-white shadow-sm"
+                                      : "text-valasys-gray-600 hover:text-valasys-gray-900 hover:bg-valasys-gray-100",
+                                  )}
+                                  title={submenuItem.name}
+                                >
+                                  <SubMenuIconComponent
+                                    className={cn(
+                                      "w-4 h-4 flex-shrink-0 mr-3",
+                                      isSubmenuActive
+                                        ? "text-white"
+                                        : "text-valasys-gray-500",
+                                    )}
+                                  />
+                                  <span className="truncate">
+                                    {submenuItem.name}
+                                  </span>
+                                </Link>
+                              )}
+                            </li>
+                          );
+                        })}
+                      </ul>
                     )}
                   </li>
                 );
