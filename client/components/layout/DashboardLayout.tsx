@@ -158,6 +158,42 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   // Contact Sales dialog
   const [showContactSalesDialog, setShowContactSalesDialog] = useState(false);
 
+  // Favorites and submenu state
+  const [favorites, setFavorites] = useState<string[]>([]);
+  const [expandedSubmenu, setExpandedSubmenu] = useState<string | null>(null);
+
+  const hasFavorites = favorites.length > 0;
+
+  useEffect(() => {
+    const loadFavorites = () => {
+      try {
+        const raw = localStorage.getItem("prospect:favorites");
+        setFavorites(raw ? (JSON.parse(raw) as string[]) : []);
+      } catch {}
+    };
+    loadFavorites();
+
+    const handleFavoritesUpdate = (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      setFavorites(detail || []);
+    };
+
+    window.addEventListener("storage", loadFavorites);
+    // Also listen for custom events from the app when favorites change
+    window.addEventListener(
+      "prospect:favorites-updated",
+      handleFavoritesUpdate,
+    );
+
+    return () => {
+      window.removeEventListener("storage", loadFavorites);
+      window.removeEventListener(
+        "prospect:favorites-updated",
+        handleFavoritesUpdate,
+      );
+    };
+  }, []);
+
   const showManageUsersTooltip = (e: React.MouseEvent) => {
     const el = e.currentTarget as HTMLElement;
     const rect = el.getBoundingClientRect();
@@ -387,6 +423,114 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               {coreNavigationItems.map((item) => {
                 const isActive = location.pathname === item.href;
                 const IconComponent = item.icon;
+                const isFindProspect = item.href === "/find-prospect";
+                const isFavoritesProspectActive =
+                  location.pathname === "/favorites-prospect";
+                const isSubmenuExpanded = expandedSubmenu === "find-prospect";
+
+                if (isFindProspect) {
+                  return (
+                    <li key={item.name}>
+                      <div className="space-y-1">
+                        <button
+                          onClick={() => {
+                            if (isExpanded) {
+                              setExpandedSubmenu(
+                                isSubmenuExpanded ? null : "find-prospect",
+                              );
+                            } else {
+                              window.location.href = item.href;
+                            }
+                          }}
+                          className={cn(
+                            "w-full flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 group",
+                            !isExpanded && "justify-center",
+                            isActive
+                              ? "bg-valasys-orange text-white shadow-sm"
+                              : "text-valasys-gray-600 hover:text-valasys-gray-900 hover:bg-valasys-gray-100",
+                          )}
+                          title={!isExpanded ? item.name : undefined}
+                        >
+                          {isExpanded ? (
+                            <IconComponent
+                              className={cn(
+                                "w-4 h-4 flex-shrink-0 mr-3",
+                                isActive
+                                  ? "text-white"
+                                  : "text-valasys-gray-500",
+                              )}
+                            />
+                          ) : (
+                            <div
+                              className={cn(
+                                "w-10 h-10 rounded-md flex items-center justify-center",
+                                isActive
+                                  ? "bg-valasys-orange text-white shadow-sm"
+                                  : "bg-valasys-gray-100 text-valasys-gray-600 group-hover:bg-valasys-gray-200",
+                              )}
+                            >
+                              <IconComponent className="w-4 h-4" />
+                            </div>
+                          )}
+                          {isExpanded && (
+                            <>
+                              <span className="truncate flex-1 text-left">
+                                {item.name}
+                              </span>
+                              <ChevronDown
+                                className={cn(
+                                  "w-4 h-4 transition-transform",
+                                  isSubmenuExpanded ? "rotate-180" : "",
+                                )}
+                              />
+                            </>
+                          )}
+                        </button>
+
+                        {isExpanded && isSubmenuExpanded && (
+                          <div className="pl-3 space-y-1">
+                            <Link
+                              to="/find-prospect"
+                              onClick={(e) => handleNavigationClick(item, e)}
+                              className="flex items-center px-3 py-2 rounded-lg text-xs font-medium transition-all duration-200 text-valasys-gray-600 hover:text-valasys-gray-900 hover:bg-valasys-gray-100"
+                            >
+                              <Search className="w-3 h-3 flex-shrink-0 mr-2 text-valasys-gray-500" />
+                              <span className="truncate">Prospect Search</span>
+                            </Link>
+
+                            <div
+                              className={cn(
+                                "flex items-center px-3 py-2 rounded-lg text-xs font-medium transition-all duration-200",
+                                hasFavorites
+                                  ? "text-valasys-gray-600 hover:text-valasys-gray-900 hover:bg-valasys-gray-100 cursor-pointer"
+                                  : "text-valasys-gray-400 bg-valasys-gray-50 cursor-not-allowed opacity-60",
+                              )}
+                              onClick={() => {
+                                if (hasFavorites) {
+                                  window.location.href = "/favorites-prospect";
+                                }
+                              }}
+                              role={hasFavorites ? "button" : "status"}
+                              title={
+                                hasFavorites
+                                  ? "View favorites"
+                                  : "No favorites yet"
+                              }
+                            >
+                              <Star className="w-3 h-3 flex-shrink-0 mr-2 text-valasys-gray-400" />
+                              <span className="truncate">
+                                Favorites Prospect
+                              </span>
+                              {!hasFavorites && (
+                                <Lock className="w-3 h-3 ml-auto text-valasys-gray-400" />
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </li>
+                  );
+                }
 
                 return (
                   <li key={item.name}>
