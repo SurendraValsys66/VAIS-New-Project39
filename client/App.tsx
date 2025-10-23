@@ -18,6 +18,7 @@ import VAISResults from "./pages/VAISResults";
 import ABMLAL from "./pages/ABMLAL";
 import FindProspect from "./pages/FindProspect";
 import ProspectResults from "./pages/ProspectResults";
+import FavoritesProspect from "./pages/FavoritesProspect";
 import BuildCampaign from "./pages/BuildCampaign";
 import BuildMyCampaign from "./pages/BuildMyCampaign";
 import CampaignOverview from "./pages/CampaignOverview";
