@@ -34,6 +34,7 @@ import {
   Plug,
   ChevronDown,
   Lock,
+  Heart,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -83,6 +84,12 @@ const coreNavigationItems = [
     href: "/find-prospect",
     icon: Search,
     tourId: "prospect-nav",
+  },
+  {
+    name: "Favorites Prospects",
+    href: "/favorites-prospects",
+    icon: Heart,
+    tourId: "favorites-nav",
   },
   {
     name: "Build My Campaign",
@@ -270,6 +277,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     email?: string;
   }>({});
 
+  const [hasFavorites, setHasFavorites] = useState(false);
+
   useEffect(() => {
     try {
       const raw = localStorage.getItem("app.profile");
@@ -286,6 +295,35 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         onUpdate as EventListener,
       );
   }, []);
+
+  useEffect(() => {
+    const checkFavorites = () => {
+      try {
+        const raw = localStorage.getItem("prospect:favorites");
+        const favorites = raw ? (JSON.parse(raw) as string[]) : [];
+        setHasFavorites(favorites.length > 0);
+      } catch {
+        setHasFavorites(false);
+      }
+    };
+
+    checkFavorites();
+    const handleStorageChange = () => checkFavorites();
+    window.addEventListener("storage", handleStorageChange);
+    window.addEventListener(
+      "app:favorites-updated",
+      handleStorageChange as EventListener,
+    );
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener(
+        "app:favorites-updated",
+        handleStorageChange as EventListener,
+      );
+    };
+  }, []);
+
   const {
     isTourOpen,
     hasCompletedTour,
@@ -423,153 +461,86 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               {coreNavigationItems.map((item) => {
                 const isActive = location.pathname === item.href;
                 const IconComponent = item.icon;
-                const isFindProspect = item.href === "/find-prospect";
-                const isFavoritesProspectActive =
-                  location.pathname === "/favorites-prospect";
-                const isSubmenuExpanded = expandedSubmenu === "find-prospect";
-
-                if (isFindProspect) {
-                  return (
-                    <li key={item.name}>
-                      <div className="space-y-1">
-                        <button
-                          onClick={() => {
-                            if (isExpanded) {
-                              setExpandedSubmenu(
-                                isSubmenuExpanded ? null : "find-prospect",
-                              );
-                            } else {
-                              window.location.href = item.href;
-                            }
-                          }}
-                          className={cn(
-                            "w-full flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 group",
-                            !isExpanded && "justify-center",
-                            isActive
-                              ? "bg-valasys-orange text-white shadow-sm"
-                              : "text-valasys-gray-600 hover:text-valasys-gray-900 hover:bg-valasys-gray-100",
-                          )}
-                          title={!isExpanded ? item.name : undefined}
-                        >
-                          {isExpanded ? (
-                            <IconComponent
-                              className={cn(
-                                "w-4 h-4 flex-shrink-0 mr-3",
-                                isActive
-                                  ? "text-white"
-                                  : "text-valasys-gray-500",
-                              )}
-                            />
-                          ) : (
-                            <div
-                              className={cn(
-                                "w-10 h-10 rounded-md flex items-center justify-center",
-                                isActive
-                                  ? "bg-valasys-orange text-white shadow-sm"
-                                  : "bg-valasys-gray-100 text-valasys-gray-600 group-hover:bg-valasys-gray-200",
-                              )}
-                            >
-                              <IconComponent className="w-4 h-4" />
-                            </div>
-                          )}
-                          {isExpanded && (
-                            <>
-                              <span className="truncate flex-1 text-left">
-                                {item.name}
-                              </span>
-                              <ChevronDown
-                                className={cn(
-                                  "w-4 h-4 transition-transform",
-                                  isSubmenuExpanded ? "rotate-180" : "",
-                                )}
-                              />
-                            </>
-                          )}
-                        </button>
-
-                        {isExpanded && isSubmenuExpanded && (
-                          <div className="pl-3 space-y-1">
-                            <Link
-                              to="/find-prospect"
-                              onClick={(e) => handleNavigationClick(item, e)}
-                              className="flex items-center px-3 py-2 rounded-lg text-xs font-medium transition-all duration-200 text-valasys-gray-600 hover:text-valasys-gray-900 hover:bg-valasys-gray-100"
-                            >
-                              <Search className="w-3 h-3 flex-shrink-0 mr-2 text-valasys-gray-500" />
-                              <span className="truncate">Prospect Search</span>
-                            </Link>
-
-                            <div
-                              className={cn(
-                                "flex items-center px-3 py-2 rounded-lg text-xs font-medium transition-all duration-200",
-                                hasFavorites
-                                  ? "text-valasys-gray-600 hover:text-valasys-gray-900 hover:bg-valasys-gray-100 cursor-pointer"
-                                  : "text-valasys-gray-400 bg-valasys-gray-50 cursor-not-allowed opacity-60",
-                              )}
-                              onClick={() => {
-                                if (hasFavorites) {
-                                  window.location.href = "/favorites-prospect";
-                                }
-                              }}
-                              role={hasFavorites ? "button" : "status"}
-                              title={
-                                hasFavorites
-                                  ? "View favorites"
-                                  : "No favorites yet"
-                              }
-                            >
-                              <Star className="w-3 h-3 flex-shrink-0 mr-2 text-valasys-gray-400" />
-                              <span className="truncate">
-                                Favorites Prospect
-                              </span>
-                              {!hasFavorites && (
-                                <Lock className="w-3 h-3 ml-auto text-valasys-gray-400" />
-                              )}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </li>
-                  );
-                }
+                const isFavoritesItem = item.href === "/favorites-prospects";
+                const isDisabled = isFavoritesItem && !hasFavorites;
 
                 return (
                   <li key={item.name}>
-                    <Link
-                      to={item.href}
-                      data-tour={item.tourId}
-                      onClick={(e) => handleNavigationClick(item, e)}
-                      className={cn(
-                        "flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 group",
-                        !isExpanded && "justify-center",
-                        isActive
-                          ? "bg-valasys-orange text-white shadow-sm"
-                          : "text-valasys-gray-600 hover:text-valasys-gray-900 hover:bg-valasys-gray-100",
-                      )}
-                      title={!isExpanded ? item.name : undefined}
-                    >
-                      {isExpanded ? (
-                        <IconComponent
-                          className={cn(
-                            "w-4 h-4 flex-shrink-0 mr-3",
-                            isActive ? "text-white" : "text-valasys-gray-500",
-                          )}
-                        />
-                      ) : (
-                        <div
-                          className={cn(
-                            "w-10 h-10 rounded-md flex items-center justify-center",
-                            isActive
-                              ? "bg-valasys-orange text-white shadow-sm"
-                              : "bg-valasys-gray-100 text-valasys-gray-600 group-hover:bg-valasys-gray-200",
-                          )}
-                        >
-                          <IconComponent className="w-4 h-4" />
-                        </div>
-                      )}
-                      {isExpanded && (
-                        <span className="truncate">{item.name}</span>
-                      )}
-                    </Link>
+                    {isDisabled ? (
+                      <div
+                        className={cn(
+                          "relative group flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 border border-transparent hover:border-amber-500 hover:shadow-md",
+                          !isExpanded && "justify-center",
+                          "text-valasys-gray-600 bg-transparent cursor-not-allowed opacity-60",
+                        )}
+                        title={!isExpanded ? item.name : undefined}
+                        role="button"
+                        tabIndex={0}
+                      >
+                        {isExpanded ? (
+                          <IconComponent
+                            className={cn(
+                              "w-4 h-4 flex-shrink-0 mr-3",
+                              "text-valasys-gray-500",
+                            )}
+                          />
+                        ) : (
+                          <div
+                            className={cn(
+                              "w-10 h-10 rounded-md flex items-center justify-center border border-transparent group-hover:border-amber-500 group-hover:shadow-md",
+                              "bg-valasys-gray-100 text-valasys-gray-600",
+                            )}
+                          >
+                            <IconComponent className="w-4 h-4" />
+                          </div>
+                        )}
+
+                        {isExpanded && (
+                          <span className="truncate flex-1">{item.name}</span>
+                        )}
+
+                        {isExpanded && (
+                          <Lock className="ml-auto w-4 h-4 text-valasys-gray-400 group-hover:text-amber-500" />
+                        )}
+                      </div>
+                    ) : (
+                      <Link
+                        to={item.href}
+                        data-tour={item.tourId}
+                        onClick={(e) => handleNavigationClick(item, e)}
+                        className={cn(
+                          "flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 group",
+                          !isExpanded && "justify-center",
+                          isActive
+                            ? "bg-valasys-orange text-white shadow-sm"
+                            : "text-valasys-gray-600 hover:text-valasys-gray-900 hover:bg-valasys-gray-100",
+                        )}
+                        title={!isExpanded ? item.name : undefined}
+                      >
+                        {isExpanded ? (
+                          <IconComponent
+                            className={cn(
+                              "w-4 h-4 flex-shrink-0 mr-3",
+                              isActive ? "text-white" : "text-valasys-gray-500",
+                            )}
+                          />
+                        ) : (
+                          <div
+                            className={cn(
+                              "w-10 h-10 rounded-md flex items-center justify-center",
+                              isActive
+                                ? "bg-valasys-orange text-white shadow-sm"
+                                : "bg-valasys-gray-100 text-valasys-gray-600 group-hover:bg-valasys-gray-200",
+                            )}
+                          >
+                            <IconComponent className="w-4 h-4" />
+                          </div>
+                        )}
+                        {isExpanded && (
+                          <span className="truncate">{item.name}</span>
+                        )}
+                      </Link>
+                    )}
                   </li>
                 );
               })}

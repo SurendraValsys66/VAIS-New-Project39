@@ -18,7 +18,7 @@ import VAISResults from "./pages/VAISResults";
 import ABMLAL from "./pages/ABMLAL";
 import FindProspect from "./pages/FindProspect";
 import ProspectResults from "./pages/ProspectResults";
-import FavoritesProspect from "./pages/FavoritesProspect";
+import FavoritesProspects from "./pages/FavoritesProspects";
 import BuildCampaign from "./pages/BuildCampaign";
 import BuildMyCampaign from "./pages/BuildMyCampaign";
 import CampaignOverview from "./pages/CampaignOverview";
@@ -79,8 +79,8 @@ const App = () => (
               <Route path="/find-prospect" element={<FindProspect />} />
               <Route path="/prospect-results" element={<ProspectResults />} />
               <Route
-                path="/favorites-prospect"
-                element={<FavoritesProspect />}
+                path="/favorites-prospects"
+                element={<FavoritesProspects />}
               />
               <Route path="/build-campaign" element={<BuildCampaign />} />
               <Route path="/build-my-campaign" element={<BuildMyCampaign />} />

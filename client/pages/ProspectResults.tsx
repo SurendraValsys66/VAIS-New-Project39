@@ -598,6 +598,8 @@ export default function ProspectResults() {
   useEffect(() => {
     try {
       localStorage.setItem("prospect:favorites", JSON.stringify(favorites));
+      // Dispatch event to notify sidebar of favorites update
+      window.dispatchEvent(new CustomEvent("app:favorites-updated"));
     } catch {}
   }, [favorites]);
 
