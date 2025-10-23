@@ -872,15 +872,35 @@ export default function VAISResults() {
                     {selectedItems.length} Items Selected
                   </Badge>
                 </div>
-                <Button
-                  size="sm"
-                  className="bg-valasys-orange hover:bg-valasys-orange/90"
-                  disabled={selectedItems.length === 0 || isPremiumPage}
-                  onClick={() => markStepCompleted("accountsDownloaded")}
-                >
-                  <Download className="w-4 h-4 mr-2" />
-                  Download
-                </Button>
+                <div className="flex items-center space-x-2">
+                  <Select
+                    value={itemsPerPage.toString()}
+                    onValueChange={(value) => {
+                      setItemsPerPage(parseInt(value));
+                      setCurrentPage(1);
+                    }}
+                  >
+                    <SelectTrigger className="w-24">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="10">10</SelectItem>
+                      <SelectItem value="50">50</SelectItem>
+                      <SelectItem value="100">100</SelectItem>
+                      <SelectItem value="500">500</SelectItem>
+                      <SelectItem value="1000">1000</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Button
+                    size="sm"
+                    className="bg-valasys-orange hover:bg-valasys-orange/90"
+                    disabled={selectedItems.length === 0 || isPremiumPage}
+                    onClick={() => markStepCompleted("accountsDownloaded")}
+                  >
+                    <Download className="w-4 h-4 mr-2" />
+                    Download
+                  </Button>
+                </div>
               </div>
             </CardHeader>
             <CardContent className="p-0">
