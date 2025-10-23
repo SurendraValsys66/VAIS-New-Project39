@@ -631,13 +631,12 @@ export default function FavoritesProspect() {
                             onClick={() => handleSort("fullName")}
                           >
                             Prospect
-                            {sortField === "fullName" && (
-                              sortDirection === "asc" ? (
+                            {sortField === "fullName" &&
+                              (sortDirection === "asc" ? (
                                 <ArrowUp className="w-4 h-4" />
                               ) : (
                                 <ArrowDown className="w-4 h-4" />
-                              )
-                            )}
+                              ))}
                           </div>
                         </TableHead>
                       )}
@@ -648,13 +647,12 @@ export default function FavoritesProspect() {
                             onClick={() => handleSort("companyName")}
                           >
                             Company
-                            {sortField === "companyName" && (
-                              sortDirection === "asc" ? (
+                            {sortField === "companyName" &&
+                              (sortDirection === "asc" ? (
                                 <ArrowUp className="w-4 h-4" />
                               ) : (
                                 <ArrowDown className="w-4 h-4" />
-                              )
-                            )}
+                              ))}
                           </div>
                         </TableHead>
                       )}
@@ -665,13 +663,12 @@ export default function FavoritesProspect() {
                             onClick={() => handleSort("jobTitle")}
                           >
                             Job Title
-                            {sortField === "jobTitle" && (
-                              sortDirection === "asc" ? (
+                            {sortField === "jobTitle" &&
+                              (sortDirection === "asc" ? (
                                 <ArrowUp className="w-4 h-4" />
                               ) : (
                                 <ArrowDown className="w-4 h-4" />
-                              )
-                            )}
+                              ))}
                           </div>
                         </TableHead>
                       )}
@@ -682,13 +679,12 @@ export default function FavoritesProspect() {
                             onClick={() => handleSort("jobFunction")}
                           >
                             Job Function
-                            {sortField === "jobFunction" && (
-                              sortDirection === "asc" ? (
+                            {sortField === "jobFunction" &&
+                              (sortDirection === "asc" ? (
                                 <ArrowUp className="w-4 h-4" />
                               ) : (
                                 <ArrowDown className="w-4 h-4" />
-                              )
-                            )}
+                              ))}
                           </div>
                         </TableHead>
                       )}
@@ -699,13 +695,12 @@ export default function FavoritesProspect() {
                             onClick={() => handleSort("revenue")}
                           >
                             Revenue
-                            {sortField === "revenue" && (
-                              sortDirection === "asc" ? (
+                            {sortField === "revenue" &&
+                              (sortDirection === "asc" ? (
                                 <ArrowUp className="w-4 h-4" />
                               ) : (
                                 <ArrowDown className="w-4 h-4" />
-                              )
-                            )}
+                              ))}
                           </div>
                         </TableHead>
                       )}
@@ -716,13 +711,12 @@ export default function FavoritesProspect() {
                             onClick={() => handleSort("industry")}
                           >
                             Main Industry
-                            {sortField === "industry" && (
-                              sortDirection === "asc" ? (
+                            {sortField === "industry" &&
+                              (sortDirection === "asc" ? (
                                 <ArrowUp className="w-4 h-4" />
                               ) : (
                                 <ArrowDown className="w-4 h-4" />
-                              )
-                            )}
+                              ))}
                           </div>
                         </TableHead>
                       )}
@@ -733,13 +727,12 @@ export default function FavoritesProspect() {
                             onClick={() => handleSort("country")}
                           >
                             Country
-                            {sortField === "country" && (
-                              sortDirection === "asc" ? (
+                            {sortField === "country" &&
+                              (sortDirection === "asc" ? (
                                 <ArrowUp className="w-4 h-4" />
                               ) : (
                                 <ArrowDown className="w-4 h-4" />
-                              )
-                            )}
+                              ))}
                           </div>
                         </TableHead>
                       )}
@@ -883,9 +876,7 @@ export default function FavoritesProspect() {
                     <Button
                       variant="outline"
                       size="icon"
-                      onClick={() =>
-                        setCurrentPage((p) => Math.max(1, p - 1))
-                      }
+                      onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                       disabled={currentPage === 1}
                     >
                       <ChevronLeft className="w-4 h-4" />

@@ -180,11 +180,17 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
     window.addEventListener("storage", loadFavorites);
     // Also listen for custom events from the app when favorites change
-    window.addEventListener("prospect:favorites-updated", handleFavoritesUpdate);
+    window.addEventListener(
+      "prospect:favorites-updated",
+      handleFavoritesUpdate,
+    );
 
     return () => {
       window.removeEventListener("storage", loadFavorites);
-      window.removeEventListener("prospect:favorites-updated", handleFavoritesUpdate);
+      window.removeEventListener(
+        "prospect:favorites-updated",
+        handleFavoritesUpdate,
+      );
     };
   }, []);
 
@@ -430,9 +436,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                           onClick={() => {
                             if (isExpanded) {
                               setExpandedSubmenu(
-                                isSubmenuExpanded
-                                  ? null
-                                  : "find-prospect",
+                                isSubmenuExpanded ? null : "find-prospect",
                               );
                             } else {
                               window.location.href = item.href;
@@ -487,15 +491,11 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                           <div className="pl-3 space-y-1">
                             <Link
                               to="/find-prospect"
-                              onClick={(e) =>
-                                handleNavigationClick(item, e)
-                              }
+                              onClick={(e) => handleNavigationClick(item, e)}
                               className="flex items-center px-3 py-2 rounded-lg text-xs font-medium transition-all duration-200 text-valasys-gray-600 hover:text-valasys-gray-900 hover:bg-valasys-gray-100"
                             >
                               <Search className="w-3 h-3 flex-shrink-0 mr-2 text-valasys-gray-500" />
-                              <span className="truncate">
-                                Prospect Search
-                              </span>
+                              <span className="truncate">Prospect Search</span>
                             </Link>
 
                             <div
@@ -507,8 +507,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                               )}
                               onClick={() => {
                                 if (hasFavorites) {
-                                  window.location.href =
-                                    "/favorites-prospect";
+                                  window.location.href = "/favorites-prospect";
                                 }
                               }}
                               role={hasFavorites ? "button" : "status"}
