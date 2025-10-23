@@ -240,6 +240,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     email?: string;
   }>({});
 
+  const [hasFavorites, setHasFavorites] = useState(false);
+
   useEffect(() => {
     try {
       const raw = localStorage.getItem("app.profile");
@@ -256,6 +258,32 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         onUpdate as EventListener,
       );
   }, []);
+
+  useEffect(() => {
+    const checkFavorites = () => {
+      try {
+        const raw = localStorage.getItem("prospect:favorites");
+        const favorites = raw ? (JSON.parse(raw) as string[]) : [];
+        setHasFavorites(favorites.length > 0);
+      } catch {
+        setHasFavorites(false);
+      }
+    };
+
+    checkFavorites();
+    const handleStorageChange = () => checkFavorites();
+    window.addEventListener("storage", handleStorageChange);
+    window.addEventListener("app:favorites-updated", handleStorageChange as EventListener);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener(
+        "app:favorites-updated",
+        handleStorageChange as EventListener,
+      );
+    };
+  }, []);
+
   const {
     isTourOpen,
     hasCompletedTour,
