@@ -929,7 +929,10 @@ export default function FavoritesProspects() {
   return (
     <TooltipProvider>
       <DashboardLayout>
-        <div ref={containerRef} className={cn("space-y-6", isFullScreen && "app-fullscreen")}>
+        <div
+          ref={containerRef}
+          className={cn("space-y-6", isFullScreen && "app-fullscreen")}
+        >
           {/* Header */}
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
@@ -1414,8 +1417,7 @@ export default function FavoritesProspects() {
                                 {prospect.industry}
                               </div>
                               <div className="text-xs text-gray-400 mt-1">
-                                {prospect.companySize} •{" "}
-                                {prospect.revenue}
+                                {prospect.companySize} • {prospect.revenue}
                               </div>
                             </TableCell>
                           )}
@@ -1465,10 +1467,7 @@ export default function FavoritesProspects() {
                                       size="sm"
                                       className="h-8 w-8 p-0"
                                       onClick={() =>
-                                        handleCopy(
-                                          prospect.email,
-                                          "Email",
-                                        )
+                                        handleCopy(prospect.email, "Email")
                                       }
                                     >
                                       <Mail className="w-4 h-4 text-gray-400 hover:text-gray-600" />
@@ -1488,10 +1487,7 @@ export default function FavoritesProspects() {
                                 size="sm"
                                 className="h-8 w-8 p-0"
                                 onClick={() =>
-                                  toggleFavorite(
-                                    prospect.id,
-                                    prospect.fullName,
-                                  )
+                                  toggleFavorite(prospect.id, prospect.fullName)
                                 }
                               >
                                 <Heart
@@ -1510,9 +1506,10 @@ export default function FavoritesProspects() {
                     ) : (
                       <TableRow>
                         <TableCell
-                          colSpan={Object.values(columnVisibility).filter(
-                            (v) => v,
-                          ).length + 1}
+                          colSpan={
+                            Object.values(columnVisibility).filter((v) => v)
+                              .length + 1
+                          }
                           className="text-center py-8 text-gray-500"
                         >
                           No prospects found matching your filters
@@ -1531,9 +1528,7 @@ export default function FavoritesProspects() {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() =>
-                  setCurrentPage((prev) => Math.max(prev - 1, 1))
-                }
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                 disabled={currentPage === 1}
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -1543,9 +1538,7 @@ export default function FavoritesProspects() {
                 return (
                   <Button
                     key={pageNumber}
-                    variant={
-                      currentPage === pageNumber ? "default" : "outline"
-                    }
+                    variant={currentPage === pageNumber ? "default" : "outline"}
                     size="sm"
                     onClick={() => setCurrentPage(pageNumber)}
                     className={

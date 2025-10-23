@@ -273,7 +273,10 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     checkFavorites();
     const handleStorageChange = () => checkFavorites();
     window.addEventListener("storage", handleStorageChange);
-    window.addEventListener("app:favorites-updated", handleStorageChange as EventListener);
+    window.addEventListener(
+      "app:favorites-updated",
+      handleStorageChange as EventListener,
+    );
 
     return () => {
       window.removeEventListener("storage", handleStorageChange);
