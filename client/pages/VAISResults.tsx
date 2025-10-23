@@ -695,7 +695,7 @@ export default function VAISResults() {
                                 id={`column-${column.key}`}
                                 checked={
                                   columnVisibility[
-                                  column.key as keyof typeof columnVisibility
+                                    column.key as keyof typeof columnVisibility
                                   ]
                                 }
                                 onCheckedChange={() =>
@@ -1061,142 +1061,142 @@ export default function VAISResults() {
                   <TableBody>
                     {isPremiumPage
                       ? Array.from({ length: 5 }, (_, index) => (
-                        <TableRow key={`premium-${index}`}>
-                          <TableCell className="pl-6">
-                            <Checkbox disabled />
-                          </TableCell>
-                          {columnVisibility.companyName && (
-                            <TableCell className="font-medium text-gray-400">
-                              Premium Company {index + 1}
+                          <TableRow key={`premium-${index}`}>
+                            <TableCell className="pl-6">
+                              <Checkbox disabled />
                             </TableCell>
-                          )}
-                          {columnVisibility.vais && (
-                            <TableCell className="text-center">
-                              <div className="flex justify-center">
-                                <CircularProgress
-                                  value={85 + index * 2}
-                                  size={56}
-                                  strokeWidth={4}
-                                />
-                              </div>
-                            </TableCell>
-                          )}
-                          {columnVisibility.intentSignal && (
-                            <TableCell>
-                              <Badge className="bg-gray-200 text-gray-400">
-                                Premium Signal
-                              </Badge>
-                            </TableCell>
-                          )}
-                          {columnVisibility.mainIndustry && (
-                            <TableCell className="text-sm text-gray-400">
-                              Premium Industry
-                            </TableCell>
-                          )}
-                          {columnVisibility.subIndustry && (
-                            <TableCell className="text-sm text-gray-400">
-                              Premium Sub-Industry
-                            </TableCell>
-                          )}
-                          {columnVisibility.companySize && (
-                            <TableCell className="text-sm text-gray-400">
-                              Premium Size
-                            </TableCell>
-                          )}
-                          {columnVisibility.revenue && (
-                            <TableCell className="text-sm text-gray-400">
-                              Premium Revenue
-                            </TableCell>
-                          )}
-                          {columnVisibility.country && (
-                            <TableCell className="text-sm text-gray-400">
-                              Premium Country
-                            </TableCell>
-                          )}
-                        </TableRow>
-                      ))
+                            {columnVisibility.companyName && (
+                              <TableCell className="font-medium text-gray-400">
+                                Premium Company {index + 1}
+                              </TableCell>
+                            )}
+                            {columnVisibility.vais && (
+                              <TableCell className="text-center">
+                                <div className="flex justify-center">
+                                  <CircularProgress
+                                    value={85 + index * 2}
+                                    size={56}
+                                    strokeWidth={4}
+                                  />
+                                </div>
+                              </TableCell>
+                            )}
+                            {columnVisibility.intentSignal && (
+                              <TableCell>
+                                <Badge className="bg-gray-200 text-gray-400">
+                                  Premium Signal
+                                </Badge>
+                              </TableCell>
+                            )}
+                            {columnVisibility.mainIndustry && (
+                              <TableCell className="text-sm text-gray-400">
+                                Premium Industry
+                              </TableCell>
+                            )}
+                            {columnVisibility.subIndustry && (
+                              <TableCell className="text-sm text-gray-400">
+                                Premium Sub-Industry
+                              </TableCell>
+                            )}
+                            {columnVisibility.companySize && (
+                              <TableCell className="text-sm text-gray-400">
+                                Premium Size
+                              </TableCell>
+                            )}
+                            {columnVisibility.revenue && (
+                              <TableCell className="text-sm text-gray-400">
+                                Premium Revenue
+                              </TableCell>
+                            )}
+                            {columnVisibility.country && (
+                              <TableCell className="text-sm text-gray-400">
+                                Premium Country
+                              </TableCell>
+                            )}
+                          </TableRow>
+                        ))
                       : paginatedData.map((item) => (
-                        <TableRow
-                          key={item.id}
-                          className={cn(
-                            "hover:bg-blue-50/50 transition-colors",
-                            selectedItems.includes(item.id) && "bg-blue-50",
-                          )}
-                        >
-                          <TableCell className="pl-6">
-                            <Checkbox
-                              checked={selectedItems.includes(item.id)}
-                              onCheckedChange={(checked) =>
-                                handleSelectItem(item.id, checked as boolean)
-                              }
-                            />
-                          </TableCell>
-                          {columnVisibility.companyName && (
-                            <TableCell className="font-medium text-valasys-gray-900">
-                              <button
-                                className="flex items-center space-x-2 text-black hover:text-gray-800 hover:underline focus:outline-none group"
-                                onClick={() => openDetails(item)}
-                              >
-                                <span>{item.companyName}</span>
-                                <ExternalLink className="w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity" />
-                              </button>
-                            </TableCell>
-                          )}
-                          {columnVisibility.vais && (
-                            <TableCell className="text-center">
-                              <div className="flex justify-center">
-                                <CircularProgress
-                                  value={item.vais}
-                                  size={56}
-                                  strokeWidth={4}
-                                />
-                              </div>
-                            </TableCell>
-                          )}
-                          {columnVisibility.intentSignal && (
-                            <TableCell>
-                              <IntentSignalChart
-                                data={{
-                                  compositeScore: item.compositeScore,
-                                  deltaScore: item.deltaScore,
-                                  matchedTopics: item.matchedTopics,
-                                  intentSignal: item.intentSignal,
-                                  companyName: item.companyName,
-                                  vais: item.vais,
-                                  revenue: item.revenue,
-                                  city: item.city,
-                                  relatedTopics: item.relatedTopics,
-                                }}
+                          <TableRow
+                            key={item.id}
+                            className={cn(
+                              "hover:bg-blue-50/50 transition-colors",
+                              selectedItems.includes(item.id) && "bg-blue-50",
+                            )}
+                          >
+                            <TableCell className="pl-6">
+                              <Checkbox
+                                checked={selectedItems.includes(item.id)}
+                                onCheckedChange={(checked) =>
+                                  handleSelectItem(item.id, checked as boolean)
+                                }
                               />
                             </TableCell>
-                          )}
-                          {columnVisibility.mainIndustry && (
-                            <TableCell className="text-sm text-gray-700">
-                              {item.mainIndustry}
-                            </TableCell>
-                          )}
-                          {columnVisibility.subIndustry && (
-                            <TableCell className="text-sm text-gray-700">
-                              {item.subIndustry}
-                            </TableCell>
-                          )}
-                          {columnVisibility.companySize && (
-                            <TableCell className="text-sm text-gray-700">
-                              {item.companySize}
-                            </TableCell>
-                          )}
-                          {columnVisibility.revenue && (
-                            <TableCell className="text-sm text-gray-700">
-                              {item.revenue}
-                            </TableCell>
-                          )}
-                          {columnVisibility.country && (
-                            <TableCell className="text-sm text-gray-700">
-                              {item.country}
-                            </TableCell>
-                          )}
-                        </TableRow>
-                      ))}
+                            {columnVisibility.companyName && (
+                              <TableCell className="font-medium text-valasys-gray-900">
+                                <button
+                                  className="flex items-center space-x-2 text-black hover:text-gray-800 hover:underline focus:outline-none group"
+                                  onClick={() => openDetails(item)}
+                                >
+                                  <span>{item.companyName}</span>
+                                  <ExternalLink className="w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity" />
+                                </button>
+                              </TableCell>
+                            )}
+                            {columnVisibility.vais && (
+                              <TableCell className="text-center">
+                                <div className="flex justify-center">
+                                  <CircularProgress
+                                    value={item.vais}
+                                    size={56}
+                                    strokeWidth={4}
+                                  />
+                                </div>
+                              </TableCell>
+                            )}
+                            {columnVisibility.intentSignal && (
+                              <TableCell>
+                                <IntentSignalChart
+                                  data={{
+                                    compositeScore: item.compositeScore,
+                                    deltaScore: item.deltaScore,
+                                    matchedTopics: item.matchedTopics,
+                                    intentSignal: item.intentSignal,
+                                    companyName: item.companyName,
+                                    vais: item.vais,
+                                    revenue: item.revenue,
+                                    city: item.city,
+                                    relatedTopics: item.relatedTopics,
+                                  }}
+                                />
+                              </TableCell>
+                            )}
+                            {columnVisibility.mainIndustry && (
+                              <TableCell className="text-sm text-gray-700">
+                                {item.mainIndustry}
+                              </TableCell>
+                            )}
+                            {columnVisibility.subIndustry && (
+                              <TableCell className="text-sm text-gray-700">
+                                {item.subIndustry}
+                              </TableCell>
+                            )}
+                            {columnVisibility.companySize && (
+                              <TableCell className="text-sm text-gray-700">
+                                {item.companySize}
+                              </TableCell>
+                            )}
+                            {columnVisibility.revenue && (
+                              <TableCell className="text-sm text-gray-700">
+                                {item.revenue}
+                              </TableCell>
+                            )}
+                            {columnVisibility.country && (
+                              <TableCell className="text-sm text-gray-700">
+                                {item.country}
+                              </TableCell>
+                            )}
+                          </TableRow>
+                        ))}
                   </TableBody>
                 </Table>
               </div>
@@ -1243,7 +1243,7 @@ export default function VAISResults() {
                           className={cn(
                             isPremiumPageNum ? "px-3 h-8" : "w-8 h-8 p-0",
                             pageNum === currentPage &&
-                            "bg-valasys-orange hover:bg-valasys-orange/90",
+                              "bg-valasys-orange hover:bg-valasys-orange/90",
                           )}
                         >
                           {isPremiumPageNum ? (
@@ -1273,11 +1273,11 @@ export default function VAISResults() {
                             ? "px-3 h-8"
                             : "w-8 h-8 p-0",
                           totalPages === currentPage &&
-                          "bg-valasys-orange hover:bg-valasys-orange/90",
+                            "bg-valasys-orange hover:bg-valasys-orange/90",
                         )}
                       >
                         {totalPages >
-                          Math.ceil(sortedData.length / itemsPerPage) ? (
+                        Math.ceil(sortedData.length / itemsPerPage) ? (
                           <div className="flex items-center space-x-1">
                             <Lock className="w-3 h-3" />
                             <span className="text-xs">Premium</span>
