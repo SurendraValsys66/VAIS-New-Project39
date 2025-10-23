@@ -1,7 +1,8 @@
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Card, CardContent } from "@/components/ui/card";
 import { AlertTriangle } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { Link } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
 
