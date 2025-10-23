@@ -85,6 +85,12 @@ const coreNavigationItems = [
     tourId: "prospect-nav",
   },
   {
+    name: "Favorites Prospects",
+    href: "/favorites-prospects",
+    icon: Heart,
+    tourId: "favorites-nav",
+  },
+  {
     name: "Build My Campaign",
     href: "/build-my-campaign",
     icon: Megaphone,
