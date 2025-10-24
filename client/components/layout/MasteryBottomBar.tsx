@@ -12,7 +12,6 @@ import {
   Coins,
   ChevronDown,
   ChevronUp,
-  ChevronsDown,
 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
@@ -68,7 +67,9 @@ export default function MasteryBottomBar() {
   const [hidden, setHidden] = useState(() => {
     if (typeof window === "undefined") return false;
     try {
-      return localStorage.getItem(MASTERY_DISMISS_KEY) === "1";
+      const isDismissed = localStorage.getItem(MASTERY_DISMISS_KEY) === "1";
+      const isFirstLoad = !localStorage.getItem("vais.mastery");
+      return isDismissed && !isFirstLoad;
     } catch (error) {
       return false;
     }
@@ -88,7 +89,6 @@ export default function MasteryBottomBar() {
   const [showConfetti, setShowConfetti] = useState(false);
   const [showStepConfetti, setShowStepConfetti] = useState(false);
   const [dialogBlast, setDialogBlast] = useState(0);
-  const [collapsed, setCollapsed] = useState(false);
 
   useEffect(() => {
     setState(getMastery());
@@ -294,8 +294,6 @@ export default function MasteryBottomBar() {
   const manPos = Math.max(0, Math.min(100, percent));
   const handleOpenGuide = useCallback(() => setExpanded(true), []);
   const handleCloseGuide = useCallback(() => setExpanded(false), []);
-  const handleCollapseBar = useCallback(() => setCollapsed(true), []);
-  const handleExpandBar = useCallback(() => setCollapsed(false), []);
   const handleGuideKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (event.key === "Enter" || event.key === " ") {
@@ -341,14 +339,7 @@ export default function MasteryBottomBar() {
       {/* Confetti celebration moved inside dialog to blast from behind modal (two times) */}
 
       {shouldShowPanel && (
-        <div
-          className="fixed bottom-0 left-0 right-0 z-50 pointer-events-none transition-all duration-300"
-          style={{
-            transform: collapsed
-              ? "translateY(calc(100% + 8px))"
-              : "translateY(0)",
-          }}
-        >
+        <div className="fixed bottom-0 left-0 right-0 z-50 pointer-events-none">
           <div
             className="mx-auto w-full pointer-events-auto px-4 sm:px-6 pb-4"
             onMouseLeave={handleCloseGuide}
@@ -558,22 +549,6 @@ export default function MasteryBottomBar() {
                   className="h-5 w-5 rounded-full bg-white p-0.5 shadow-sm"
                   loading="lazy"
                 />
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <button
-                      aria-label="Collapse"
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        handleCollapseBar();
-                      }}
-                      className="rounded-md hover:opacity-90 transition-opacity"
-                      title="Collapse"
-                    >
-                      <ChevronsDown className="h-4 w-4" />
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent side="top">Collapse</TooltipContent>
-                </Tooltip>
                 <button
                   aria-label="Hide for now"
                   onClick={(event) => {
@@ -714,24 +689,6 @@ export default function MasteryBottomBar() {
           </div>
         </DialogContent>
       </Dialog>
-
-      {shouldShowPanel && collapsed && (
-        <div className="fixed bottom-4 left-0 right-0 z-50 flex justify-center pointer-events-auto">
-          <motion.button
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={handleExpandBar}
-            className="bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white font-semibold py-2 px-4 rounded-full shadow-lg hover:opacity-90 transition-opacity flex items-center gap-2"
-            title="Expand VAIS Mastery"
-          >
-            <span>Show VAIS Mastery</span>
-            <ChevronsDown className="h-4 w-4 rotate-180" />
-          </motion.button>
-        </div>
-      )}
     </>
   );
 }
