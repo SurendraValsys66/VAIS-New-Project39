@@ -82,8 +82,7 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Switch } from "@/components/ui/switch";
-import { Link } from "react-router-dom";
-import { cn } from "@/lib/utils";
+import { cn, Link } from "@/lib/utils";
 import { FloatingStatsWidget } from "@/components/ui/floating-stats-widget";
 import { markStepCompleted } from "@/lib/masteryStorage";
 import { useToast } from "@/hooks/use-toast";
@@ -569,7 +568,7 @@ export default function ProspectResults() {
   const [data, setData] = useState<ProspectData[]>(initialProspects);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
   const [sortField, setSortField] =
     useState<keyof ProspectData>("engagementScore");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
@@ -599,6 +598,8 @@ export default function ProspectResults() {
   useEffect(() => {
     try {
       localStorage.setItem("prospect:favorites", JSON.stringify(favorites));
+      // Dispatch event to notify sidebar of favorites update
+      window.dispatchEvent(new CustomEvent("app:favorites-updated"));
     } catch {}
   }, [favorites]);
 
@@ -1233,6 +1234,27 @@ export default function ProspectResults() {
                   </Badge>
                 </div>
                 <div className="flex items-center space-x-2">
+                  <span className="text-sm text-gray-600 font-medium">
+                    Total items shows
+                  </span>
+                  <Select
+                    value={itemsPerPage.toString()}
+                    onValueChange={(value) => {
+                      setItemsPerPage(parseInt(value));
+                      setCurrentPage(1);
+                    }}
+                  >
+                    <SelectTrigger className="w-24">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="10">10</SelectItem>
+                      <SelectItem value="50">50</SelectItem>
+                      <SelectItem value="100">100</SelectItem>
+                      <SelectItem value="500">500</SelectItem>
+                      <SelectItem value="1000">1000</SelectItem>
+                    </SelectContent>
+                  </Select>
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Button
