@@ -689,7 +689,6 @@ export default function MasteryBottomBar() {
           </div>
         </DialogContent>
       </Dialog>
-
     </>
   );
 }
