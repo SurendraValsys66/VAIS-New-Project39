@@ -37,16 +37,6 @@ export default function MasteryProgressBadge() {
     setPrevPercent(percent);
   }, [percent, prevPercent]);
 
-  const isDismissed = (() => {
-    if (typeof window === "undefined") return false;
-    try {
-      return localStorage.getItem("valasys-mastery-dismissed") === "1";
-    } catch {
-      return false;
-    }
-  })();
-
-  if (isDismissed) return null;
 
   return (
     <motion.button
