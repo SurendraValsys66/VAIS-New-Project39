@@ -13,7 +13,13 @@ import {
   TooltipContent,
 } from "@/components/ui/tooltip";
 
-export default function MasteryProgressBadge() {
+interface MasteryProgressBadgeProps {
+  onClick?: () => void;
+}
+
+export default function MasteryProgressBadge({
+  onClick,
+}: MasteryProgressBadgeProps) {
   const [state, setState] = useState<MasterySteps>({});
   const [prevPercent, setPrevPercent] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
