@@ -88,7 +88,7 @@ export default function MasteryProgressBadge() {
                   "relative flex items-center gap-1.5 px-3 py-1.5 rounded-full font-semibold text-sm",
                   "bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white",
                   "shadow-md hover:shadow-lg transition-shadow cursor-pointer",
-                  isAnimating && "ring-2 ring-valasys-orange ring-opacity-50"
+                  isAnimating && "ring-2 ring-valasys-orange ring-opacity-50",
                 )}
                 animate={
                   isAnimating

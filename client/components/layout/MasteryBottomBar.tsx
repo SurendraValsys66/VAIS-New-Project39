@@ -102,7 +102,6 @@ export default function MasteryBottomBar() {
     };
   }, []);
 
-
   useEffect(() => {
     const prev = prevRef.current;
 
@@ -345,7 +344,9 @@ export default function MasteryBottomBar() {
         <div
           className="fixed bottom-0 left-0 right-0 z-50 pointer-events-none transition-all duration-300"
           style={{
-            transform: collapsed ? "translateY(calc(100% + 8px))" : "translateY(0)",
+            transform: collapsed
+              ? "translateY(calc(100% + 8px))"
+              : "translateY(0)",
           }}
         >
           <div
