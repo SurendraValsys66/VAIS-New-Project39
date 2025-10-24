@@ -327,16 +327,6 @@ export default function MasteryBottomBar() {
     } catch {}
   }, []);
 
-  useEffect(() => {
-    // Ensure mastery bar is shown on first load if not already dismissed
-    try {
-      const dismissed = localStorage.getItem(MASTERY_DISMISS_KEY);
-      if (dismissed === null && !hidden) {
-        setHidden(false);
-      }
-    } catch {}
-  }, []);
-
   const shouldShowPanel = !hidden && !doneAll;
 
   useEffect(() => {
