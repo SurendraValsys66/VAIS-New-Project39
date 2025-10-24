@@ -54,12 +54,12 @@ export default function MasteryProgressBadge() {
       transition={{ duration: 0.5 }}
       className={cn(
         "relative inline-flex h-[41px] items-center gap-1.5 rounded-full",
-        "bg-gradient-to-r from-valasys-orange via-orange-500 to-amber-400 text-white",
+        "bg-red-500 text-white",
         "px-3 sm:px-4 py-1.5 font-semibold text-xs sm:text-sm",
-        "shadow-lg border-2 border-orange-700 hover:shadow-xl",
+        "shadow-lg border-2 border-red-700 hover:shadow-xl",
         "transition-all duration-300 hover:-translate-y-0.5",
-        "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-valasys-orange",
-        isAnimating && "ring-2 ring-valasys-orange ring-opacity-50"
+        "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600",
+        isAnimating && "ring-2 ring-red-500 ring-opacity-50"
       )}
       title={`Your VAIS Mastery: ${percent}%`}
     >
