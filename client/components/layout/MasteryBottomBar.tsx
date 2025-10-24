@@ -322,7 +322,7 @@ export default function MasteryBottomBar() {
     window.dispatchEvent(
       new CustomEvent("app:mastery-minimized", {
         detail: { percent },
-      }) as Event
+      }) as Event,
     );
   }, [percent]);
 

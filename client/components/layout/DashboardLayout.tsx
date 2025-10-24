@@ -208,7 +208,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
     window.addEventListener(
       "app:mastery-minimized",
-      handleMasteryMinimized as EventListener
+      handleMasteryMinimized as EventListener,
     );
 
     return () => {
@@ -219,7 +219,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       );
       window.removeEventListener(
         "app:mastery-minimized",
-        handleMasteryMinimized as EventListener
+        handleMasteryMinimized as EventListener,
       );
     };
   }, []);
