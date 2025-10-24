@@ -138,7 +138,10 @@ export default function MasteryBottomBar() {
       const maxWidth = Math.max(barWidth, window.innerWidth * 0.92);
       const constrainedX = Math.max(
         margin,
-        Math.min(pos.x, window.innerWidth - Math.min(barWidth, maxWidth) - margin),
+        Math.min(
+          pos.x,
+          window.innerWidth - Math.min(barWidth, maxWidth) - margin,
+        ),
       );
 
       return {
@@ -153,22 +156,19 @@ export default function MasteryBottomBar() {
   );
 
   // Mouse drag handlers
-  const handleMouseDown = useCallback(
-    (e: React.MouseEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
 
-      setIsDragging(true);
-      const rect = containerRef.current?.getBoundingClientRect();
-      if (rect) {
-        setDragOffset({
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top,
-        });
-      }
-    },
-    [],
-  );
+    setIsDragging(true);
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (rect) {
+      setDragOffset({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      });
+    }
+  }, []);
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
@@ -192,20 +192,17 @@ export default function MasteryBottomBar() {
   }, [isDragging, position, savePosition]);
 
   // Touch drag handlers for mobile
-  const handleTouchStart = useCallback(
-    (e: React.TouchEvent) => {
-      const touch = e.touches[0];
-      setIsDragging(true);
-      const rect = containerRef.current?.getBoundingClientRect();
-      if (rect) {
-        setDragOffset({
-          x: touch.clientX - rect.left,
-          y: touch.clientY - rect.top,
-        });
-      }
-    },
-    [],
-  );
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    setIsDragging(true);
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (rect) {
+      setDragOffset({
+        x: touch.clientX - rect.left,
+        y: touch.clientY - rect.top,
+      });
+    }
+  }, []);
 
   const handleTouchMove = useCallback(
     (e: TouchEvent) => {
