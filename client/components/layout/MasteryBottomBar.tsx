@@ -63,6 +63,11 @@ type MasteryStepDefinition = {
   type?: "reward";
 };
 
+interface Position {
+  x: number;
+  y: number;
+}
+
 export default function MasteryBottomBar() {
   const [state, setState] = useState<MasterySteps>({});
   const [hidden, setHidden] = useState(() => {
@@ -76,6 +81,9 @@ export default function MasteryBottomBar() {
   const [expanded, setExpanded] = useState(false);
   const [openHints, setOpenHints] = useState<Record<string, boolean>>({});
   const [showDismissDialog, setShowDismissDialog] = useState(false);
+  const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState<Position>({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
   const toggleHint = (key: string) =>
     setOpenHints((s) => {
