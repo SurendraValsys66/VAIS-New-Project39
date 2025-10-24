@@ -345,7 +345,7 @@ export default function MasteryBottomBar() {
     } catch {}
   }, []);
 
-  const shouldShowPanel = !hidden && !doneAll;
+  const shouldShowPanel = !hidden && !doneAll && !minimized;
 
   useEffect(() => {
     if (showFinalDialog && showConfetti) {
