@@ -82,8 +82,7 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Switch } from "@/components/ui/switch";
-import { Link } from "react-router-dom";
-import { cn } from "@/lib/utils";
+import { cn, Link } from "@/lib/utils";
 import { FloatingStatsWidget } from "@/components/ui/floating-stats-widget";
 import { markStepCompleted } from "@/lib/masteryStorage";
 import { useToast } from "@/hooks/use-toast";
@@ -569,7 +568,7 @@ export default function ProspectResults() {
   const [data, setData] = useState<ProspectData[]>(initialProspects);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
   const [sortField, setSortField] =
     useState<keyof ProspectData>("engagementScore");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
@@ -599,6 +598,8 @@ export default function ProspectResults() {
   useEffect(() => {
     try {
       localStorage.setItem("prospect:favorites", JSON.stringify(favorites));
+      // Dispatch event to notify sidebar of favorites update
+      window.dispatchEvent(new CustomEvent("app:favorites-updated"));
     } catch {}
   }, [favorites]);
 
@@ -1233,6 +1234,27 @@ export default function ProspectResults() {
                   </Badge>
                 </div>
                 <div className="flex items-center space-x-2">
+                  <span className="text-sm text-gray-600 font-medium">
+                    Total items shows
+                  </span>
+                  <Select
+                    value={itemsPerPage.toString()}
+                    onValueChange={(value) => {
+                      setItemsPerPage(parseInt(value));
+                      setCurrentPage(1);
+                    }}
+                  >
+                    <SelectTrigger className="w-24">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="10">10</SelectItem>
+                      <SelectItem value="50">50</SelectItem>
+                      <SelectItem value="100">100</SelectItem>
+                      <SelectItem value="500">500</SelectItem>
+                      <SelectItem value="1000">1000</SelectItem>
+                    </SelectContent>
+                  </Select>
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Button
@@ -1843,25 +1865,6 @@ export default function ProspectResults() {
 
                                     {selectedProspect && (
                                       <div className="space-y-6">
-                                        <div className="flex flex-wrap items-center gap-2">
-                                          <Button variant="outline" size="sm">
-                                            CRM
-                                          </Button>
-                                          <Button variant="outline" size="sm">
-                                            List
-                                          </Button>
-                                          <Button variant="outline" size="sm">
-                                            Sequence
-                                          </Button>
-                                          <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            aria-label="More"
-                                          >
-                                            <MoreVertical className="w-4 h-4" />
-                                          </Button>
-                                        </div>
-
                                         <div className="space-y-3">
                                           <a
                                             href="#"
@@ -1999,51 +2002,8 @@ export default function ProspectResults() {
                                             </div>
                                           </div>
                                         </div>
-                                        <div className="rounded-xl border bg-gradient-to-r from-valasys-orange/10 via-orange-200/10 to-blue-200/10 p-4">
-                                          <div className="flex flex-wrap items-center gap-4 justify-between">
-                                            <div className="flex items-center gap-2">
-                                              <Activity className="w-4 h-4 text-green-600" />
-                                              <span className="text-sm text-gray-700">
-                                                Engagement:
-                                              </span>
-                                              <span className="font-semibold text-green-700">
-                                                {
-                                                  selectedProspect.engagementScore
-                                                }
-                                              </span>
-                                            </div>
-                                            <div className="flex items-center gap-2">
-                                              <Target className="w-4 h-4 text-blue-600" />
-                                              <span className="text-sm text-gray-700">
-                                                Intent:
-                                              </span>
-                                              <span className="font-semibold text-blue-700">
-                                                {selectedProspect.intentScore}
-                                              </span>
-                                            </div>
-                                            <div className="flex items-center gap-2">
-                                              <CheckCircle className="w-4 h-4 text-orange-600" />
-                                              <span className="text-sm text-gray-700">
-                                                Confidence:
-                                              </span>
-                                              <span className="font-semibold text-orange-700">
-                                                {
-                                                  selectedProspect.confidenceScore
-                                                }
-                                                %
-                                              </span>
-                                            </div>
-                                            <div className="flex items-center gap-2 text-sm text-gray-600">
-                                              <Clock className="w-4 h-4" />
-                                              Last activity{" "}
-                                              {formatDate(
-                                                selectedProspect.lastActivity,
-                                              )}
-                                            </div>
-                                          </div>
-                                        </div>
                                         {/* Contact & Professional Info */}
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div className="space-y-6">
                                           <Card>
                                             <CardHeader className="pb-3">
                                               <CardTitle className="text-sm">
@@ -2052,19 +2012,19 @@ export default function ProspectResults() {
                                             </CardHeader>
                                             <CardContent className="space-y-4">
                                               <div className="space-y-3">
-                                                <div className="flex flex-col items-start gap-2">
-                                                  <div className="flex items-center">
+                                                <div className="flex items-center justify-between w-full text-sm">
+                                                  <div className="flex items-center min-w-0">
                                                     <Mail className="w-4 h-4 mr-2 text-gray-400" />
                                                     <a
                                                       href={`mailto:${dummyProfile.email}`}
-                                                      className="text-blue-600 hover:underline"
+                                                      className="text-blue-600 hover:underline truncate"
                                                     >
                                                       {maskEmail(
                                                         dummyProfile.email,
                                                       )}
                                                     </a>
                                                   </div>
-                                                  <div className="flex items-center gap-2">
+                                                  <div className="flex items-center gap-2 flex-shrink-0">
                                                     <Tooltip>
                                                       <TooltipTrigger asChild>
                                                         <Button
@@ -2104,17 +2064,17 @@ export default function ProspectResults() {
                                                   </div>
                                                 </div>
                                                 {true && (
-                                                  <div className="flex flex-col items-start gap-2">
-                                                    <div className="flex items-center">
+                                                  <div className="flex items-center justify-between w-full text-sm">
+                                                    <div className="flex items-center min-w-0">
                                                       <Phone className="w-4 h-4 mr-2 text-gray-400" />
                                                       <a
                                                         href={`tel:${selectedProspect.phone}`}
-                                                        className="hover:underline"
+                                                        className="hover:underline truncate"
                                                       >
                                                         {selectedProspect.phone}
                                                       </a>
                                                     </div>
-                                                    <div className="flex items-center gap-2">
+                                                    <div className="flex items-center gap-2 flex-shrink-0">
                                                       <Tooltip>
                                                         <TooltipTrigger asChild>
                                                           <Button
@@ -2157,8 +2117,8 @@ export default function ProspectResults() {
                                                   </div>
                                                 )}
                                                 {selectedProspect.linkedinUrl && (
-                                                  <div className="flex flex-col items-start gap-2">
-                                                    <div className="flex items-center">
+                                                  <div className="flex items-center justify-between w-full text-sm">
+                                                    <div className="flex items-center min-w-0">
                                                       <Linkedin className="w-4 h-4 mr-2 text-blue-600" />
                                                       <a
                                                         href={
@@ -2166,13 +2126,13 @@ export default function ProspectResults() {
                                                         }
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="text-blue-600 hover:underline flex items-center"
+                                                        className="text-blue-600 hover:underline flex items-center truncate"
                                                       >
                                                         LinkedIn Profile
                                                         <ExternalLink className="w-3 h-3 ml-1" />
                                                       </a>
                                                     </div>
-                                                    <div className="flex items-center gap-2">
+                                                    <div className="flex items-center gap-2 flex-shrink-0">
                                                       <Tooltip>
                                                         <TooltipTrigger asChild>
                                                           <Button
@@ -2247,7 +2207,7 @@ export default function ProspectResults() {
                                               </CardTitle>
                                             </CardHeader>
                                             <CardContent className="space-y-4">
-                                              <div className="grid grid-cols-1 gap-3">
+                                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                                 <div className="flex items-center p-3 border rounded-lg">
                                                   <div className="w-8 h-8 mr-3 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center">
                                                     <Briefcase className="w-4 h-4" />
@@ -2353,27 +2313,13 @@ export default function ProspectResults() {
                                           </Card>
 
                                           {/* Company Information */}
-                                          <Card className="md:col-span-2">
+                                          <Card>
                                             <CardHeader className="pb-3">
                                               <div className="flex items-center justify-between">
                                                 <CardTitle className="text-sm flex items-center gap-2">
                                                   <Building className="w-4 h-4" />{" "}
                                                   Company
                                                 </CardTitle>
-                                                <div className="flex gap-2">
-                                                  <Button
-                                                    variant="outline"
-                                                    size="sm"
-                                                  >
-                                                    View employees
-                                                  </Button>
-                                                  <Button
-                                                    variant="outline"
-                                                    size="sm"
-                                                  >
-                                                    Add to list
-                                                  </Button>
-                                                </div>
                                               </div>
                                             </CardHeader>
                                             <CardContent className="space-y-3">
@@ -2427,7 +2373,7 @@ export default function ProspectResults() {
                                           </Card>
 
                                           {/* Specialties & Technologies */}
-                                          <Card className="md:col-span-2">
+                                          <Card>
                                             <CardHeader className="pb-3">
                                               <CardTitle className="text-sm">
                                                 Specialties
@@ -2449,7 +2395,7 @@ export default function ProspectResults() {
                                             </CardContent>
                                           </Card>
 
-                                          <Card className="md:col-span-2">
+                                          <Card>
                                             <CardHeader className="pb-3 flex flex-row items-center justify-between">
                                               <CardTitle className="text-sm">
                                                 Technologies
