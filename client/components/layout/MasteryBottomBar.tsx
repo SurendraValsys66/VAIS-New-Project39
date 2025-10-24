@@ -75,6 +75,10 @@ export default function MasteryBottomBar() {
   const [expanded, setExpanded] = useState(false);
   const [openHints, setOpenHints] = useState<Record<string, boolean>>({});
   const [showDismissDialog, setShowDismissDialog] = useState(false);
+  const [dragPos, setDragPos] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
   const toggleHint = (key: string) =>
     setOpenHints((s) => {
       const isOpen = !!s[key];
@@ -302,6 +306,64 @@ export default function MasteryBottomBar() {
     [],
   );
 
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      // Only initiate drag on the orange bar, not on interactive elements
+      if (
+        e.target === e.currentTarget ||
+        (e.target as HTMLElement)?.closest(
+          ".text-center, .flex-1, .relative, svg",
+        ) === e.currentTarget
+      ) {
+        setIsDragging(true);
+        setDragOffset({
+          x: e.clientX - dragPos.x,
+          y: e.clientY - dragPos.y,
+        });
+      }
+    },
+    [dragPos],
+  );
+
+  useEffect(() => {
+    // Initialize position to center-bottom on first mount
+    const initializePosition = () => {
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        const centerX = window.innerWidth / 2 - rect.width / 2;
+        const bottomY = window.innerHeight - 100;
+        setDragPos({ x: Math.max(0, centerX), y: Math.max(0, bottomY) });
+      }
+    };
+
+    initializePosition();
+    window.addEventListener("resize", initializePosition);
+    return () => window.removeEventListener("resize", initializePosition);
+  }, []);
+
+  useEffect(() => {
+    if (!isDragging) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      setDragPos({
+        x: e.clientX - dragOffset.x,
+        y: e.clientY - dragOffset.y,
+      });
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
+
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isDragging, dragOffset]);
+
   if (hidden && !showDismissDialog && !showFinalDialog) {
     return null;
   }
@@ -337,9 +399,17 @@ export default function MasteryBottomBar() {
       {/* Confetti celebration moved inside dialog to blast from behind modal (two times) */}
 
       {shouldShowPanel && (
-        <div className="fixed inset-x-0 bottom-4 z-50 pointer-events-none">
+        <div
+          className="fixed z-50 pointer-events-none"
+          style={{
+            left: `${dragPos.x}px`,
+            top: `${dragPos.y}px`,
+            width: "min(92vw, 520px)",
+          }}
+          ref={containerRef}
+        >
           <div
-            className="mx-auto w-[min(92vw,520px)] pointer-events-auto"
+            className="mx-auto w-full pointer-events-auto"
             onMouseLeave={handleCloseGuide}
           >
             {/* Slide-up panel */}
@@ -502,13 +572,18 @@ export default function MasteryBottomBar() {
 
             {/* Bottom orange bar */}
             <div
-              className="relative flex flex-col gap-1 rounded-xl shadow-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white cursor-pointer"
+              className={cn(
+                "relative flex flex-col gap-1 rounded-xl shadow-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white",
+                isDragging ? "cursor-grabbing" : "cursor-grab",
+              )}
               role="button"
               tabIndex={0}
               aria-expanded={expanded}
               onClick={handleOpenGuide}
               onMouseEnter={handleOpenGuide}
+              onMouseDown={handleMouseDown}
               onKeyDown={handleGuideKeyDown}
+              title="Drag to move this section"
             >
               {showStepConfetti && (
                 <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-xl">
