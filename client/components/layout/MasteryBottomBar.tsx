@@ -503,9 +503,14 @@ export default function MasteryBottomBar() {
 
       {shouldShowPanel && (
         <div
-          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none"
+          className={`fixed z-50 pointer-events-none transition-all duration-200 ${
+            isDragging ? "cursor-grabbing select-none" : ""
+          }`}
           style={{
+            left: `${position.x}px`,
+            top: `${position.y}px`,
             width: "min(92vw, 520px)",
+            transform: isDragging ? "scale(1.02)" : "scale(1)",
           }}
           ref={containerRef}
         >
