@@ -88,6 +88,7 @@ export default function MasteryBottomBar() {
   const [showConfetti, setShowConfetti] = useState(false);
   const [showStepConfetti, setShowStepConfetti] = useState(false);
   const [dialogBlast, setDialogBlast] = useState(0);
+  const [collapsed, setCollapsed] = useState(false);
 
   useEffect(() => {
     setState(getMastery());
