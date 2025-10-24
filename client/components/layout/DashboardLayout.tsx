@@ -1159,7 +1159,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
         {/* Main Content */}
         <main className="relative flex-1 p-6 overflow-auto">{children}</main>
-        <MasteryBottomBar />
       </div>
 
       {/* Manage Users Tooltip Portal (renders outside sidebar) */}
