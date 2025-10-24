@@ -840,6 +840,20 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               {/* Right side - Notification, G2 Reviews, Profile */}
               <div className="flex items-center space-x-4">
                 <OnboardingSkipBadge />
+                {masteryMinimized && (
+                  <button
+                    onClick={handleRestoreMastery}
+                    className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-valasys-orange to-valasys-orange-light px-3 py-1.5 text-xs font-semibold text-white hover:opacity-90 transition-opacity"
+                    title="Click to restore mastery progress"
+                  >
+                    <img
+                      src="https://cdn.builder.io/o/assets%2F1d0d3cbc213245beba3786aa1a6f12a3%2F515d18c2065f4103840ed7e794f0f02f?alt=media&token=b6ff5c54-de26-42ea-960d-cf00e42191cf&apiKey=1d0d3cbc213245beba3786aa1a6f12a3"
+                      alt="Mastery"
+                      className="h-4 w-4"
+                    />
+                    <span>{masteryPercent}%</span>
+                  </button>
+                )}
                 <div className="flex items-center space-x-3">
                   {/* Notification Dropdown */}
                   <div data-tour="notifications" className="relative">
