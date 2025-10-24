@@ -517,17 +517,13 @@ export default function MasteryBottomBar() {
 
             {/* Bottom orange bar */}
             <div
-              className={`relative flex flex-col gap-1 rounded-xl shadow-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white ${
-                !isDragging ? "cursor-grab active:cursor-grabbing" : ""
-              }`}
+              className="relative flex flex-col gap-1 rounded-xl shadow-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white cursor-pointer hover:opacity-95 transition-opacity"
               role="button"
               tabIndex={0}
               aria-expanded={expanded}
               onClick={handleOpenGuide}
               onMouseEnter={handleOpenGuide}
               onKeyDown={handleGuideKeyDown}
-              onMouseDown={handleMouseDown}
-              onTouchStart={handleTouchStart}
             >
               {showStepConfetti && (
                 <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-xl">
@@ -535,12 +531,7 @@ export default function MasteryBottomBar() {
                 </div>
               )}
 
-              {/* Drag handle indicator */}
-              <div className="absolute left-1/2 top-1.5 transform -translate-x-1/2">
-                <GripVertical className="w-4 h-4 text-white/60" />
-              </div>
-
-              {/* Top row: progress, chevron, close */}
+              {/* Top row: progress, chevron, collapse, close */}
               <div className="flex items-center gap-3">
                 <div className="flex-1 text-left">
                   <div className="flex items-center gap-3">
@@ -566,6 +557,22 @@ export default function MasteryBottomBar() {
                   className="h-5 w-5 rounded-full bg-white p-0.5 shadow-sm"
                   loading="lazy"
                 />
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      aria-label="Collapse"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        handleCollapseBar();
+                      }}
+                      className="rounded-md hover:opacity-90 transition-opacity"
+                      title="Collapse"
+                    >
+                      <ChevronsDown className="h-4 w-4" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent side="top">Collapse</TooltipContent>
+                </Tooltip>
                 <button
                   aria-label="Hide for now"
                   onClick={(event) => {
