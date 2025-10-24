@@ -42,6 +42,7 @@ import ConfettiCanvas from "@/components/onboarding/ConfettiCanvas";
 import { toast } from "@/components/ui/use-toast";
 
 const MASTERY_DISMISS_KEY = "valasys-mastery-dismissed";
+const MASTERY_MINIMIZE_KEY = "valasys-mastery-minimized";
 
 // Map mastery step keys to human-readable labels for toasts
 const STEP_LABELS: Record<string, string> = {
@@ -70,6 +71,14 @@ export default function MasteryBottomBar() {
       const isDismissed = localStorage.getItem(MASTERY_DISMISS_KEY) === "1";
       const isFirstLoad = !localStorage.getItem("vais.mastery");
       return isDismissed && !isFirstLoad;
+    } catch (error) {
+      return false;
+    }
+  });
+  const [minimized, setMinimized] = useState(() => {
+    if (typeof window === "undefined") return false;
+    try {
+      return localStorage.getItem(MASTERY_MINIMIZE_KEY) === "1";
     } catch (error) {
       return false;
     }
@@ -304,6 +313,19 @@ export default function MasteryBottomBar() {
     [],
   );
 
+  const handleMinimize = useCallback(() => {
+    try {
+      localStorage.setItem(MASTERY_MINIMIZE_KEY, "1");
+    } catch (error) {}
+    setMinimized(true);
+    setExpanded(false);
+    window.dispatchEvent(
+      new CustomEvent("app:mastery-minimized", {
+        detail: { percent },
+      }) as Event,
+    );
+  }, [percent]);
+
   if (hidden && !showDismissDialog && !showFinalDialog) {
     return null;
   }
@@ -323,7 +345,7 @@ export default function MasteryBottomBar() {
     } catch {}
   }, []);
 
-  const shouldShowPanel = !hidden && !doneAll;
+  const shouldShowPanel = !hidden && !doneAll && !minimized;
 
   useEffect(() => {
     if (showFinalDialog && showConfetti) {
@@ -549,6 +571,17 @@ export default function MasteryBottomBar() {
                   className="h-5 w-5 rounded-full bg-white p-0.5 shadow-sm"
                   loading="lazy"
                 />
+                <button
+                  aria-label="Minimize"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    handleMinimize();
+                  }}
+                  className="ml-1 rounded-md hover:opacity-90"
+                  title="Minimize"
+                >
+                  <ChevronUp className="h-4 w-4" />
+                </button>
                 <button
                   aria-label="Hide for now"
                   onClick={(event) => {
