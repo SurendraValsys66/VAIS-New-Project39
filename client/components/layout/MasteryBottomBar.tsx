@@ -572,6 +572,17 @@ export default function MasteryBottomBar() {
                   loading="lazy"
                 />
                 <button
+                  aria-label="Minimize"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    handleMinimize();
+                  }}
+                  className="ml-1 rounded-md hover:opacity-90"
+                  title="Minimize"
+                >
+                  <ChevronUp className="h-4 w-4" />
+                </button>
+                <button
                   aria-label="Hide for now"
                   onClick={(event) => {
                     event.stopPropagation();
