@@ -348,6 +348,13 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     setChatMinimized(true);
   };
 
+  const handleRestoreMastery = () => {
+    try {
+      localStorage.removeItem("valasys-mastery-minimized");
+    } catch (error) {}
+    setMasteryMinimized(false);
+  };
+
   const handleMobileNavigationClick = () => {
     // Close sidebar on mobile when navigating
     const isMobile = window.innerWidth < 1024;
