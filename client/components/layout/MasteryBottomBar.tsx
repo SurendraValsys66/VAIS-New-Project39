@@ -295,6 +295,8 @@ export default function MasteryBottomBar() {
   const manPos = Math.max(0, Math.min(100, percent));
   const handleOpenGuide = useCallback(() => setExpanded(true), []);
   const handleCloseGuide = useCallback(() => setExpanded(false), []);
+  const handleCollapseBar = useCallback(() => setCollapsed(true), []);
+  const handleExpandBar = useCallback(() => setCollapsed(false), []);
   const handleGuideKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (event.key === "Enter" || event.key === " ") {
