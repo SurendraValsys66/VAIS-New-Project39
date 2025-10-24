@@ -110,6 +110,24 @@ export default function MasteryBottomBar() {
     };
   }, []);
 
+  // Load saved position from localStorage
+  useEffect(() => {
+    const savedPosition = localStorage.getItem("mastery-bar-position");
+    if (savedPosition) {
+      try {
+        const parsed = JSON.parse(savedPosition);
+        setPosition(parsed);
+      } catch (error) {
+        console.warn("Failed to parse saved mastery position:", error);
+      }
+    }
+  }, []);
+
+  // Save position to localStorage
+  const savePosition = useCallback((newPosition: Position) => {
+    localStorage.setItem("mastery-bar-position", JSON.stringify(newPosition));
+  }, []);
+
   useEffect(() => {
     const prev = prevRef.current;
 
