@@ -848,6 +848,9 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               {/* Right side - Notification, G2 Reviews, Profile */}
               <div className="flex items-center space-x-4">
                 <OnboardingSkipBadge />
+                {!masteryMinimized && (
+                  <MasteryProgressBadge onClick={handleMinimizeMastery} />
+                )}
                 {masteryMinimized && (
                   <button
                     onClick={handleRestoreMastery}
