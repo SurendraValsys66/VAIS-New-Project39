@@ -68,7 +68,9 @@ export default function MasteryBottomBar() {
   const [hidden, setHidden] = useState(() => {
     if (typeof window === "undefined") return false;
     try {
-      return localStorage.getItem(MASTERY_DISMISS_KEY) === "1";
+      const isDismissed = localStorage.getItem(MASTERY_DISMISS_KEY) === "1";
+      const isFirstLoad = !localStorage.getItem("vais.mastery");
+      return isDismissed && !isFirstLoad;
     } catch (error) {
       return false;
     }
