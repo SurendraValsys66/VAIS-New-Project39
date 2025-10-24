@@ -383,9 +383,17 @@ export default function MasteryBottomBar() {
       {/* Confetti celebration moved inside dialog to blast from behind modal (two times) */}
 
       {shouldShowPanel && (
-        <div className="fixed inset-x-0 bottom-4 z-50 pointer-events-none">
+        <div
+          className="fixed z-50 pointer-events-none"
+          style={{
+            left: `${dragPos.x}px`,
+            top: `${dragPos.y}px`,
+            width: "min(92vw, 520px)",
+          }}
+          ref={containerRef}
+        >
           <div
-            className="mx-auto w-[min(92vw,520px)] pointer-events-auto"
+            className="mx-auto w-full pointer-events-auto"
             onMouseLeave={handleCloseGuide}
           >
             {/* Slide-up panel */}
