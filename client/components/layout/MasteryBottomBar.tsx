@@ -343,20 +343,19 @@ export default function MasteryBottomBar() {
 
       {shouldShowPanel && (
         <div
-          className={`fixed z-50 pointer-events-none transition-all duration-200 ${
-            isDragging ? "cursor-grabbing select-none" : ""
-          }`}
+          className="fixed bottom-0 left-0 right-0 z-50 pointer-events-none transition-all duration-300"
           style={{
-            left: `${position.x}px`,
-            top: `${position.y}px`,
-            width: "min(92vw, 520px)",
-            transform: isDragging ? "scale(1.02)" : "scale(1)",
+            transform: collapsed ? "translateY(calc(100% + 8px))" : "translateY(0)",
           }}
-          ref={containerRef}
         >
           <div
-            className="mx-auto w-full pointer-events-auto"
+            className="mx-auto w-full pointer-events-auto px-4 sm:px-6 pb-4"
             onMouseLeave={handleCloseGuide}
+            style={{
+              maxWidth: "min(92vw, 520px)",
+              marginLeft: "auto",
+              marginRight: "auto",
+            }}
           >
             {/* Slide-up panel */}
             <AnimatePresence initial={false}>
