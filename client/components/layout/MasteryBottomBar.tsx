@@ -326,6 +326,22 @@ export default function MasteryBottomBar() {
   );
 
   useEffect(() => {
+    // Initialize position to center-bottom on first mount
+    const initializePosition = () => {
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        const centerX = window.innerWidth / 2 - rect.width / 2;
+        const bottomY = window.innerHeight - 100;
+        setDragPos({ x: Math.max(0, centerX), y: Math.max(0, bottomY) });
+      }
+    };
+
+    initializePosition();
+    window.addEventListener("resize", initializePosition);
+    return () => window.removeEventListener("resize", initializePosition);
+  }, []);
+
+  useEffect(() => {
     if (!isDragging) return;
 
     const handleMouseMove = (e: MouseEvent) => {
