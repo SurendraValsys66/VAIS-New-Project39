@@ -713,6 +713,24 @@ export default function MasteryBottomBar() {
           </div>
         </DialogContent>
       </Dialog>
+
+      {shouldShowPanel && collapsed && (
+        <div className="fixed bottom-4 left-0 right-0 z-50 flex justify-center pointer-events-auto">
+          <motion.button
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleExpandBar}
+            className="bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white font-semibold py-2 px-4 rounded-full shadow-lg hover:opacity-90 transition-opacity flex items-center gap-2"
+            title="Expand VAIS Mastery"
+          >
+            <span>Show VAIS Mastery</span>
+            <ChevronsDown className="h-4 w-4 rotate-180" />
+          </motion.button>
+        </div>
+      )}
     </>
   );
 }
