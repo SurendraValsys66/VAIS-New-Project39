@@ -306,6 +306,48 @@ export default function MasteryBottomBar() {
     [],
   );
 
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      // Only initiate drag on the orange bar, not on interactive elements
+      if (
+        e.target === e.currentTarget ||
+        (e.target as HTMLElement)?.closest(
+          ".text-center, .flex-1, .relative, svg",
+        ) === e.currentTarget
+      ) {
+        setIsDragging(true);
+        setDragOffset({
+          x: e.clientX - dragPos.x,
+          y: e.clientY - dragPos.y,
+        });
+      }
+    },
+    [dragPos],
+  );
+
+  useEffect(() => {
+    if (!isDragging) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      setDragPos({
+        x: e.clientX - dragOffset.x,
+        y: e.clientY - dragOffset.y,
+      });
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
+
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isDragging, dragOffset]);
+
   if (hidden && !showDismissDialog && !showFinalDialog) {
     return null;
   }
