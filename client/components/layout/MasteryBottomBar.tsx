@@ -678,13 +678,17 @@ export default function MasteryBottomBar() {
 
             {/* Bottom orange bar */}
             <div
-              className="relative flex flex-col gap-1 rounded-xl shadow-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white"
+              className={`relative flex flex-col gap-1 rounded-xl shadow-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white ${
+                !isDragging ? "cursor-grab active:cursor-grabbing" : ""
+              }`}
               role="button"
               tabIndex={0}
               aria-expanded={expanded}
               onClick={handleOpenGuide}
               onMouseEnter={handleOpenGuide}
               onKeyDown={handleGuideKeyDown}
+              onMouseDown={handleMouseDown}
+              onTouchStart={handleTouchStart}
             >
               {showStepConfetti && (
                 <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-xl">
