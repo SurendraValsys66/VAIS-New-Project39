@@ -59,9 +59,9 @@ export default function MasteryProgressBadge() {
         <motion.div
           animate={isAnimating ? { scale: [1, 1.1, 1] } : {}}
           transition={{ duration: 0.6 }}
-          className="relative"
+          className="relative inline-block"
         >
-          <div className="relative flex items-center gap-2">
+          <div className="relative flex items-center gap-2 min-w-max">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
