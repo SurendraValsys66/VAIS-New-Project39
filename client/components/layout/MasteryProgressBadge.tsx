@@ -65,7 +65,8 @@ export default function MasteryProgressBadge({
         <motion.div
           animate={isAnimating ? { scale: [1, 1.1, 1] } : {}}
           transition={{ duration: 0.6 }}
-          className="relative"
+          className="relative cursor-pointer"
+          onClick={onClick}
         >
           <div className="relative flex items-center gap-2">
             <motion.div
