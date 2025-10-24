@@ -308,13 +308,11 @@ export default function MasteryBottomBar() {
 
   const handleMouseDown = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
-      // Only initiate drag on the orange bar, not on interactive elements
-      if (
-        e.target === e.currentTarget ||
-        (e.target as HTMLElement)?.closest(
-          ".text-center, .flex-1, .relative, svg",
-        ) === e.currentTarget
-      ) {
+      // Prevent dragging from interactive elements (buttons, links)
+      const target = e.target as HTMLElement;
+      const isClickable = target.closest("button, a, [role='button']");
+
+      if (!isClickable) {
         setIsDragging(true);
         setDragOffset({
           x: e.clientX - dragPos.x,
