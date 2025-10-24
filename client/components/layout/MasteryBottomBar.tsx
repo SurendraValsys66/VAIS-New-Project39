@@ -12,6 +12,7 @@ import {
   Coins,
   ChevronDown,
   ChevronUp,
+  GripVertical,
 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
@@ -62,6 +63,11 @@ type MasteryStepDefinition = {
   type?: "reward";
 };
 
+interface Position {
+  x: number;
+  y: number;
+}
+
 export default function MasteryBottomBar() {
   const [state, setState] = useState<MasterySteps>({});
   const [hidden, setHidden] = useState(() => {
@@ -75,6 +81,9 @@ export default function MasteryBottomBar() {
   const [expanded, setExpanded] = useState(false);
   const [openHints, setOpenHints] = useState<Record<string, boolean>>({});
   const [showDismissDialog, setShowDismissDialog] = useState(false);
+  const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState<Position>({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
   const toggleHint = (key: string) =>
     setOpenHints((s) => {
@@ -100,6 +109,158 @@ export default function MasteryBottomBar() {
       clearInterval(id);
     };
   }, []);
+
+  // Load saved position from localStorage
+  useEffect(() => {
+    const savedPosition = localStorage.getItem("mastery-bar-position");
+    if (savedPosition) {
+      try {
+        const parsed = JSON.parse(savedPosition);
+        setPosition(parsed);
+      } catch (error) {
+        console.warn("Failed to parse saved mastery position:", error);
+      }
+    }
+  }, []);
+
+  // Save position to localStorage
+  const savePosition = useCallback((newPosition: Position) => {
+    localStorage.setItem("mastery-bar-position", JSON.stringify(newPosition));
+  }, []);
+
+  // Constraint position within viewport bounds
+  const constrainPosition = useCallback(
+    (pos: Position): Position => {
+      const margin = 20;
+      const barWidth = 520; // min(92vw, 520px)
+      const barHeight = expanded ? 480 : 120;
+
+      const maxWidth = Math.max(barWidth, window.innerWidth * 0.92);
+      const constrainedX = Math.max(
+        margin,
+        Math.min(
+          pos.x,
+          window.innerWidth - Math.min(barWidth, maxWidth) - margin,
+        ),
+      );
+
+      return {
+        x: constrainedX,
+        y: Math.max(
+          margin,
+          Math.min(pos.y, window.innerHeight - barHeight - margin),
+        ),
+      };
+    },
+    [expanded],
+  );
+
+  // Mouse drag handlers
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    setIsDragging(true);
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (rect) {
+      setDragOffset({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      });
+    }
+  }, []);
+
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      if (!isDragging) return;
+
+      const newPosition = constrainPosition({
+        x: e.clientX - dragOffset.x,
+        y: e.clientY - dragOffset.y,
+      });
+
+      setPosition(newPosition);
+    },
+    [isDragging, dragOffset, constrainPosition],
+  );
+
+  const handleMouseUp = useCallback(() => {
+    if (isDragging) {
+      setIsDragging(false);
+      savePosition(position);
+    }
+  }, [isDragging, position, savePosition]);
+
+  // Touch drag handlers for mobile
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    setIsDragging(true);
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (rect) {
+      setDragOffset({
+        x: touch.clientX - rect.left,
+        y: touch.clientY - rect.top,
+      });
+    }
+  }, []);
+
+  const handleTouchMove = useCallback(
+    (e: TouchEvent) => {
+      if (!isDragging) return;
+
+      e.preventDefault();
+      const touch = e.touches[0];
+      const newPosition = constrainPosition({
+        x: touch.clientX - dragOffset.x,
+        y: touch.clientY - dragOffset.y,
+      });
+
+      setPosition(newPosition);
+    },
+    [isDragging, dragOffset, constrainPosition],
+  );
+
+  const handleTouchEnd = useCallback(() => {
+    if (isDragging) {
+      setIsDragging(false);
+      savePosition(position);
+    }
+  }, [isDragging, position, savePosition]);
+
+  // Event listeners for mouse and touch
+  useEffect(() => {
+    if (isDragging) {
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+      document.addEventListener("touchmove", handleTouchMove, {
+        passive: false,
+      });
+      document.addEventListener("touchend", handleTouchEnd);
+
+      return () => {
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+        document.removeEventListener("touchmove", handleTouchMove);
+        document.removeEventListener("touchend", handleTouchEnd);
+      };
+    }
+  }, [
+    isDragging,
+    handleMouseMove,
+    handleMouseUp,
+    handleTouchMove,
+    handleTouchEnd,
+  ]);
+
+  // Handle window resize to keep bar in bounds
+  useEffect(() => {
+    const handleResize = () => {
+      setPosition((prev) => constrainPosition(prev));
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [constrainPosition]);
 
   useEffect(() => {
     const prev = prevRef.current;
@@ -339,9 +500,14 @@ export default function MasteryBottomBar() {
 
       {shouldShowPanel && (
         <div
-          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none"
+          className={`fixed z-50 pointer-events-none transition-all duration-200 ${
+            isDragging ? "cursor-grabbing select-none" : ""
+          }`}
           style={{
+            left: `${position.x}px`,
+            top: `${position.y}px`,
             width: "min(92vw, 520px)",
+            transform: isDragging ? "scale(1.02)" : "scale(1)",
           }}
           ref={containerRef}
         >
@@ -509,19 +675,29 @@ export default function MasteryBottomBar() {
 
             {/* Bottom orange bar */}
             <div
-              className="relative flex flex-col gap-1 rounded-xl shadow-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white"
+              className={`relative flex flex-col gap-1 rounded-xl shadow-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white ${
+                !isDragging ? "cursor-grab active:cursor-grabbing" : ""
+              }`}
               role="button"
               tabIndex={0}
               aria-expanded={expanded}
               onClick={handleOpenGuide}
               onMouseEnter={handleOpenGuide}
               onKeyDown={handleGuideKeyDown}
+              onMouseDown={handleMouseDown}
+              onTouchStart={handleTouchStart}
             >
               {showStepConfetti && (
                 <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-xl">
                   <ConfettiCanvas duration={1400} mode="blast" />
                 </div>
               )}
+
+              {/* Drag handle indicator */}
+              <div className="absolute left-1/2 top-1.5 transform -translate-x-1/2">
+                <GripVertical className="w-4 h-4 text-white/60" />
+              </div>
+
               {/* Top row: progress, chevron, close */}
               <div className="flex items-center gap-3">
                 <div className="flex-1 text-left">
