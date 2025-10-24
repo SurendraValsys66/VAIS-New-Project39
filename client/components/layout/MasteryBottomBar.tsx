@@ -75,6 +75,14 @@ export default function MasteryBottomBar() {
       return false;
     }
   });
+  const [minimized, setMinimized] = useState(() => {
+    if (typeof window === "undefined") return false;
+    try {
+      return localStorage.getItem(MASTERY_MINIMIZE_KEY) === "1";
+    } catch (error) {
+      return false;
+    }
+  });
   const [expanded, setExpanded] = useState(false);
   const [openHints, setOpenHints] = useState<Record<string, boolean>>({});
   const [showDismissDialog, setShowDismissDialog] = useState(false);
