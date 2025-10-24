@@ -12,7 +12,7 @@ import {
   Coins,
   ChevronDown,
   ChevronUp,
-  GripVertical,
+  ChevronsDown,
 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
@@ -63,11 +63,6 @@ type MasteryStepDefinition = {
   type?: "reward";
 };
 
-interface Position {
-  x: number;
-  y: number;
-}
-
 export default function MasteryBottomBar() {
   const [state, setState] = useState<MasterySteps>({});
   const [hidden, setHidden] = useState(() => {
@@ -81,10 +76,6 @@ export default function MasteryBottomBar() {
   const [expanded, setExpanded] = useState(false);
   const [openHints, setOpenHints] = useState<Record<string, boolean>>({});
   const [showDismissDialog, setShowDismissDialog] = useState(false);
-  const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragOffset, setDragOffset] = useState<Position>({ x: 0, y: 0 });
-  const containerRef = useRef<HTMLDivElement>(null);
   const toggleHint = (key: string) =>
     setOpenHints((s) => {
       const isOpen = !!s[key];
@@ -97,6 +88,7 @@ export default function MasteryBottomBar() {
   const [showConfetti, setShowConfetti] = useState(false);
   const [showStepConfetti, setShowStepConfetti] = useState(false);
   const [dialogBlast, setDialogBlast] = useState(0);
+  const [collapsed, setCollapsed] = useState(false);
 
   useEffect(() => {
     setState(getMastery());
@@ -109,158 +101,6 @@ export default function MasteryBottomBar() {
       clearInterval(id);
     };
   }, []);
-
-  // Load saved position from localStorage
-  useEffect(() => {
-    const savedPosition = localStorage.getItem("mastery-bar-position");
-    if (savedPosition) {
-      try {
-        const parsed = JSON.parse(savedPosition);
-        setPosition(parsed);
-      } catch (error) {
-        console.warn("Failed to parse saved mastery position:", error);
-      }
-    }
-  }, []);
-
-  // Save position to localStorage
-  const savePosition = useCallback((newPosition: Position) => {
-    localStorage.setItem("mastery-bar-position", JSON.stringify(newPosition));
-  }, []);
-
-  // Constraint position within viewport bounds
-  const constrainPosition = useCallback(
-    (pos: Position): Position => {
-      const margin = 20;
-      const barWidth = 520; // min(92vw, 520px)
-      const barHeight = expanded ? 480 : 120;
-
-      const maxWidth = Math.max(barWidth, window.innerWidth * 0.92);
-      const constrainedX = Math.max(
-        margin,
-        Math.min(
-          pos.x,
-          window.innerWidth - Math.min(barWidth, maxWidth) - margin,
-        ),
-      );
-
-      return {
-        x: constrainedX,
-        y: Math.max(
-          margin,
-          Math.min(pos.y, window.innerHeight - barHeight - margin),
-        ),
-      };
-    },
-    [expanded],
-  );
-
-  // Mouse drag handlers
-  const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    setIsDragging(true);
-    const rect = containerRef.current?.getBoundingClientRect();
-    if (rect) {
-      setDragOffset({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      });
-    }
-  }, []);
-
-  const handleMouseMove = useCallback(
-    (e: MouseEvent) => {
-      if (!isDragging) return;
-
-      const newPosition = constrainPosition({
-        x: e.clientX - dragOffset.x,
-        y: e.clientY - dragOffset.y,
-      });
-
-      setPosition(newPosition);
-    },
-    [isDragging, dragOffset, constrainPosition],
-  );
-
-  const handleMouseUp = useCallback(() => {
-    if (isDragging) {
-      setIsDragging(false);
-      savePosition(position);
-    }
-  }, [isDragging, position, savePosition]);
-
-  // Touch drag handlers for mobile
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    const touch = e.touches[0];
-    setIsDragging(true);
-    const rect = containerRef.current?.getBoundingClientRect();
-    if (rect) {
-      setDragOffset({
-        x: touch.clientX - rect.left,
-        y: touch.clientY - rect.top,
-      });
-    }
-  }, []);
-
-  const handleTouchMove = useCallback(
-    (e: TouchEvent) => {
-      if (!isDragging) return;
-
-      e.preventDefault();
-      const touch = e.touches[0];
-      const newPosition = constrainPosition({
-        x: touch.clientX - dragOffset.x,
-        y: touch.clientY - dragOffset.y,
-      });
-
-      setPosition(newPosition);
-    },
-    [isDragging, dragOffset, constrainPosition],
-  );
-
-  const handleTouchEnd = useCallback(() => {
-    if (isDragging) {
-      setIsDragging(false);
-      savePosition(position);
-    }
-  }, [isDragging, position, savePosition]);
-
-  // Event listeners for mouse and touch
-  useEffect(() => {
-    if (isDragging) {
-      document.addEventListener("mousemove", handleMouseMove);
-      document.addEventListener("mouseup", handleMouseUp);
-      document.addEventListener("touchmove", handleTouchMove, {
-        passive: false,
-      });
-      document.addEventListener("touchend", handleTouchEnd);
-
-      return () => {
-        document.removeEventListener("mousemove", handleMouseMove);
-        document.removeEventListener("mouseup", handleMouseUp);
-        document.removeEventListener("touchmove", handleTouchMove);
-        document.removeEventListener("touchend", handleTouchEnd);
-      };
-    }
-  }, [
-    isDragging,
-    handleMouseMove,
-    handleMouseUp,
-    handleTouchMove,
-    handleTouchEnd,
-  ]);
-
-  // Handle window resize to keep bar in bounds
-  useEffect(() => {
-    const handleResize = () => {
-      setPosition((prev) => constrainPosition(prev));
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [constrainPosition]);
 
   useEffect(() => {
     const prev = prevRef.current;
@@ -454,6 +294,8 @@ export default function MasteryBottomBar() {
   const manPos = Math.max(0, Math.min(100, percent));
   const handleOpenGuide = useCallback(() => setExpanded(true), []);
   const handleCloseGuide = useCallback(() => setExpanded(false), []);
+  const handleCollapseBar = useCallback(() => setCollapsed(true), []);
+  const handleExpandBar = useCallback(() => setCollapsed(false), []);
   const handleGuideKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (event.key === "Enter" || event.key === " ") {
@@ -500,20 +342,21 @@ export default function MasteryBottomBar() {
 
       {shouldShowPanel && (
         <div
-          className={`fixed z-50 pointer-events-none transition-all duration-200 ${
-            isDragging ? "cursor-grabbing select-none" : ""
-          }`}
+          className="fixed bottom-0 left-0 right-0 z-50 pointer-events-none transition-all duration-300"
           style={{
-            left: `${position.x}px`,
-            top: `${position.y}px`,
-            width: "min(92vw, 520px)",
-            transform: isDragging ? "scale(1.02)" : "scale(1)",
+            transform: collapsed
+              ? "translateY(calc(100% + 8px))"
+              : "translateY(0)",
           }}
-          ref={containerRef}
         >
           <div
-            className="mx-auto w-full pointer-events-auto"
+            className="mx-auto w-full pointer-events-auto px-4 sm:px-6 pb-4"
             onMouseLeave={handleCloseGuide}
+            style={{
+              maxWidth: "min(92vw, 520px)",
+              marginLeft: "auto",
+              marginRight: "auto",
+            }}
           >
             {/* Slide-up panel */}
             <AnimatePresence initial={false}>
@@ -675,17 +518,13 @@ export default function MasteryBottomBar() {
 
             {/* Bottom orange bar */}
             <div
-              className={`relative flex flex-col gap-1 rounded-xl shadow-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white ${
-                !isDragging ? "cursor-grab active:cursor-grabbing" : ""
-              }`}
+              className="relative flex flex-col gap-1 rounded-xl shadow-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white cursor-pointer hover:opacity-95 transition-opacity"
               role="button"
               tabIndex={0}
               aria-expanded={expanded}
               onClick={handleOpenGuide}
               onMouseEnter={handleOpenGuide}
               onKeyDown={handleGuideKeyDown}
-              onMouseDown={handleMouseDown}
-              onTouchStart={handleTouchStart}
             >
               {showStepConfetti && (
                 <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-xl">
@@ -693,12 +532,7 @@ export default function MasteryBottomBar() {
                 </div>
               )}
 
-              {/* Drag handle indicator */}
-              <div className="absolute left-1/2 top-1.5 transform -translate-x-1/2">
-                <GripVertical className="w-4 h-4 text-white/60" />
-              </div>
-
-              {/* Top row: progress, chevron, close */}
+              {/* Top row: progress, chevron, collapse, close */}
               <div className="flex items-center gap-3">
                 <div className="flex-1 text-left">
                   <div className="flex items-center gap-3">
@@ -724,6 +558,22 @@ export default function MasteryBottomBar() {
                   className="h-5 w-5 rounded-full bg-white p-0.5 shadow-sm"
                   loading="lazy"
                 />
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      aria-label="Collapse"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        handleCollapseBar();
+                      }}
+                      className="rounded-md hover:opacity-90 transition-opacity"
+                      title="Collapse"
+                    >
+                      <ChevronsDown className="h-4 w-4" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent side="top">Collapse</TooltipContent>
+                </Tooltip>
                 <button
                   aria-label="Hide for now"
                   onClick={(event) => {
@@ -864,6 +714,24 @@ export default function MasteryBottomBar() {
           </div>
         </DialogContent>
       </Dialog>
+
+      {shouldShowPanel && collapsed && (
+        <div className="fixed bottom-4 left-0 right-0 z-50 flex justify-center pointer-events-auto">
+          <motion.button
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleExpandBar}
+            className="bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white font-semibold py-2 px-4 rounded-full shadow-lg hover:opacity-90 transition-opacity flex items-center gap-2"
+            title="Expand VAIS Mastery"
+          >
+            <span>Show VAIS Mastery</span>
+            <ChevronsDown className="h-4 w-4 rotate-180" />
+          </motion.button>
+        </div>
+      )}
     </>
   );
 }
