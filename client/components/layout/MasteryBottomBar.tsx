@@ -313,6 +313,19 @@ export default function MasteryBottomBar() {
     [],
   );
 
+  const handleMinimize = useCallback(() => {
+    try {
+      localStorage.setItem(MASTERY_MINIMIZE_KEY, "1");
+    } catch (error) {}
+    setMinimized(true);
+    setExpanded(false);
+    window.dispatchEvent(
+      new CustomEvent("app:mastery-minimized", {
+        detail: { percent },
+      }) as Event
+    );
+  }, [percent]);
+
   if (hidden && !showDismissDialog && !showFinalDialog) {
     return null;
   }
