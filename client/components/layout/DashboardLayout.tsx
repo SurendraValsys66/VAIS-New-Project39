@@ -63,8 +63,6 @@ import TrialBadgeDropdown from "@/components/ui/trial-badge-dropdown";
 import OnboardingSkipBadge from "@/components/layout/OnboardingSkipBadge";
 import { useTour } from "@/contexts/TourContext";
 import PlatformTour from "@/components/tour/PlatformTour";
-import MasteryBottomBar from "@/components/layout/MasteryBottomBar";
-import MasteryProgressBadge from "@/components/layout/MasteryProgressBadge";
 
 interface DashboardLayoutProps {
   children: ReactNode;
