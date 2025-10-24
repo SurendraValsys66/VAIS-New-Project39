@@ -56,104 +56,77 @@ export default function MasteryProgressBadge() {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <motion.div
-          animate={isAnimating ? { scale: [1, 1.1, 1] } : {}}
-          transition={{ duration: 0.6 }}
-          className="relative inline-block"
+        <motion.button
+          animate={isAnimating ? { scale: [1, 1.08, 1] } : {}}
+          transition={{ duration: 0.5 }}
+          className={cn(
+            "relative inline-flex h-[41px] items-center gap-1.5 rounded-full",
+            "bg-gradient-to-r from-valasys-orange via-orange-500 to-amber-400 text-white",
+            "px-3 sm:px-4 py-1.5 font-semibold text-xs sm:text-sm",
+            "shadow-lg border border-orange-600 hover:shadow-xl",
+            "transition-all duration-300 hover:-translate-y-0.5",
+            "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-valasys-orange",
+            isAnimating && "ring-2 ring-valasys-orange ring-opacity-50"
+          )}
+          title={`Your VAIS Mastery: ${percent}%`}
         >
-          <div className="relative flex items-center gap-2 min-w-max">
+          {/* Pulsing ring when animating */}
+          {isAnimating && (
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="relative"
-            >
-              {/* Pulsing outer ring when animating */}
-              {isAnimating && (
-                <motion.div
-                  className="absolute inset-0 rounded-full border-2 border-valasys-orange"
-                  animate={{ scale: [1, 1.2, 1], opacity: [1, 0, 0] }}
-                  transition={{ duration: 0.8, repeat: Infinity }}
-                  style={{
-                    width: "32px",
-                    height: "32px",
-                    left: "-6px",
-                    top: "-6px",
-                  }}
-                />
-              )}
+              className="absolute inset-0 rounded-full border-2 border-valasys-orange"
+              animate={{ scale: [1, 1.15, 1], opacity: [1, 0, 0] }}
+              transition={{ duration: 0.8, repeat: Infinity }}
+            />
+          )}
 
-              {/* Main badge */}
-              <motion.div
-                className={cn(
-                  "relative flex items-center gap-1.5 px-3 py-1.5 rounded-full font-semibold text-sm",
-                  "bg-gradient-to-r from-valasys-orange via-orange-500 to-amber-400 text-white",
-                  "shadow-lg border border-orange-600 hover:shadow-xl transition-all cursor-pointer",
-                  isAnimating && "ring-2 ring-valasys-orange ring-opacity-50",
-                )}
-                animate={
-                  isAnimating
-                    ? {
-                        backgroundColor: [
-                          "rgb(255, 122, 0)",
-                          "rgb(255, 200, 0)",
-                          "rgb(255, 122, 0)",
-                        ],
-                      }
-                    : {}
-                }
-                transition={{ duration: 0.6 }}
-              >
-                {/* Progress circle */}
-                <div className="relative w-5 h-5">
-                  <svg
-                    viewBox="0 0 36 36"
-                    className="w-full h-full transform -rotate-90"
-                  >
-                    {/* Background circle */}
-                    <circle
-                      cx="18"
-                      cy="18"
-                      r="15.915"
-                      fill="none"
-                      stroke="rgba(255, 255, 255, 0.3)"
-                      strokeWidth="3"
-                    />
-                    {/* Progress circle */}
-                    <motion.circle
-                      cx="18"
-                      cy="18"
-                      r="15.915"
-                      fill="none"
-                      stroke="white"
-                      strokeWidth="3"
-                      strokeDasharray={`${100} 100`}
-                      initial={{ strokeDashoffset: 100 }}
-                      animate={{ strokeDashoffset: 100 - percent }}
-                      transition={{ duration: 0.8, ease: "easeOut" }}
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                  {/* Center percentage text */}
-                  <motion.span
-                    className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-white"
-                    animate={isAnimating ? { scale: [1, 1.2, 1] } : {}}
-                    transition={{ duration: 0.6 }}
-                  >
-                    {percent}
-                  </motion.span>
-                </div>
-
-                {/* Label */}
-                <span className="hidden sm:inline">VAIS</span>
-              </motion.div>
-            </motion.div>
+          {/* Progress circle indicator */}
+          <div className="relative w-5 h-5 flex-shrink-0">
+            <svg viewBox="0 0 36 36" className="w-full h-full transform -rotate-90">
+              <circle
+                cx="18"
+                cy="18"
+                r="15.915"
+                fill="none"
+                stroke="rgba(255, 255, 255, 0.4)"
+                strokeWidth="2"
+              />
+              <motion.circle
+                cx="18"
+                cy="18"
+                r="15.915"
+                fill="none"
+                stroke="white"
+                strokeWidth="2"
+                strokeDasharray="100 100"
+                initial={{ strokeDashoffset: 100 }}
+                animate={{ strokeDashoffset: 100 - percent }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                strokeLinecap="round"
+              />
+            </svg>
+            <span className="absolute inset-0 flex items-center justify-center text-[9px] font-bold text-white">
+              {percent}
+            </span>
           </div>
-        </motion.div>
+
+          {/* Label */}
+          <span className="hidden sm:inline whitespace-nowrap">
+            VAIS {percent}%
+          </span>
+          <span className="sm:hidden">
+            {percent}%
+          </span>
+        </motion.button>
       </TooltipTrigger>
-      <TooltipContent side="bottom" className="bg-gray-900 text-white border-0">
+      <TooltipContent 
+        side="bottom" 
+        className="bg-gray-900 text-white border-0 text-xs"
+        sideOffset={8}
+      >
         <div className="space-y-1">
-          <div className="font-semibold">Your VAIS Mastery: {percent}%</div>
-          <div className="text-xs text-gray-300">
+          <div className="font-semibold">Your VAIS Mastery</div>
+          <div className="text-gray-200">{percent}% Complete</div>
+          <div className="text-gray-400 text-[11px]">
             Complete all steps to unlock full potential
           </div>
         </div>
