@@ -12,7 +12,7 @@ import {
   Coins,
   ChevronDown,
   ChevronUp,
-  GripVertical,
+  ChevronsDown,
 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
