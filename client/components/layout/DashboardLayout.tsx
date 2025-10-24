@@ -171,6 +171,15 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [expandedSubmenu, setExpandedSubmenu] = useState<string | null>(null);
 
   const [hasFavorites, setHasFavorites] = useState(false);
+  const [masteryMinimized, setMasteryMinimized] = useState(() => {
+    if (typeof window === "undefined") return false;
+    try {
+      return localStorage.getItem("valasys-mastery-minimized") === "1";
+    } catch (error) {
+      return false;
+    }
+  });
+  const [masteryPercent, setMasteryPercent] = useState(0);
 
   useEffect(() => {
     const checkFavorites = () => {
@@ -191,11 +200,26 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       handleStorageChange as EventListener,
     );
 
+    const handleMasteryMinimized = (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      setMasteryPercent(detail?.percent || 0);
+      setMasteryMinimized(true);
+    };
+
+    window.addEventListener(
+      "app:mastery-minimized",
+      handleMasteryMinimized as EventListener
+    );
+
     return () => {
       window.removeEventListener("storage", handleStorageChange);
       window.removeEventListener(
         "app:favorites-updated",
         handleStorageChange as EventListener,
+      );
+      window.removeEventListener(
+        "app:mastery-minimized",
+        handleMasteryMinimized as EventListener
       );
     };
   }, []);
