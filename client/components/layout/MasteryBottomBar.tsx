@@ -42,6 +42,7 @@ import ConfettiCanvas from "@/components/onboarding/ConfettiCanvas";
 import { toast } from "@/components/ui/use-toast";
 
 const MASTERY_DISMISS_KEY = "valasys-mastery-dismissed";
+const MASTERY_MINIMIZE_KEY = "valasys-mastery-minimized";
 
 // Map mastery step keys to human-readable labels for toasts
 const STEP_LABELS: Record<string, string> = {
