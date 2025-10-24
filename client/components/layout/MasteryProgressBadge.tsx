@@ -13,7 +13,13 @@ import {
   TooltipContent,
 } from "@/components/ui/tooltip";
 
-export default function MasteryProgressBadge() {
+interface MasteryProgressBadgeProps {
+  onClick?: () => void;
+}
+
+export default function MasteryProgressBadge({
+  onClick,
+}: MasteryProgressBadgeProps) {
   const [state, setState] = useState<MasterySteps>({});
   const [prevPercent, setPrevPercent] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -59,7 +65,8 @@ export default function MasteryProgressBadge() {
         <motion.div
           animate={isAnimating ? { scale: [1, 1.1, 1] } : {}}
           transition={{ duration: 0.6 }}
-          className="relative"
+          className="relative cursor-pointer"
+          onClick={onClick}
         >
           <div className="relative flex items-center gap-2">
             <motion.div
