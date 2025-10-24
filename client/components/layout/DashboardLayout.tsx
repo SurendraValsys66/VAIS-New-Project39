@@ -63,6 +63,7 @@ import TrialBadgeDropdown from "@/components/ui/trial-badge-dropdown";
 import OnboardingSkipBadge from "@/components/layout/OnboardingSkipBadge";
 import { useTour } from "@/contexts/TourContext";
 import PlatformTour from "@/components/tour/PlatformTour";
+import MasteryBottomBar from "@/components/layout/MasteryBottomBar";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -1317,6 +1318,9 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         onClose={closeTour}
         onComplete={completeTour}
       />
+
+      {/* Mastery Bottom Bar */}
+      <MasteryBottomBar />
     </div>
   );
 }
