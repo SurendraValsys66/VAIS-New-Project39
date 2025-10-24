@@ -86,8 +86,8 @@ export default function MasteryProgressBadge() {
               <motion.div
                 className={cn(
                   "relative flex items-center gap-1.5 px-3 py-1.5 rounded-full font-semibold text-sm",
-                  "bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white",
-                  "shadow-md hover:shadow-lg transition-shadow cursor-pointer",
+                  "bg-gradient-to-r from-valasys-orange via-orange-500 to-amber-400 text-white",
+                  "shadow-lg border border-orange-600 hover:shadow-xl transition-all cursor-pointer",
                   isAnimating && "ring-2 ring-valasys-orange ring-opacity-50",
                 )}
                 animate={
