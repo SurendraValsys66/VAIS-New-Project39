@@ -570,14 +570,32 @@ export default function MasteryBottomBar() {
             )}
 
             {/* Bottom orange bar */}
-            <div
+            <motion.div
+              ref={bottomBarRef}
               className="relative flex flex-col gap-1 rounded-xl shadow-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white cursor-pointer hover:opacity-95 transition-opacity"
               role="button"
               tabIndex={0}
               aria-expanded={expanded}
-              onClick={handleOpenGuide}
-              onMouseEnter={handleOpenGuide}
+              onClick={!isAnimatingMinimize ? handleOpenGuide : undefined}
+              onMouseEnter={!isAnimatingMinimize ? handleOpenGuide : undefined}
               onKeyDown={handleGuideKeyDown}
+              animate={
+                isAnimatingMinimize
+                  ? {
+                      y: -window.innerHeight,
+                      scale: 0.5,
+                      opacity: 0,
+                    }
+                  : {
+                      y: 0,
+                      scale: 1,
+                      opacity: 1,
+                    }
+              }
+              transition={{
+                duration: 0.6,
+                ease: "easeInOut",
+              }}
             >
               {showStepConfetti && (
                 <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-xl">
@@ -637,10 +655,12 @@ export default function MasteryBottomBar() {
               </div>
 
               {/* Bottom text */}
-              <div className="text-center text-[12px] font-semibold">
-                Your VAIS mastery: {percent}%
-              </div>
-            </div>
+              {!isAnimatingMinimize && (
+                <div className="text-center text-[12px] font-semibold">
+                  Your VAIS mastery: {percent}%
+                </div>
+              )}
+            </motion.div>
           </div>
         </div>
       )}
