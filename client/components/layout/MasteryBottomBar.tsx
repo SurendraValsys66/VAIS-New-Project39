@@ -345,6 +345,23 @@ export default function MasteryBottomBar() {
     } catch {}
   }, []);
 
+  useEffect(() => {
+    const handleMasteryRestored = () => {
+      try {
+        const isMiniminimized = localStorage.getItem("valasys-mastery-minimized") === "1";
+        if (!isMiniminimized) {
+          setMinimized(false);
+          setHidden(false);
+        }
+      } catch {}
+    };
+
+    window.addEventListener("app:mastery-restored", handleMasteryRestored as EventListener);
+    return () => {
+      window.removeEventListener("app:mastery-restored", handleMasteryRestored as EventListener);
+    };
+  }, []);
+
   const shouldShowPanel = !hidden && !doneAll && !minimized;
 
   useEffect(() => {
