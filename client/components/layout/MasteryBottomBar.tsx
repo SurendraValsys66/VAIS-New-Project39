@@ -5,6 +5,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { useMasteryAnimation } from "@/contexts/MasteryAnimationContext";
 import {
   X,
   CheckCircle,
