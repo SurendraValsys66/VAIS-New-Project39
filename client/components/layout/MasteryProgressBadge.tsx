@@ -43,12 +43,22 @@ export default function MasteryProgressBadge({
 
   useEffect(() => {
     if (percent > prevPercent) {
-      setIsAnimating(true);
-      const timer = setTimeout(() => setIsAnimating(false), 1000);
+      setShowBadge(true);
+      const timer = setTimeout(() => setShowBadge(false), 1000);
       return () => clearTimeout(timer);
     }
     setPrevPercent(percent);
   }, [percent, prevPercent]);
+
+  useEffect(() => {
+    if (isAnimating) {
+      // Show badge after animation completes
+      const timer = setTimeout(() => {
+        // Badge is already visible when isAnimating is true
+      }, 600); // Match animation duration
+      return () => clearTimeout(timer);
+    }
+  }, [isAnimating]);
 
   const isDismissed = (() => {
     if (typeof window === "undefined") return false;
