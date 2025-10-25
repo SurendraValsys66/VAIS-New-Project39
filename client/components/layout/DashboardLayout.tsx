@@ -64,6 +64,7 @@ import OnboardingSkipBadge from "@/components/layout/OnboardingSkipBadge";
 import { useTour } from "@/contexts/TourContext";
 import PlatformTour from "@/components/tour/PlatformTour";
 import AnimatedMasteryContainer from "@/components/layout/AnimatedMasteryContainer";
+import MasteryProgressBadge from "@/components/layout/MasteryProgressBadge";
 import { useMasteryAnimation } from "@/contexts/MasteryAnimationContext";
 
 interface DashboardLayoutProps {
