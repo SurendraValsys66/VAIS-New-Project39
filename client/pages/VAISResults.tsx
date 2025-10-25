@@ -391,6 +391,11 @@ export default function VAISResults() {
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [activeCompany, setActiveCompany] = useState<CompanyData | null>(null);
   const [isSmall, setIsSmall] = useState(false);
+  const [unlockedBadges, setUnlockedBadges] = useState<Set<string>>(new Set());
+  const [unlockModalOpen, setUnlockModalOpen] = useState(false);
+  const [currentlyClickedBadgeId, setCurrentlyClickedBadgeId] = useState<
+    string | null
+  >(null);
 
   // Mark VAIS results as generated when viewing this page
   useEffect(() => {
@@ -973,7 +978,7 @@ export default function VAISResults() {
                             <div className="ml-2">
                               {sortField === "intentSignal" ? (
                                 <span className="text-valasys-orange">
-                                  {sortDirection === "asc" ? "↑" : "↓"}
+                                  {sortDirection === "asc" ? "���" : "↓"}
                                 </span>
                               ) : (
                                 <span className="text-gray-400">↕</span>
