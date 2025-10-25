@@ -1769,6 +1769,13 @@ export default function VAISResults() {
           </div>
         </div>
       </div>
+
+      <UnlockIntentSignalModal
+        open={unlockModalOpen}
+        onOpenChange={setUnlockModalOpen}
+        onUnlockCurrent={handleUnlockCurrent}
+        onUnlockAll={handleUnlockAll}
+      />
     </DashboardLayout>
   );
 }
