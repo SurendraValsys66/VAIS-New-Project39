@@ -5,6 +5,7 @@ interface MasteryAnimationContextType {
   startAnimation: () => void;
   endAnimation: () => void;
   badgeRef: React.RefObject<HTMLDivElement>;
+  getBadgePosition: () => { x: number; y: number } | null;
 }
 
 const MasteryAnimationContext = createContext<
@@ -27,9 +28,24 @@ export function MasteryAnimationProvider({
     setIsAnimating(false);
   };
 
+  const getBadgePosition = () => {
+    if (!badgeRef.current) return null;
+    const rect = badgeRef.current.getBoundingClientRect();
+    return {
+      x: rect.left + rect.width / 2,
+      y: rect.top + rect.height / 2,
+    };
+  };
+
   return (
     <MasteryAnimationContext.Provider
-      value={{ isAnimating, startAnimation, endAnimation, badgeRef }}
+      value={{
+        isAnimating,
+        startAnimation,
+        endAnimation,
+        badgeRef,
+        getBadgePosition,
+      }}
     >
       {children}
     </MasteryAnimationContext.Provider>

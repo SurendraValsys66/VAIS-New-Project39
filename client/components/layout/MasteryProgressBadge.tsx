@@ -69,7 +69,19 @@ export default function MasteryProgressBadge({
     }
   })();
 
+  const isMasteryMinimized = (() => {
+    if (typeof window === "undefined") return false;
+    try {
+      return localStorage.getItem("valasys-mastery-minimized") === "1";
+    } catch {
+      return false;
+    }
+  })();
+
   if (isDismissed) return null;
+
+  // Render with zero opacity when not minimized and not animating
+  const isVisible = isMasteryMinimized || isAnimating;
 
   return (
     <Tooltip>
@@ -80,11 +92,13 @@ export default function MasteryProgressBadge({
           onClick={onClick}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={
-            isAnimating
-              ? showBadge
-                ? { opacity: 1, scale: [1, 1.1, 1] }
+            !isVisible
+              ? { opacity: 0, scale: 0.8 }
+              : isAnimating
+                ? showBadge
+                  ? { opacity: 1, scale: [1, 1.1, 1] }
+                  : { opacity: 1, scale: 1 }
                 : { opacity: 1, scale: 1 }
-              : { opacity: 1, scale: 1 }
           }
           transition={{
             duration: showBadge ? 0.6 : 0.5,

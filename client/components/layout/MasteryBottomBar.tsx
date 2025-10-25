@@ -66,7 +66,8 @@ type MasteryStepDefinition = {
 };
 
 export default function MasteryBottomBar() {
-  const { startAnimation, endAnimation, badgeRef } = useMasteryAnimation();
+  const { startAnimation, endAnimation, badgeRef, getBadgePosition } =
+    useMasteryAnimation();
   const [state, setState] = useState<MasterySteps>({});
   const [hidden, setHidden] = useState(() => {
     if (typeof window === "undefined") return false;
@@ -340,7 +341,7 @@ export default function MasteryBottomBar() {
       // Emit mastery update to notify badge component immediately
       emitMasteryUpdate(state);
     }, animationDuration);
-  }, [percent, state, startAnimation, endAnimation]);
+  }, [percent, state, startAnimation, endAnimation, getBadgePosition]);
 
   if (hidden && !showDismissDialog && !showFinalDialog) {
     return null;
@@ -386,6 +387,10 @@ export default function MasteryBottomBar() {
   }, []);
 
   const shouldShowPanel = !hidden && !doneAll && !minimized;
+  const [animationTarget, setAnimationTarget] = useState<{
+    x: number;
+    y: number;
+  } | null>(null);
 
   useEffect(() => {
     if (showFinalDialog && showConfetti) {
@@ -395,6 +400,29 @@ export default function MasteryBottomBar() {
     }
     setDialogBlast(0);
   }, [showFinalDialog, showConfetti]);
+
+  // Calculate target position when minimizing
+  useEffect(() => {
+    if (isAnimatingMinimize && bottomBarRef.current) {
+      // Use requestAnimationFrame to ensure DOM is updated
+      const frameId = requestAnimationFrame(() => {
+        const badgePos = getBadgePosition();
+        const bottomBarRect = bottomBarRef.current?.getBoundingClientRect();
+
+        if (badgePos && bottomBarRect) {
+          // Calculate the delta between bottom bar center and badge center
+          const deltaX =
+            badgePos.x - (bottomBarRect.left + bottomBarRect.width / 2);
+          const deltaY =
+            badgePos.y - (bottomBarRect.top + bottomBarRect.height / 2);
+
+          setAnimationTarget({ x: deltaX, y: deltaY });
+        }
+      });
+
+      return () => cancelAnimationFrame(frameId);
+    }
+  }, [isAnimatingMinimize, getBadgePosition]);
 
   return (
     <>
@@ -580,13 +608,15 @@ export default function MasteryBottomBar() {
               onMouseEnter={!isAnimatingMinimize ? handleOpenGuide : undefined}
               onKeyDown={handleGuideKeyDown}
               animate={
-                isAnimatingMinimize
+                isAnimatingMinimize && animationTarget
                   ? {
-                      y: -window.innerHeight,
-                      scale: 0.5,
+                      x: animationTarget.x,
+                      y: animationTarget.y,
+                      scale: 0.2,
                       opacity: 0,
                     }
                   : {
+                      x: 0,
                       y: 0,
                       scale: 1,
                       opacity: 1,
