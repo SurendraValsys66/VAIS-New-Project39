@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import {
@@ -12,6 +12,7 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "@/components/ui/tooltip";
+import { useMasteryAnimation } from "@/contexts/MasteryAnimationContext";
 
 interface MasteryProgressBadgeProps {
   onClick?: () => void;
@@ -20,6 +21,7 @@ interface MasteryProgressBadgeProps {
 export default function MasteryProgressBadge({
   onClick,
 }: MasteryProgressBadgeProps) {
+  const { startExpandAnimation } = useMasteryAnimation();
   const [state, setState] = useState<MasterySteps>({});
   const [prevPercent, setPrevPercent] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
