@@ -348,8 +348,8 @@ export default function MasteryBottomBar() {
   useEffect(() => {
     const handleMasteryRestored = () => {
       try {
-        const isMiniminimized = localStorage.getItem("valasys-mastery-minimized") === "1";
-        if (!isMiniminimized) {
+        const isMinimized = localStorage.getItem("valasys-mastery-minimized") === "1";
+        if (!isMinimized) {
           setMinimized(false);
           setHidden(false);
         }
