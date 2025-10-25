@@ -404,18 +404,23 @@ export default function MasteryBottomBar() {
   // Calculate target position when minimizing
   useEffect(() => {
     if (isAnimatingMinimize && bottomBarRef.current) {
-      const badgePos = getBadgePosition();
-      const bottomBarRect = bottomBarRef.current.getBoundingClientRect();
+      // Use requestAnimationFrame to ensure DOM is updated
+      const frameId = requestAnimationFrame(() => {
+        const badgePos = getBadgePosition();
+        const bottomBarRect = bottomBarRef.current?.getBoundingClientRect();
 
-      if (badgePos) {
-        // Calculate the delta between bottom bar center and badge center
-        const deltaX =
-          badgePos.x - (bottomBarRect.left + bottomBarRect.width / 2);
-        const deltaY =
-          badgePos.y - (bottomBarRect.top + bottomBarRect.height / 2);
+        if (badgePos && bottomBarRect) {
+          // Calculate the delta between bottom bar center and badge center
+          const deltaX =
+            badgePos.x - (bottomBarRect.left + bottomBarRect.width / 2);
+          const deltaY =
+            badgePos.y - (bottomBarRect.top + bottomBarRect.height / 2);
 
-        setAnimationTarget({ x: deltaX, y: deltaY });
-      }
+          setAnimationTarget({ x: deltaX, y: deltaY });
+        }
+      });
+
+      return () => cancelAnimationFrame(frameId);
     }
   }, [isAnimatingMinimize, getBadgePosition]);
 
