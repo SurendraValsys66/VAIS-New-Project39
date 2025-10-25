@@ -75,10 +75,17 @@ export default function MasteryProgressBadge({
     <Tooltip>
       <TooltipTrigger asChild>
         <motion.div
-          animate={isAnimating ? { scale: [1, 1.1, 1] } : {}}
+          ref={badgeRef}
+          animate={showBadge ? { scale: [1, 1.1, 1] } : {}}
           transition={{ duration: 0.6 }}
           className="relative cursor-pointer"
           onClick={onClick}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={isAnimating ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1 }}
+          transition={{
+            duration: 0.5,
+            ease: "easeOut",
+          }}
         >
           <div className="relative flex items-center gap-2">
             <motion.div
@@ -87,7 +94,7 @@ export default function MasteryProgressBadge({
               className="relative"
             >
               {/* Pulsing outer ring when animating */}
-              {isAnimating && (
+              {showBadge && (
                 <motion.div
                   className="absolute inset-0 rounded-full border-2 border-valasys-orange"
                   animate={{ scale: [1, 1.2, 1], opacity: [1, 0, 0] }}
@@ -107,10 +114,10 @@ export default function MasteryProgressBadge({
                   "relative flex items-center gap-1.5 px-3 py-1.5 rounded-full font-semibold text-sm",
                   "bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white",
                   "shadow-md hover:shadow-lg transition-shadow cursor-pointer",
-                  isAnimating && "ring-2 ring-valasys-orange ring-opacity-50",
+                  showBadge && "ring-2 ring-valasys-orange ring-opacity-50",
                 )}
                 animate={
-                  isAnimating
+                  showBadge
                     ? {
                         backgroundColor: [
                           "rgb(255, 122, 0)",
