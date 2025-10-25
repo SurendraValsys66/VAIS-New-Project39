@@ -828,7 +828,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               <div className="flex items-center space-x-4">
                 <OnboardingSkipBadge />
                 {masteryMinimized && (
-                  <MasteryProgressBadge onClick={handleRestoreMastery} />
+                  <MasteryProgressBadge onClick={completeExpandAnimation} />
                 )}
                 <div className="flex items-center space-x-3">
                   {/* Notification Dropdown */}
