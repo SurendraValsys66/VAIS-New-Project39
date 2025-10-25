@@ -319,19 +319,28 @@ export default function MasteryBottomBar() {
   );
 
   const handleMinimize = useCallback(() => {
-    try {
-      localStorage.setItem(MASTERY_MINIMIZE_KEY, "1");
-    } catch (error) {}
-    setMinimized(true);
+    setIsAnimatingMinimize(true);
+    startAnimation();
     setExpanded(false);
-    window.dispatchEvent(
-      new CustomEvent("app:mastery-minimized", {
-        detail: { percent },
-      }) as Event,
-    );
-    // Emit mastery update to notify badge component immediately
-    emitMasteryUpdate(state);
-  }, [percent, state]);
+
+    // After animation completes, finalize the minimize
+    const animationDuration = 600; // Match the CSS animation duration
+    setTimeout(() => {
+      try {
+        localStorage.setItem(MASTERY_MINIMIZE_KEY, "1");
+      } catch (error) {}
+      setMinimized(true);
+      setIsAnimatingMinimize(false);
+      endAnimation();
+      window.dispatchEvent(
+        new CustomEvent("app:mastery-minimized", {
+          detail: { percent },
+        }) as Event,
+      );
+      // Emit mastery update to notify badge component immediately
+      emitMasteryUpdate(state);
+    }, animationDuration);
+  }, [percent, state, startAnimation, endAnimation]);
 
   if (hidden && !showDismissDialog && !showFinalDialog) {
     return null;
