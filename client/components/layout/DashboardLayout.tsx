@@ -193,26 +193,11 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       handleStorageChange as EventListener,
     );
 
-    const handleMasteryMinimized = (e: Event) => {
-      const detail = (e as CustomEvent).detail;
-      setMasteryPercent(detail?.percent || 0);
-      setMasteryMinimized(true);
-    };
-
-    window.addEventListener(
-      "app:mastery-minimized",
-      handleMasteryMinimized as EventListener,
-    );
-
     return () => {
       window.removeEventListener("storage", handleStorageChange);
       window.removeEventListener(
         "app:favorites-updated",
         handleStorageChange as EventListener,
-      );
-      window.removeEventListener(
-        "app:mastery-minimized",
-        handleMasteryMinimized as EventListener,
       );
     };
   }, []);
