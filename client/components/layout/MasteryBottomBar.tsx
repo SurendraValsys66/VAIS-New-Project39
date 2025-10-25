@@ -557,7 +557,17 @@ export default function MasteryBottomBar() {
             )}
 
             {/* Bottom orange bar */}
-            <div
+            <motion.div
+              initial={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{
+                opacity: 0,
+                y: -16,
+              }}
+              transition={{
+                duration: 0.3,
+                ease: "easeInOut",
+              }}
               className="relative flex flex-col gap-1 rounded-xl shadow-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white cursor-pointer hover:opacity-95 transition-opacity"
               role="button"
               tabIndex={0}
@@ -627,7 +637,7 @@ export default function MasteryBottomBar() {
               <div className="text-center text-[12px] font-semibold">
                 Your VAIS mastery: {percent}%
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       )}
