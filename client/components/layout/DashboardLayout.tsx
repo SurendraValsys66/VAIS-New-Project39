@@ -1341,8 +1341,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         onComplete={completeTour}
       />
 
-      {/* Mastery Bottom Bar */}
-      <MasteryBottomBar />
+      {/* Animated Mastery Container */}
+      <AnimatedMasteryContainer />
     </div>
   );
 }
