@@ -65,7 +65,6 @@ import { useTour } from "@/contexts/TourContext";
 import PlatformTour from "@/components/tour/PlatformTour";
 import MasteryBottomBar from "@/components/layout/MasteryBottomBar";
 import MasteryProgressBadge from "@/components/layout/MasteryProgressBadge";
-import { useMasteryAnimation } from "@/contexts/MasteryAnimationContext";
 
 interface DashboardLayoutProps {
   children: ReactNode;
