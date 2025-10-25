@@ -92,11 +92,13 @@ export default function MasteryProgressBadge({
           onClick={onClick}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={
-            isAnimating
-              ? showBadge
-                ? { opacity: 1, scale: [1, 1.1, 1] }
+            !isVisible
+              ? { opacity: 0, scale: 0.8 }
+              : isAnimating
+                ? showBadge
+                  ? { opacity: 1, scale: [1, 1.1, 1] }
+                  : { opacity: 1, scale: 1 }
                 : { opacity: 1, scale: 1 }
-              : { opacity: 1, scale: 1 }
           }
           transition={{
             duration: showBadge ? 0.6 : 0.5,
