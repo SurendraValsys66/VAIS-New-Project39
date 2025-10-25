@@ -145,6 +145,7 @@ const utilityItems = [
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const location = useLocation();
+  const { isMinimized: masteryMinimized, completeExpandAnimation } = useMasteryAnimation();
   const [sidebarOpen, setSidebarOpen] = useState(false); // Start with sidebar closed on mobile
   const [unreadNotifications] = useState(3); // Mock unread count
   const [hoverExpanded, setHoverExpanded] = useState(false);
@@ -172,15 +173,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [expandedSubmenu, setExpandedSubmenu] = useState<string | null>(null);
 
   const [hasFavorites, setHasFavorites] = useState(false);
-  const [masteryMinimized, setMasteryMinimized] = useState(() => {
-    if (typeof window === "undefined") return false;
-    try {
-      return localStorage.getItem("valasys-mastery-minimized") === "1";
-    } catch (error) {
-      return false;
-    }
-  });
-  const [masteryPercent, setMasteryPercent] = useState(0);
 
   useEffect(() => {
     const checkFavorites = () => {
