@@ -63,8 +63,9 @@ import TrialBadgeDropdown from "@/components/ui/trial-badge-dropdown";
 import OnboardingSkipBadge from "@/components/layout/OnboardingSkipBadge";
 import { useTour } from "@/contexts/TourContext";
 import PlatformTour from "@/components/tour/PlatformTour";
-import MasteryBottomBar from "@/components/layout/MasteryBottomBar";
+import AnimatedMasteryContainer from "@/components/layout/AnimatedMasteryContainer";
 import MasteryProgressBadge from "@/components/layout/MasteryProgressBadge";
+import { useMasteryAnimation } from "@/contexts/MasteryAnimationContext";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -145,6 +146,8 @@ const utilityItems = [
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const location = useLocation();
+  const { isMinimized: masteryMinimized, completeExpandAnimation } =
+    useMasteryAnimation();
   const [sidebarOpen, setSidebarOpen] = useState(false); // Start with sidebar closed on mobile
   const [unreadNotifications] = useState(3); // Mock unread count
   const [hoverExpanded, setHoverExpanded] = useState(false);
@@ -172,15 +175,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [expandedSubmenu, setExpandedSubmenu] = useState<string | null>(null);
 
   const [hasFavorites, setHasFavorites] = useState(false);
-  const [masteryMinimized, setMasteryMinimized] = useState(() => {
-    if (typeof window === "undefined") return false;
-    try {
-      return localStorage.getItem("valasys-mastery-minimized") === "1";
-    } catch (error) {
-      return false;
-    }
-  });
-  const [masteryPercent, setMasteryPercent] = useState(0);
 
   useEffect(() => {
     const checkFavorites = () => {
@@ -201,26 +195,11 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       handleStorageChange as EventListener,
     );
 
-    const handleMasteryMinimized = (e: Event) => {
-      const detail = (e as CustomEvent).detail;
-      setMasteryPercent(detail?.percent || 0);
-      setMasteryMinimized(true);
-    };
-
-    window.addEventListener(
-      "app:mastery-minimized",
-      handleMasteryMinimized as EventListener,
-    );
-
     return () => {
       window.removeEventListener("storage", handleStorageChange);
       window.removeEventListener(
         "app:favorites-updated",
         handleStorageChange as EventListener,
-      );
-      window.removeEventListener(
-        "app:mastery-minimized",
-        handleMasteryMinimized as EventListener,
       );
     };
   }, []);
@@ -851,7 +830,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               <div className="flex items-center space-x-4">
                 <OnboardingSkipBadge />
                 {masteryMinimized && (
-                  <MasteryProgressBadge onClick={handleRestoreMastery} />
+                  <MasteryProgressBadge onClick={completeExpandAnimation} />
                 )}
                 <div className="flex items-center space-x-3">
                   {/* Notification Dropdown */}
@@ -1363,8 +1342,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         onComplete={completeTour}
       />
 
-      {/* Mastery Bottom Bar */}
-      <MasteryBottomBar />
+      {/* Animated Mastery Container */}
+      <AnimatedMasteryContainer />
     </div>
   );
 }
