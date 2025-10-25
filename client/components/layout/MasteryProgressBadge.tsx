@@ -162,7 +162,7 @@ export default function MasteryProgressBadge({
                   {/* Center percentage text */}
                   <motion.span
                     className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-white"
-                    animate={isAnimating ? { scale: [1, 1.2, 1] } : {}}
+                    animate={showBadge ? { scale: [1, 1.2, 1] } : {}}
                     transition={{ duration: 0.6 }}
                   >
                     {percent}
