@@ -316,6 +316,7 @@ export default function MasteryBottomBar() {
   );
 
   const handleMinimize = useCallback(() => {
+    startMinimizeAnimation();
     try {
       localStorage.setItem(MASTERY_MINIMIZE_KEY, "1");
     } catch (error) {}
@@ -326,7 +327,7 @@ export default function MasteryBottomBar() {
         detail: { percent },
       }) as Event,
     );
-  }, [percent]);
+  }, [percent, startMinimizeAnimation]);
 
   if (hidden && !showDismissDialog && !showFinalDialog) {
     return null;
