@@ -41,6 +41,7 @@ import {
 } from "@/components/ui/dialog";
 import ConfettiCanvas from "@/components/onboarding/ConfettiCanvas";
 import { toast } from "@/components/ui/use-toast";
+import { useMasteryAnimation } from "@/contexts/MasteryAnimationContext";
 
 const MASTERY_DISMISS_KEY = "valasys-mastery-dismissed";
 const MASTERY_MINIMIZE_KEY = "valasys-mastery-minimized";
