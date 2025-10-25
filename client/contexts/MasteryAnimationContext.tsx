@@ -40,7 +40,7 @@ export function useMasteryAnimation() {
   const context = useContext(MasteryAnimationContext);
   if (!context) {
     throw new Error(
-      "useMasteryAnimation must be used within MasteryAnimationProvider"
+      "useMasteryAnimation must be used within MasteryAnimationProvider",
     );
   }
   return context;
