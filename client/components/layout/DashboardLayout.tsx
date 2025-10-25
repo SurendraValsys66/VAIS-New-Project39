@@ -852,11 +852,9 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               {/* Right side - Notification, G2 Reviews, Profile */}
               <div className="flex items-center space-x-4">
                 <OnboardingSkipBadge />
-                <div ref={badgeRef} className="flex items-center">
-                  {masteryMinimized && (
-                    <MasteryProgressBadge onClick={handleRestoreMastery} />
-                  )}
-                </div>
+                {masteryMinimized && (
+                  <MasteryProgressBadge onClick={handleRestoreMastery} />
+                )}
                 <div className="flex items-center space-x-3">
                   {/* Notification Dropdown */}
                   <div data-tour="notifications" className="relative">
