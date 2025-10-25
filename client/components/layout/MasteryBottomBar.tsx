@@ -65,6 +65,7 @@ type MasteryStepDefinition = {
 };
 
 export default function MasteryBottomBar() {
+  const { startMinimizeAnimation } = useMasteryAnimation();
   const [state, setState] = useState<MasterySteps>({});
   const [hidden, setHidden] = useState(() => {
     if (typeof window === "undefined") return false;
