@@ -580,6 +580,28 @@ export default function VAISResults() {
     }
   };
 
+  const handleBadgeLockClick = (companyId: string) => {
+    setCurrentlyClickedBadgeId(companyId);
+    setUnlockModalOpen(true);
+  };
+
+  const handleUnlockCurrent = () => {
+    if (currentlyClickedBadgeId) {
+      setUnlockedBadges(
+        (prev) =>
+          new Set([...prev, currentlyClickedBadgeId])
+      );
+    }
+  };
+
+  const handleUnlockAll = () => {
+    const allBadgeIds = paginatedData.map((item) => item.id);
+    setUnlockedBadges(
+      (prev) =>
+        new Set([...prev, ...allBadgeIds])
+    );
+  };
+
   const PremiumOverlay = () => (
     <div className="relative">
       <div className="text-center mb-6">
