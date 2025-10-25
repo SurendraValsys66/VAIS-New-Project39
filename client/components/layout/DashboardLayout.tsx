@@ -358,7 +358,10 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
     // Smooth scroll to bottom of page to show mastery section
     setTimeout(() => {
-      window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "smooth",
+      });
     }, 100);
   };
 
