@@ -51,8 +51,8 @@ export default function IntentSignalChart({
       <Badge
         onClick={onLockClick}
         className={cn(
-          "font-medium cursor-pointer flex items-center justify-center",
-          "bg-emerald-100 text-emerald-800 border border-emerald-200",
+          "font-medium cursor-pointer flex items-center justify-center backdrop-blur-sm",
+          "bg-emerald-100/80 text-emerald-800 border border-emerald-200",
           className,
         )}
       >
