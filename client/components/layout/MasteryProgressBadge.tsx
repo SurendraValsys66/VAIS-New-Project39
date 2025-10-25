@@ -76,14 +76,18 @@ export default function MasteryProgressBadge({
       <TooltipTrigger asChild>
         <motion.div
           ref={badgeRef}
-          animate={showBadge ? { scale: [1, 1.1, 1] } : {}}
-          transition={{ duration: 0.6 }}
           className="relative cursor-pointer"
           onClick={onClick}
           initial={{ opacity: 0, scale: 0.8 }}
-          animate={isAnimating ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1 }}
+          animate={
+            isAnimating
+              ? showBadge
+                ? { opacity: 1, scale: [1, 1.1, 1] }
+                : { opacity: 1, scale: 1 }
+              : { opacity: 1, scale: 1 }
+          }
           transition={{
-            duration: 0.5,
+            duration: showBadge ? 0.6 : 0.5,
             ease: "easeOut",
           }}
         >
