@@ -150,7 +150,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [unreadNotifications] = useState(3); // Mock unread count
   const [hoverExpanded, setHoverExpanded] = useState(false);
   const isExpanded = sidebarOpen || hoverExpanded;
-  const { badgeRef } = useMasteryAnimation();
 
   // Ensure sidebar starts collapsed on all screens
   useEffect(() => {
