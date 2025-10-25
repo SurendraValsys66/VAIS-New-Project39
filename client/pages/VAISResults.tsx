@@ -1215,6 +1215,8 @@ export default function VAISResults() {
                                     city: item.city,
                                     relatedTopics: item.relatedTopics,
                                   }}
+                                  isLocked={!unlockedBadges.has(item.id)}
+                                  onLockClick={() => handleBadgeLockClick(item.id)}
                                 />
                               </TableCell>
                             )}
