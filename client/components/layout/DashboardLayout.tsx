@@ -354,6 +354,15 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       localStorage.removeItem("valasys-mastery-minimized");
     } catch (error) {}
     setMasteryMinimized(false);
+    window.dispatchEvent(new Event("app:mastery-restored"));
+
+    // Smooth scroll to bottom of page to show mastery section
+    setTimeout(() => {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "smooth",
+      });
+    }, 100);
   };
 
   const handleMobileNavigationClick = () => {
