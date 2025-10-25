@@ -21,6 +21,7 @@ import {
   getMastery,
   MasterySteps,
   MASTERY_EVENT,
+  emitMasteryUpdate,
 } from "@/lib/masteryStorage";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -324,7 +325,9 @@ export default function MasteryBottomBar() {
         detail: { percent },
       }) as Event,
     );
-  }, [percent]);
+    // Emit mastery update to notify badge component immediately
+    emitMasteryUpdate(state);
+  }, [percent, state]);
 
   if (hidden && !showDismissDialog && !showFinalDialog) {
     return null;
