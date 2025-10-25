@@ -340,7 +340,7 @@ export default function MasteryBottomBar() {
       // Emit mastery update to notify badge component immediately
       emitMasteryUpdate(state);
     }, animationDuration);
-  }, [percent, state, startAnimation, endAnimation]);
+  }, [percent, state, startAnimation, endAnimation, getBadgePosition]);
 
   if (hidden && !showDismissDialog && !showFinalDialog) {
     return null;
