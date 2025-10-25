@@ -40,6 +40,17 @@ export function MasteryAnimationProvider({ children }: { children: React.ReactNo
   const completeExpandAnimation = useCallback(() => {
     setIsMinimizing(false);
     setIsMinimized(false);
+    try {
+      localStorage.removeItem("valasys-mastery-minimized");
+    } catch {}
+    window.dispatchEvent(new Event("app:mastery-restored"));
+    // Smooth scroll to bottom of page to show mastery section
+    setTimeout(() => {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "smooth",
+      });
+    }, 100);
   }, []);
 
   return (
