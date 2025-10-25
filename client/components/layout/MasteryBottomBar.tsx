@@ -602,13 +602,15 @@ export default function MasteryBottomBar() {
               onMouseEnter={!isAnimatingMinimize ? handleOpenGuide : undefined}
               onKeyDown={handleGuideKeyDown}
               animate={
-                isAnimatingMinimize
+                isAnimatingMinimize && animationTarget
                   ? {
-                      y: -window.innerHeight,
-                      scale: 0.5,
+                      x: animationTarget.x,
+                      y: animationTarget.y,
+                      scale: 0.2,
                       opacity: 0,
                     }
                   : {
+                      x: 0,
                       y: 0,
                       scale: 1,
                       opacity: 1,
