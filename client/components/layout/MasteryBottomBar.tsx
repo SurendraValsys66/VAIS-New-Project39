@@ -66,6 +66,7 @@ type MasteryStepDefinition = {
 };
 
 export default function MasteryBottomBar() {
+  const { startAnimation, endAnimation, badgeRef } = useMasteryAnimation();
   const [state, setState] = useState<MasterySteps>({});
   const [hidden, setHidden] = useState(() => {
     if (typeof window === "undefined") return false;
@@ -88,6 +89,8 @@ export default function MasteryBottomBar() {
   const [expanded, setExpanded] = useState(false);
   const [openHints, setOpenHints] = useState<Record<string, boolean>>({});
   const [showDismissDialog, setShowDismissDialog] = useState(false);
+  const [isAnimatingMinimize, setIsAnimatingMinimize] = useState(false);
+  const bottomBarRef = useRef<HTMLDivElement>(null);
   const toggleHint = (key: string) =>
     setOpenHints((s) => {
       const isOpen = !!s[key];
