@@ -41,6 +41,7 @@ import {
 } from "@/components/ui/dialog";
 import ConfettiCanvas from "@/components/onboarding/ConfettiCanvas";
 import { toast } from "@/components/ui/use-toast";
+import { useMasteryAnimation } from "@/contexts/MasteryAnimationContext";
 
 const MASTERY_DISMISS_KEY = "valasys-mastery-dismissed";
 const MASTERY_MINIMIZE_KEY = "valasys-mastery-minimized";
@@ -65,6 +66,7 @@ type MasteryStepDefinition = {
 };
 
 export default function MasteryBottomBar() {
+  const { startAnimation, endAnimation, badgeRef } = useMasteryAnimation();
   const [state, setState] = useState<MasterySteps>({});
   const [hidden, setHidden] = useState(() => {
     if (typeof window === "undefined") return false;
@@ -87,6 +89,8 @@ export default function MasteryBottomBar() {
   const [expanded, setExpanded] = useState(false);
   const [openHints, setOpenHints] = useState<Record<string, boolean>>({});
   const [showDismissDialog, setShowDismissDialog] = useState(false);
+  const [isAnimatingMinimize, setIsAnimatingMinimize] = useState(false);
+  const bottomBarRef = useRef<HTMLDivElement>(null);
   const toggleHint = (key: string) =>
     setOpenHints((s) => {
       const isOpen = !!s[key];
@@ -315,19 +319,28 @@ export default function MasteryBottomBar() {
   );
 
   const handleMinimize = useCallback(() => {
-    try {
-      localStorage.setItem(MASTERY_MINIMIZE_KEY, "1");
-    } catch (error) {}
-    setMinimized(true);
+    setIsAnimatingMinimize(true);
+    startAnimation();
     setExpanded(false);
-    window.dispatchEvent(
-      new CustomEvent("app:mastery-minimized", {
-        detail: { percent },
-      }) as Event,
-    );
-    // Emit mastery update to notify badge component immediately
-    emitMasteryUpdate(state);
-  }, [percent, state]);
+
+    // After animation completes, finalize the minimize
+    const animationDuration = 600; // Match the CSS animation duration
+    setTimeout(() => {
+      try {
+        localStorage.setItem(MASTERY_MINIMIZE_KEY, "1");
+      } catch (error) {}
+      setMinimized(true);
+      setIsAnimatingMinimize(false);
+      endAnimation();
+      window.dispatchEvent(
+        new CustomEvent("app:mastery-minimized", {
+          detail: { percent },
+        }) as Event,
+      );
+      // Emit mastery update to notify badge component immediately
+      emitMasteryUpdate(state);
+    }, animationDuration);
+  }, [percent, state, startAnimation, endAnimation]);
 
   if (hidden && !showDismissDialog && !showFinalDialog) {
     return null;
@@ -557,14 +570,32 @@ export default function MasteryBottomBar() {
             )}
 
             {/* Bottom orange bar */}
-            <div
+            <motion.div
+              ref={bottomBarRef}
               className="relative flex flex-col gap-1 rounded-xl shadow-lg px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white cursor-pointer hover:opacity-95 transition-opacity"
               role="button"
               tabIndex={0}
               aria-expanded={expanded}
-              onClick={handleOpenGuide}
-              onMouseEnter={handleOpenGuide}
+              onClick={!isAnimatingMinimize ? handleOpenGuide : undefined}
+              onMouseEnter={!isAnimatingMinimize ? handleOpenGuide : undefined}
               onKeyDown={handleGuideKeyDown}
+              animate={
+                isAnimatingMinimize
+                  ? {
+                      y: -window.innerHeight,
+                      scale: 0.5,
+                      opacity: 0,
+                    }
+                  : {
+                      y: 0,
+                      scale: 1,
+                      opacity: 1,
+                    }
+              }
+              transition={{
+                duration: 0.6,
+                ease: "easeInOut",
+              }}
             >
               {showStepConfetti && (
                 <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-xl">
@@ -624,10 +655,12 @@ export default function MasteryBottomBar() {
               </div>
 
               {/* Bottom text */}
-              <div className="text-center text-[12px] font-semibold">
-                Your VAIS mastery: {percent}%
-              </div>
-            </div>
+              {!isAnimatingMinimize && (
+                <div className="text-center text-[12px] font-semibold">
+                  Your VAIS mastery: {percent}%
+                </div>
+              )}
+            </motion.div>
           </div>
         </div>
       )}

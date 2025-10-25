@@ -12,6 +12,7 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "@/components/ui/tooltip";
+import { useMasteryAnimation } from "@/contexts/MasteryAnimationContext";
 
 interface MasteryProgressBadgeProps {
   onClick?: () => void;
@@ -20,9 +21,10 @@ interface MasteryProgressBadgeProps {
 export default function MasteryProgressBadge({
   onClick,
 }: MasteryProgressBadgeProps) {
+  const { isAnimating, badgeRef } = useMasteryAnimation();
   const [state, setState] = useState<MasterySteps>({});
   const [prevPercent, setPrevPercent] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [showBadge, setShowBadge] = useState(false);
 
   useEffect(() => {
     setState(getMastery());
@@ -41,12 +43,22 @@ export default function MasteryProgressBadge({
 
   useEffect(() => {
     if (percent > prevPercent) {
-      setIsAnimating(true);
-      const timer = setTimeout(() => setIsAnimating(false), 1000);
+      setShowBadge(true);
+      const timer = setTimeout(() => setShowBadge(false), 1000);
       return () => clearTimeout(timer);
     }
     setPrevPercent(percent);
   }, [percent, prevPercent]);
+
+  useEffect(() => {
+    if (isAnimating) {
+      // Show badge after animation completes
+      const timer = setTimeout(() => {
+        // Badge is already visible when isAnimating is true
+      }, 600); // Match animation duration
+      return () => clearTimeout(timer);
+    }
+  }, [isAnimating]);
 
   const isDismissed = (() => {
     if (typeof window === "undefined") return false;
@@ -63,10 +75,21 @@ export default function MasteryProgressBadge({
     <Tooltip>
       <TooltipTrigger asChild>
         <motion.div
-          animate={isAnimating ? { scale: [1, 1.1, 1] } : {}}
-          transition={{ duration: 0.6 }}
+          ref={badgeRef}
           className="relative cursor-pointer"
           onClick={onClick}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={
+            isAnimating
+              ? showBadge
+                ? { opacity: 1, scale: [1, 1.1, 1] }
+                : { opacity: 1, scale: 1 }
+              : { opacity: 1, scale: 1 }
+          }
+          transition={{
+            duration: showBadge ? 0.6 : 0.5,
+            ease: "easeOut",
+          }}
         >
           <div className="relative flex items-center gap-2">
             <motion.div
@@ -75,7 +98,7 @@ export default function MasteryProgressBadge({
               className="relative"
             >
               {/* Pulsing outer ring when animating */}
-              {isAnimating && (
+              {showBadge && (
                 <motion.div
                   className="absolute inset-0 rounded-full border-2 border-valasys-orange"
                   animate={{ scale: [1, 1.2, 1], opacity: [1, 0, 0] }}
@@ -95,10 +118,10 @@ export default function MasteryProgressBadge({
                   "relative flex items-center gap-1.5 px-3 py-1.5 rounded-full font-semibold text-sm",
                   "bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white",
                   "shadow-md hover:shadow-lg transition-shadow cursor-pointer",
-                  isAnimating && "ring-2 ring-valasys-orange ring-opacity-50",
+                  showBadge && "ring-2 ring-valasys-orange ring-opacity-50",
                 )}
                 animate={
-                  isAnimating
+                  showBadge
                     ? {
                         backgroundColor: [
                           "rgb(255, 122, 0)",
@@ -143,7 +166,7 @@ export default function MasteryProgressBadge({
                   {/* Center percentage text */}
                   <motion.span
                     className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-white"
-                    animate={isAnimating ? { scale: [1, 1.2, 1] } : {}}
+                    animate={showBadge ? { scale: [1, 1.2, 1] } : {}}
                     transition={{ duration: 0.6 }}
                   >
                     {percent}
