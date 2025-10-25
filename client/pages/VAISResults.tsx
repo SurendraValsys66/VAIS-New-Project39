@@ -587,19 +587,13 @@ export default function VAISResults() {
 
   const handleUnlockCurrent = () => {
     if (currentlyClickedBadgeId) {
-      setUnlockedBadges(
-        (prev) =>
-          new Set([...prev, currentlyClickedBadgeId])
-      );
+      setUnlockedBadges((prev) => new Set([...prev, currentlyClickedBadgeId]));
     }
   };
 
   const handleUnlockAll = () => {
     const allBadgeIds = paginatedData.map((item) => item.id);
-    setUnlockedBadges(
-      (prev) =>
-        new Set([...prev, ...allBadgeIds])
-    );
+    setUnlockedBadges((prev) => new Set([...prev, ...allBadgeIds]));
   };
 
   const PremiumOverlay = () => (
@@ -1216,7 +1210,9 @@ export default function VAISResults() {
                                     relatedTopics: item.relatedTopics,
                                   }}
                                   isLocked={!unlockedBadges.has(item.id)}
-                                  onLockClick={() => handleBadgeLockClick(item.id)}
+                                  onLockClick={() =>
+                                    handleBadgeLockClick(item.id)
+                                  }
                                 />
                               </TableCell>
                             )}

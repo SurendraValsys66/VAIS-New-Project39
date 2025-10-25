@@ -48,10 +48,7 @@ export default function IntentSignalChart({
 }: IntentSignalChartProps) {
   if (isLocked) {
     return (
-      <div
-        className="relative inline-block w-full"
-        onClick={onLockClick}
-      >
+      <div className="relative inline-block w-full" onClick={onLockClick}>
         <Badge
           className={cn(
             "font-medium cursor-pointer blur-sm",
