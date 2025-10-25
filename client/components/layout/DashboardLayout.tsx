@@ -1,4 +1,4 @@
-import React, { ReactNode, useState, useEffect } from "react";
+import React, { ReactNode, useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useLocation } from "react-router-dom";
@@ -65,6 +65,7 @@ import { useTour } from "@/contexts/TourContext";
 import PlatformTour from "@/components/tour/PlatformTour";
 import MasteryBottomBar from "@/components/layout/MasteryBottomBar";
 import MasteryProgressBadge from "@/components/layout/MasteryProgressBadge";
+import { useMasteryAnimation } from "@/contexts/MasteryAnimationContext";
 
 interface DashboardLayoutProps {
   children: ReactNode;
