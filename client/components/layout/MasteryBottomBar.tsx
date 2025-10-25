@@ -386,6 +386,10 @@ export default function MasteryBottomBar() {
   }, []);
 
   const shouldShowPanel = !hidden && !doneAll && !minimized;
+  const [animationTarget, setAnimationTarget] = useState<{
+    x: number;
+    y: number;
+  } | null>(null);
 
   useEffect(() => {
     if (showFinalDialog && showConfetti) {
@@ -395,6 +399,24 @@ export default function MasteryBottomBar() {
     }
     setDialogBlast(0);
   }, [showFinalDialog, showConfetti]);
+
+  // Calculate target position when minimizing
+  useEffect(() => {
+    if (isAnimatingMinimize && bottomBarRef.current) {
+      const badgePos = getBadgePosition();
+      const bottomBarRect = bottomBarRef.current.getBoundingClientRect();
+
+      if (badgePos) {
+        // Calculate the delta between bottom bar center and badge center
+        const deltaX =
+          badgePos.x - (bottomBarRect.left + bottomBarRect.width / 2);
+        const deltaY =
+          badgePos.y - (bottomBarRect.top + bottomBarRect.height / 2);
+
+        setAnimationTarget({ x: deltaX, y: deltaY });
+      }
+    }
+  }, [isAnimatingMinimize, getBadgePosition]);
 
   return (
     <>
