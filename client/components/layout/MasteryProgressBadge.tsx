@@ -61,6 +61,11 @@ export default function MasteryProgressBadge({
 
   if (isDismissed) return null;
 
+  const handleBadgeClick = useCallback(() => {
+    startExpandAnimation();
+    onClick?.();
+  }, [onClick, startExpandAnimation]);
+
   return (
     <Tooltip>
       <TooltipTrigger asChild>
@@ -68,7 +73,7 @@ export default function MasteryProgressBadge({
           animate={isAnimating ? { scale: [1, 1.1, 1] } : {}}
           transition={{ duration: 0.6 }}
           className="relative cursor-pointer"
-          onClick={onClick}
+          onClick={handleBadgeClick}
         >
           <div className="relative flex items-center gap-2">
             <motion.div
