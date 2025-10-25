@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import {
@@ -12,7 +12,6 @@ import {
   TooltipTrigger,
   TooltipContent,
 } from "@/components/ui/tooltip";
-import { useMasteryAnimation } from "@/contexts/MasteryAnimationContext";
 
 interface MasteryProgressBadgeProps {
   onClick?: () => void;
@@ -21,7 +20,6 @@ interface MasteryProgressBadgeProps {
 export default function MasteryProgressBadge({
   onClick,
 }: MasteryProgressBadgeProps) {
-  const { startExpandAnimation } = useMasteryAnimation();
   const [state, setState] = useState<MasterySteps>({});
   const [prevPercent, setPrevPercent] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -61,11 +59,6 @@ export default function MasteryProgressBadge({
 
   if (isDismissed) return null;
 
-  const handleBadgeClick = useCallback(() => {
-    startExpandAnimation();
-    onClick?.();
-  }, [onClick, startExpandAnimation]);
-
   return (
     <Tooltip>
       <TooltipTrigger asChild>
@@ -73,7 +66,7 @@ export default function MasteryProgressBadge({
           animate={isAnimating ? { scale: [1, 1.1, 1] } : {}}
           transition={{ duration: 0.6 }}
           className="relative cursor-pointer"
-          onClick={handleBadgeClick}
+          onClick={onClick}
         >
           <div className="relative flex items-center gap-2">
             <motion.div
