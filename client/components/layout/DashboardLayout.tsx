@@ -1,4 +1,4 @@
-import React, { ReactNode, useState, useEffect, useRef } from "react";
+import React, { ReactNode, useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useLocation } from "react-router-dom";
