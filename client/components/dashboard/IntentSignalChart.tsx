@@ -2,6 +2,7 @@ import React from "react";
 import { Badge } from "@/components/ui/badge";
 import IntentSignalPopover from "./IntentSignalPopover";
 import { cn } from "@/lib/utils";
+import { Lock } from "lucide-react";
 
 interface IntentSignalData {
   compositeScore: number;
@@ -18,6 +19,8 @@ interface IntentSignalData {
 interface IntentSignalChartProps {
   data: IntentSignalData;
   className?: string;
+  isLocked?: boolean;
+  onLockClick?: () => void;
 }
 
 const getIntentSignalColor = (signal: string) => {
@@ -40,7 +43,31 @@ const getIntentSignalColor = (signal: string) => {
 export default function IntentSignalChart({
   data,
   className,
+  isLocked = false,
+  onLockClick,
 }: IntentSignalChartProps) {
+  if (isLocked) {
+    return (
+      <div className="relative inline-block w-full" onClick={onLockClick}>
+        <Badge
+          className={cn(
+            "font-medium cursor-pointer blur-sm",
+            getIntentSignalColor(data.intentSignal),
+            className,
+          )}
+        >
+          {data.intentSignal}
+        </Badge>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="flex flex-col items-center gap-1 bg-white/80 rounded px-2 py-1">
+            <Lock className="w-4 h-4 text-gray-700" />
+            <span className="text-xs font-semibold text-gray-700">Unlock</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <IntentSignalPopover data={data}>
       <Badge

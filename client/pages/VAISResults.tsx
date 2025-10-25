@@ -70,6 +70,7 @@ import {
 import { markStepCompleted } from "@/lib/masteryStorage";
 import { cn, Link } from "@/lib/utils";
 import IntentSignalChart from "@/components/dashboard/IntentSignalChart";
+import UnlockIntentSignalModal from "@/components/dashboard/UnlockIntentSignalModal";
 
 interface CompanyData {
   id: string;
@@ -390,6 +391,11 @@ export default function VAISResults() {
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [activeCompany, setActiveCompany] = useState<CompanyData | null>(null);
   const [isSmall, setIsSmall] = useState(false);
+  const [unlockedBadges, setUnlockedBadges] = useState<Set<string>>(new Set());
+  const [unlockModalOpen, setUnlockModalOpen] = useState(false);
+  const [currentlyClickedBadgeId, setCurrentlyClickedBadgeId] = useState<
+    string | null
+  >(null);
 
   // Mark VAIS results as generated when viewing this page
   useEffect(() => {
@@ -572,6 +578,22 @@ export default function VAISResults() {
       default:
         return "bg-gray-100 text-gray-800 border border-gray-200";
     }
+  };
+
+  const handleBadgeLockClick = (companyId: string) => {
+    setCurrentlyClickedBadgeId(companyId);
+    setUnlockModalOpen(true);
+  };
+
+  const handleUnlockCurrent = () => {
+    if (currentlyClickedBadgeId) {
+      setUnlockedBadges((prev) => new Set([...prev, currentlyClickedBadgeId]));
+    }
+  };
+
+  const handleUnlockAll = () => {
+    const allBadgeIds = paginatedData.map((item) => item.id);
+    setUnlockedBadges((prev) => new Set([...prev, ...allBadgeIds]));
   };
 
   const PremiumOverlay = () => (
@@ -972,7 +994,7 @@ export default function VAISResults() {
                             <div className="ml-2">
                               {sortField === "intentSignal" ? (
                                 <span className="text-valasys-orange">
-                                  {sortDirection === "asc" ? "↑" : "↓"}
+                                  {sortDirection === "asc" ? "���" : "↓"}
                                 </span>
                               ) : (
                                 <span className="text-gray-400">↕</span>
@@ -1187,6 +1209,10 @@ export default function VAISResults() {
                                     city: item.city,
                                     relatedTopics: item.relatedTopics,
                                   }}
+                                  isLocked={!unlockedBadges.has(item.id)}
+                                  onLockClick={() =>
+                                    handleBadgeLockClick(item.id)
+                                  }
                                 />
                               </TableCell>
                             )}
@@ -1739,6 +1765,13 @@ export default function VAISResults() {
           </div>
         </div>
       </div>
+
+      <UnlockIntentSignalModal
+        open={unlockModalOpen}
+        onOpenChange={setUnlockModalOpen}
+        onUnlockCurrent={handleUnlockCurrent}
+        onUnlockAll={handleUnlockAll}
+      />
     </DashboardLayout>
   );
 }
