@@ -356,12 +356,9 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     setMasteryMinimized(false);
     window.dispatchEvent(new Event("app:mastery-restored"));
 
-    // Smooth scroll to bottom mastery section
+    // Smooth scroll to bottom of page to show mastery section
     setTimeout(() => {
-      const masteryElement = document.querySelector('[data-tour="chat"]')?.previousElementSibling;
-      if (masteryElement) {
-        masteryElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
-      }
+      window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
     }, 100);
   };
 
