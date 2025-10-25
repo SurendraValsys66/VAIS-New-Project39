@@ -80,10 +80,8 @@ export default function MasteryProgressBadge({
 
   if (isDismissed) return null;
 
-  // Only show badge when minimized or animating
-  if (!isMasteryMinimized && !isAnimating) {
-    return <div style={{ display: "contents" }} ref={badgeRef} />;
-  }
+  // Render with zero opacity when not minimized and not animating
+  const isVisible = isMasteryMinimized || isAnimating;
 
   return (
     <Tooltip>
