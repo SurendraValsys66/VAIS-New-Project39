@@ -354,6 +354,15 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       localStorage.removeItem("valasys-mastery-minimized");
     } catch (error) {}
     setMasteryMinimized(false);
+    window.dispatchEvent(new Event("app:mastery-restored"));
+
+    // Smooth scroll to bottom mastery section
+    setTimeout(() => {
+      const masteryElement = document.querySelector('[data-tour="chat"]')?.previousElementSibling;
+      if (masteryElement) {
+        masteryElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      }
+    }, 100);
   };
 
   const handleMobileNavigationClick = () => {
