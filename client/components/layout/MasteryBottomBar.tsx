@@ -387,9 +387,17 @@ export default function MasteryBottomBar() {
     <>
       {/* Confetti celebration moved inside dialog to blast from behind modal (two times) */}
 
-      {shouldShowPanel && (
-        <div className="fixed bottom-0 left-0 right-0 z-50 pointer-events-none">
-          <div
+      <AnimatePresence mode="wait">
+        {shouldShowPanel && (
+          <motion.div
+            key="mastery-container"
+            initial={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="fixed bottom-0 left-0 right-0 z-50 pointer-events-none"
+          >
+            <div
             className="mx-auto w-full pointer-events-auto px-4 sm:px-6 pb-4"
             onMouseLeave={handleCloseGuide}
             style={{
@@ -639,8 +647,9 @@ export default function MasteryBottomBar() {
               </div>
             </motion.div>
           </div>
-        </div>
-      )}
+        </motion.div>
+        )}
+      </AnimatePresence>
 
       <Dialog open={showDismissDialog} onOpenChange={setShowDismissDialog}>
         <DialogContent className="max-w-md">
