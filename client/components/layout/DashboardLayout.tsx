@@ -146,7 +146,8 @@ const utilityItems = [
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const location = useLocation();
-  const { isMinimized: masteryMinimized, completeExpandAnimation } = useMasteryAnimation();
+  const { isMinimized: masteryMinimized, completeExpandAnimation } =
+    useMasteryAnimation();
   const [sidebarOpen, setSidebarOpen] = useState(false); // Start with sidebar closed on mobile
   const [unreadNotifications] = useState(3); // Mock unread count
   const [hoverExpanded, setHoverExpanded] = useState(false);

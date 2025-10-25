@@ -9,11 +9,15 @@ interface MasteryAnimationContextType {
   completeExpandAnimation: () => void;
 }
 
-const MasteryAnimationContext = createContext<MasteryAnimationContextType | undefined>(
-  undefined
-);
+const MasteryAnimationContext = createContext<
+  MasteryAnimationContextType | undefined
+>(undefined);
 
-export function MasteryAnimationProvider({ children }: { children: React.ReactNode }) {
+export function MasteryAnimationProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [isMinimizing, setIsMinimizing] = useState(false);
   const [isMinimized, setIsMinimized] = useState(() => {
     if (typeof window === "undefined") return false;
@@ -73,7 +77,7 @@ export function useMasteryAnimation() {
   const context = useContext(MasteryAnimationContext);
   if (!context) {
     throw new Error(
-      "useMasteryAnimation must be used within MasteryAnimationProvider"
+      "useMasteryAnimation must be used within MasteryAnimationProvider",
     );
   }
   return context;
