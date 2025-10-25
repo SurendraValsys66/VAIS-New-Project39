@@ -69,7 +69,21 @@ export default function MasteryProgressBadge({
     }
   })();
 
+  const isMasteryMinimized = (() => {
+    if (typeof window === "undefined") return false;
+    try {
+      return localStorage.getItem("valasys-mastery-minimized") === "1";
+    } catch {
+      return false;
+    }
+  })();
+
   if (isDismissed) return null;
+
+  // Only show badge when minimized or animating
+  if (!isMasteryMinimized && !isAnimating) {
+    return <div style={{ display: "contents" }} ref={badgeRef} />;
+  }
 
   return (
     <Tooltip>
