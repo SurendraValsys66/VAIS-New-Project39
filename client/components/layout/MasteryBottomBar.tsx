@@ -66,7 +66,8 @@ type MasteryStepDefinition = {
 };
 
 export default function MasteryBottomBar() {
-  const { startAnimation, endAnimation, badgeRef } = useMasteryAnimation();
+  const { startAnimation, endAnimation, badgeRef, getBadgePosition } =
+    useMasteryAnimation();
   const [state, setState] = useState<MasterySteps>({});
   const [hidden, setHidden] = useState(() => {
     if (typeof window === "undefined") return false;
