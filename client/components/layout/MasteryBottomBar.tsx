@@ -396,6 +396,11 @@ export default function MasteryBottomBar() {
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="fixed bottom-0 left-0 right-0 z-50 pointer-events-none"
+            onAnimationComplete={() => {
+              if (minimized) {
+                completeMinimizeAnimation();
+              }
+            }}
           >
             <div
             className="mx-auto w-full pointer-events-auto px-4 sm:px-6 pb-4"
