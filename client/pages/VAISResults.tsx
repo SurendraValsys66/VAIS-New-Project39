@@ -70,6 +70,7 @@ import {
 import { markStepCompleted } from "@/lib/masteryStorage";
 import { cn, Link } from "@/lib/utils";
 import IntentSignalChart from "@/components/dashboard/IntentSignalChart";
+import UnlockIntentSignalModal from "@/components/dashboard/UnlockIntentSignalModal";
 
 interface CompanyData {
   id: string;
