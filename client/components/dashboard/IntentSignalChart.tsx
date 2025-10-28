@@ -48,16 +48,30 @@ export default function IntentSignalChart({
 }: IntentSignalChartProps) {
   if (isLocked) {
     return (
-      <Badge
-        onClick={onLockClick}
-        className={cn(
-          "font-medium cursor-pointer flex items-center justify-center backdrop-blur-sm",
-          "bg-emerald-100/80 text-emerald-800 border border-emerald-200",
-          className,
-        )}
-      >
-        <Lock className="w-4 h-4" />
-      </Badge>
+      <div className="relative inline-block">
+        <Badge
+          className={cn(
+            "font-medium",
+            getIntentSignalColor(data.intentSignal),
+            className,
+          )}
+        >
+          {data.intentSignal}
+        </Badge>
+        <div
+          onClick={onLockClick}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              onLockClick?.();
+            }
+          }}
+          className="absolute inset-0 flex items-center justify-center cursor-pointer rounded-full backdrop-blur-md bg-white/20 hover:bg-white/30 transition-colors"
+        >
+          <Lock className="w-4 h-4 text-gray-700" />
+        </div>
+      </div>
     );
   }
 
