@@ -48,27 +48,16 @@ export default function IntentSignalChart({
 }: IntentSignalChartProps) {
   if (isLocked) {
     return (
-      <div
-        className="inline-block"
+      <Badge
         onClick={onLockClick}
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            onLockClick?.();
-          }
-        }}
+        className={cn(
+          "font-medium cursor-pointer flex items-center justify-center backdrop-blur-sm",
+          "bg-emerald-100/80 text-emerald-800 border border-emerald-200",
+          className,
+        )}
       >
-        <Badge
-          className={cn(
-            "font-medium cursor-pointer flex items-center justify-center backdrop-blur-sm",
-            "bg-emerald-100/80 text-emerald-800 border border-emerald-200",
-            className,
-          )}
-        >
-          <Lock className="w-4 h-4" />
-        </Badge>
-      </div>
+        <Lock className="w-4 h-4" />
+      </Badge>
     );
   }
 
