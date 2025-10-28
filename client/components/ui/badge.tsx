@@ -34,7 +34,7 @@ const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
       className={cn(badgeVariants({ variant }), className)}
       {...props}
     />
-  )
+  ),
 );
 Badge.displayName = "Badge";
 
