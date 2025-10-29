@@ -50,10 +50,12 @@ export default function UnlockIntentSignalModal({
                 Unlock Intent Signal
               </h2>
               <p className="text-gray-700 mb-2">
-                Unlock Bombora intent data signals to access deeper insights into company buying behaviors and decision-making timelines.
+                Unlock Bombora intent data signals to access deeper insights
+                into company buying behaviors and decision-making timelines.
               </p>
               <p className="text-gray-600 text-sm">
-                Each unlock uses 1 credit. Gain access to enterprise-grade intent intelligence powered by Bombora's proprietary data.
+                Each unlock uses 1 credit. Gain access to enterprise-grade
+                intent intelligence powered by Bombora's proprietary data.
               </p>
             </div>
           </div>
