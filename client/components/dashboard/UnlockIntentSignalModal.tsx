@@ -36,19 +36,29 @@ export default function UnlockIntentSignalModal({
           {/* Left Column - Bombora Logo and Introduction */}
           <div className="bg-gradient-to-br from-slate-50 to-slate-100 p-8 flex flex-col justify-between border-r border-gray-200">
             <div>
+              {/* Icon before Title */}
+              <div className="p-3 bg-white rounded-full mb-4 w-fit">
+                <img
+                  src="https://img.freepik.com/premium-vector/art-illustration_824268-635.jpg"
+                  alt="Intent Signal Icon"
+                  style={{ width: "40px" }}
+                />
+              </div>
+
+              {/* Title and Description */}
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                Unlock Intent Signal
+              </h2>
+
               {/* Bombora Logo */}
               <div className="mb-8">
                 <img
                   src="https://cdn.builder.io/api/v1/image/assets%2F826a3e27b58443589187ad5b7757a718%2F26618173823c471191d805cde87239d2?format=webp&width=800"
                   alt="Powered by Bombora"
-                  className="h-12 object-contain"
+                  style={{ width: "150px" }}
+                  className="object-contain"
                 />
               </div>
-
-              {/* Title and Description */}
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                Unlock Intent Signal
-              </h2>
               <p className="text-gray-700 mb-2">
                 Unlock Bombora intent data signals to access deeper insights
                 into company buying behaviors and decision-making timelines.
@@ -77,6 +87,14 @@ export default function UnlockIntentSignalModal({
               </ul>
             </div>
 
+            {/* Note */}
+            <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
+              <p className="text-sm text-blue-900">
+                <strong>Note:</strong> Each unlock the intent signal deducts 1
+                credit.
+              </p>
+            </div>
+
             {/* Action Buttons */}
             <div className="space-y-3">
               <Button
@@ -84,7 +102,7 @@ export default function UnlockIntentSignalModal({
                   onUnlockCurrent();
                   onOpenChange(false);
                 }}
-                className="w-full bg-primary hover:bg-primary/90 text-white h-11"
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white h-11"
               >
                 Unlock Current Signal
               </Button>
@@ -97,13 +115,6 @@ export default function UnlockIntentSignalModal({
                 className="w-full h-11"
               >
                 Unlock All Signals
-              </Button>
-              <Button
-                onClick={() => onOpenChange(false)}
-                variant="ghost"
-                className="w-full h-10 text-gray-600"
-              >
-                Cancel
               </Button>
             </div>
           </div>
