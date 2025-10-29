@@ -87,6 +87,13 @@ export default function UnlockIntentSignalModal({
               </ul>
             </div>
 
+            {/* Note */}
+            <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
+              <p className="text-sm text-blue-900">
+                <strong>Note:</strong> Each unlock the intent signal deducts 1 credit.
+              </p>
+            </div>
+
             {/* Action Buttons */}
             <div className="space-y-3">
               <Button
@@ -94,7 +101,7 @@ export default function UnlockIntentSignalModal({
                   onUnlockCurrent();
                   onOpenChange(false);
                 }}
-                className="w-full bg-primary hover:bg-primary/90 text-white h-11"
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white h-11"
               >
                 Unlock Current Signal
               </Button>
@@ -107,13 +114,6 @@ export default function UnlockIntentSignalModal({
                 className="w-full h-11"
               >
                 Unlock All Signals
-              </Button>
-              <Button
-                onClick={() => onOpenChange(false)}
-                variant="ghost"
-                className="w-full h-10 text-gray-600"
-              >
-                Cancel
               </Button>
             </div>
           </div>
