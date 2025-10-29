@@ -90,7 +90,8 @@ export default function UnlockIntentSignalModal({
             {/* Note */}
             <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
               <p className="text-sm text-blue-900">
-                <strong>Note:</strong> Each unlock the intent signal deducts 1 credit.
+                <strong>Note:</strong> Each unlock the intent signal deducts 1
+                credit.
               </p>
             </div>
 
