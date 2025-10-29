@@ -36,12 +36,12 @@ export default function UnlockIntentSignalModal({
           {/* Left Column - Bombora Logo and Introduction */}
           <div className="bg-gradient-to-br from-slate-50 to-slate-100 p-8 flex flex-col justify-between border-r border-gray-200">
             <div>
-              {/* Bombora Logo */}
-              <div className="mb-8">
+              {/* Icon before Title */}
+              <div className="p-3 bg-white rounded-full mb-4 w-fit">
                 <img
-                  src="https://cdn.builder.io/api/v1/image/assets%2F826a3e27b58443589187ad5b7757a718%2F26618173823c471191d805cde87239d2?format=webp&width=800"
-                  alt="Powered by Bombora"
-                  className="h-12 object-contain"
+                  src="https://img.freepik.com/premium-vector/art-illustration_824268-635.jpg"
+                  alt="Intent Signal Icon"
+                  style={{ width: "40px" }}
                 />
               </div>
 
@@ -49,6 +49,16 @@ export default function UnlockIntentSignalModal({
               <h2 className="text-2xl font-bold text-gray-900 mb-4">
                 Unlock Intent Signal
               </h2>
+
+              {/* Bombora Logo */}
+              <div className="mb-8">
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets%2F826a3e27b58443589187ad5b7757a718%2F26618173823c471191d805cde87239d2?format=webp&width=800"
+                  alt="Powered by Bombora"
+                  style={{ width: "150px" }}
+                  className="object-contain"
+                />
+              </div>
               <p className="text-gray-700 mb-2">
                 Unlock Bombora intent data signals to access deeper insights
                 into company buying behaviors and decision-making timelines.
