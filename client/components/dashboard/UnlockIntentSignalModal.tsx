@@ -27,8 +27,8 @@ export default function UnlockIntentSignalModal({
       <DialogContent className="sm:max-w-md">
         <DialogHeader className="text-center">
           <div className="flex justify-center mb-4">
-            <div className="p-3 bg-blue-50 rounded-full">
-              <Lock className="w-6 h-6 text-blue-600" />
+            <div className="p-3 bg-orange-50 rounded-full">
+              <Lock className="w-6 h-6 text-primary" />
             </div>
           </div>
           <DialogTitle className="text-xl">Unlock Intent Signal</DialogTitle>
@@ -44,7 +44,7 @@ export default function UnlockIntentSignalModal({
               onOpenChange(false);
             }}
             variant="default"
-            className="w-full bg-blue-600 hover:bg-blue-700"
+            className="w-full bg-primary hover:bg-primary/90"
           >
             Unlock Current
           </Button>
