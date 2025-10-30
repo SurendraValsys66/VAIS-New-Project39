@@ -1774,7 +1774,9 @@ export default function ProspectResults() {
                                         }
                                       >
                                         <Eye className="w-4 h-4" />
-                                        <span className="text-xs font-medium">View</span>
+                                        <span className="text-xs font-medium">
+                                          View
+                                        </span>
                                       </Button>
                                     </SheetTrigger>
                                     <SheetContent
