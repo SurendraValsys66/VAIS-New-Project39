@@ -1764,23 +1764,18 @@ export default function ProspectResults() {
                                   </div>
                                   <Sheet>
                                     <SheetTrigger asChild>
-                                      <Tooltip>
-                                        <TooltipTrigger asChild>
-                                          <Button
-                                            variant="ghost"
-                                            size="sm"
-                                            aria-label="View details"
-                                            onClick={() =>
-                                              setSelectedProspect(prospect)
-                                            }
-                                          >
-                                            <Eye className="w-4 h-4 text-gray-500 hover:text-gray-700" />
-                                          </Button>
-                                        </TooltipTrigger>
-                                        <TooltipContent>
-                                          View details
-                                        </TooltipContent>
-                                      </Tooltip>
+                                      <Button
+                                        variant="outline"
+                                        size="sm"
+                                        className="h-8 gap-1 border-valasys-orange/30 text-valasys-orange hover:bg-valasys-orange/10 hover:border-valasys-orange hover:text-valasys-orange transition-all duration-200 ease-in-out hover:shadow-md"
+                                        aria-label="View prospect details"
+                                        onClick={() =>
+                                          setSelectedProspect(prospect)
+                                        }
+                                      >
+                                        <Eye className="w-4 h-4" />
+                                        <span className="text-xs font-medium">View</span>
+                                      </Button>
                                     </SheetTrigger>
                                     <SheetContent
                                       side="right"
