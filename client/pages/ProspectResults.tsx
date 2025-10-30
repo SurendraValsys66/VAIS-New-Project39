@@ -1595,7 +1595,7 @@ export default function ProspectResults() {
                                       {prospect.lastName[0]}
                                     </AvatarFallback>
                                   </Avatar>
-                                  <div>
+                                  <div className="flex-1">
                                     <div className="font-medium text-gray-900">
                                       {prospect.fullName}
                                     </div>
@@ -1617,6 +1617,44 @@ export default function ProspectResults() {
                                       </Badge>
                                     </div>
                                   </div>
+                                  <Tooltip>
+                                    <TooltipTrigger asChild>
+                                      <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        aria-label={
+                                          isFavorite(prospect.id)
+                                            ? "Remove favorite"
+                                            : "Add favorite"
+                                        }
+                                        onClick={() =>
+                                          toggleFavorite(
+                                            prospect.id,
+                                            prospect.fullName,
+                                          )
+                                        }
+                                      >
+                                        <Star
+                                          className={cn(
+                                            "w-4 h-4",
+                                            isFavorite(prospect.id)
+                                              ? "text-yellow-500"
+                                              : "text-gray-500",
+                                          )}
+                                          fill={
+                                            isFavorite(prospect.id)
+                                              ? "currentColor"
+                                              : "none"
+                                          }
+                                        />
+                                      </Button>
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                      {isFavorite(prospect.id)
+                                        ? "Unfavorite"
+                                        : "Add to favorites"}
+                                    </TooltipContent>
+                                  </Tooltip>
                                 </div>
                               </TableCell>
                             )}
