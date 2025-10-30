@@ -673,7 +673,7 @@ export default function ProspectResults() {
     mainIndustry: true,
     country: true,
     contactInfo: true,
-    actions: true,
+    actions: false,
   });
 
   const dummyProfile = useMemo(
