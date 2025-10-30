@@ -1751,7 +1751,9 @@ export default function ProspectResults() {
                                           rel="noopener noreferrer"
                                           className="text-blue-600 hover:underline truncate max-w-[180px]"
                                         >
-                                          {maskLinkedInText(prospect.linkedinUrl)}
+                                          {maskLinkedInText(
+                                            prospect.linkedinUrl,
+                                          )}
                                         </a>
                                       </div>
                                     )}
@@ -1775,7 +1777,9 @@ export default function ProspectResults() {
                                             <Eye className="w-4 h-4 text-gray-500 hover:text-gray-700" />
                                           </Button>
                                         </TooltipTrigger>
-                                        <TooltipContent>View details</TooltipContent>
+                                        <TooltipContent>
+                                          View details
+                                        </TooltipContent>
                                       </Tooltip>
                                     </SheetTrigger>
                                     <SheetContent
@@ -1800,7 +1804,8 @@ export default function ProspectResults() {
                                                 {prospect.fullName}
                                               </div>
                                               <div className="text-sm text-gray-600 font-normal">
-                                                {prospect.jobTitle} at {prospect.companyName}
+                                                {prospect.jobTitle} at{" "}
+                                                {prospect.companyName}
                                               </div>
                                             </div>
                                           </div>
@@ -1857,7 +1862,8 @@ export default function ProspectResults() {
                                           </div>
                                         </SheetTitle>
                                         <SheetDescription>
-                                          Detailed prospect information and engagement data
+                                          Detailed prospect information and
+                                          engagement data
                                         </SheetDescription>
                                       </SheetHeader>
 
@@ -1869,7 +1875,8 @@ export default function ProspectResults() {
                                             rel="noopener noreferrer"
                                             className="inline-flex items-center text-sm text-blue-600 hover:underline"
                                           >
-                                            <Linkedin className="w-4 h-4 mr-2" /> LinkedIn profile
+                                            <Linkedin className="w-4 h-4 mr-2" />{" "}
+                                            LinkedIn profile
                                           </a>
                                           <div className="space-y-2">
                                             {prospect.phone && (
@@ -1895,7 +1902,9 @@ export default function ProspectResults() {
                                                         <Copy className="w-4 h-4" />
                                                       </Button>
                                                     </TooltipTrigger>
-                                                    <TooltipContent>Copy</TooltipContent>
+                                                    <TooltipContent>
+                                                      Copy
+                                                    </TooltipContent>
                                                   </Tooltip>
                                                   <Tooltip>
                                                     <TooltipTrigger asChild>
@@ -1904,12 +1913,16 @@ export default function ProspectResults() {
                                                         asChild
                                                         aria-label="Call"
                                                       >
-                                                        <a href={`tel:${prospect.phone}`}>
+                                                        <a
+                                                          href={`tel:${prospect.phone}`}
+                                                        >
                                                           <Phone className="w-4 h-4" />
                                                         </a>
                                                       </Button>
                                                     </TooltipTrigger>
-                                                    <TooltipContent>Call</TooltipContent>
+                                                    <TooltipContent>
+                                                      Call
+                                                    </TooltipContent>
                                                   </Tooltip>
                                                 </div>
                                               </div>
@@ -1941,7 +1954,9 @@ export default function ProspectResults() {
                                                       <Copy className="w-4 h-4" />
                                                     </Button>
                                                   </TooltipTrigger>
-                                                  <TooltipContent>Copy</TooltipContent>
+                                                  <TooltipContent>
+                                                    Copy
+                                                  </TooltipContent>
                                                 </Tooltip>
                                                 <Tooltip>
                                                   <TooltipTrigger asChild>
@@ -1955,7 +1970,9 @@ export default function ProspectResults() {
                                                       <Mail className="w-4 h-4" />
                                                     </Button>
                                                   </TooltipTrigger>
-                                                  <TooltipContent>Email</TooltipContent>
+                                                  <TooltipContent>
+                                                    Email
+                                                  </TooltipContent>
                                                 </Tooltip>
                                               </div>
                                             </div>
@@ -1984,7 +2001,8 @@ export default function ProspectResults() {
                                               Location
                                             </div>
                                             <div className="text-sm">
-                                              {prospect.city}, {prospect.country}
+                                              {prospect.city},{" "}
+                                              {prospect.country}
                                             </div>
                                           </div>
                                         </div>
@@ -2024,7 +2042,9 @@ export default function ProspectResults() {
                                                         <Copy className="w-4 h-4" />
                                                       </Button>
                                                     </TooltipTrigger>
-                                                    <TooltipContent>Copy</TooltipContent>
+                                                    <TooltipContent>
+                                                      Copy
+                                                    </TooltipContent>
                                                   </Tooltip>
                                                   <Tooltip>
                                                     <TooltipTrigger asChild>
@@ -2038,7 +2058,9 @@ export default function ProspectResults() {
                                                         <Mail className="w-4 h-4" />
                                                       </Button>
                                                     </TooltipTrigger>
-                                                    <TooltipContent>Email</TooltipContent>
+                                                    <TooltipContent>
+                                                      Email
+                                                    </TooltipContent>
                                                   </Tooltip>
                                                 </div>
                                               </div>
@@ -2070,7 +2092,9 @@ export default function ProspectResults() {
                                                           <Copy className="w-4 h-4" />
                                                         </Button>
                                                       </TooltipTrigger>
-                                                      <TooltipContent>Copy</TooltipContent>
+                                                      <TooltipContent>
+                                                        Copy
+                                                      </TooltipContent>
                                                     </Tooltip>
                                                     <Tooltip>
                                                       <TooltipTrigger asChild>
@@ -2079,12 +2103,16 @@ export default function ProspectResults() {
                                                           asChild
                                                           aria-label="Call"
                                                         >
-                                                          <a href={`tel:${prospect.phone}`}>
+                                                          <a
+                                                            href={`tel:${prospect.phone}`}
+                                                          >
                                                             <Phone className="w-4 h-4" />
                                                           </a>
                                                         </Button>
                                                       </TooltipTrigger>
-                                                      <TooltipContent>Call</TooltipContent>
+                                                      <TooltipContent>
+                                                        Call
+                                                      </TooltipContent>
                                                     </Tooltip>
                                                   </div>
                                                 </div>
@@ -2094,7 +2122,9 @@ export default function ProspectResults() {
                                                   <div className="flex items-center min-w-0">
                                                     <Linkedin className="w-4 h-4 mr-2 text-blue-600" />
                                                     <a
-                                                      href={prospect.linkedinUrl}
+                                                      href={
+                                                        prospect.linkedinUrl
+                                                      }
                                                       target="_blank"
                                                       rel="noopener noreferrer"
                                                       className="text-blue-600 hover:underline flex items-center truncate"
@@ -2120,7 +2150,9 @@ export default function ProspectResults() {
                                                           <Copy className="w-4 h-4" />
                                                         </Button>
                                                       </TooltipTrigger>
-                                                      <TooltipContent>Copy</TooltipContent>
+                                                      <TooltipContent>
+                                                        Copy
+                                                      </TooltipContent>
                                                     </Tooltip>
                                                     <Tooltip>
                                                       <TooltipTrigger asChild>
@@ -2130,7 +2162,9 @@ export default function ProspectResults() {
                                                           aria-label="Open LinkedIn"
                                                         >
                                                           <a
-                                                            href={prospect.linkedinUrl}
+                                                            href={
+                                                              prospect.linkedinUrl
+                                                            }
                                                             target="_blank"
                                                             rel="noopener noreferrer"
                                                           >
@@ -2138,7 +2172,9 @@ export default function ProspectResults() {
                                                           </a>
                                                         </Button>
                                                       </TooltipTrigger>
-                                                      <TooltipContent>Open</TooltipContent>
+                                                      <TooltipContent>
+                                                        Open
+                                                      </TooltipContent>
                                                     </Tooltip>
                                                   </div>
                                                 </div>
@@ -2146,7 +2182,8 @@ export default function ProspectResults() {
                                               <div className="flex items-center text-gray-700">
                                                 <MapPin className="w-4 h-4 mr-2 text-gray-400" />
                                                 <span>
-                                                  {prospect.city}, {prospect.country}
+                                                  {prospect.city},{" "}
+                                                  {prospect.country}
                                                 </span>
                                               </div>
                                             </div>
@@ -2183,7 +2220,8 @@ export default function ProspectResults() {
                                                     Department
                                                   </div>
                                                   <div>
-                                                    {prospect.department || "N/A"}
+                                                    {prospect.department ||
+                                                      "N/A"}
                                                   </div>
                                                 </div>
                                               </div>
@@ -2236,7 +2274,8 @@ export default function ProspectResults() {
                                                       Tenure
                                                     </div>
                                                     <div>
-                                                      {prospect.yearsAtCompany} years at company
+                                                      {prospect.yearsAtCompany}{" "}
+                                                      years at company
                                                     </div>
                                                     <div className="mt-2 h-2 bg-gray-200 rounded-full overflow-hidden">
                                                       <div
@@ -2257,19 +2296,23 @@ export default function ProspectResults() {
                                           <CardHeader className="pb-3">
                                             <div className="flex items-center justify-between">
                                               <CardTitle className="text-sm flex items-center gap-2">
-                                                <Building className="w-4 h-4" /> Company
+                                                <Building className="w-4 h-4" />{" "}
+                                                Company
                                               </CardTitle>
                                             </div>
                                           </CardHeader>
                                           <CardContent className="space-y-3">
                                             <div className="text-sm text-gray-700">
-                                              {prospect.companyName} is a prominent organization in the {prospect.industry} sector.
+                                              {prospect.companyName} is a
+                                              prominent organization in the{" "}
+                                              {prospect.industry} sector.
                                             </div>
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                               <div className="flex items-center text-sm text-gray-700">
                                                 <MapPin className="w-4 h-4 mr-2 text-gray-400" />
                                                 <span>
-                                                  {prospect.city}, {prospect.country}
+                                                  {prospect.city},{" "}
+                                                  {prospect.country}
                                                 </span>
                                               </div>
                                               <div className="flex items-center text-sm text-gray-700">
@@ -2292,7 +2335,9 @@ export default function ProspectResults() {
                                               <div className="flex items-center text-sm text-gray-700">
                                                 <Users className="w-4 h-4 mr-2 text-gray-400" />
                                                 <span>
-                                                  {sizeToHeadcount(prospect.companySize)}
+                                                  {sizeToHeadcount(
+                                                    prospect.companySize,
+                                                  )}
                                                 </span>
                                               </div>
                                             </div>
@@ -2304,7 +2349,6 @@ export default function ProspectResults() {
                                 </div>
                               </TableCell>
                             )}
-
                           </TableRow>
                         ))}
                   </TableBody>
