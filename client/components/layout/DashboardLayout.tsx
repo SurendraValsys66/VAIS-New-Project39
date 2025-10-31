@@ -448,7 +448,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         </div>
 
         {/* Scrollable Content Area */}
-        <div className="flex-1 overflow-x-hidden">
+        <div className="flex-1 overflow-x-hidden overflow-y-auto">
           {/* Core Navigation Section */}
           <nav className="p-4">
             <div
@@ -720,61 +720,61 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               </Button>
             </div>
           </div>
+        </div>
 
-          {/* Sidebar Profile Card */}
-          <div className="p-4 border-t border-valasys-gray-200">
-            <div
-              className={cn(
-                "bg-white rounded-lg",
-                isExpanded
-                  ? "border border-valasys-gray-200 shadow-sm p-3"
-                  : "shadow-none p-2",
-              )}
-            >
-              {isExpanded ? (
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <Avatar className="h-9 w-9">
-                      <AvatarImage
-                        src={profileInfo?.avatarUrl || undefined}
-                        alt={profileInfo?.fullName || "Profile"}
-                      />
-                      <AvatarFallback className="bg-valasys-orange text-white">
-                        {(profileInfo?.fullName?.[0] || "U").toUpperCase()}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="leading-tight">
-                      <div className="font-semibold text-gray-900 truncate max-w-[120px]">
-                        {profileInfo.fullName || "John Smith"}
-                      </div>
-                      <div className="text-xs text-gray-500">Creator</div>
+        {/* Sidebar Profile Card - Fixed at Bottom */}
+        <div className="p-4 border-t border-valasys-gray-200 flex-shrink-0 bg-white">
+          <div
+            className={cn(
+              "bg-white rounded-lg",
+              isExpanded
+                ? "border border-valasys-gray-200 shadow-sm p-3"
+                : "shadow-none p-2",
+            )}
+          >
+            {isExpanded ? (
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <Avatar className="h-9 w-9">
+                    <AvatarImage
+                      src={profileInfo?.avatarUrl || undefined}
+                      alt={profileInfo?.fullName || "Profile"}
+                    />
+                    <AvatarFallback className="bg-valasys-orange text-white">
+                      {(profileInfo?.fullName?.[0] || "U").toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="leading-tight">
+                    <div className="font-semibold text-gray-900 truncate max-w-[120px]">
+                      {profileInfo.fullName || "John Smith"}
                     </div>
+                    <div className="text-xs text-gray-500">Creator</div>
                   </div>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={handleLogout}
-                    className="text-red-600 border-red-200 hover:bg-red-50 h-8 w-8 p-0 flex items-center justify-center"
-                    aria-label="Logout"
-                  >
-                    <LogOut className="h-4 w-4" />
-                  </Button>
                 </div>
-              ) : (
-                <div className="flex items-center justify-center">
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={handleLogout}
-                    className="text-red-600 border-red-200 hover:bg-red-50 h-10 w-10 p-0"
-                    aria-label="Logout"
-                    title="Logout"
-                  >
-                    <LogOut className="h-5 w-5" />
-                  </Button>
-                </div>
-              )}
-            </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleLogout}
+                  className="text-red-600 border-red-200 hover:bg-red-50 h-8 w-8 p-0 flex items-center justify-center"
+                  aria-label="Logout"
+                >
+                  <LogOut className="h-4 w-4" />
+                </Button>
+              </div>
+            ) : (
+              <div className="flex items-center justify-center">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={handleLogout}
+                  className="text-red-600 border-red-200 hover:bg-red-50 h-10 w-10 p-0"
+                  aria-label="Logout"
+                  title="Logout"
+                >
+                  <LogOut className="h-5 w-5" />
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </div>
